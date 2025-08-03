@@ -1,0 +1,38 @@
+spring:
+  profiles:
+    active: local
+    group:
+      local: local-server, common, secret
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local-server
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: common
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 5        # ??? ?? 30?? ??
+      minimum-idle: 2             # ???? ?? ??? ??? ???? ?? (5?)
+      idle-timeout: 30000         # ???? ?? ??? ?? ?? (5?)
+      max-lifetime: 30000         # ??? ???? ?? ?? ?? (5?)
+      connection-timeout: 30000   # ??? ?? ? ???? ?? ?? ?? ???? (5?)
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      enabled: true
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.korit.running_back_s2.domain.entity
