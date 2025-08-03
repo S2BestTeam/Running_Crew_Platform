@@ -35,7 +35,7 @@ function AdditionalInfoPage() {
   return (
     <div>
       <h2>추가 정보 입력</h2>
-      <p>이메일: {email}</p>
+      <input disabled value={email}/>
       <p>이름: {name}</p>
       <p>providerId: {providerId}</p>
 
