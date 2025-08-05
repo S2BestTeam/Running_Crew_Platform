@@ -1,4 +1,3 @@
-
 function OAuthLoginPage() {
   const handleLogin = (provider) => {
     window.location.href = `http://localhost:8080/oauth2/authorization/${provider}`;

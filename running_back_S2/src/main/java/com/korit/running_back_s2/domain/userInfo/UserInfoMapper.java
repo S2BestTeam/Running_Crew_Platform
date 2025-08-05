@@ -5,6 +5,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserInfoMapper {
     int insert(UserInfo userInfo);
-    UserInfo findByUsername(String email);
+    UserInfo findByUseEmail(String email);
     UserInfo findById(Integer userId);
 }

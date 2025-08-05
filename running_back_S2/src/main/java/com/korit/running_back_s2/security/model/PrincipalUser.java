@@ -21,7 +21,7 @@ public class PrincipalUser implements UserDetails, OAuth2User {
 
     @Override
     public Map<String, Object> getAttributes() {
-        return attributes != null ? attributes : Map.of();
+        return attributes;
     }
 
     @Override
