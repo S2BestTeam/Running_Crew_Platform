@@ -1,12 +1,12 @@
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import axios from "axios";
+import SimpleSelect from "../components/SimpleSelect";
+import { useApiSelect } from "../components/hooks/useSelect";
 
 function AdditionalInfoPage() {
   const location = useLocation();
-  const [ gunguList, setGunguList ] = useState([]);
-  const [ selectedGunguId, setSelectedGunguId ] = useState("");
+  const { options: gunguOptions, selectedValue: selectedGunguId, setSelectedValue: setSelectedGunguId, loading } = useApiSelect('gunguId', 'gunguName');
   const { email, name, oauthType } = location.state || {};
 
   const [nickname, setNickname] = useState("");
@@ -35,16 +35,6 @@ function AdditionalInfoPage() {
   };
 
 
-  useEffect(() => {
-    axios.get('http://localhost:8080/api/regions/gungu')
-      .then((res) =>{
-        console.log(res);
-        setGunguList(res.data.body)
-      })
-      .catch((err) => console.error(err));
-  }, []);
-
-
   return (
     <div>
       <h2>추가 정보 입력</h2>
@@ -65,23 +55,13 @@ function AdditionalInfoPage() {
           value={nickname}
           onChange={(e) => setNickname(e.target.value)}
         />
-      <FormControl fullWidth>
-        <InputLabel id="sido-select-label">시/도</InputLabel>
-        <Select
-          labelId="sido-select-label"
-          id="sido-select"
+        <SimpleSelect
+          label="군/구"
           value={selectedGunguId}
-          label="시/도"
           onChange={(e) => setSelectedGunguId(e.target.value)}
-        >
-          {
-            gunguList.map((gungu) => (
-              <MenuItem key={gungu.gunguId} value={gungu.gunguId}>
-                {gungu.gunguName}
-              </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+          options={gunguOptions}
+          loading={loading}
+        />
         <button type="submit">제출</button>
       </form>
     </div>
