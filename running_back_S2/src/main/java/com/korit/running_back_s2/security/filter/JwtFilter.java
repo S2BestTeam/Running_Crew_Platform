@@ -1,7 +1,7 @@
 package com.korit.running_back_s2.security.filter;
 
-import com.korit.running_back_s2.domain.authUser.AuthUser;
-import com.korit.running_back_s2.domain.authUser.AuthUserMapper;
+import com.korit.running_back_s2.domain.userInfo.UserInfo;
+import com.korit.running_back_s2.domain.userInfo.UserInfoMapper;
 import com.korit.running_back_s2.security.jwt.JwtUtil;
 import com.korit.running_back_s2.security.model.PrincipalUser;
 import io.jsonwebtoken.Claims;
@@ -19,7 +19,7 @@ import java.io.IOException;
 public class JwtFilter implements Filter {
 
     private final JwtUtil jwtUtil;
-    private final AuthUserMapper authUserMapper;
+    private final UserInfoMapper userInfoMapper;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -53,14 +53,14 @@ public class JwtFilter implements Filter {
 
     private void setAuthentication(Claims claims) {
         Integer userId = (Integer) claims.get("userId");
-        AuthUser foundAuthUser = authUserMapper.findById(userId);
-        if (foundAuthUser == null) {
+        UserInfo foundUser = userInfoMapper.findById(userId);
+        if (foundUser == null) {
             return;
         }
 
         // PrincipalUser 생성
         PrincipalUser principalUser = PrincipalUser.builder()
-                .authUser(foundAuthUser)
+                .userInfo(foundUser)
                 .build();
 
         // Spring Security Context에 인증 정보 설정

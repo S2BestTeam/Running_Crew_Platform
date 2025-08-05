@@ -14,10 +14,13 @@ import java.time.LocalDate;
 public class UserInfo {
     private Integer userId;
     private String providerId;
+    private String email;
+    private String oauthType;
+    private String fullName;
     private String nickName;
     private LocalDate birthDate;
     private Integer gender;
     private String profileImg;
-    private Integer sigunguId;
+    private Integer gunguId;
     private Integer roleId;
 }

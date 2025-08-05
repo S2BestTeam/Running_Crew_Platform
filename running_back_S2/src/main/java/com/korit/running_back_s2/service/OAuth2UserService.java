@@ -1,7 +1,6 @@
 package com.korit.running_back_s2.service;
 
-import com.korit.running_back_s2.domain.authUser.AuthUser;
-import com.korit.running_back_s2.domain.authUser.AuthUserMapper;
+import com.korit.running_back_s2.domain.userInfo.UserInfo;
 import com.korit.running_back_s2.security.model.PrincipalUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -16,8 +15,6 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class OAuth2UserService extends DefaultOAuth2UserService {
-
-    private final AuthUserMapper authUserMapper;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -44,26 +41,21 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
             name = profile.get("nickname").toString();
             providerId = attributes.get("id").toString();
         }
+        else if ("naver".equals(registrationId)) {
+            Map<String, Object> response = (Map<String, Object>) oAuth2User.getAttributes().get("response");
 
-        // DB에서 기존 사용자 확인 또는 새로 저장
-        AuthUser authUser = authUserMapper.findByUsername(email);
-
-        if (authUser == null) {
-            AuthUser newOAuthUser = AuthUser.builder()
-                    .providerId(providerId)
-                    .email(email)
-                    .oauthType(registrationId)
-                    .fullName(name)
-                    .build();
-
-        authUserMapper.insert(newOAuthUser);
-
-        authUser = authUserMapper.findByUsername(email);
+            providerId = (String) response.get("id");
+            email = (String) response.get("email");
+            name = (String) response.get("name");
         }
 
-        return PrincipalUser.builder()
-                .authUser(authUser)
-                .attributes(oAuth2User.getAttributes())
+        UserInfo userInfo = UserInfo.builder()
+                .email(email)
+                .fullName(name)
+                .oauthType(registrationId)
+                .providerId(providerId)
                 .build();
+
+        return new PrincipalUser(userInfo, oAuth2User.getAttributes());
     }
 }

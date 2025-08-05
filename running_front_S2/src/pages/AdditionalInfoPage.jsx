@@ -57,10 +57,6 @@ function AdditionalInfoPage() {
         <h3>이름</h3>
         <input disabled value={name}/>
       </div>
-      <div>
-        <h3>OAuthType</h3>
-        <input disabled value={oauthType}/>
-      </div>
 
       <form onSubmit={handleSubmit}>
         <input

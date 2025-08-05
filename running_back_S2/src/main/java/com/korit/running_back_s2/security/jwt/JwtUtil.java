@@ -1,6 +1,7 @@
 package com.korit.running_back_s2.security.jwt;
 
 import com.korit.running_back_s2.domain.authUser.AuthUser;
+import com.korit.running_back_s2.domain.userInfo.UserInfo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -22,10 +23,10 @@ public class JwtUtil {
         KEY = Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(secret));
     }
 
-    public String generateAccessToken(AuthUser authUser) {
+    public String generateAccessToken(UserInfo userInfo) {
         return Jwts.builder()
                 .expiration(new Date(new Date().getTime() + EXPIRED_TIME))
-                .claim("userId", authUser.getAuthUserId())
+                .claim("userId", userInfo.getUserId())
                 .signWith(KEY)
                 .compact();
     }
