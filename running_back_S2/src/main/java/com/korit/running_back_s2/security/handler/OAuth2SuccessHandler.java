@@ -28,9 +28,9 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         String accessToken = jwtUtil.generateAccessToken(authUser);
         String email = URLEncoder.encode(authUser.getEmail(), StandardCharsets.UTF_8);
         String name = URLEncoder.encode(authUser.getFullName(), StandardCharsets.UTF_8);
-        String providerId = URLEncoder.encode(authUser.getProviderId(), StandardCharsets.UTF_8);
-        String redirectUrl = String.format("http://localhost:5173/auth/oauth2/login?accessToken=%s&email=%s&name=%s&providerId=%s"
-                ,accessToken,email,name,providerId);
+        String oauthType = URLEncoder.encode(authUser.getOauthType(), StandardCharsets.UTF_8);
+        String redirectUrl = String.format("http://localhost:5173/auth/oauth2/login?accessToken=%s&email=%s&name=%s&oauthType=%s"
+                ,accessToken,email,name,oauthType);
 
         response.sendRedirect(redirectUrl);
     }

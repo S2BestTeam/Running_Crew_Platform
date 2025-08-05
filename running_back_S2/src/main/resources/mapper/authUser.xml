@@ -23,19 +23,7 @@
     </select>
 
     <insert id="insert">
-        INSERT INTO auth_user_tb (
-        provider_id,
-        email,
-        oauth_type,
-        full_name,
-        created_at
-        )
-        VALUES (
-        #{providerId},
-        #{email},
-        #{oauthType},
-        #{fullName},
-        NOW()
-        );
+        INSERT INTO auth_user_tb (provider_id, email, oauth_type, full_name, created_at )
+        VALUES ( #{providerId}, #{email}, #{oauthType}, #{fullName}, NOW() );
     </insert>
 </mapper>

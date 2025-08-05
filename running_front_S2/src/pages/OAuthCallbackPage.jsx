@@ -9,7 +9,7 @@ function OAuthCallbackPage() {
     const accessToken = searchParams.get("accessToken");
     const email = searchParams.get("email");
     const name = searchParams.get("name");
-    const providerId = searchParams.get("providerId");
+    const oauthType = searchParams.get("oauthType");
 
     if (!accessToken || !email) {
       console.error("Missing OAuth data");
@@ -24,7 +24,7 @@ function OAuthCallbackPage() {
       state: {
         email,
         name,
-        providerId,
+        oauthType,
       },
     });
   }, []);
