@@ -14,7 +14,7 @@ public class RegionController {
     private final RegionService regionService;
 
     @GetMapping("/gungu")
-    public ResponseEntity<ResponseDto<?>> getAllGungu() {
+    public ResponseEntity<ResponseDto<?>> getGunguList() {
         return ResponseEntity.ok(ResponseDto.success(regionService.getAllGungu()));
     }
 }

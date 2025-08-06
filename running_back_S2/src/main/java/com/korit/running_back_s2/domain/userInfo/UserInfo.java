@@ -17,7 +17,8 @@ public class UserInfo {
     private String email;
     private String oauthType;
     private String fullName;
-    private String nickName;
+    private String phoneNumber;
+    private String nickname;
     private LocalDate birthDate;
     private Integer gender;
     private String profileImg;

@@ -1,7 +1,8 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { reqRegisterUser } from "../../api/user/userApi";
+import { reqGungu } from "../../api/useReqList";
 
 function Signup(props) {
   const navigate = useNavigate();
@@ -13,18 +14,18 @@ function Signup(props) {
 
   const [ userData, setUserData ] = useState({
     email : email,
-    name : name,
+    fullName : name,
     oauthType : oauthType,
     nickname : "",
     gender : "",
     phoneNumber : "",
-    birth: {
+    birthDate: {
       year: "",
       month: "",
       day: ""
     },
-    profileImgPath: "",
-    selectedGunguId: "",
+    profileImg: "",
+    gunguId: "",
   })
 
 
@@ -36,7 +37,7 @@ function Signup(props) {
   const BIRTHDAY_DAY_LIST = Array.from({ length: 31 }, (_, i) => i + 1);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/regions/gungu')
+    reqGungu()
       .then((res) => {
         setGunguList(res.data.body)
       })
@@ -45,10 +46,10 @@ function Signup(props) {
 
 
   const handleSubmit = async (e) => {
-    const birthDate = `${userData.birth.year}-${userData.birth.month.padStart(2, '0')}-${userData.birth.day.padStart(2, '0')}`;
+    const birthDate = `${userData.birthDate.year}-${userData.birthDate.month.padStart(2, '0')}-${userData.birthDate.day.padStart(2, '0')}`;
     const submitData = {
       ...userData,
-      birth : birthDate
+      birthDate : birthDate
     };
     try {
       const result = await reqRegisterUser(submitData);
@@ -64,7 +65,7 @@ function Signup(props) {
   };
 
   return (
-    <div>
+    <div style={{backgroundColor: "white"}}>
       <h2>추가 정보 입력</h2>
 
       {/* 프로필 이미지 */}
@@ -76,11 +77,11 @@ function Signup(props) {
           onChange={(e) => {
             const file = e.target.files[0];
             if (file) {
-              setUserData({...userData, profileImgPath : `/images/${file.name}`});
+              setUserData({...userData, profileImg : `/images/${file.name}`});
             }
           }}
         />
-        {userData.profileImgPath && <p>선택된 이미지: {userData.profileImgPath}</p>}
+        {userData.profileImg && <p>선택된 이미지: {userData.profileImg}</p>}
       </div>
 
       {/* 이메일 */}
@@ -131,14 +132,14 @@ function Signup(props) {
       </div>
 
       {/* 군/구 */}
-      <FormControl fullWidth style={{backgroundColor: "white"}}>
+      <FormControl style={{backgroundColor: "gray", width: "fit-content"}}>
         <InputLabel id="gungu-select-label">구/군</InputLabel>
         <Select
           labelId="gungu-select-label"
           id="gungu-select"
-          value={userData.selectedGunguId}
+          value={userData.gunguId}
           label="구/군"
-          onChange={(e) => setUserData({...userData, selectedGunguId : e.target.value})}
+          onChange={(e) => setUserData({...userData, gunguId : e.target.value})}
           required
         >
           {gunguList.map((gungu) => (
@@ -154,11 +155,11 @@ function Signup(props) {
         <h3>생일</h3>
         <div style={{ display: 'flex', gap: '10px' }}>
           <select
-            value={userData.birth.year}
+            value={userData.birthDate.year}
             onChange={(e) =>
               setUserData({
                 ...userData,
-                birth: { ...userData.birth, year: e.target.value }
+                birthDate: { ...userData.birthDate, year: e.target.value }
               })
             }
           >
@@ -169,11 +170,11 @@ function Signup(props) {
           </select>
 
           <select
-            value={userData.birth.month}
+            value={userData.birthDate.month}
             onChange={(e) =>
               setUserData({
                 ...userData,
-                birth: { ...userData.birth, month: e.target.value }
+                birthDate: { ...userData.birthDate, month: e.target.value }
               })
             }
           >
@@ -184,11 +185,11 @@ function Signup(props) {
           </select>
 
           <select
-            value={userData.birth.day}
+            value={userData.birthDate.day}
             onChange={(e) =>
               setUserData({
                 ...userData,
-                birth: { ...userData.birth, day: e.target.value }
+                birthDate: { ...userData.birthDate, day: e.target.value }
               })
             }
           >

@@ -64,8 +64,7 @@ public class JwtFilter implements Filter {
                 .build();
 
         // Spring Security Context에 인증 정보 설정
-        UsernamePasswordAuthenticationToken authentication =
-                new UsernamePasswordAuthenticationToken(principalUser, "", principalUser.getAuthorities());
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(principalUser, "", principalUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }

@@ -1,6 +1,8 @@
 package com.korit.running_back_s2.controller;
 
 import com.korit.running_back_s2.dto.response.ResponseDto;
+import com.korit.running_back_s2.dto.user.UserRegisterReqDto;
+import com.korit.running_back_s2.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

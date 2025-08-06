@@ -1,17 +1,40 @@
 /** @jsxImportSource @emotion/react */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as s from "./styles";
-import { FiUser, FiUserCheck, FiUserPlus } from "react-icons/fi";
+import { FiUser } from "react-icons/fi";
 import running from "../../assets/videos/running.mp4";
 import runninPhoto from "../../assets/images/러닝.jpg";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 
 function Home(props) {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const [ searchParams ] = useSearchParams();
   const [showDropdown, setShowDropdown] = useState(false);
+  const error = searchParams.get("error");
+
+  if (error === "oauth2") {
+    alert("OAuth2 인증에 실패했습니다. 다시 시도해주세요.");
+    return;
+  }
+
+  useEffect(() => {
+        const accessToken= searchParams.get("accessToken");
+        if (!!accessToken) {
+            localStorage.setItem("AccessToken", `Bearer ${accessToken}`);
+            queryClient.invalidateQueries({
+                queryKey: ["principal"],
+            }).then(() => {
+                navigate("/");
+            })
+        } else {
+            navigate("/");
+        }
+    }, []);
 
   const handleLoginOnClick = () => {
     navigate("/auth/oauth2/login");
