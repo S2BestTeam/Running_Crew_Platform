@@ -1,8 +1,7 @@
 package com.korit.running_back_s2.security.model;
 
-import com.korit.running_back_s2.domain.authUser.AuthUser;
-import lombok.Builder;
-import lombok.Data;
+import com.korit.running_back_s2.domain.user.User;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,8 +13,10 @@ import java.util.Map;
 
 @Builder
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PrincipalUser implements UserDetails, OAuth2User {
-    private AuthUser authUser;
+    private User userInfo;
     private Map<String, Object> attributes;
 
     @Override
@@ -35,11 +36,11 @@ public class PrincipalUser implements UserDetails, OAuth2User {
 
     @Override
     public String getUsername() {
-        return authUser.getEmail();
+        return userInfo.getEmail();
     }
 
     @Override
     public String getName() {
-        return authUser.getProviderId();
+        return "";
     }
 }
