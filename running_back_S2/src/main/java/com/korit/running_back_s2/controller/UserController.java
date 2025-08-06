@@ -5,7 +5,6 @@ import com.korit.running_back_s2.dto.user.UserRegisterReqDto;
 import com.korit.running_back_s2.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

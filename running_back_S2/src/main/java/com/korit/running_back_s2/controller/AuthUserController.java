@@ -16,8 +16,8 @@ public class AuthUserController {
 
     @GetMapping("/me")
     public ResponseEntity<?> getMe(@AuthenticationPrincipal PrincipalUser principalUser) {
-        AuthUser authUser = principalUser.getAuthUser();
-        System.out.println(authUser);
+        // AuthUser authUser = principalUser.getAuthUser();
+        // System.out.println(authUser);
         return ResponseEntity.ok("null");
     }
 }
