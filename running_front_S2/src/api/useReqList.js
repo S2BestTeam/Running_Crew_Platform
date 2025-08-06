@@ -1,8 +1,3 @@
 import api from "./axios";
 
-export const reqGungu = () =>
-  api.get("/api/regions/gungu", {
-    headers: {
-      Authorization: "",
-    },
-  });
+export const reqGunguList = () => api.get("/api/regions/gungu");

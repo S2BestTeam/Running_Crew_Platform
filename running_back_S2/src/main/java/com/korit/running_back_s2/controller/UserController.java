@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -19,7 +22,13 @@ public class UserController {
 
     @PostMapping("/users")
     public ResponseEntity<ResponseDto<?>> register(@RequestBody UserRegisterReqDto dto) {
-        userService.register(dto);
-        return ResponseEntity.ok(ResponseDto.success("회원등록완료"));
+        return ResponseEntity.ok(ResponseDto.success(userService.register(dto)));
+    }
+
+    @PostMapping("/users/nickname")
+    public ResponseEntity<ResponseDto<?>> checkNickname(@RequestBody Map<String, String> nicknameData) {
+        String nickname = nicknameData.get("data");
+        System.out.println(nickname);
+        return ResponseEntity.ok(ResponseDto.success(userService.checkNickname(nickname)));
     }
 }
