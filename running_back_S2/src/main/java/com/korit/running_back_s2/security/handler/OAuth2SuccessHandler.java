@@ -1,6 +1,7 @@
 package com.korit.running_back_s2.security.handler;
 
 import com.korit.running_back_s2.domain.user.User;
+import com.korit.running_back_s2.domain.user.UserMapper;
 import com.korit.running_back_s2.security.jwt.JwtUtil;
 import com.korit.running_back_s2.security.model.PrincipalUser;
 import jakarta.servlet.ServletException;
@@ -20,21 +21,23 @@ import java.nio.charset.StandardCharsets;
 public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
     private final JwtUtil jwtUtil;
+    private final UserMapper userMapper;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         PrincipalUser principalUser = (PrincipalUser) authentication.getPrincipal();
-        User userInfo = principalUser.getUserInfo();
-        String accessToken = jwtUtil.generateAccessToken(userInfo);
+        User user = principalUser.getUser();
         String redirectUrl;
-        if (userInfo.getNickname() == null || userInfo.getBirthDate() == null) {
-            String email = URLEncoder.encode(userInfo.getEmail(), StandardCharsets.UTF_8);
-            String name = URLEncoder.encode(userInfo.getFullName(), StandardCharsets.UTF_8);
-            String oauthType = URLEncoder.encode(userInfo.getOauthType(), StandardCharsets.UTF_8);
-            redirectUrl = String.format("http://localhost:5173/auth/oauth2/login?accessToken=%s&email=%s&name=%s&oauthType=%s"
-                    ,accessToken,email,name,oauthType);
+
+        User foundUser = userMapper.findByEmail(user.getEmail());
+        if (foundUser == null) {
+            String email = URLEncoder.encode(user.getEmail(), StandardCharsets.UTF_8);
+            String name = URLEncoder.encode(user.getFullName(), StandardCharsets.UTF_8);
+            String oauthType = URLEncoder.encode(user.getOauthType(), StandardCharsets.UTF_8);
+            redirectUrl = String.format("http://localhost:5173/auth/oauth2/signup?email=%s&name=%s&oauthType=%s" ,email,name,oauthType);
         } else {
-            redirectUrl = String.format("http://localhost:5173/main?accessToken=%s", accessToken);
+            String accessToken = jwtUtil.generateAccessToken(foundUser);
+            redirectUrl = String.format("http://localhost:5173/auth/oauth2/signin?accessToken=%s", accessToken);
         }
 
         response.sendRedirect(redirectUrl);

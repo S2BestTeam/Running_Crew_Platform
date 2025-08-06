@@ -1,8 +1,13 @@
+import usePrincipalQuery from "../queries/usePrincipalQuery";
 
 function OAuthLoginPage() {
   const handleLogin = (provider) => {
     window.location.href = `http://localhost:8080/oauth2/authorization/${provider}`;
   };
+
+  const principalQuery = usePrincipalQuery();
+
+  console.log(principalQuery);
 
   return (
     <div>

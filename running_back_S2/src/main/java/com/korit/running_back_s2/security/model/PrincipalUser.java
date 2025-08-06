@@ -16,12 +16,12 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PrincipalUser implements UserDetails, OAuth2User {
-    private User userInfo;
+    private User user;
     private Map<String, Object> attributes;
 
     @Override
     public Map<String, Object> getAttributes() {
-        return attributes != null ? attributes : Map.of();
+        return attributes;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class PrincipalUser implements UserDetails, OAuth2User {
 
     @Override
     public String getUsername() {
-        return userInfo.getEmail();
+        return user.getEmail();
     }
 
     @Override

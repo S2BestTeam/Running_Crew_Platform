@@ -19,7 +19,7 @@ import java.io.IOException;
 public class JwtFilter implements Filter {
 
     private final JwtUtil jwtUtil;
-    private final UserMapper userInfoMapper;
+    private final UserMapper userMapper;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -53,19 +53,18 @@ public class JwtFilter implements Filter {
 
     private void setAuthentication(Claims claims) {
         Integer userId = (Integer) claims.get("userId");
-        User foundUser = userInfoMapper.findById(userId);
+        User foundUser = userMapper.findById(userId);
         if (foundUser == null) {
             return;
         }
 
         // PrincipalUser 생성
         PrincipalUser principalUser = PrincipalUser.builder()
-                .userInfo(foundUser)
+                .user(foundUser)
                 .build();
 
         // Spring Security Context에 인증 정보 설정
-        UsernamePasswordAuthenticationToken authentication =
-                new UsernamePasswordAuthenticationToken(principalUser, "", principalUser.getAuthorities());
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(principalUser, "", principalUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }

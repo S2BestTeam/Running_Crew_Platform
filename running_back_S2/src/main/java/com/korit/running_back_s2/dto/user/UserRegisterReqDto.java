@@ -4,7 +4,6 @@ import com.korit.running_back_s2.domain.user.User;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Data
 public class UserRegisterReqDto {

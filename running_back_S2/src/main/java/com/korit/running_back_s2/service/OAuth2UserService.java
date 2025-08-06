@@ -48,13 +48,16 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
             email = (String) response.get("email");
             name = (String) response.get("name");
         }
-
-        User userInfo = User.builder()
+        else if ("naver".equals(registrationId)) {
+            Map<String, Object> response = (Map<String, Object>) oAuth2User.getAttributes().get("response");
+        }
+        
+        User user = User.builder()
                 .email(email)
                 .fullName(name)
                 .oauthType(registrationId)
                 .build();
 
-        return new PrincipalUser(userInfo, oAuth2User.getAttributes());
+        return new PrincipalUser(user, oAuth2User.getAttributes());
     }
 }

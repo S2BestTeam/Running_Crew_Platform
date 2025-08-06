@@ -45,4 +45,3 @@ export const sliderImg = css`
   padding: 0 2rem;
 `;
 
-

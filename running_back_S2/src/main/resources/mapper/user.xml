@@ -4,11 +4,11 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.korit.running_back_s2.domain.user.UserMapper">
 
-    <select id="findByUsername" resultType="com.korit.running_back_s2.domain.user.User">
+    <select id="findByEmail" resultType="com.korit.running_back_s2.domain.user.User">
         select
             *
         from
-            user_info_tb
+            user_tb
         where
             email = #{email}
     </select>
@@ -17,13 +17,13 @@
         select
             *
         from
-            user_info_tb
+            user_tb
         where
-            user_info_id = #{userId}
+            user_id = #{userId}
     </select>
 
     <insert id="insert">
-        INSERT INTO user_info_tb
+        INSERT INTO user_tb
             ( email, oauth_type, full_name, phone_number, nickname, birth_date, gender, profile_img, gungu_id )
         VALUES ( #{email}, #{oauthType}, #{fullName}, #{phoneNumber}, #{nickname}, #{birthDate}, #{gender}, #{profileImg}, #{gunguId} )
     </insert>
