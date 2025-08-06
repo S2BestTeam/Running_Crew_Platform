@@ -1,15 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
 import OAuthCallbackPage from "./pages/OAuthCallbackPage";
-import AdditionalInfoPage from "./pages/AdditionalInfoPage";
+import SignUp from "./pages/Auth/Signup/Signup";
 
 const router = createBrowserRouter([
   {
-    path: "/auth/oauth2/login",
+    path: "/auth/oauth2/signin",
     element: <OAuthCallbackPage />,
   },
   {
-    path: "/additional-info",
-    element: <AdditionalInfoPage />,
+    path: "/signup",
+    element: <SignUp />,
   },
 ]);
 
