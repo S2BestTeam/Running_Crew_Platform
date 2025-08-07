@@ -6,10 +6,22 @@ import { useNavigate } from "react-router-dom";
 
 function Header(props) {
   const [showDropdown, setShowDropdown] = useState(false);
+  const navigate = useNavigate("");
+
+  const handleProfileClick = () => {
+    const accessToken = localStorage.getItem("AccessToken");
+    if (accessToken) {
+      navigate("/mypage");
+    } else {
+      navigate("/auth/oauth2/signin");
+    }
+  };
 
   return (
     <header css={s.header}>
-      <div css={s.logo}>S2BestTeam</div>
+      <div css={s.logo} onClick={() => navigate("/")}>
+        S2BestTeam
+      </div>
       <nav css={s.nav}>
         <ul css={s.menu}>
           <li
@@ -92,7 +104,7 @@ function Header(props) {
           <FiHeart />
         </div>
         {/* 로그인시 프로필 이미지로 바뀜*/}
-        <div css={s.icon}>
+        <div css={s.icon} onClick={handleProfileClick}>
           <FiUser />
         </div>
       </div>

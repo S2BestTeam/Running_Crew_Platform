@@ -51,8 +51,11 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(auth -> {
             auth.requestMatchers("/api/regions/**").permitAll();
+            auth.requestMatchers("/api/users/**").permitAll();
+            auth.requestMatchers("/api/mypage/**").permitAll();
             auth.requestMatchers("/oauth2/**").permitAll();
             auth.requestMatchers("/image/**").permitAll();
+
             auth.anyRequest().authenticated();
         });
 

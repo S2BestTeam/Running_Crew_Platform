@@ -53,6 +53,7 @@ public class JwtFilter implements Filter {
 
     private void setAuthentication(Claims claims) {
         Integer userId = (Integer) claims.get("userId");
+        System.out.println(userId);
         User foundUser = userMapper.findById(userId);
         if (foundUser == null) {
             return;
