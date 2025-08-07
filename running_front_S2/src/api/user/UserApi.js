@@ -8,15 +8,11 @@ export const reqCheckNickname = (nickname) =>
       'Content-Type': 'application/json; charset=utf-8',
     },
   });
-<<<<<<< HEAD
-export const reqRegisterUser = async (data) => await api.post("/api/users", data);
-=======
+
 export const reqRegisterUser = async (data) => await api.post("/api/users", data);
 
 export const reqUpdateUser = (data) => api.post("/api/mypage", data, {
-    headers: {
-        "Content-Type": "multipart/form-data"
-    }
-  );
-export const reqRegisterUser = async (data) =>
-  await api.post("/api/users", data);
+  headers: {
+    "Content-Type": "multipart/form-data"
+  }
+});

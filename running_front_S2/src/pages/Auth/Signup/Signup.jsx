@@ -6,6 +6,7 @@ import { reqCheckNickname, reqRegisterUser } from "../../../api/user/UserApi";
 import { useQueryClient } from "@tanstack/react-query";
 import { SIGNUP_REGEX, SIGNUP_REGEX_ERROR_MESSAGE } from "../../../constants/signupRegex";
 
+function Signup() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();

@@ -3,12 +3,9 @@ import * as s from "./styles";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { SiNaver } from "react-icons/si";
 import { FcGoogle } from "react-icons/fc";
-<<<<<<< HEAD
-=======
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
->>>>>>> origin/10-mypage-데이터-불러오기-및-프로필-수정-설계
 
 function Signin() {
   const handleLogin = (provider) => {

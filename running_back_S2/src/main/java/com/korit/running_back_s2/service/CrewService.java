@@ -21,7 +21,6 @@ public class CrewService {
 
     private final CrewMapper crewMapper;
     private final FileService fileService;
-    private final PrincipalUtil principalUtil;
 
     public void register(CrewRegisterReqDto dto) {
         String uploadedFilename = fileService.uploadFile(dto.getCrewImgPath(), "/crew");

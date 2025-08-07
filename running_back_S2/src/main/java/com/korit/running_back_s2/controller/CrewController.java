@@ -24,6 +24,7 @@ public class CrewController {
         System.out.println(crewName);
         return ResponseEntity.ok(ResponseDto.success(crewService.checkCrewNames(crewName)));
     }
+
     @GetMapping
     public ResponseEntity<ResponseDto<?>> getCrewList(CrewSearchReqDto searchReqDto) {
         CrewSearchRespDto result = crewService.searchCrew(searchReqDto);

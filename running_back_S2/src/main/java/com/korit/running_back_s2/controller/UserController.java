@@ -37,7 +37,6 @@ public class UserController {
     @GetMapping("/mypage")
     public ResponseEntity<User> getMyPage(@AuthenticationPrincipal PrincipalUser principalUser) {
         User user = userService.getMyPage(principalUser.getUser().getUserId());
-
         return ResponseEntity.ok(user);
     }
 
