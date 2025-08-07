@@ -8,4 +8,9 @@ public interface UserMapper {
     User findByEmail(String email);
     User findById(Integer userId);
     User findByNickname(String nickname);
+<<<<<<< HEAD
+=======
+
+    int update(User user);
+>>>>>>> origin/10-mypage-데이터-불러오기-및-프로필-수정-설계
 }

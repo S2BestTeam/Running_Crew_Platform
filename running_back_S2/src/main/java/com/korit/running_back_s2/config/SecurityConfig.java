@@ -50,11 +50,18 @@ public class SecurityConfig {
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         http.authorizeHttpRequests(auth -> {
+<<<<<<< HEAD
 //            auth.requestMatchers("/api/regions/**").permitAll();
 //            auth.requestMatchers("/api/users/**").permitAll();
             auth.requestMatchers("/api/**").permitAll();
+=======
+            auth.requestMatchers("/api/regions/**").permitAll();
+            auth.requestMatchers("/api/users/**").permitAll();
+            auth.requestMatchers("/api/mypage/**").permitAll();
+>>>>>>> origin/10-mypage-데이터-불러오기-및-프로필-수정-설계
             auth.requestMatchers("/oauth2/**").permitAll();
             auth.requestMatchers("/image/**").permitAll();
+
             auth.anyRequest().authenticated();
         });
 

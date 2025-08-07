@@ -143,7 +143,7 @@ function Signup() {
 
   return (
     <div>
-      <h2>추가 정보 입력</h2>
+      <div>추가 정보 입력</div>
 
       <div>
         <h3>프로필 이미지</h3>

@@ -7,6 +7,18 @@ import { useNavigate } from "react-router-dom";
 function Header(props) {
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate("");
+<<<<<<< HEAD
+=======
+
+  const handleProfileClick = () => {
+    const accessToken = localStorage.getItem("AccessToken");
+    if (accessToken) {
+      navigate("/mypage");
+    } else {
+      navigate("/auth/oauth2/signin");
+    }
+  };
+>>>>>>> origin/10-mypage-데이터-불러오기-및-프로필-수정-설계
 
   return (
     <header css={s.header}>
@@ -95,7 +107,11 @@ function Header(props) {
           <FiHeart />
         </div>
         {/* 로그인시 프로필 이미지로 바뀜*/}
+<<<<<<< HEAD
         <div css={s.icon} onClick={() => navigate("/auth/oauth2/signin")}>
+=======
+        <div css={s.icon} onClick={handleProfileClick}>
+>>>>>>> origin/10-mypage-데이터-불러오기-및-프로필-수정-설계
           <FiUser />
         </div>
       </div>

@@ -9,7 +9,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 function Home(props) {
   return (
-    <div>
+    <div css={s.container}>
       <main>
         <div css={s.main}>
           <div css={s.mainVideo}>

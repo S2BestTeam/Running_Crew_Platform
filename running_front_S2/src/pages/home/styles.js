@@ -1,5 +1,11 @@
 import { css } from "@emotion/react";
 
+export const container = css`
+  width: 100%;
+  height: 100vh;
+  background-color: #000;
+`
+
 export const main = css`
   margin: 0;
   padding: 0;

@@ -25,6 +25,7 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
 //        String providerId = null;
 
         OAuth2User oAuth2User = super.loadUser(userRequest);
+        System.out.println(oAuth2User.getAttributes());
 
         // OAuth 제공자별 정보 추출
         if ("google".equals(registrationId)) {
