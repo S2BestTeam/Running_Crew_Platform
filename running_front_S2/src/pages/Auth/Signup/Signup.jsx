@@ -4,16 +4,18 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { reqGunguList } from "../../../api/useReqList";
 import { reqCheckNickname, reqRegisterUser } from "../../../api/user/UserApi";
 import { useQueryClient } from "@tanstack/react-query";
+import { SIGNUP_REGEX, SIGNUP_REGEX_ERROR_MESSAGE } from "../../../constants/signupRegex";
 
 function Signup() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const [gunguList, setGunguList] = useState([]);
-  const [selectedGunguId, setSelectedGunguId] = useState("");
   const [searchParams] = useSearchParams();
   const email = searchParams.get("email");
   const name = searchParams.get("name");
   const oauthType = searchParams.get("oauthType");
+
+  const [gunguList, setGunguList] = useState([]);
+  const [selectedGunguId, setSelectedGunguId] = useState("");
 
   const [nickname, setNickname] = useState("");
   const [isNicknameChecked, setIsNicknameChecked] = useState(false);
@@ -23,6 +25,11 @@ function Signup() {
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedDay, setSelectedDay] = useState("");
+
+  const [errors, setErrors] = useState({
+    nickname: "",
+    phoneNumber: ""
+  });
 
   useEffect(() => {
     reqGunguList()
@@ -34,9 +41,36 @@ function Signup() {
   const BIRTHDAY_MONTH_LIST = Array.from({ length: 12 }, (_, i) => i + 1);
   const BIRTHDAY_DAY_LIST = Array.from({ length: 31 }, (_, i) => i + 1);
 
+  const validateField = (field, value) => {
+    switch (field) {
+      case "nickname":
+        if (!SIGNUP_REGEX.nickName.test(value)) {
+          return SIGNUP_REGEX_ERROR_MESSAGE.nickName;
+        }
+        return "";
+      case "phoneNumber":
+        if (!SIGNUP_REGEX.phoneNumber.test(value)) {
+          return SIGNUP_REGEX_ERROR_MESSAGE.phoneNumber;
+        }
+        return "";
+      default:
+        return "";
+    }
+  };
+
   const handleNicknameChange = (e) => {
-    setNickname(e.target.value);
+    const value = e.target.value;
+    setNickname(value);
     setIsNicknameChecked(false);
+    const errorMsg = validateField("nickname", value);
+    setErrors((prev) => ({ ...prev, nickname: errorMsg }));
+  };
+
+  const handlePhoneChange = (e) => {
+    const value = e.target.value;
+    setPhoneNumber(value);
+    const errorMsg = validateField("phoneNumber", value);
+    setErrors((prev) => ({ ...prev, phoneNumber: errorMsg }));
   };
 
   const handleCheckNickname = async () => {
@@ -91,6 +125,22 @@ function Signup() {
     }
   };
 
+  // ✅ 전체 유효성 검사
+  const isNicknameValid = SIGNUP_REGEX.nickName.test(nickname);
+  const isPhoneNumberValid = SIGNUP_REGEX.phoneNumber.test(phoneNumber);
+
+  const isFormValid = [
+    isNicknameChecked,
+    isNicknameValid,
+    isPhoneNumberValid,
+    profileImgPath,
+    selectedGunguId,
+    selectedYear,
+    selectedMonth,
+    selectedDay,
+    gender
+  ].reduce((prev, curr) => prev && Boolean(curr), true);
+
   return (
     <div>
       <h2>추가 정보 입력</h2>
@@ -107,7 +157,6 @@ function Signup() {
             }
           }}
         />
-        {profileImgPath && <p>선택된 이미지: {profileImgPath}</p>}
       </div>
 
       <div>
@@ -130,6 +179,7 @@ function Signup() {
         <button onClick={handleCheckNickname} disabled={!nickname.trim()}>
           {isNicknameChecked ? "❤️ 사용 가능!" : "닉네임 중복 확인"}
         </button>
+        {errors.nickname && <p style={{ color: "red" }}>{errors.nickname}</p>}
       </div>
 
       <div>
@@ -137,9 +187,10 @@ function Signup() {
         <input
           type="tel"
           value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
+          onChange={handlePhoneChange}
           required
         />
+        {errors.phoneNumber && <p style={{ color: "red" }}>{errors.phoneNumber}</p>}
       </div>
 
       <div>
@@ -218,17 +269,7 @@ function Signup() {
       <button
         type="button"
         onClick={handleOnRegisterUser}
-        disabled={
-          !isNicknameChecked ||
-          !nickname ||
-          !phoneNumber ||
-          !profileImgPath ||
-          !selectedGunguId ||
-          !selectedYear ||
-          !selectedMonth ||
-          !selectedDay ||
-          !gender
-        }
+        disabled={!isFormValid}
       >
         회원가입 완료
       </button>

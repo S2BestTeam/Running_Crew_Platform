@@ -3,38 +3,11 @@ import * as s from "./styles";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { SiNaver } from "react-icons/si";
 import { FcGoogle } from "react-icons/fc";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
 
 function Signin() {
   const handleLogin = (provider) => {
     window.location.href = `http://localhost:8080/oauth2/authorization/${provider}`;
   };
-
-  const navigate = useNavigate("");
-  const [searchParams] = useSearchParams();
-  const [isAccessToken, setIsAccessToken] = useState("");
-
-  const queryClient = useQueryClient();
-
-  useEffect(() => {
-    const accessToken = searchParams.get("accessToken");
-
-    if (accessToken) {
-      localStorage.setItem("AccessToken", `Bearer ${accessToken}`);
-      setIsAccessToken(accessToken);
-
-      queryClient
-        .invalidateQueries({
-          queryKey: ["principal"],
-        })
-        .then(() => {
-          // ✅ accessToken 있으면 마이페이지로 이동
-          navigate("/");
-        });
-    }
-  }, []);
 
   return (
     <div css={s.container}>

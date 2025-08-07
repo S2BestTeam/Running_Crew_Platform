@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.korit.running_back_s2.domain.crew.CrewMapper">
+
+    <insert id="insert" parameterType="com.korit.running_back_s2.domain.crew.Crew" useGeneratedKeys="true" keyProperty="crewId">
+        INSERT INTO crew_tb ( user_id, gungu_id, crew_name, crew_description, crew_img_path )
+        VALUES ( #{userId}, #{gunguId}, #{crewName}, #{crewDescription}, #{crewImgPath} )
+    </insert>
+
+    <select id="findByCrewName" resultType="com.korit.running_back_s2.domain.crew.Crew">
+        select
+            *
+        from
+            crew_tb
+        where
+            crew_name = #{crewName}
+    </select>
+
+</mapper>

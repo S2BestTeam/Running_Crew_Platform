@@ -85,7 +85,7 @@ function Header(props) {
             </div>
             <div css={s.menuDetail}>
               <div>크루등록</div>
-              <a href="#">크루등록</a>
+              <div onClick={() => navigate("/crew/create")}>크루등록</div>
             </div>
           </div>
         )}
