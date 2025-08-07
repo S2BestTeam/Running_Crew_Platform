@@ -1,0 +1,28 @@
+spring:
+  profiles:
+    active: local
+    group:
+      local: local-server, common, secret
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local-server
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: common
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.korit.running_back_s2.domain.entity

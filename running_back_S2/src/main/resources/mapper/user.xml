@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.korit.running_back_s2.domain.user.UserMapper">
+
+    <select id="findByEmail" resultType="com.korit.running_back_s2.domain.user.User">
+        select
+            *
+        from
+            user_tb
+        where
+            email = #{email}
+    </select>
+
+    <select id="findById" resultType="com.korit.running_back_s2.domain.user.User">
+        select
+            *
+        from
+            user_tb
+        where
+            user_id = #{userId}
+    </select>
+
+    <select id="findByNickname" resultType="com.korit.running_back_s2.domain.user.User">
+        select
+            *
+        from
+            user_tb
+        where
+            nickname = #{nickname}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO user_tb
+            ( email, oauth_type, full_name, phone_number, nickname, birth_date, gender, profile_img, gungu_id )
+        VALUES ( #{email}, #{oauthType}, #{fullName}, #{phoneNumber}, #{nickname}, #{birthDate}, #{gender}, #{profileImg}, #{gunguId} )
+    </insert>
+</mapper>
