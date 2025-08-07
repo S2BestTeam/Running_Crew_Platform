@@ -33,6 +33,7 @@ function Signin() {
           queryKey: ["principal"],
         })
         .then(() => {
+          // ✅ accessToken 있으면 마이페이지로 이동
           navigate("/");
         });
     }

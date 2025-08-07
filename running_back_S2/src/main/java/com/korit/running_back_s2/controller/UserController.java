@@ -12,8 +12,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Map;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,8 +32,6 @@ public class UserController {
         String nickname = nicknameData.get("data");
         System.out.println(nickname);
         return ResponseEntity.ok(ResponseDto.success(userService.checkNickname(nickname)));
-<<<<<<< HEAD
-=======
     }
 
     @GetMapping("/mypage")
@@ -56,6 +52,5 @@ public class UserController {
         userService.updateMyPage(dto);
         System.out.println(dto);
         return ResponseEntity.ok(ResponseDto.success("수정 완료"));
->>>>>>> origin/10-mypage-데이터-불러오기-및-프로필-수정-설계
     }
 }

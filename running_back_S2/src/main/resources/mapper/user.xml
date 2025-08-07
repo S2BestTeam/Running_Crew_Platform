@@ -46,7 +46,7 @@
             email = #{email}
     </select>
 
-    <select id="findById" resultMap="UserMap">
+    <select id="findById" resultType="com.korit.running_back_s2.domain.user.User">
         select
             ut.user_id,
             ut.email,
@@ -74,10 +74,10 @@
         from
             user_tb
         where
+            user_id = #{userId}
             nickname = #{nickname}
     </select>
 
-<<<<<<< HEAD
     <select id="findByNickname" resultType="com.korit.running_back_s2.domain.user.User">
         select
             *
@@ -87,8 +87,6 @@
             nickname = #{nickname}
     </select>
 
-    <insert id="insert">
-=======
     <insert id="insert" useGeneratedKeys="true" keyProperty="userId">
 >>>>>>> origin/10-mypage-데이터-불러오기-및-프로필-수정-설계
         INSERT INTO user_tb

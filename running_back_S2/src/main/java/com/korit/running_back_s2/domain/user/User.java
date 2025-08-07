@@ -1,6 +1,5 @@
 package com.korit.running_back_s2.domain.user;
 
-import com.korit.running_back_s2.domain.region.Gungu;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

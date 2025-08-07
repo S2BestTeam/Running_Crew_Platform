@@ -7,8 +7,6 @@ import { useNavigate } from "react-router-dom";
 function Header(props) {
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate("");
-<<<<<<< HEAD
-=======
 
   const handleProfileClick = () => {
     const accessToken = localStorage.getItem("AccessToken");
@@ -18,7 +16,6 @@ function Header(props) {
       navigate("/auth/oauth2/signin");
     }
   };
->>>>>>> origin/10-mypage-데이터-불러오기-및-프로필-수정-설계
 
   return (
     <header css={s.header}>
@@ -31,7 +28,7 @@ function Header(props) {
             onMouseEnter={() => setShowDropdown(true)}
             onMouseLeave={() => setShowDropdown(false)}
           >
-            <a href="#">크루소개</a>
+            <a href="#" >크루소개</a>
           </li>
 
           <li
@@ -75,7 +72,7 @@ function Header(props) {
           >
             <div css={s.menuDetail}>
               <div>크루소개</div>
-              <a href="#">지역별 크루</a>
+              <a href="#" onClick={() => navigate("/crews")}>지역별 크루</a>
             </div>
             <div css={s.menuDetail}>
               <div>대회일정</div>
@@ -107,11 +104,7 @@ function Header(props) {
           <FiHeart />
         </div>
         {/* 로그인시 프로필 이미지로 바뀜*/}
-<<<<<<< HEAD
-        <div css={s.icon} onClick={() => navigate("/auth/oauth2/signin")}>
-=======
         <div css={s.icon} onClick={handleProfileClick}>
->>>>>>> origin/10-mypage-데이터-불러오기-및-프로필-수정-설계
           <FiUser />
         </div>
       </div>

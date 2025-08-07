@@ -11,6 +11,7 @@ import CrewCreate from "./pages/Crew/CrewCreate";
 
 import Home from "./pages/home/Home";
 import Signup from "./pages/Auth/Signup/Signup";
+import CrewList from "./pages/Crew/CrewList/CrewList";
 import Mypage from "./pages/User/Mypage/Mypage";
 >>>>>>> origin/10-mypage-데이터-불러오기-및-프로필-수정-설계
 
@@ -27,6 +28,7 @@ function App() {
 =======
         <Route path="/mypage" element={<Mypage />} />
 >>>>>>> origin/10-mypage-데이터-불러오기-및-프로필-수정-설계
+        <Route path="/crews" element={<CrewList/>} />
       </Routes>
       <Footer />
     </>

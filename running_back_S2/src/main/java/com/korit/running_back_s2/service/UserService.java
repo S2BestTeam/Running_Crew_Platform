@@ -2,15 +2,11 @@ package com.korit.running_back_s2.service;
 
 import com.korit.running_back_s2.domain.user.User;
 import com.korit.running_back_s2.domain.user.UserMapper;
-import com.korit.running_back_s2.dto.user.UserMyPageUpdateReqDto;
 import com.korit.running_back_s2.dto.user.UserRegisterReqDto;
 import com.korit.running_back_s2.security.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,8 +36,6 @@ public class UserService {
         } else {
             return "true";   // 중복된 닉네임
         }
-<<<<<<< HEAD
-=======
     }
 
     public User getMyPage(Integer userId) {
@@ -53,6 +47,5 @@ public class UserService {
     public void updateMyPage(UserMyPageUpdateReqDto dto) {
         User user = dto.Entity();
         userMapper.update(user);
->>>>>>> origin/10-mypage-데이터-불러오기-및-프로필-수정-설계
     }
 }
