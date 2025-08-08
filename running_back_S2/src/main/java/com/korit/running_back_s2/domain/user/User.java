@@ -24,6 +24,7 @@ public class User {
     private String profileImg;
     private Integer gunguId;
     private Integer roleId;
+    private String providerId;
 
     private Gungu gungu;
 }

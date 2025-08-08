@@ -9,25 +9,27 @@ import java.time.LocalDate;
 public class UserRegisterReqDto {
     private String email;
     private String oauthType;
-    private String fullName;
+    private String name;
     private String phoneNumber;
     private String nickname;
     private LocalDate birthDate;
     private Integer gender;
     private String profileImg;
     private Integer gunguId;
+    private String providerId;
 
     public User Entity() {
         return User.builder()
                 .email(email)
                 .oauthType(oauthType)
-                .fullName(fullName)
+                .fullName(name)
                 .phoneNumber(phoneNumber)
                 .nickname(nickname)
                 .birthDate(birthDate)
                 .gender(gender)
                 .profileImg(profileImg)
                 .gunguId(gunguId)
+                .providerId(providerId)
                 .build();
     }
 }

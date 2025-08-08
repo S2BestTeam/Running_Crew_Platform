@@ -14,6 +14,7 @@
         <result property="gender" column="gender" />
         <result property="profileImg" column="profile_img" />
         <result property="gunguId" column="ut_gungu_id" />
+        <result property="providerId" column="ut_provider_id" />
         <association property="gungu" resultMap="GunguMap" />
     </resultMap>
     <resultMap id="GunguMap" type="com.korit.running_back_s2.domain.gungu.Gungu">
@@ -33,6 +34,14 @@
             gender = #{gender},
             profile_img = #{profileImg},
             gungu_id = #{gunguId}
+        where
+            user_id = #{userId}
+    </update>
+
+    <update id="updateProfileImgById">
+        update user_tb
+        set
+            profile_img = #{profileImg}
         where
             user_id = #{userId}
     </update>
@@ -60,6 +69,7 @@
             ut.gungu_id as ut_gungu_id,
             gt.gungu_id,
             gt.gungu_name,
+            ut.provider_id,
             ut.created_at
         from
             user_tb ut
@@ -79,7 +89,7 @@
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="userId">
         INSERT INTO user_tb
-            ( email, oauth_type, full_name, phone_number, nickname, birth_date, gender, profile_img, gungu_id )
-        VALUES ( #{email}, #{oauthType}, #{fullName}, #{phoneNumber}, #{nickname}, #{birthDate}, #{gender}, #{profileImg}, #{gunguId} )
+            ( email, provider_id, oauth_type, full_name, phone_number, nickname, birth_date, gender, profile_img, gungu_id )
+        VALUES ( #{email}, #{providerId}, #{oauthType}, #{fullName}, #{phoneNumber}, #{nickname}, #{birthDate}, #{gender}, #{profileImg}, #{gunguId} )
     </insert>
 </mapper>

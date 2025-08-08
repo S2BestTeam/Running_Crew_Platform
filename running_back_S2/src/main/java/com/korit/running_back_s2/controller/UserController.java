@@ -24,6 +24,7 @@ public class UserController {
 
     @PostMapping("/users")
     public ResponseEntity<ResponseDto<?>> register(@RequestBody UserRegisterReqDto dto) {
+        System.out.println(dto);
         return ResponseEntity.ok(ResponseDto.success(userService.register(dto)));
     }
 
@@ -42,14 +43,14 @@ public class UserController {
 
     @PostMapping("/users/{userId}/img")
     public ResponseEntity<ResponseDto<?>> updateUserInfo(@RequestPart MultipartFile file) {
-        System.out.println(file.getOriginalFilename());
+        userService.updateUserProfileImg(file);
         return ResponseEntity.ok(ResponseDto.success("수정 완료"));
     }
 
-    @PutMapping("/users/{userId}")
-    public ResponseEntity<ResponseDto<?>> updateUserInfo(@RequestBody UserMyPageUpdateReqDto dto) {
-        userService.updateMyPage(dto);
-        System.out.println(dto);
-        return ResponseEntity.ok(ResponseDto.success("수정 완료"));
-    }
+//    @PutMapping("/users/{userId}")
+//    public ResponseEntity<ResponseDto<?>> updateUserInfo(@RequestBody UserMyPageUpdateReqDto dto) {
+//        userService.updateMyPage(dto);
+//        System.out.println(dto);
+//        return ResponseEntity.ok(ResponseDto.success("수정 완료"));
+//    }
 }

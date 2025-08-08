@@ -4,15 +4,19 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { reqGunguList } from "../../../api/useReqList";
 import { reqCheckNickname, reqRegisterUser } from "../../../api/user/UserApi";
 import { useQueryClient } from "@tanstack/react-query";
-import { SIGNUP_REGEX, SIGNUP_REGEX_ERROR_MESSAGE } from "../../../constants/signupRegex";
+import {
+  SIGNUP_REGEX,
+  SIGNUP_REGEX_ERROR_MESSAGE,
+} from "../../../constants/signupRegex";
 
 function Signup() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
   const email = searchParams.get("email");
-  const name = searchParams.get("name");
+  const providerId = searchParams.get("providerId");
   const oauthType = searchParams.get("oauthType");
+  const img = searchParams.get("img");
 
   const [gunguList, setGunguList] = useState([]);
   const [selectedGunguId, setSelectedGunguId] = useState("");
@@ -21,14 +25,14 @@ function Signup() {
   const [isNicknameChecked, setIsNicknameChecked] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [gender, setGender] = useState("");
-  const [profileImgPath, setProfileImgPath] = useState("");
+  const [name, setName] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedDay, setSelectedDay] = useState("");
 
   const [errors, setErrors] = useState({
     nickname: "",
-    phoneNumber: ""
+    phoneNumber: "",
   });
 
   useEffect(() => {
@@ -96,12 +100,13 @@ function Signup() {
     )}-${selectedDay.padStart(2, "0")}`;
     const user = {
       email,
+      providerId,
       oauthType,
-      fullName: name,
+      profileImg: img,
+      name,
       nickname,
       birthDate,
       gender: parseInt(gender),
-      profileImg: profileImgPath,
       phoneNumber,
       gunguId: parseInt(selectedGunguId),
     };
@@ -133,30 +138,20 @@ function Signup() {
     isNicknameChecked,
     isNicknameValid,
     isPhoneNumberValid,
-    profileImgPath,
     selectedGunguId,
     selectedYear,
     selectedMonth,
     selectedDay,
-    gender
+    gender,
   ].reduce((prev, curr) => prev && Boolean(curr), true);
 
   return (
     <div>
       <h2>추가 정보 입력</h2>
-
       <div>
-        <h3>프로필 이미지</h3>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => {
-            const file = e.target.files[0];
-            if (file) {
-              setProfileImgPath(`/images/${file.name}`);
-            }
-          }}
-        />
+        <div>
+          <img src={img} alt="" />
+        </div>
       </div>
 
       <div>
@@ -165,7 +160,7 @@ function Signup() {
       </div>
       <div>
         <h3>이름</h3>
-        <input disabled value={name} />
+        <input value={name} onChange={(e) => setName(e.target.value)}/>
       </div>
 
       <div>
@@ -190,7 +185,9 @@ function Signup() {
           onChange={handlePhoneChange}
           required
         />
-        {errors.phoneNumber && <p style={{ color: "red" }}>{errors.phoneNumber}</p>}
+        {errors.phoneNumber && (
+          <p style={{ color: "red" }}>{errors.phoneNumber}</p>
+        )}
       </div>
 
       <div>

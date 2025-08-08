@@ -5,9 +5,13 @@ import com.korit.running_back_s2.domain.user.UserMapper;
 import com.korit.running_back_s2.dto.user.UserMyPageUpdateReqDto;
 import com.korit.running_back_s2.dto.user.UserRegisterReqDto;
 import com.korit.running_back_s2.security.jwt.JwtUtil;
+import com.korit.running_back_s2.security.model.PrincipalUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +22,7 @@ public class UserService {
 
     private final UserMapper userMapper;
     private final JwtUtil jwtUtil;
+    private final FileService fileService;
 
     public Map<String, String> register(UserRegisterReqDto dto) {
         User user = dto.Entity();
@@ -45,8 +50,9 @@ public class UserService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void updateMyPage(UserMyPageUpdateReqDto dto) {
-        User user = dto.Entity();
-        userMapper.update(user);
+    public void updateUserProfileImg(MultipartFile file) {
+        PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String fileName = fileService.uploadFile(file, "/profile");
+        userMapper.updateProfileImgById(principalUser.getUser().getUserId(), fileName);
     }
 }
