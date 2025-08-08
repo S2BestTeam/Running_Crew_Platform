@@ -8,6 +8,7 @@ import Signup from "./pages/Auth/Signup/Signup";
 import CrewCreate from "./pages/Crew/CrewCreate";
 import CrewList from "./pages/Crew/CrewList/CrewList";
 import Mypage from "./pages/User/Mypage/Mypage";
+import Calendar from "./pages/calendar/Calendar";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/crew/create" element={<CrewCreate />} />
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/crews" element={<CrewList/>} />
+        <Route path="/calender" element={<Calendar/>} />
       </Routes>
       <Footer />
     </>
