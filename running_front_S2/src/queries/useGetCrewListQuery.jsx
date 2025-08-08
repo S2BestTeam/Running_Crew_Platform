@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { reqGetCrewList } from "../api/crew/CrewApi";
+import { reqGetCrewList } from "../api/crew/crewApi";
 
 function useGetCrewListQuery({ page, size, searchText, gunguId }) {
   return useQuery({

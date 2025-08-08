@@ -6,7 +6,7 @@ import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import usePrincipalQuery from '../../queries/usePrincipalQuery';
 import { FiPlus, FiX } from 'react-icons/fi';
-import { reqCheckCrewName, reqRegisterCrew } from '../../api/crew/CrewApi';
+import { reqCheckCrewName, reqRegisterCrew } from '../../api/crew/crewApi';
 import { reqGunguList } from '../../api/useReqList';
 import { data, useNavigate } from 'react-router-dom';
 

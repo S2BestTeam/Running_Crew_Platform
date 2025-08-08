@@ -2,7 +2,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { reqGunguList } from "../../../api/useReqList";
-import { reqCheckNickname, reqRegisterUser } from "../../../api/user/UserApi";
+import { reqCheckNickname, reqRegisterUser } from "../../../api/user/userApi";
 import { useQueryClient } from "@tanstack/react-query";
 import {
   SIGNUP_REGEX,
