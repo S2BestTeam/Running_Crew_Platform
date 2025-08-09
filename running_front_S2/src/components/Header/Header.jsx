@@ -3,8 +3,14 @@ import { useState } from "react";
 import * as s from "./styles";
 import { FiHeart, FiUser } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import usePrincipalQuery from "../../queries/usePrincipalQuery";
 
 function Header(props) {
+  const principalQuery = usePrincipalQuery();
+
+  // 추후 프로필 이미지 또는 닉네임으로 변경하기 위해 코드 유지
+  const princiapl = principalQuery?.data?.data?.body?.user;
+  
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate("");
 
@@ -90,7 +96,7 @@ function Header(props) {
             <div css={s.menuDetail}>
               <div>고객센터</div>
               <a href="#">공지사항</a>
-              <a href="#">러너의 소리</a>
+              <div onClick={() => navigate("/inquiry")}>러너의 소리</div>
             </div>
             <div css={s.menuDetail}>
               <div>크루등록</div>

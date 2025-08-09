@@ -9,6 +9,9 @@ import CrewCreate from "./pages/Crew/CrewCreate";
 import CrewList from "./pages/Crew/CrewList/CrewList";
 import Mypage from "./pages/User/Mypage/Mypage";
 import Calendar from "./pages/calendar/Calendar";
+import Inquiry from "./pages/Inquiry/Inquiry";
+import AdminInquiry from "./pages/Inquiry/Admin/AdminInquiry";
+import CrewInquiry from "./pages/Inquiry/Crew/CrewInquiry";
 
 function App() {
   return (
@@ -22,6 +25,9 @@ function App() {
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/crews" element={<CrewList/>} />
         <Route path="/calender" element={<Calendar/>} />
+        <Route path="/inquiry" element={<Inquiry/>} />
+        <Route path="/inquiry/admin" element={<AdminInquiry/>} />
+        <Route path="/inquiry/crew" element={<CrewInquiry/>} />
       </Routes>
       <Footer />
     </>

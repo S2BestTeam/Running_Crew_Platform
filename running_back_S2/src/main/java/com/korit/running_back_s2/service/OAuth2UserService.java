@@ -47,9 +47,7 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
 
             providerId = (String) response.get("id");
             email = (String) response.get("email");
-        }
-        else if ("naver".equals(registrationId)) {
-            Map<String, Object> response = (Map<String, Object>) oAuth2User.getAttributes().get("response");
+            img = (String) response.get("profile_image");
         }
         
         User user = User.builder()
