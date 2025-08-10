@@ -2,11 +2,17 @@ package com.korit.running_back_s2.service;
 
 import com.korit.running_back_s2.domain.user.User;
 import com.korit.running_back_s2.domain.user.UserMapper;
+import com.korit.running_back_s2.dto.user.UserMyPageUpdateReqDto;
 import com.korit.running_back_s2.dto.user.UserRegisterReqDto;
 import com.korit.running_back_s2.security.jwt.JwtUtil;
 import com.korit.running_back_s2.security.model.PrincipalUser;
+<<<<<<< HEAD
 import com.korit.running_back_s2.security.model.PrincipalUtil;
 import lombok.RequiredArgsConstructor;
+=======
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+>>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +28,10 @@ public class UserService {
     private final UserMapper userMapper;
     private final JwtUtil jwtUtil;
     private final FileService fileService;
+<<<<<<< HEAD
     private final PrincipalUtil principalUtil;
+=======
+>>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
 
     public Map<String, String> register(UserRegisterReqDto dto) {
         User user = dto.Entity();
@@ -32,6 +41,31 @@ public class UserService {
         Map<String, String> result = new HashMap<>();
         result.put("accessToken", accessToken);
         return result;
+<<<<<<< HEAD
+=======
+    }
+
+
+    public String checkNickname(String nickname) {
+        User user = userMapper.findByNickname(nickname);
+        if (user == null) {
+            return "false";  // 사용 가능한 닉네임
+        } else {
+            return "true";   // 중복된 닉네임
+        }
+    }
+
+    public User getMyPage(Integer userId) {
+        User user = userMapper.findById(userId);
+        return user;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void updateUserProfileImg(MultipartFile file) {
+        PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String fileName = fileService.uploadFile(file, "/profile");
+        userMapper.updateProfileImgById(principalUser.getUser().getUserId(), fileName);
+>>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
     }
 
 

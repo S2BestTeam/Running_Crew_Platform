@@ -6,7 +6,11 @@ import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import usePrincipalQuery from '../../queries/usePrincipalQuery';
 import { FiPlus, FiX } from 'react-icons/fi';
+<<<<<<< HEAD
 import { reqCheckCrewName, reqRegisterCrew } from '../../api/crew/crewApi';
+=======
+import { reqCheckCrewName, reqRegisterCrew } from '../../api/crew/CrewApi';
+>>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
 import { reqGunguList } from '../../api/useReqList';
 import { data, useNavigate } from 'react-router-dom';
 

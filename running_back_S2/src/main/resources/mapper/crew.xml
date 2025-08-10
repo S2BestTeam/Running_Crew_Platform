@@ -58,10 +58,17 @@
             LEFT OUTER JOIN gungu_tb gt ON gt.gungu_id = ct.gungu_id
             LEFT OUTER JOIN user_tb ut ON ut.user_id = ct.user_id
         WHERE
+<<<<<<< HEAD
             ct.crew_name LIKE CONCAT('%', #{searchText}, '%')
             <if test="gunguId != null and gunguId != -1">
                 AND ct.gungu_id = #{gunguId}
             </if>
+=======
+        ct.crew_name LIKE CONCAT('%', #{searchText}, '%')
+        <if test="gunguId != null and gunguId != -1">
+            AND ct.gungu_id = #{gunguId}
+        </if>
+>>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
         ORDER BY ct.crew_id DESC
         LIMIT #{startIndex}, #{size}
     </select>
@@ -71,10 +78,17 @@
         FROM
             crew_tb ct
         WHERE
+<<<<<<< HEAD
             ct.crew_name LIKE CONCAT('%', #{searchText}, '%')
             <if test="gunguId != null and gunguId != -1">
                 AND ct.gungu_id = #{gunguId}
             </if>
+=======
+        ct.crew_name LIKE CONCAT('%', #{searchText}, '%')
+        <if test="gunguId != null and gunguId != -1">
+            AND ct.gungu_id = #{gunguId}
+        </if>
+>>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
     </select>
     <select id="findByCrewId" resultType="com.korit.running_back_s2.domain.crew.Crew">
         SELECT
@@ -104,6 +118,10 @@
             LEFT OUTER JOIN user_tb ut ON ut.user_id = ct.user_id
         ORDER BY
             ct.created_at DESC
+<<<<<<< HEAD
+=======
+        where
+>>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
     </select>
 
     <insert id="insert" parameterType="com.korit.running_back_s2.domain.crew.Crew" useGeneratedKeys="true" keyProperty="crewId">
@@ -113,10 +131,18 @@
 
     <select id="findByCrewName" resultType="com.korit.running_back_s2.domain.crew.Crew">
         select
+<<<<<<< HEAD
             *
         from
             crew_tb
         where
             crew_name = #{crewName}
+=======
+        *
+        from
+        crew_tb
+        where
+        crew_name = #{crewName}
+>>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
     </select>
 </mapper>

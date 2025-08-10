@@ -2,13 +2,27 @@ package com.korit.running_back_s2.service;
 
 import com.korit.running_back_s2.domain.crew.Crew;
 import com.korit.running_back_s2.domain.crew.CrewMapper;
+<<<<<<< HEAD
 import com.korit.running_back_s2.dto.crew.CrewRegisterReqDto;
 import com.korit.running_back_s2.dto.crew.CrewSearchReqDto;
 import com.korit.running_back_s2.dto.crew.CrewSearchRespDto;
+=======
+import com.korit.running_back_s2.domain.crew.CrewSearchOption;
+import com.korit.running_back_s2.dto.response.PaginationRespDto;
+import com.korit.running_back_s2.dto.response.crew.CrewListRespDto;
+import com.korit.running_back_s2.dto.response.crew.CrewSearchReqDto;
+import com.korit.running_back_s2.dto.response.crew.CrewSearchRespDto;
+import com.korit.running_back_s2.dto.crew.CrewRegisterReqDto;
+import com.korit.running_back_s2.security.model.PrincipalUtil;
+>>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+<<<<<<< HEAD
+=======
+import java.util.stream.Collectors;
+>>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
 
 @Service
 @RequiredArgsConstructor
@@ -60,4 +74,8 @@ public class CrewService {
             return "true";
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/14-마이페이지-수정-기능-및-css-작업

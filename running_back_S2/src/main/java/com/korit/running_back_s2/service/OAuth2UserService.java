@@ -20,28 +20,43 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
     @Transactional(rollbackFor = Exception.class)
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
+<<<<<<< HEAD
         String name = null;
         String img = null;
         String email = null;
+=======
+        String email = null;
+        String img = null;
+>>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
         String providerId = null;
 
         OAuth2User oAuth2User = super.loadUser(userRequest);
+        System.out.println(oAuth2User.getAttributes());
 
         // OAuth 제공자별 정보 추출
         if ("google".equals(registrationId)) {
+            providerId = oAuth2User.getAttribute("sub");
             email = oAuth2User.getAttribute("email");
+<<<<<<< HEAD
             name = oAuth2User.getAttribute("name");
             img = oAuth2User.getAttribute("picture");
             providerId = oAuth2User.getAttribute("sub");
+=======
+            img = oAuth2User.getAttribute("picture");
+>>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
         }
         else if ("kakao".equals(registrationId)) {
             Map<String, Object> attributes = oAuth2User.getAttributes();
             Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
             Map<String, Object> profile = (Map<String, Object>) kakaoAccount.get("profile");
 
+            providerId = attributes.get("id").toString();
             email = kakaoAccount.get("email").toString();
+<<<<<<< HEAD
             name = profile.get("nickname").toString();
             providerId = attributes.get("id").toString();
+=======
+>>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
             img = profile.get("thumbnail_image_url").toString();
         }
         else if ("naver".equals(registrationId)) {
@@ -49,13 +64,18 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
 
             providerId = (String) response.get("id");
             email = (String) response.get("email");
+<<<<<<< HEAD
             name = (String) response.get("name");
             img = (String) response.get("profile_image");
+=======
+        }
+        else if ("naver".equals(registrationId)) {
+            Map<String, Object> response = (Map<String, Object>) oAuth2User.getAttributes().get("response");
+>>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
         }
         
         User user = User.builder()
                 .email(email)
-                .fullName(name)
                 .oauthType(registrationId)
                 .profileImg(img)
                 .providerId(providerId)

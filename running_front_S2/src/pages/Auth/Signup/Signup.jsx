@@ -2,7 +2,11 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { reqGunguList } from "../../../api/useReqList";
+<<<<<<< HEAD
 import { reqCheckNickname, reqRegisterUser } from "../../../api/user/userApi";
+=======
+import { reqCheckNickname, reqRegisterUser } from "../../../api/user/UserApi";
+>>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
 import { useQueryClient } from "@tanstack/react-query";
 import {
   SIGNUP_REGEX,
