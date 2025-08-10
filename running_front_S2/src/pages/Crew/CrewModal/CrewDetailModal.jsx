@@ -114,10 +114,10 @@ function CrewDetailModal({ crew, isOpen, onClose }) {
                     <div css={s.stateText}>불러오는 중...</div>
                   )}
                   {boardsQuery.isError && (
-                    <div css={s.stateText}>목록을 불러오지 못했어 😢</div>
+                    <div css={s.stateText}>목록을 불러오지 못했습니다.</div>
                   )}
                   {!boardsQuery.isLoading && boards.length === 0 && (
-                    <div css={s.emptyBox}>등록된 러닝모집이 없어요.</div>
+                    <div css={s.emptyBox}>등록된 정기모집이 없습니다.</div>
                   )}
 
                   <ul css={s.boardList}>
@@ -148,10 +148,12 @@ function CrewDetailModal({ crew, isOpen, onClose }) {
                     <div css={s.stateText}>멤버 불러오는 중...</div>
                   )}
                   {membersQuery.isError && (
-                    <div css={s.stateText}>멤버 정보를 불러오지 못했어 😢</div>
+                    <div css={s.stateText}>
+                      멤버 정보를 불러오지 못했습니다.
+                    </div>
                   )}
                   {!membersQuery.isLoading && members.length === 0 && (
-                    <div css={s.emptyBox}>아직 멤버가 없어요.</div>
+                    <div css={s.emptyBox}>아직 멤버가 없습니다.</div>
                   )}
 
                   <div css={s.memberGrid}>
