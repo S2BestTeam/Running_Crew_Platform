@@ -7,6 +7,8 @@ import { Stack, Pagination, Select, MenuItem } from "@mui/material";
 
 import useGetCrewListQuery from "../../../queries/useGetCrewListQuery";
 import useGetGunguListQuery from "../../../queries/useGetGunguListQuery";
+import { baseURL } from "../../../api/axios";
+
 
 function CrewList() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -31,6 +33,7 @@ function CrewList() {
     gunguId: selectedGunguId,
   });
 
+
   const { data: gunguData } = useGetGunguListQuery();
   const gunguList = gunguData?.data?.body || [];
   const crewList = crewData?.data?.body?.contents || [];
@@ -53,6 +56,8 @@ function CrewList() {
       return newParams;
     });
   };
+
+    console.log(crewList)
 
   return (
     <div css={s.layout}>
@@ -92,9 +97,13 @@ function CrewList() {
             <div key={crew.crewId} css={s.crewCard}>
               <div css={s.crewImageBox}>
                 <img
-                  src={crew.crewImgPath}
+                  src={`${baseURL}/crew/${crew.crewImgPath}`}
                   alt={crew.crewName}
                   css={s.crewImg}
+                  onError={(e) => {
+                    console.log("이미지 로드 실패:", e.target.src);
+                    e.target.src = "/default-crew-image.png"; // 기본 이미지로 대체
+                  }}
                 />
               </div>
               <div css={s.crewName}>{crew.crewName}</div>

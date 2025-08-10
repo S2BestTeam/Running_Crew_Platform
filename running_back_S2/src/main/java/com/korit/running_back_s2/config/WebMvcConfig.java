@@ -25,8 +25,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // 기존: /image/** → upload/
         registry.addResourceHandler("/image/**")
-                .addResourceLocations("file:///" + rootPath + "/upload")
+                .addResourceLocations("file:///" + rootPath + "/upload/")
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver() {
                     @Override
@@ -35,6 +36,20 @@ public class WebMvcConfig implements WebMvcConfigurer {
                         return super.getResource(resourcePath, location);
                     }
                 });
+
+        // 추가: /crew/** → upload/crew/
+        registry.addResourceHandler("/crew/**")
+                .addResourceLocations("file:///" + rootPath + "/upload/crew/")
+                .resourceChain(true)
+                .addResolver(new PathResourceResolver() {
+                    @Override
+                    protected Resource getResource(String resourcePath, Resource location) throws IOException {
+                        resourcePath = URLDecoder.decode(resourcePath, StandardCharsets.UTF_8);
+                        return super.getResource(resourcePath, location);
+                    }
+                });
+
+        // super 호출은 마지막에 한 번만
         WebMvcConfigurer.super.addResourceHandlers(registry);
     }
 }

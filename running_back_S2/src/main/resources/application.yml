@@ -10,15 +10,25 @@ spring:
   config:
     activate:
       on-profile: local-server
+
 server:
   domain: http://localhost:8080
 
 ---
 
 spring:
+  web:
+    resources:
+      static-locations: file:upload/
+
+---
+
+
+spring:
   config:
     activate:
       on-profile: common
+
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

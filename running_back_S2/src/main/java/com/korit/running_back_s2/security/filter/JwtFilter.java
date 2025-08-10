@@ -28,6 +28,13 @@ public class JwtFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
 
+        // ✅ 이미지, 정적 리소스는 무조건 통과
+        String uri = request.getRequestURI();
+        if (uri.startsWith("/image/") || uri.startsWith("/images/") || uri.startsWith("/crew/")) {
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+
         // OPTIONS 요청은 그대로 통과
         if (request.getMethod().equalsIgnoreCase("OPTIONS")) {
             filterChain.doFilter(servletRequest, servletResponse);
