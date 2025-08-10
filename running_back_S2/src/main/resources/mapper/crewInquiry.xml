@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.korit.running_back_s2.domain.inquiries.crew.CrewInquiryMapper">
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="crewInquiryId">
+        insert into crew_inquiry_tb (crew_id, user_id, category, title, content, status)
+        values (#{crewId}, #{userId}, #{category}, #{title}, #{content}, #{status})
+    </insert>
+
+    <update id="update">
+        update
+            crew_inquiry_tb
+        set
+            category = #{category},
+            title = #{title},
+            content = #{content},
+            create_at = #{createAt}
+        where
+            crew_inquiry_id = #{crewInquiryId}
+    </update>
+
+    <select id="findAll" resultType="com.korit.running_back_s2.domain.inquiries.crew.CrewInquiry">
+        select
+            *
+        from
+            crew_inquiry_tb
+    </select>
+</mapper>

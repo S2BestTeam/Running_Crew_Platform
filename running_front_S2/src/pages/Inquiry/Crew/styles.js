@@ -11,22 +11,22 @@ export const headerSection = css`
     display: flex;
     justify-content: flex-end;
 
-  & > button {
-    padding: 1rem 2rem;
-    background: #000912ff;
-    color: white;
-    border: none;
-    border-radius: 0.6rem;
-    cursor: pointer;
-    font-size: 1.4rem;
-    
+    & > button {
+      padding: 1rem 2rem;
+      background: #000912ff;
+      color: white;
+      border: none;
+      border-radius: 0.6rem;
+      cursor: pointer;
+      font-size: 1.4rem;
+      
       &:hover {
         background: gray;
       }
-    
+      
       &:disabled {
         background: #ccc;
-      cursor: not-allowed;
+        cursor: not-allowed;
       }
     }
   }
@@ -188,7 +188,7 @@ export const modalFooter = css`
   justify-content: flex-end;
 `;
 
-export const updateButton = css`
+export const modifyButton = css`
   padding: 1rem 2rem;
   background: white;
   border: 0.1rem solid #ddd;

@@ -25,66 +25,66 @@
     <update id="update">
         update user_tb
         set
-        user_id = #{userId},
-        full_name = #{fullName},
-        email = #{email},
-        phone_number = #{phoneNumber},
-        nickname = #{nickname},
-        birth_date = #{birthDate},
-        gender = #{gender},
-        profile_img = #{profileImg},
-        gungu_id = #{gunguId}
+            user_id = #{userId},
+            full_name = #{fullName},
+            email = #{email},
+            phone_number = #{phoneNumber},
+            nickname = #{nickname},
+            birth_date = #{birthDate},
+            gender = #{gender},
+            profile_img = #{profileImg},
+            gungu_id = #{gunguId}
         where
-        user_id = #{userId}
+            user_id = #{userId}
     </update>
 
     <update id="updateProfileImgById">
         update user_tb
         set
-        profile_img = #{profileImg}
+            profile_img = #{profileImg}
         where
-        user_id = #{userId}
+            user_id = #{userId}
     </update>
 
     <select id="findByEmail" resultType="com.korit.running_back_s2.domain.user.User">
         select
-        *
+            *
         from
-        user_tb
+            user_tb
         where
-        email = #{email}
+            email = #{email}
     </select>
 
     <select id="findById" resultMap="UserMap">
         select
-        ut.user_id,
-        ut.email,
-        ut.oauth_type,
-        ut.full_name,
-        ut.phone_number,
-        ut.nickname,
-        ut.birth_date,
-        ut.gender,
-        ut.profile_img,
-        ut.gungu_id as ut_gungu_id,
-        gt.gungu_id,
-        gt.gungu_name,
-        ut.provider_id,
-        ut.created_at
+            ut.user_id,
+            ut.email,
+            ut.oauth_type,
+            ut.full_name,
+            ut.phone_number,
+            ut.nickname,
+            ut.birth_date,
+            ut.gender,
+            ut.profile_img,
+            ut.gungu_id as ut_gungu_id,
+            gt.gungu_id,
+            gt.gungu_name,
+            ut.provider_id,
+            ut.created_at
         from
-        user_tb ut
-        left outer join gungu_tb gt on (gt.gungu_id = ut.gungu_id)
+            user_tb ut
+            left outer join gungu_tb gt on (gt.gungu_id = ut.gungu_id)
         where
-        ut.user_id = #{userId}
+            ut.user_id = #{userId}
     </select>
 
     <select id="findByNickname" resultType="com.korit.running_back_s2.domain.user.User">
         select
-        *
+            *
         from
-        user_tb
+            user_tb
         where
-        nickname = #{nickname}
+            nickname = #{nickname}
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="userId">

@@ -6,9 +6,9 @@
 
     <select id="getAllGungu" resultType="com.korit.running_back_s2.domain.gungu.Gungu">
         select
-        gungu_id,
-        gungu_name
+            gungu_id,
+            gungu_name
         from
-        gungu_tb
+            gungu_tb
     </select>
 </mapper>

@@ -13,7 +13,6 @@ public class GunguService {
 
     private final GunguMapper gunguMapper;
 
-
     public List<Gungu> getAllGungu() {
         return gunguMapper.getAllGungu();
     }
