@@ -11,11 +11,7 @@ public interface CrewMapper {
     List<Crew> findAllBySearchOption(CrewSearchOption searchOption);
     Integer getCountOfOptions(CrewSearchOption searchOption);
     Crew findByCrewId(Integer crewId);
-<<<<<<< HEAD
-}
-=======
 }
 
 
 
->>>>>>> origin/14-마이페이지-수정-기능-및-css-작업

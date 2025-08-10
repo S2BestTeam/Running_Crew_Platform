@@ -2,7 +2,7 @@ import api from "../axios";
 
 export const reqCheckCrewName = (crewName) => api.post("/api/crews/crewName", {data : crewName }, {
   headers: {
-      'Content-Type': 'application/json; charset=utf-8',
+    'Content-Type': 'application/json; charset=utf-8',
   },
 });
 

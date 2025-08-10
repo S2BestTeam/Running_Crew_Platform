@@ -1,17 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as s from "./styles";
-<<<<<<< HEAD
-=======
-import { reqPrincipal } from "../../../api/user/UserApi";
->>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
 import MainContainer from "../../../components/MainContainer/MainContainer";
 import api from "../../../api/axios";
 import usePrincipalQuery from "../../../queries/usePrincipalQuery";
 
 function Mypage() {
-<<<<<<< HEAD
-=======
   const [gunguList, setGunguList] = useState([]);
   const [nickname, setNickname] = useState("");
   const [isNicknameChecked, setIsNicknameChecked] = useState(false);
@@ -23,7 +17,6 @@ function Mypage() {
     phoneNumber: "",
   });
 
->>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
   const principalQuery = usePrincipalQuery();
   const userInfo = principalQuery.data?.data?.body.user;
 
@@ -45,8 +38,6 @@ function Mypage() {
     fileInput.click();
   };
 
-<<<<<<< HEAD
-=======
   const handleNicknameChange = (e) => {
     const value = e.target.value;
     setNickname(value);
@@ -78,7 +69,6 @@ function Mypage() {
     setErrors((prev) => ({ ...prev, phoneNumber: errorMsg }));
   };
 
->>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
   return (
     <MainContainer>
       {!principalQuery.isLoading && (
@@ -100,22 +90,6 @@ function Mypage() {
               </div>
             </div>
 
-<<<<<<< HEAD
-            <div>이름: {userInfo?.fullName}</div>
-            <div>이메일: {userInfo?.email}</div>
-            <div>닉네임: {userInfo?.nickname}</div>
-            <div>생년월일: {userInfo?.birthDate}</div>
-            <div>연락처: {userInfo?.phoneNumber}</div>
-            <div>
-              성별:{" "}
-              {userInfo?.gender == 1
-                ? "남자"
-                : userInfo?.gender == 2
-                ? "여자"
-                : ""}
-            </div>
-            <div>도시: {userInfo?.gungu?.gunguName}</div>
-=======
             <div>이름</div>
             <input disabled value={userInfo?.fullName}/>
             <div>이메일</div>
@@ -147,20 +121,19 @@ function Mypage() {
             <div css={gender}>
               <div>성별</div>
               <div
-                css={[box, gender === "1" && selectedBox]}
+                css={[s.box, gender === "1" && s.selectedBox]}
                 onClick={() => setGender("1")}
               >
                 남자
               </div>
               <div
-                css={[box, gender === "2" && selectedBox]}
+                css={[s.box, gender === "2" && s.selectedBox]}
                 onClick={() => setGender("2")}
               >
                 여자
               </div>
           </div>
             <div>도시: {userInfo?.gungu.gunguName}</div>
->>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
           </div>
         </div>
       )}
@@ -168,8 +141,4 @@ function Mypage() {
   );
 }
 
-<<<<<<< HEAD
 export default Mypage;
-=======
-export default Mypage;
->>>>>>> origin/14-마이페이지-수정-기능-및-css-작업

@@ -1,15 +1,9 @@
 package com.korit.running_back_s2.controller;
 
 import com.korit.running_back_s2.dto.crew.CrewRegisterReqDto;
-<<<<<<< HEAD
 import com.korit.running_back_s2.dto.crew.CrewSearchReqDto;
 import com.korit.running_back_s2.dto.crew.CrewSearchRespDto;
 import com.korit.running_back_s2.dto.response.ResponseDto;
-=======
-import com.korit.running_back_s2.dto.response.ResponseDto;
-import com.korit.running_back_s2.dto.response.crew.CrewSearchReqDto;
-import com.korit.running_back_s2.dto.response.crew.CrewSearchRespDto;
->>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
 import com.korit.running_back_s2.service.CrewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -48,7 +42,3 @@ public class CrewController {
         return ResponseEntity.ok(ResponseDto.success(crewService.getCrew(crewId)));
     }
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/14-마이페이지-수정-기능-및-css-작업

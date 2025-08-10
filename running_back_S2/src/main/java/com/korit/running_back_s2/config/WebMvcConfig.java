@@ -1,32 +1,15 @@
 package com.korit.running_back_s2.config;
 
-<<<<<<< HEAD
-=======
-import jakarta.servlet.http.HttpServletRequest;
->>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-<<<<<<< HEAD
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
-=======
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.resource.EncodedResourceResolver;
-import org.springframework.web.servlet.resource.PathResourceResolver;
-import org.springframework.web.servlet.resource.ResourceResolver;
-import org.springframework.web.servlet.resource.ResourceResolverChain;
->>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
 
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-<<<<<<< HEAD
-=======
-import java.util.List;
->>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
@@ -48,8 +31,4 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 });
         WebMvcConfigurer.super.addResourceHandlers(registry);
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/14-마이페이지-수정-기능-및-css-작업

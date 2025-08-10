@@ -3,11 +3,7 @@ import * as s from "./styles";
 import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import sanitizeHtml from "sanitize-html";
-<<<<<<< HEAD
-import { Stack, Pagination, Select, MenuItem, InputLabel, FormControl } from "@mui/material";
-=======
 import { Stack, Pagination, Select, MenuItem } from "@mui/material";
->>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
 
 import useGetCrewListQuery from "../../../queries/useGetCrewListQuery";
 import useGetGunguListQuery from "../../../queries/useGetGunguListQuery";
@@ -61,24 +57,6 @@ function CrewList() {
   return (
     <div css={s.layout}>
       <div css={s.searchBox}>
-<<<<<<< HEAD
-        <FormControl>
-          <InputLabel id="gungu-select-label">전체</InputLabel>
-          <Select
-            labelId="gungu-select-label"
-            css={s.selectInput}
-            value={selectedGunguId}
-            onChange={handleGunguChange}
-            >
-            <MenuItem value="">전체</MenuItem>
-            {gunguList.map((gungu) => (
-              <MenuItem key={gungu.gunguId} value={gungu.gunguId}>
-                {gungu.gunguName}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-=======
         <Select
           css={s.selectInput}
           value={selectedGunguId}
@@ -91,7 +69,6 @@ function CrewList() {
             </MenuItem>
           ))}
         </Select>
->>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
 
         <div css={s.searchGroup}>
           <input
@@ -143,8 +120,4 @@ function CrewList() {
   );
 }
 
-<<<<<<< HEAD
 export default CrewList;
-=======
-export default CrewList;
->>>>>>> origin/14-마이페이지-수정-기능-및-css-작업

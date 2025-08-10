@@ -27,8 +27,4 @@ public class User {
     private String providerId;
 
     private Gungu gungu;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/14-마이페이지-수정-기능-및-css-작업

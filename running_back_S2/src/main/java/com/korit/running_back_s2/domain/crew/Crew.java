@@ -7,10 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
 @Data
 @Builder
 @AllArgsConstructor
@@ -25,8 +21,4 @@ public class Crew {
 
     private User user;
     private Gungu gungu;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/14-마이페이지-수정-기능-및-css-작업

@@ -10,8 +10,4 @@ public class CrewSearchOption {
     private Integer size;
     private String searchText;
     private Integer gunguId;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/14-마이페이지-수정-기능-및-css-작업

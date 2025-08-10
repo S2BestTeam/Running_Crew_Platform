@@ -120,8 +120,4 @@ export const crewDescription = css`
   color: #444;
   text-align: center;
   line-height: 1.4;
-<<<<<<< HEAD
 `;
-=======
-`;
->>>>>>> origin/14-마이페이지-수정-기능-및-css-작업
