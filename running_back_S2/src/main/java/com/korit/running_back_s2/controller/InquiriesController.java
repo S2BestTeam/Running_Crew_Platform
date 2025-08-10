@@ -25,9 +25,9 @@ public class InquiriesController {
         return ResponseEntity.ok(ResponseDto.success(crewInquiryService.registerCrewInquiry(dto)));
     }
 
-    @PutMapping("/crews/${crewInquiryId}")
-    public ResponseEntity<ResponseDto<?>> reqModifyInquiryCrew(@RequestBody InquiryCrewModifyReqDto dto) {
-        crewInquiryService.modifyCrewInquiry(dto);
-        return ResponseEntity.ok(ResponseDto.success("수정 성공"));
-    }
+//    @PutMapping("/crews/${crewInquiryId}")
+//    public ResponseEntity<ResponseDto<?>> reqModifyInquiryCrew(@RequestBody InquiryCrewModifyReqDto dto) {
+//        crewInquiryService.modifyCrewInquiry(dto);
+//        return ResponseEntity.ok(ResponseDto.success("수정 성공"));
+//    }
 }
