@@ -50,9 +50,14 @@ public class SecurityConfig {
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         http.authorizeHttpRequests(auth -> {
+            auth.requestMatchers("/api/**").permitAll();
             auth.requestMatchers("/api/regions/**").permitAll();
+            auth.requestMatchers("/api/users/**").permitAll();
+            auth.requestMatchers("/api/mypage/**").permitAll();
+            auth.requestMatchers("/api/crews/**").permitAll();
             auth.requestMatchers("/oauth2/**").permitAll();
             auth.requestMatchers("/image/**").permitAll();
+
             auth.anyRequest().authenticated();
         });
 
@@ -69,7 +74,7 @@ public class SecurityConfig {
                 .failureHandler((request, response, exception) -> {
                     System.out.println("oauth2 인증 실패");
                     exception.printStackTrace();
-                    response.sendRedirect("/home?error=oauth2");
+                    response.sendRedirect("/?error=oauth2");
                 })
         );
 

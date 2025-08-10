@@ -1,5 +1,6 @@
 package com.korit.running_back_s2.domain.user;
 
+import com.korit.running_back_s2.domain.gungu.Gungu;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,4 +24,7 @@ public class User {
     private String profileImg;
     private Integer gunguId;
     private Integer roleId;
+    private String providerId;
+
+    private Gungu gungu;
 }

@@ -3,28 +3,93 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.korit.running_back_s2.domain.user.UserMapper">
+    <resultMap id="UserMap" type="com.korit.running_back_s2.domain.user.User">
+        <id property="userId" column="user_id" />
+        <result property="email" column="email" />
+        <result property="oauthType" column="oauth_type" />
+        <result property="fullName" column="full_name" />
+        <result property="phoneNumber" column="phone_number" />
+        <result property="nickname" column="nickname" />
+        <result property="birthDate" column="birth_date" />
+        <result property="gender" column="gender" />
+        <result property="profileImg" column="profile_img" />
+        <result property="gunguId" column="ut_gungu_id" />
+        <result property="providerId" column="ut_provider_id" />
+        <association property="gungu" resultMap="GunguMap" />
+    </resultMap>
+    <resultMap id="GunguMap" type="com.korit.running_back_s2.domain.gungu.Gungu">
+        <id property="gunguId" column="ut_gungu_id" />
+        <result property="gunguName" column="gungu_name" />
+    </resultMap>
+
+    <update id="update">
+        update user_tb
+        set
+        user_id = #{userId},
+        full_name = #{fullName},
+        email = #{email},
+        phone_number = #{phoneNumber},
+        nickname = #{nickname},
+        birth_date = #{birthDate},
+        gender = #{gender},
+        profile_img = #{profileImg},
+        gungu_id = #{gunguId}
+        where
+        user_id = #{userId}
+    </update>
+
+    <update id="updateProfileImgById">
+        update user_tb
+        set
+        profile_img = #{profileImg}
+        where
+        user_id = #{userId}
+    </update>
 
     <select id="findByEmail" resultType="com.korit.running_back_s2.domain.user.User">
         select
-            *
+        *
         from
-            user_tb
+        user_tb
         where
-            email = #{email}
+        email = #{email}
     </select>
 
-    <select id="findById" resultType="com.korit.running_back_s2.domain.user.User">
+    <select id="findById" resultMap="UserMap">
         select
-            *
+        ut.user_id,
+        ut.email,
+        ut.oauth_type,
+        ut.full_name,
+        ut.phone_number,
+        ut.nickname,
+        ut.birth_date,
+        ut.gender,
+        ut.profile_img,
+        ut.gungu_id as ut_gungu_id,
+        gt.gungu_id,
+        gt.gungu_name,
+        ut.provider_id,
+        ut.created_at
         from
-            user_tb
+        user_tb ut
+        left outer join gungu_tb gt on (gt.gungu_id = ut.gungu_id)
         where
-            user_id = #{userId}
+        ut.user_id = #{userId}
     </select>
 
-    <insert id="insert">
+    <select id="findByNickname" resultType="com.korit.running_back_s2.domain.user.User">
+        select
+        *
+        from
+        user_tb
+        where
+        nickname = #{nickname}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="userId">
         INSERT INTO user_tb
-            ( email, oauth_type, full_name, phone_number, nickname, birth_date, gender, profile_img, gungu_id )
-        VALUES ( #{email}, #{oauthType}, #{fullName}, #{phoneNumber}, #{nickname}, #{birthDate}, #{gender}, #{profileImg}, #{gunguId} )
+        ( email, provider_id, oauth_type, full_name, phone_number, nickname, birth_date, gender, profile_img, gungu_id )
+        VALUES ( #{email}, #{providerId}, #{oauthType}, #{fullName}, #{phoneNumber}, #{nickname}, #{birthDate}, #{gender}, #{profileImg}, #{gunguId} )
     </insert>
 </mapper>

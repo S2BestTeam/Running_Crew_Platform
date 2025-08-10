@@ -1,7 +1,7 @@
 package com.korit.running_back_s2.service;
 
-import com.korit.running_back_s2.domain.region.Gungu;
-import com.korit.running_back_s2.domain.region.RegionMapper;
+import com.korit.running_back_s2.domain.gungu.Gungu;
+import com.korit.running_back_s2.domain.gungu.GunguMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -9,12 +9,12 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class RegionService {
+public class GunguService {
 
-    private final RegionMapper regionMapper;
+    private final GunguMapper gunguMapper;
 
 
     public List<Gungu> getAllGungu() {
-        return regionMapper.getAllGungu();
+        return gunguMapper.getAllGungu();
     }
 }

@@ -1,4 +1,4 @@
-package com.korit.running_back_s2.domain.region;
+package com.korit.running_back_s2.domain.gungu;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

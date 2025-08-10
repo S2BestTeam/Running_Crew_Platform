@@ -3,7 +3,7 @@ import * as s from "./styles";
 import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import sanitizeHtml from "sanitize-html";
-import { Stack, Pagination, Select, MenuItem } from "@mui/material";
+import { Stack, Pagination, Select, MenuItem, InputLabel, FormControl } from "@mui/material";
 
 import useGetCrewListQuery from "../../../queries/useGetCrewListQuery";
 import useGetGunguListQuery from "../../../queries/useGetGunguListQuery";
@@ -57,18 +57,22 @@ function CrewList() {
   return (
     <div css={s.layout}>
       <div css={s.searchBox}>
-        <Select
-          css={s.selectInput}
-          value={selectedGunguId}
-          onChange={handleGunguChange}
-        >
-          <MenuItem value="">전체</MenuItem>
-          {gunguList.map((gungu) => (
-            <MenuItem key={gungu.gunguId} value={gungu.gunguId}>
-              {gungu.gunguName}
-            </MenuItem>
-          ))}
-        </Select>
+        <FormControl>
+          <InputLabel id="gungu-select-label">전체</InputLabel>
+          <Select
+            labelId="gungu-select-label"
+            css={s.selectInput}
+            value={selectedGunguId}
+            onChange={handleGunguChange}
+            >
+            <MenuItem value="">전체</MenuItem>
+            {gunguList.map((gungu) => (
+              <MenuItem key={gungu.gunguId} value={gungu.gunguId}>
+                {gungu.gunguName}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
 
         <div css={s.searchGroup}>
           <input

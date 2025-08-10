@@ -4,6 +4,7 @@ import ReactModal from 'react-modal';
 import { useEffect, useState } from 'react';
 import { FiX } from 'react-icons/fi';
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
+import { reqRegisterInquiryCrew } from '../../../api/Inquiry/crewInquiryApi';
 
 function CrewInquiry(props) {
   const principalQuery = usePrincipalQuery();
@@ -82,6 +83,7 @@ function CrewInquiry(props) {
         status: "대기"
       };
       setInquiries(prev => [newInquiry, ...prev]);
+      reqRegisterInquiryCrew(inquiries);
     }
 
     handleModalClose();
