@@ -13,13 +13,20 @@
         update
             crew_inquiry_tb
         set
-            category = #{category},
             title = #{title},
             content = #{content},
-            create_at = #{createAt}
+            created_at = #{createdAt}
         where
             crew_inquiry_id = #{crewInquiryId}
     </update>
+
+    <delete id="delete">
+        delete
+        from
+            crew_inquiry_tb
+        where
+            crew_inquiry_id = #{crewInquiryId}
+    </delete>
 
     <select id="findAll" resultType="com.korit.running_back_s2.domain.inquiries.crew.CrewInquiry">
         select
