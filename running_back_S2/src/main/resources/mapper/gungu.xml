@@ -6,11 +6,27 @@
 
     <select id="findGunguIdByName" resultType="java.lang.Integer">
         select
+<<<<<<< HEAD
             gungu_id
         from
             gungu_tb
         where
             gungu_name = #{gunguName}
+=======
+        gungu_id,
+        gungu_name
+        from
+        gungu_tb
+    </select>
+
+    <select id="findGunguIdByName" resultType="java.lang.Integer">
+        select
+        gungu_id
+        from
+        gungu_tb
+        where
+        gungu_name = #{gunguName}
+>>>>>>> origin/20-crew-register
     </select>
 
 </mapper>
