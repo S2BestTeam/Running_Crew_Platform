@@ -5,11 +5,16 @@ import Signin from "./pages/Auth/Signin/Signin";
 import Home from "./pages/home/Home";
 import Signup from "./pages/Auth/Signup/Signup";
 import usePrincipalQuery from "./queries/usePrincipalQuery";
+<<<<<<< HEAD
 import CrewDetail from "./pages/Crew/CrewDetail";
+=======
+import CrewDetail from "./pages/Crew/CrewDetail/CrewDetail";
+import CrewRegister from "./pages/Crew/CrewRegister/CrewRegister";
+>>>>>>> origin/20-crew-register
 
 function App() {
   const principalQuery = usePrincipalQuery();
-  
+
   return (
     <>
       <Header />
@@ -18,6 +23,10 @@ function App() {
         <Route path="/auth/oauth2/signin" element={<Signin />} />
         <Route path="/auth/oauth2/signup" element={<Signup />} />
         <Route path="/crew" element={<CrewDetail />} />
+<<<<<<< HEAD
+=======
+        <Route path="/crew/register" element={<CrewRegister />} />
+>>>>>>> origin/20-crew-register
       </Routes>
       <Footer />
     </>
