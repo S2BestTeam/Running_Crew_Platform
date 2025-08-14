@@ -63,20 +63,24 @@ function CrewDetail(props) {
           </div>
           <div>
             <p>크루 멤버 (count)</p>
-            <div css={s.memberBox}>
-              <div css={s.member}>
-                <div>
+            <div css={s.memberContainer}>
+              <div css={s.memberBox}>
+                <div css={s.member}>
                   <div css={s.memberImg}>
                     <img src="/images/crew-member.jpg" alt="크루 멤버" />
                   </div>
-                  <div css={s.memberName}>홍길동</div>
+                  <div css={s.memberNS}>
+                    <div css={s.memberName}>홍길동</div>
+                    <div css={s.memberStatus}>안녕하세요</div>
+                  </div>
                 </div>
               </div>
-              <div>
+              <div css={s.member}>
                 <div css={s.memberImg}>
                   <img src="/images/crew-member.jpg" alt="크루 멤버" />
                 </div>
-                <div css={s.memberName}>김철수</div>
+                <div css={s.memberName}>홍길동</div>
+                <div css={s.memberStatus}>안녕하세요</div>
               </div>
             </div>
           </div>

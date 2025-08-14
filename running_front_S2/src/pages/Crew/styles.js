@@ -196,7 +196,7 @@ export const joinButton = css`
   }
 `;
 
-export const memberBox = css`
+export const memberContainer = css`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -206,17 +206,23 @@ export const memberBox = css`
   padding: 0.5rem;
   border-radius: 0.5rem;
 
-  /* 스크롤바 숨김 */
   &::-webkit-scrollbar {
     display: none;
   }
 `;
 
+export const memberBox = css`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+`;
+
 export const member = css`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  width: 5rem;
+  width: 6rem;
   cursor: pointer;
 `;
 
@@ -235,10 +241,25 @@ export const memberImg = css`
   }
 `;
 
+export const memberNS = css`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const memberName = css`
   font-size: 0.9rem;
   font-weight: bold;
   color: #333;
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+export const memberStatus = css`
+  font-size: 0.8rem;
+  color: gray;
   text-align: center;
   width: 100%;
   overflow: hidden;
