@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { reqPrincipal } from "../api/user/UserApi";
+import { reqPrincipal } from "../api/User/userApi";
 
 function usePrincipalQuery() {
   return useQuery({
