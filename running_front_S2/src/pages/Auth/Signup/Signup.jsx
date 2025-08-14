@@ -25,7 +25,6 @@ function Signup() {
     isNicknameChecked: false
   });
 
-  // 에러 상태는 별도로 유지 (용도가 다르므로)
   const [errors, setErrors] = useState({
     nickname: "",
     phoneNumber: "",
@@ -130,7 +129,7 @@ function Signup() {
     };
 
     try {
-      // const result = await reqRegisterUser(regUser);
+      const result = await reqRegisterUser(regUser);
       console.log(regUser);
       
       const accessToken = result?.data?.body?.accessToken;

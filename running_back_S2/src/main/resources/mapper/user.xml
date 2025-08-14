@@ -22,9 +22,18 @@
             nickname = #{nickname}
     </select>
 
+    <select id="findById" resultType="com.korit.running_back_s2.domain.user.User">
+        select
+            *
+        from
+            user_tb
+        where
+            user_id = #{userId}
+    </select>
+
     <insert id="insert" useGeneratedKeys="true" keyProperty="userId">
         INSERT INTO user_tb
-        ( email, provider_id, oauth_type, full_name, phone_number, nickname, birth_date, gender, profile_img, gungu_id )
-        VALUES ( #{email}, #{providerId}, #{oauthType}, #{fullName}, #{phoneNumber}, #{nickname}, #{birthDate}, #{gender}, #{profileImg}, #{gunguId} )
+        (oauth_type, provider_id, email, profile_img, full_name, nickname, phone_number, gungu_id, address, birth_date, gender, role_id, user_total_km  )
+        VALUES (#{oauthType}, #{providerId}, #{email}, #{profileImg}, #{fullName}, #{nickname}, #{phoneNumber}, #{gunguId}, #{address}, #{birthDate}, #{gender}, #{roleId}, #{userTotalKM} )
     </insert>
 </mapper>
