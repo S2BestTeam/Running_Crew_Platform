@@ -85,6 +85,10 @@ export const mainBox = css`
   padding-left: 2rem;
 `;
 
+export const mainLine = css`
+  padding-left: 1rem;
+`;
+
 export const titleBox = css`
   border: 0.1rem solid #dbdbdb;
   border-radius: 0.5rem;
@@ -196,37 +200,37 @@ export const joinButton = css`
   }
 `;
 
+export const memberContainer = css`
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin: 1rem 0;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+`;
+
 export const memberBox = css`
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 1rem;
-  margin: 1rem 0;
-  overflow-x: auto;
   padding: 0.5rem;
-  border-radius: 0.5rem;
-
-  /* 스크롤바 숨김 */
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 export const member = css`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 5rem;
   cursor: pointer;
 `;
 
 export const memberImg = css`
-  width: 3rem;
-  height: 3rem;
+  width: 4rem;
+  height: 4rem;
   border-radius: 50%;
   overflow: hidden;
   background-color: #e0e0e0;
-  margin-bottom: 0.3rem;
+  flex-shrink: 0;
 
   & > img {
     width: 100%;
@@ -235,12 +239,25 @@ export const memberImg = css`
   }
 `;
 
+export const memberInfo = css`
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex: 1;
+`;
+
 export const memberName = css`
   font-size: 0.9rem;
   font-weight: bold;
   color: #333;
-  text-align: center;
-  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+export const memberStatus = css`
+  font-size: 0.8rem;
+  color: gray;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
