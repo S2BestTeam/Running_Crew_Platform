@@ -1,11 +1,8 @@
 package com.korit.running_back_s2.service;
 
-<<<<<<< HEAD
-=======
 import com.korit.running_back_s2.domain.crew.Crew;
 import com.korit.running_back_s2.domain.crew.CrewMapper;
 import com.korit.running_back_s2.dto.crew.CrewRegisterReqDto;
->>>>>>> origin/20-crew-register
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +10,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CrewService {
 
-<<<<<<< HEAD
-
-}
-=======
     private final CrewMapper crewMapper;
     private final FileService fileService;
 
@@ -47,4 +40,3 @@ public class CrewService {
         }
     }
 }
->>>>>>> origin/20-crew-register

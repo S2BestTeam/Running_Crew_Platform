@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.korit.running_back_s2.domain.crew.CrewMapper">
+
     <resultMap id="CrewMap" type="com.korit.running_back_s2.domain.crew.Crew">
         <id property="crewId" column="crew_id" />
         <result property="gunguId" column="ct_gungu_id" />
