@@ -1,6 +1,5 @@
 package com.korit.running_back_s2.domain.user;
 
-import com.korit.running_back_s2.domain.gungu.Gungu;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,17 +13,18 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class User {
     private Integer userId;
-    private String email;
     private String oauthType;
+    private String providerId;
+    private String email;
+    private String profileImg;
     private String fullName;
-    private String phoneNumber;
     private String nickname;
+    private Integer gunguId;
+    private String address;
+    private String phoneNumber;
     private LocalDate birthDate;
     private Integer gender;
-    private String profileImg;
-    private Integer gunguId;
     private Integer roleId;
-    private String providerId;
+    private Double userTotalKM;
 
-    private Gungu gungu;
 }

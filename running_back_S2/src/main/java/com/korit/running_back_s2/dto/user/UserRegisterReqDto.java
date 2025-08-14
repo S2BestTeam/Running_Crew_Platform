@@ -7,29 +7,34 @@ import java.time.LocalDate;
 
 @Data
 public class UserRegisterReqDto {
-    private String email;
     private String oauthType;
-    private String name;
-    private String phoneNumber;
+    private String providerId;
+    private String email;
+    private String profileImg;
+    private String fullName;
     private String nickname;
+    private String phoneNumber;
     private LocalDate birthDate;
     private Integer gender;
-    private String profileImg;
+    private String address;
     private Integer gunguId;
-    private String providerId;
+    private Integer roleId;
+    private Double userTotalKM;
 
-    public User Entity() {
+    public User toEntity() {
         return User.builder()
                 .email(email)
                 .oauthType(oauthType)
-                .fullName(name)
+                .fullName(fullName)
                 .phoneNumber(phoneNumber)
                 .nickname(nickname)
                 .birthDate(birthDate)
                 .gender(gender)
+                .address(address)
                 .profileImg(profileImg)
-                .gunguId(gunguId)
+                .roleId(3)
                 .providerId(providerId)
+                .userTotalKM(0.0)
                 .build();
     }
 }
