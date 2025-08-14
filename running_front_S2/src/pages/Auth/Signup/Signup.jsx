@@ -1,10 +1,8 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import { reqGunguList } from "../../../api/useReqList";
 import { useQueryClient } from "@tanstack/react-query";
 import {SIGNUP_REGEX, SIGNUP_REGEX_ERROR_MESSAGE,} from "../../../constants/signupRegex";
-import { reqCheckNickname, reqRegisterUser } from "../../../api/user/UserApi";
+import { reqCheckNickname, reqRegisterUser } from "../../../api/User/userApi";
 
 function Signup() {
   const navigate = useNavigate();
@@ -15,32 +13,42 @@ function Signup() {
   const oauthType = searchParams.get("oauthType");
   const img = searchParams.get("img");
 
-  const [gunguList, setGunguList] = useState([]);
-  const [selectedGunguId, setSelectedGunguId] = useState("");
+  const [user, setUser] = useState({
+    nickname: "",
+    name: "",
+    phoneNumber: "",
+    gender: "",
+    address: "",
+    selectedYear: "",
+    selectedMonth: "",
+    selectedDay: "",
+    isNicknameChecked: false
+  });
 
-  const [nickname, setNickname] = useState("");
-  const [isNicknameChecked, setIsNicknameChecked] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [gender, setGender] = useState("");
-  const [name, setName] = useState("");
-  const [selectedYear, setSelectedYear] = useState("");
-  const [selectedMonth, setSelectedMonth] = useState("");
-  const [selectedDay, setSelectedDay] = useState("");
-
+  // 에러 상태는 별도로 유지 (용도가 다르므로)
   const [errors, setErrors] = useState({
     nickname: "",
     phoneNumber: "",
   });
 
   useEffect(() => {
-    reqGunguList()
-      .then((res) => setGunguList(res.data.body))
-      .catch((err) => console.error(err));
+    const script = document.createElement("script");
+    script.src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+    script.async = true;
+    document.body.appendChild(script);
   }, []);
 
-  const BIRTHDAY_YEAR_LIST = Array.from({ length: 50 }, (_, i) => 1970 + i);
+  const currentYear = new Date().getFullYear();
+  const BIRTHDAY_YEAR_LIST = Array.from({ length: 51 }, (_, i) => currentYear - 50 + i);
   const BIRTHDAY_MONTH_LIST = Array.from({ length: 12 }, (_, i) => i + 1);
   const BIRTHDAY_DAY_LIST = Array.from({ length: 31 }, (_, i) => i + 1);
+
+  const updateUser = (field, value) => {
+    setUser(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
 
   const validateField = (field, value) => {
     switch (field) {
@@ -61,26 +69,26 @@ function Signup() {
 
   const handleNicknameChange = (e) => {
     const value = e.target.value;
-    setNickname(value);
-    setIsNicknameChecked(false);
+    updateUser("nickname", value);
+    updateUser("isNicknameChecked", false);
     const errorMsg = validateField("nickname", value);
     setErrors((prev) => ({ ...prev, nickname: errorMsg }));
   };
 
   const handlePhoneChange = (e) => {
     const value = e.target.value;
-    setPhoneNumber(value);
+    updateUser("phoneNumber", value);
     const errorMsg = validateField("phoneNumber", value);
     setErrors((prev) => ({ ...prev, phoneNumber: errorMsg }));
   };
 
   const handleCheckNickname = async () => {
-    if (!nickname.trim()) return;
+    if (!user.nickname.trim()) return;
     try {
-      const response = await reqCheckNickname(nickname);
+      const response = await reqCheckNickname(user.nickname);
       const isAvailable = response.data.body === "false";
       if (isAvailable) {
-        setIsNicknameChecked(true);
+        updateUser("isNicknameChecked", true);
         alert("사용 가능한 닉네임입니다!");
       } else {
         alert("중복된 닉네임입니다.");
@@ -90,26 +98,41 @@ function Signup() {
     }
   };
 
+  const handlePostcode = () => {
+    new window.daum.Postcode({
+      oncomplete: function(data) {
+        const addr = data.roadAddress ? data.roadAddress : data.jibunAddress;
+        updateUser("zipcode", data.zonecode);
+        updateUser("address", addr);
+        updateUser("detailAddress", "");
+        document.getElementById("detailAddress").focus();
+      }
+    }).open();
+  };
+
   const handleOnRegisterUser = async () => {
-    const birthDate = `${selectedYear}-${selectedMonth.padStart(
+    const birthDate = `${user.selectedYear}-${user.selectedMonth.padStart(
       2,
       "0"
-    )}-${selectedDay.padStart(2, "0")}`;
-    const user = {
-      email,
-      providerId,
+    )}-${user.selectedDay.padStart(2, "0")}`;
+    
+    const regUser = {
       oauthType,
+      providerId,
+      email,
       profileImg: img,
-      name,
-      nickname,
+      fullName: user.name,
+      nickname: user.nickname,
+      phoneNumber: user.phoneNumber,
       birthDate,
-      gender: parseInt(gender),
-      phoneNumber,
-      gunguId: parseInt(selectedGunguId),
+      gender: parseInt(user.gender),
+      address: user.address,
     };
 
     try {
-      const result = await reqRegisterUser(user);
+      // const result = await reqRegisterUser(regUser);
+      console.log(regUser);
+      
       const accessToken = result?.data?.body?.accessToken;
 
       if (accessToken) {
@@ -127,19 +150,17 @@ function Signup() {
     }
   };
 
-  // ✅ 전체 유효성 검사
-  const isNicknameValid = SIGNUP_REGEX.nickName.test(nickname);
-  const isPhoneNumberValid = SIGNUP_REGEX.phoneNumber.test(phoneNumber);
+  const isNicknameValid = SIGNUP_REGEX.nickName.test(user.nickname);
+  const isPhoneNumberValid = SIGNUP_REGEX.phoneNumber.test(user.phoneNumber);
 
-  const isFormValid = [
-    isNicknameChecked,
+  const isUserValid = [
+    user.isNicknameChecked,
     isNicknameValid,
     isPhoneNumberValid,
-    selectedGunguId,
-    selectedYear,
-    selectedMonth,
-    selectedDay,
-    gender,
+    user.selectedYear,
+    user.selectedMonth,
+    user.selectedDay,
+    user.gender,
   ].reduce((prev, curr) => prev && Boolean(curr), true);
 
   return (
@@ -155,21 +176,25 @@ function Signup() {
         <h3>이메일</h3>
         <input disabled value={email} />
       </div>
+      
       <div>
         <h3>이름</h3>
-        <input value={name} onChange={(e) => setName(e.target.value)}/>
+        <input 
+          value={user.name} 
+          onChange={(e) => updateUser("name", e.target.value)}
+        />
       </div>
 
       <div>
         <h3>닉네임</h3>
         <input
           type="text"
-          value={nickname}
+          value={user.nickname}
           onChange={handleNicknameChange}
           required
         />
-        <button onClick={handleCheckNickname} disabled={!nickname.trim()}>
-          {isNicknameChecked ? "❤️ 사용 가능!" : "닉네임 중복 확인"}
+        <button onClick={handleCheckNickname} disabled={!user.nickname.trim()}>
+          {user.isNicknameChecked ? "❤️ 사용 가능!" : "닉네임 중복 확인"}
         </button>
         {errors.nickname && <p style={{ color: "red" }}>{errors.nickname}</p>}
       </div>
@@ -178,7 +203,7 @@ function Signup() {
         <h3>전화번호</h3>
         <input
           type="tel"
-          value={phoneNumber}
+          value={user.phoneNumber}
           onChange={handlePhoneChange}
           required
         />
@@ -190,8 +215,8 @@ function Signup() {
       <div>
         <h3>성별</h3>
         <select
-          value={gender}
-          onChange={(e) => setGender(e.target.value)}
+          value={user.gender}
+          onChange={(e) => updateUser("gender", e.target.value)}
           required
         >
           <option value="">선택하세요</option>
@@ -199,29 +224,27 @@ function Signup() {
           <option value="2">여자</option>
         </select>
       </div>
+      
+      <div>
+        <input type="text" value={user.zipcode} readOnly placeholder="우편번호" />
+        <button type="button" onClick={handlePostcode}>주소 검색</button>
 
-      <FormControl fullWidth>
-        <InputLabel id="gungu-select-label">구/군</InputLabel>
-        <Select
-          labelId="gungu-select-label"
-          value={selectedGunguId}
-          onChange={(e) => setSelectedGunguId(e.target.value)}
-          required
-        >
-          {gunguList.map((gungu) => (
-            <MenuItem key={gungu.gunguId} value={gungu.gunguId}>
-              {gungu.gunguName}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-
+        <input type="text" value={user.address} readOnly placeholder="기본주소" />
+        <input
+          type="text"
+          id="detailAddress"
+          value={user.detailAddress}
+          onChange={(e) => updateUser("detailAddress", e.target.value)}
+          placeholder="상세주소"
+        />
+      </div>
+      
       <div>
         <h3>생일</h3>
         <div style={{ display: "flex", gap: "10px" }}>
           <select
-            value={selectedYear}
-            onChange={(e) => setSelectedYear(e.target.value)}
+            value={user.selectedYear}
+            onChange={(e) => updateUser("selectedYear", e.target.value)}
             required
           >
             <option value="">년도</option>
@@ -233,8 +256,8 @@ function Signup() {
           </select>
 
           <select
-            value={selectedMonth}
-            onChange={(e) => setSelectedMonth(e.target.value)}
+            value={user.selectedMonth}
+            onChange={(e) => updateUser("selectedMonth", e.target.value)}
             required
           >
             <option value="">월</option>
@@ -246,8 +269,8 @@ function Signup() {
           </select>
 
           <select
-            value={selectedDay}
-            onChange={(e) => setSelectedDay(e.target.value)}
+            value={user.selectedDay}
+            onChange={(e) => updateUser("selectedDay", e.target.value)}
             required
           >
             <option value="">일</option>
@@ -263,7 +286,7 @@ function Signup() {
       <button
         type="button"
         onClick={handleOnRegisterUser}
-        disabled={!isFormValid}
+        disabled={!isUserValid}
       >
         회원가입 완료
       </button>

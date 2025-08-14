@@ -8,5 +8,5 @@ public interface UserMapper {
     User findByEmail(String email);
     User findById(Integer userId);
     User findByNickname(String nickname);
-    int updateProfileImgById(Integer userId, String profileImg);
+//    int updateProfileImgById(Integer userId, String profileImg);
 }

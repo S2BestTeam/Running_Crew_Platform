@@ -6,6 +6,7 @@ import Signin from "./pages/Auth/Signin/Signin";
 import Home from "./pages/home/Home";
 import Signup from "./pages/Auth/Signup/Signup";
 import usePrincipalQuery from "./queries/usePrincipalQuery";
+import CrewDetail from "./pages/Crew/CrewDetail";
 
 function App() {
   const principalQuery = usePrincipalQuery();
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/auth/oauth2/signin" element={<Signin />} />
         <Route path="/auth/oauth2/signup" element={<Signup />} />
+        <Route path="/crew" element={<CrewDetail />} />
       </Routes>
       <Footer />
     </>

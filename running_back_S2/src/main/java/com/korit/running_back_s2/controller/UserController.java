@@ -26,24 +26,22 @@ public class UserController {
         return ResponseEntity.ok(ResponseDto.success(userService.register(dto)));
     }
 
-    @PostMapping("/users/nickname")
-    public ResponseEntity<ResponseDto<?>> checkNickname(@RequestBody Map<String, String> nicknameData) {
-        String nickname = nicknameData.get("data");
-        System.out.println(nickname);
+    @GetMapping("/users/nickname/check")
+    public ResponseEntity<ResponseDto<?>> checkNickname(@RequestParam String nickname) {
         return ResponseEntity.ok(ResponseDto.success(userService.checkNickname(nickname)));
     }
-
-    @GetMapping("/mypage")
-    public ResponseEntity<User> getMyPage(@AuthenticationPrincipal PrincipalUser principalUser) {
-        User user = userService.getMyPage(principalUser.getUser().getUserId());
-        return ResponseEntity.ok(user);
-    }
-
-    @PostMapping("/users/{userId}/img")
-    public ResponseEntity<ResponseDto<?>> updateUserInfo(@RequestPart MultipartFile file) {
-        userService.updateUserProfileImg(file);
-        return ResponseEntity.ok(ResponseDto.success("수정 완료"));
-    }
+//
+//    @GetMapping("/mypage")
+//    public ResponseEntity<User> getMyPage(@AuthenticationPrincipal PrincipalUser principalUser) {
+//        User user = userService.getMyPage(principalUser.getUser().getUserId());
+//        return ResponseEntity.ok(user);
+//    }
+//
+//    @PostMapping("/users/{userId}/img")
+//    public ResponseEntity<ResponseDto<?>> updateUserInfo(@RequestPart MultipartFile file) {
+//        userService.updateUserProfileImg(file);
+//        return ResponseEntity.ok(ResponseDto.success("수정 완료"));
+//    }
 
 //    @PutMapping("/users/{userId}")
 //    public ResponseEntity<ResponseDto<?>> updateUserInfo(@RequestBody UserMyPageUpdateReqDto dto) {

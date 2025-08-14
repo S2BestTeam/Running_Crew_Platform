@@ -3,7 +3,7 @@ import api from "../axios";
 export const reqPrincipal = async () => await api.get("/api/account/principal");
 
 export const reqCheckNickname = (nickname) =>
-  api.post("/api/users/nickname", { data: nickname }, {
+  api.get("/api/users/nickname/check", { params : {nickname} }, {
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
     },
