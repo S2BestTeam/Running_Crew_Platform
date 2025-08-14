@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import MainContainer from '../../../components/MainContainer/MainContainer';
 import * as s from './styles';
+import MainContainer from '../../../components/MainContainer/MainContainer';
 
 function CrewDetail(props) {
   const [ crew, setCrew] = useState({
