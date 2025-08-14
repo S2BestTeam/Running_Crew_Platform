@@ -3,20 +3,38 @@ import { useState } from "react";
 import * as s from "./styles";
 import { FiHeart, FiUser } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import usePrincipalQuery from "../../queries/usePrincipalQuery";
 
 function Header(props) {
+  const principalQuery = usePrincipalQuery();
+
+  // 추후 프로필 이미지 또는 닉네임으로 변경하기 위해 코드 유지
+  const princiapl = principalQuery?.data?.data?.body?.user;
+  
   const [showDropdown, setShowDropdown] = useState(false);
+  const navigate = useNavigate("");
+
+  const handleProfileClick = () => {
+    const accessToken = localStorage.getItem("AccessToken");
+    if (accessToken) {
+      navigate("/mypage");
+    } else {
+      navigate("/auth/oauth2/signin");
+    }
+  };
 
   return (
     <header css={s.header}>
-      <div css={s.logo}>S2BestTeam</div>
+      <div css={s.logo} onClick={() => navigate("/")}>
+        S2BestTeam
+      </div>
       <nav css={s.nav}>
         <ul css={s.menu}>
           <li
             onMouseEnter={() => setShowDropdown(true)}
             onMouseLeave={() => setShowDropdown(false)}
           >
-            <a href="#">크루소개</a>
+            <a href="#" >크루소개</a>
           </li>
 
           <li
@@ -60,7 +78,7 @@ function Header(props) {
           >
             <div css={s.menuDetail}>
               <div>크루소개</div>
-              <a href="#">지역별 크루</a>
+              <a href="#" onClick={() => navigate("/crews")}>지역별 크루</a>
             </div>
             <div css={s.menuDetail}>
               <div>대회일정</div>
@@ -78,11 +96,11 @@ function Header(props) {
             <div css={s.menuDetail}>
               <div>고객센터</div>
               <a href="#">공지사항</a>
-              <a href="#">러너의 소리</a>
+              <div onClick={() => navigate("/inquiry")}>러너의 소리</div>
             </div>
             <div css={s.menuDetail}>
               <div>크루등록</div>
-              <a href="#">크루등록</a>
+              <div onClick={() => navigate("/crew/create")}>크루등록</div>
             </div>
           </div>
         )}
@@ -92,7 +110,7 @@ function Header(props) {
           <FiHeart />
         </div>
         {/* 로그인시 프로필 이미지로 바뀜*/}
-        <div css={s.icon}>
+        <div css={s.icon} onClick={handleProfileClick}>
           <FiUser />
         </div>
       </div>

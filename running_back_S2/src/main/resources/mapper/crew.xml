@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.korit.running_back_s2.domain.crew.CrewMapper">
+    <resultMap id="CrewMap" type="com.korit.running_back_s2.domain.crew.Crew">
+        <id     property="crewId"         column="crew_id"/>
+        <result property="gunguId"        column="gungu_id"/>
+        <result property="crewProfileImg" column="crew_profile_img"/>
+        <result property="crewName"       column="crew_name"/>
+        <result property="userId"         column="user_id"/>
+        <result property="title"          column="title"/>
+        <result property="content"        column="content"/>
+        <result property="createdAt"      column="created_at"/>
+    </resultMap>
+
+    <select id="findAllBySearchOption" resultMap="CrewMap">
+        select
+            crew_id,
+            gungu_id,
+            crew_profile_img,
+            crew_name,
+            user_id,
+            title,
+            content,
+            created_at
+        from
+            crew_tb
+        <where>
+            <if test="gunguId != null">
+                and gungu_id = #{gunguId}
+            </if>
+            <if test="searchText != null and searchText != ''">
+                and (
+                crew_name LIKE CONCAT('%', #{searchText}, '%')
+                OR title LIKE CONCAT('%', #{searchText}, '%')
+                OR content LIKE CONCAT('%', #{searchText}, '%')
+                )
+            </if>
+        </where>
+        ORDER BY created_at DESC
+        LIMIT #{size} OFFSET #{startIndex}
+    </select>
+
+    <select id="countBySearchOption" resultType="int">
+        select COUNT(*)
+        from crew_tb
+        <where>
+            <if test="gunguId != null">
+                and gungu_id = #{gunguId}
+            </if>
+            <if test="searchText != null and searchText != ''">
+                and (
+                crew_name LIKE CONCAT('%', #{searchText}, '%')
+                OR title LIKE CONCAT('%', #{searchText}, '%')
+                OR content LIKE CONCAT('%', #{searchText}, '%')
+                )
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

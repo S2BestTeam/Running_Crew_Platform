@@ -10,6 +10,8 @@ spring:
   config:
     activate:
       on-profile: local-server
+server:
+  domain: http://localhost:8080
 
 ---
 

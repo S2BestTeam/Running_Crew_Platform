@@ -7,6 +7,8 @@ export const header = css`
   padding: 2rem 3.2rem;
   background-color: #1f1f21;
   color: white;
+  //position: flex;
+
   position: relative;
 `;
 

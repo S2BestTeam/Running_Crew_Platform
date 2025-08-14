@@ -6,33 +6,29 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
-public class UserRegisterReqDto {
-    private String oauthType;
-    private String providerId;
-    private String email;
-    private String profileImg;
+public class UserMyPageUpdateReqDto {
+    private Integer userId;
     private String fullName;
-    private String nickname;
+    private String email;
     private String phoneNumber;
+    private String nickname;
     private LocalDate birthDate;
     private Integer gender;
-    private String address;
+    private String profileImg;
     private Integer gunguId;
-    private Integer roleId;
 
-    public User toEntity() {
+
+    public User Entity() {
         return User.builder()
+                .userId(userId)
                 .email(email)
-                .oauthType(oauthType)
                 .fullName(fullName)
                 .phoneNumber(phoneNumber)
                 .nickname(nickname)
                 .birthDate(birthDate)
                 .gender(gender)
-                .address(address)
                 .profileImg(profileImg)
-                .roleId(3)
-                .providerId(providerId)
+                .gunguId(gunguId)
                 .build();
     }
 }

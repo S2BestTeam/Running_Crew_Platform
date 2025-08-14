@@ -20,17 +20,18 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
     @Transactional(rollbackFor = Exception.class)
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
-        String name = null;
+        String img = null;
         String email = null;
-//        String providerId = null;
+        String providerId = null;
 
         OAuth2User oAuth2User = super.loadUser(userRequest);
+        System.out.println(oAuth2User.getAttributes());
 
         // OAuth 제공자별 정보 추출
         if ("google".equals(registrationId)) {
             email = oAuth2User.getAttribute("email");
-            name = oAuth2User.getAttribute("name");
-//            providerId = oAuth2User.getAttribute("sub");
+            img = oAuth2User.getAttribute("picture");
+            providerId = oAuth2User.getAttribute("sub");
         }
         else if ("kakao".equals(registrationId)) {
             Map<String, Object> attributes = oAuth2User.getAttributes();
@@ -38,24 +39,22 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
             Map<String, Object> profile = (Map<String, Object>) kakaoAccount.get("profile");
 
             email = kakaoAccount.get("email").toString();
-            name = profile.get("nickname").toString();
-//            providerId = attributes.get("id").toString();
+            providerId = attributes.get("id").toString();
+            img = profile.get("thumbnail_image_url").toString();
         }
         else if ("naver".equals(registrationId)) {
             Map<String, Object> response = (Map<String, Object>) oAuth2User.getAttributes().get("response");
 
-//            providerId = (String) response.get("id");
+            providerId = (String) response.get("id");
             email = (String) response.get("email");
-            name = (String) response.get("name");
-        }
-        else if ("naver".equals(registrationId)) {
-            Map<String, Object> response = (Map<String, Object>) oAuth2User.getAttributes().get("response");
+            img = (String) response.get("profile_image");
         }
         
         User user = User.builder()
                 .email(email)
-                .fullName(name)
                 .oauthType(registrationId)
+                .profileImg(img)
+                .providerId(providerId)
                 .build();
 
         return new PrincipalUser(user, oAuth2User.getAttributes());

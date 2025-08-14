@@ -2,15 +2,12 @@ package com.korit.running_back_s2.config;
 
 import com.korit.running_back_s2.security.filter.JwtFilter;
 import com.korit.running_back_s2.security.handler.OAuth2SuccessHandler;
-import com.korit.running_back_s2.security.jwt.JwtUtil;
-import com.korit.running_back_s2.security.model.PrincipalUser;
 import com.korit.running_back_s2.service.OAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -50,9 +47,14 @@ public class SecurityConfig {
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         http.authorizeHttpRequests(auth -> {
+            auth.requestMatchers("/api/**").permitAll();
             auth.requestMatchers("/api/regions/**").permitAll();
+            auth.requestMatchers("/api/users/**").permitAll();
+            auth.requestMatchers("/api/mypage/**").permitAll();
+            auth.requestMatchers("/api/crews/**").permitAll();
             auth.requestMatchers("/oauth2/**").permitAll();
             auth.requestMatchers("/image/**").permitAll();
+
             auth.anyRequest().authenticated();
         });
 
@@ -69,7 +71,7 @@ public class SecurityConfig {
                 .failureHandler((request, response, exception) -> {
                     System.out.println("oauth2 인증 실패");
                     exception.printStackTrace();
-                    response.sendRedirect("/home?error=oauth2");
+                    response.sendRedirect("/?error=oauth2");
                 })
         );
 

@@ -8,6 +8,7 @@ import io.jsonwebtoken.Claims;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,8 @@ public class JwtFilter implements Filter {
 
     private final JwtUtil jwtUtil;
     private final UserMapper userMapper;
+    @Value("${server.domain}")
+    private String domain;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -56,6 +59,12 @@ public class JwtFilter implements Filter {
         User foundUser = userMapper.findById(userId);
         if (foundUser == null) {
             return;
+        }
+
+        if (!foundUser.getProfileImg().startsWith("http")) {
+            String newProfileImg = domain + "/image/profile/" + foundUser.getProfileImg();
+            System.out.println(newProfileImg);
+            foundUser.setProfileImg(newProfileImg);
         }
 
         // PrincipalUser 생성

@@ -2,29 +2,99 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.korit.running_back_s2.domain.user.UserMapper">
 
-    <select id="findByEmail" resultType="com.korit.running_back_s2.domain.user.User">
-        select
-            *
-        from
-            user_tb
-        where
-            email = #{email}
-    </select>
 
-    <select id="findById" resultType="com.korit.running_back_s2.domain.user.User">
-        select
-            *
-        from
-            user_tb
-        where
-            user_id = #{userId}
-    </select>
+<!--    <update id="update">-->
+<!--        UPDATE user_tb-->
+<!--        SET-->
+<!--        nickname = #{nickname},-->
+<!--        -->
+<!--        profile_img = #{profileImg},-->
+<!--        gungu_id = #{gunguId},-->
+<!--        address = #{address},-->
+<!--        role_id = #{roleId}-->
+<!--        where user_id = #{userId}-->
+<!--    </update>-->
 
-    <insert id="insert">
+    <update id="updateProfileImgById">
+        UPDATE user_tb
+        SET profile_img = #{profileImg}
+        where user_id = #{userId}
+    </update>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="userId">
         INSERT INTO user_tb
-            ( email, oauth_type, full_name, phone_number, nickname, birth_date, gender, profile_img, gungu_id )
-        VALUES ( #{email}, #{oauthType}, #{fullName}, #{phoneNumber}, #{nickname}, #{birthDate}, #{gender}, #{profileImg}, #{gunguId} )
+        ( email, provider_id, oauth_type, full_name, phone_number, nickname,
+        birth_date, gender, profile_img, gungu_id, address, role_id )
+        VALUES
+        ( #{email}, #{providerId}, #{oauthType}, #{fullName}, #{phoneNumber}, #{nickname},
+        #{birthDate}, #{gender}, #{profileImg}, #{gunguId}, #{address}, #{roleId} )
     </insert>
+
+    <select id="findById">
+        select
+            ut.user_id,
+            ut.oauth_type,
+            ut.provider_id AS ut_provider_id,
+            ut.email,
+            ut.profile_img,
+            ut.full_name,
+            ut.nickname,
+            ut.phone_number,
+            ut.gungu_id AS ut_gungu_id,
+            ut.address,
+            ut.birth_date,
+            ut.gender,
+            ut.role_id,
+            gt.gungu_id,
+            gt.gungu_name
+            from user_tb ut
+        left outer join
+            gungu_tb gt ON (gt.gungu_id = ut.gungu_id)
+        where ut.user_id = #{userId}
+    </select>
+
+    <select id="findByEmail">
+        select
+            user_id,
+            oauth_type,
+            provider_id AS ut_provider_id,
+            email,
+            profile_img,
+            full_name,
+            nickname,
+            phone_number,
+            gungu_id AS ut_gungu_id,
+            address,
+            birth_date,
+            gender,
+            role_id
+            from user_tb
+        where email = #{email}
+        LIMIT 1
+    </select>
+
+    <select id="findByNickname" >
+        select
+            user_id,
+            oauth_type,
+            provider_id AS ut_provider_id,
+            email,
+            profile_img,
+            full_name,
+            nickname,
+            phone_number,
+            gungu_id AS ut_gungu_id,
+            address,
+            birth_date,
+            gender,
+            role_id
+            from user_tb
+            where nickname = #{nickname}
+        LIMIT 1
+    </select>
+
 </mapper>
+        

@@ -1,128 +1,230 @@
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import {
+  SIGNUP_REGEX,
+  SIGNUP_REGEX_ERROR_MESSAGE,
+} from "../../../constants/signupRegex";
+import { reqCheckNickname, reqRegisterUser } from "../../../api/User/userApi";
 
-function Signup(props) {
+function Signup() {
   const navigate = useNavigate();
-  const [ searchParams ] = useSearchParams();
+  const queryClient = useQueryClient();
+  const [searchParams] = useSearchParams();
   const email = searchParams.get("email");
-  const name = searchParams.get("name");
+  const providerId = searchParams.get("providerId");
   const oauthType = searchParams.get("oauthType");
-  const [gunguList, setGunguList] = useState([]);
+  const img = searchParams.get("img");
 
-  const [ userData, setUserData ] = useState({
-    email : email,
-    name : name,
-    oauthType : oauthType,
-    nickname : "",
-    gender : "",
-    phoneNumber : "",
-    birth: {
-      year: "",
-      month: "",
-      day: ""
-    },
-    profileImgPath: "",
-    selectedGunguId: "",
-  })
+  const [user, setUser] = useState({
+    nickname: "",
+    name: "",
+    phoneNumber: "",
+    gender: "",
+    address: "",
+    selectedYear: "",
+    selectedMonth: "",
+    selectedDay: "",
+    isNicknameChecked: false,
+  });
 
+  // 에러 상태는 별도로 유지 (용도가 다르므로)
+  const [errors, setErrors] = useState({
+    nickname: "",
+    phoneNumber: "",
+  });
 
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src =
+      "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
+
+  const currentYear = new Date().getFullYear();
   const BIRTHDAY_YEAR_LIST = Array.from(
-    { length: 50 },
-    (_, i) => 1970 + i,
+    { length: 51 },
+    (_, i) => currentYear - 50 + i
   );
   const BIRTHDAY_MONTH_LIST = Array.from({ length: 12 }, (_, i) => i + 1);
   const BIRTHDAY_DAY_LIST = Array.from({ length: 31 }, (_, i) => i + 1);
 
-  useEffect(() => {
-    axios.get('http://localhost:8080/api/regions/gungu')
-      .then((res) => {
-        setGunguList(res.data.body)
-      })
-      .catch((err) => console.error(err));
-  }, []);
+  const updateUser = (field, value) => {
+    setUser((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
 
+  const validateField = (field, value) => {
+    switch (field) {
+      case "nickname":
+        if (!SIGNUP_REGEX.nickName.test(value)) {
+          return SIGNUP_REGEX_ERROR_MESSAGE.nickName;
+        }
+        return "";
+      case "phoneNumber":
+        if (!SIGNUP_REGEX.phoneNumber.test(value)) {
+          return SIGNUP_REGEX_ERROR_MESSAGE.phoneNumber;
+        }
+        return "";
+      default:
+        return "";
+    }
+  };
 
-  const handleSubmit = async (e) => {
-    const birthDate = `${userData.birth.year}-${userData.birth.month.padStart(2, '0')}-${userData.birth.day.padStart(2, '0')}`;
-    const submitData = {
-      ...userData,
-      birth : birthDate
-    };
+  const handleNicknameChange = (e) => {
+    const value = e.target.value;
+    updateUser("nickname", value);
+    updateUser("isNicknameChecked", false);
+    const errorMsg = validateField("nickname", value);
+    setErrors((prev) => ({ ...prev, nickname: errorMsg }));
+  };
+
+  const handlePhoneChange = (e) => {
+    const value = e.target.value;
+    updateUser("phoneNumber", value);
+    const errorMsg = validateField("phoneNumber", value);
+    setErrors((prev) => ({ ...prev, phoneNumber: errorMsg }));
+  };
+
+  const handleCheckNickname = async () => {
+    if (!user.nickname.trim()) return;
     try {
-      const result = await reqRegisterUser(submitData);
-      console.log("회원가입 성공:", result);
-      alert("회원가입이 완료되었습니다!");
-      navigate("/");
+      const response = await reqCheckNickname(user.nickname);
+      const isAvailable = response.data.body === "false";
+      if (isAvailable) {
+        updateUser("isNicknameChecked", true);
+        alert("사용 가능한 닉네임입니다!");
+      } else {
+        alert("중복된 닉네임입니다.");
+      }
+    } catch {
+      alert("중복확인 중 오류가 발생했습니다.");
+    }
+  };
+
+  const handlePostcode = () => {
+    new window.daum.Postcode({
+      oncomplete: function (data) {
+        const addr = data.roadAddress ? data.roadAddress : data.jibunAddress;
+        updateUser("zipcode", data.zonecode);
+        updateUser("address", addr);
+        updateUser("detailAddress", "");
+        document.getElementById("detailAddress").focus();
+      },
+    }).open();
+  };
+
+  const handleOnRegisterUser = async () => {
+    const birthDate = `${user.selectedYear}-${user.selectedMonth.padStart(
+      2,
+      "0"
+    )}-${user.selectedDay.padStart(2, "0")}`;
+
+    const regUser = {
+      oauthType,
+      providerId,
+      email,
+      profileImg: img,
+      fullName: user.name,
+      nickname: user.nickname,
+      phoneNumber: user.phoneNumber,
+      birthDate,
+      gender: parseInt(user.gender),
+      address: user.address,
+    };
+
+    try {
+      const result = await reqRegisterUser(regUser);
+      console.log(regUser);
+
+      const accessToken = result?.data?.body?.accessToken;
+
+      if (accessToken) {
+        const bearerToken = `Bearer ${accessToken}`;
+        localStorage.setItem("AccessToken", bearerToken);
+        await queryClient.invalidateQueries({ queryKey: ["principal"] });
+        alert("회원가입이 완료되었습니다!");
+        navigate("/");
+      } else {
+        alert("회원가입은 되었지만 토큰 발급에 실패했습니다.");
+      }
     } catch (error) {
-      console.log(submitData);
       console.error("회원가입 실패:", error);
       alert("회원가입에 실패했습니다.");
     }
-
   };
+
+  const isNicknameValid = SIGNUP_REGEX.nickName.test(user.nickname);
+  const isPhoneNumberValid = SIGNUP_REGEX.phoneNumber.test(user.phoneNumber);
+
+  const isUserValid = [
+    user.isNicknameChecked,
+    isNicknameValid,
+    isPhoneNumberValid,
+    user.selectedYear,
+    user.selectedMonth,
+    user.selectedDay,
+    user.gender,
+  ].reduce((prev, curr) => prev && Boolean(curr), true);
 
   return (
     <div>
       <h2>추가 정보 입력</h2>
-
-      {/* 프로필 이미지 */}
       <div>
-        <h3>프로필 이미지</h3>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => {
-            const file = e.target.files[0];
-            if (file) {
-              setUserData({...userData, profileImgPath : `/images/${file.name}`});
-            }
-          }}
-        />
-        {userData.profileImgPath && <p>선택된 이미지: {userData.profileImgPath}</p>}
+        <div>
+          <img src={img} alt="" />
+        </div>
       </div>
 
-      {/* 이메일 */}
       <div>
         <h3>이메일</h3>
         <input disabled value={email} />
       </div>
 
-      {/* 이름 */}
       <div>
         <h3>이름</h3>
-        <input disabled value={name} />
+        <input
+          value={user.name}
+          onChange={(e) => updateUser("name", e.target.value)}
+        />
       </div>
 
-      {/* 닉네임 */}
       <div>
         <h3>닉네임</h3>
         <input
           type="text"
-          placeholder="닉네임"
-          value={userData.nickname}
-          onChange={(e) => setUserData({ ...userData, nickname: e.target.value })}
+          value={user.nickname}
+          onChange={handleNicknameChange}
+          required
         />
+        <button onClick={handleCheckNickname} disabled={!user.nickname.trim()}>
+          {user.isNicknameChecked ? "❤️ 사용 가능!" : "닉네임 중복 확인"}
+        </button>
+        {errors.nickname && <p style={{ color: "red" }}>{errors.nickname}</p>}
       </div>
 
-      {/* 전화번호 */}
       <div>
         <h3>전화번호</h3>
         <input
           type="tel"
-          placeholder="010-1234-5678"
-          value={userData.phoneNumber}
-          onChange={(e) => setUserData({ ...userData, phoneNumber: e.target.value })}
+          value={user.phoneNumber}
+          onChange={handlePhoneChange}
+          required
         />
+        {errors.phoneNumber && (
+          <p style={{ color: "red" }}>{errors.phoneNumber}</p>
+        )}
       </div>
 
-      {/* 성별 */}
       <div>
         <h3>성별</h3>
         <select
-          value={userData.gender}
-          onChange={(e) => setUserData({ ...userData, gender: e.target.value })}
+          value={user.gender}
+          onChange={(e) => updateUser("gender", e.target.value)}
+          required
         >
           <option value="">선택하세요</option>
           <option value="1">남자</option>
@@ -130,76 +232,83 @@ function Signup(props) {
         </select>
       </div>
 
-      {/* 군/구 */}
-      <FormControl fullWidth style={{backgroundColor: "white"}}>
-        <InputLabel id="gungu-select-label">구/군</InputLabel>
-        <Select
-          labelId="gungu-select-label"
-          id="gungu-select"
-          value={userData.selectedGunguId}
-          label="구/군"
-          onChange={(e) => setUserData({...userData, selectedGunguId : e.target.value})}
-          required
-        >
-          {gunguList.map((gungu) => (
-            <MenuItem key={gungu.gunguId} value={gungu.gunguId}>
-              {gungu.gunguName}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      <div>
+        <input
+          type="text"
+          value={user.zipcode}
+          readOnly
+          placeholder="우편번호"
+        />
+        <button type="button" onClick={handlePostcode}>
+          주소 검색
+        </button>
 
-      {/* 생일 */}
+        <input
+          type="text"
+          value={user.address}
+          readOnly
+          placeholder="기본주소"
+        />
+        <input
+          type="text"
+          id="detailAddress"
+          value={user.detailAddress}
+          onChange={(e) => updateUser("detailAddress", e.target.value)}
+          placeholder="상세주소"
+        />
+      </div>
+
       <div>
         <h3>생일</h3>
-        <div style={{ display: 'flex', gap: '10px' }}>
+        <div style={{ display: "flex", gap: "10px" }}>
           <select
-            value={userData.birth.year}
-            onChange={(e) =>
-              setUserData({
-                ...userData,
-                birth: { ...userData.birth, year: e.target.value }
-              })
-            }
+            value={user.selectedYear}
+            onChange={(e) => updateUser("selectedYear", e.target.value)}
+            required
           >
             <option value="">년도</option>
             {BIRTHDAY_YEAR_LIST.map((year) => (
-              <option key={year} value={year}>{year}년</option>
+              <option key={year} value={year}>
+                {year}년
+              </option>
             ))}
           </select>
 
           <select
-            value={userData.birth.month}
-            onChange={(e) =>
-              setUserData({
-                ...userData,
-                birth: { ...userData.birth, month: e.target.value }
-              })
-            }
+            value={user.selectedMonth}
+            onChange={(e) => updateUser("selectedMonth", e.target.value)}
+            required
           >
             <option value="">월</option>
             {BIRTHDAY_MONTH_LIST.map((month) => (
-              <option key={month} value={month}>{month}월</option>
+              <option key={month} value={month}>
+                {month}월
+              </option>
             ))}
           </select>
 
           <select
-            value={userData.birth.day}
-            onChange={(e) =>
-              setUserData({
-                ...userData,
-                birth: { ...userData.birth, day: e.target.value }
-              })
-            }
+            value={user.selectedDay}
+            onChange={(e) => updateUser("selectedDay", e.target.value)}
+            required
           >
             <option value="">일</option>
             {BIRTHDAY_DAY_LIST.map((day) => (
-              <option key={day} value={day}>{day}일</option>
+              <option key={day} value={day}>
+                {day}일
+              </option>
             ))}
           </select>
         </div>
       </div>
-        <button type="submit" onClick={handleSubmit}>제출</button>
+
+      <button
+        type="button"
+        onClick={handleOnRegisterUser}
+        disabled={!isUserValid}
+      >
+        회원가입 완료
+      </button>
     </div>
   );
 }
