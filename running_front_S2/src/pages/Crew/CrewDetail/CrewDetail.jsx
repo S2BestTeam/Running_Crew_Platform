@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import * as s from './styles';
 import MainContainer from '../../../components/MainContainer/MainContainer';
+import { useEffect } from 'react';
 
 function CrewDetail(props) {
   const [ crew, setCrew] = useState({
@@ -14,6 +15,10 @@ function CrewDetail(props) {
     limtedPeople: 0,
     crewTotalKm: 0,
   });
+
+  useEffect(() => {
+    
+  }, [])
   
   return (
     <MainContainer>
