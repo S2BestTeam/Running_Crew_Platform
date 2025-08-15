@@ -13,7 +13,6 @@ function CrewDetail() {
 
   const { data: crewData } = useCrewDetailQuery(crewId);
 
-  // API 응답 구조에 맞게 body 꺼내기
   const crew = crewData?.body || {
     gunguId: 0,
     crewProfileImg: "",

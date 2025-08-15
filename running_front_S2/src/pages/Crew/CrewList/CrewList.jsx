@@ -6,16 +6,13 @@ import useGetGunguListQuery from "../../../queries/useGetGunguListQuery";
 
 function CrewList() {
   const navigate = useNavigate();
-  // URL 쿼리 먼저
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get("page") || "1", 10);
   const searchText = searchParams.get("searchText") || "";
   const selectedGunguId = searchParams.get("gunguId") || "";
 
-  // 검색 인풋
   const [searchInput, setSearchInput] = useState(searchText);
 
-  // 데이터 쿼리
   const crewListQuery = useGetCrewListQuery({
     page,
     size: 12,
@@ -25,7 +22,6 @@ function CrewList() {
   const gunguQuery = useGetGunguListQuery();
   const gunguList = gunguQuery?.data?.data?.body || [];
 
-  // 페이지 합치기
   const [crewList, setCrewList] = useState([]);
   useEffect(() => {
     const pages = crewListQuery?.data?.pages || [];
