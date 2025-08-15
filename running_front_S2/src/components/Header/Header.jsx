@@ -23,6 +23,22 @@ function Header(props) {
     }
   };
 
+  const handleLogout = () => {
+    const accessToken = localStorage.getItem("AccessToken");
+    
+    if (accessToken) {
+      const confirmLogout = window.confirm("로그아웃 하시겠습니까?");
+      if (confirmLogout) {
+        localStorage.removeItem("AccessToken");
+        queryClient.clear();
+        navigate("/");
+        alert("로그아웃되었습니다.");
+      }
+    } else {
+      alert("로그인 상태가 아닙니다.");
+    }
+  };
+
   return (
     <header css={s.header}>
       <div css={s.logo} onClick={() => navigate("/")}>
@@ -98,7 +114,7 @@ function Header(props) {
         )}
       </nav>
       <div css={s.icons}>
-        <div css={s.icon}>
+        <div css={s.icon} onClick={handleLogout}>
           <FiHeart />
         </div>
         {/* 로그인시 프로필 이미지로 바뀜*/}

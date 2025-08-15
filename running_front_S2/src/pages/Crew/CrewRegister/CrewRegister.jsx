@@ -157,7 +157,7 @@ function CrewRegister(props) {
 
   const toolbarOptions = [
     [{ header: 1 }, { header: 2 }, { header: 3 }, { header: 4 }],
-    ["bold", "italic", "underline", "strike"], // toggled buttons
+    ["bold", "italic", "underline", "strike"],
     [{ align: [] }, { color: [] }, { background: [] }],
     ["blockquote", "link"],
   ];

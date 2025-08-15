@@ -192,7 +192,7 @@ export const gungu = css`
   background-color: #f0f0f0;
 `;
 
-export const joinButton = css`
+export const Button = css`
   margin-top: 4rem;
   padding: 0.8rem 2rem;
   background-color: black;

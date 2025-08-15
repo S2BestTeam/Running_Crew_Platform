@@ -14,7 +14,10 @@ function Signup() {
   const email = searchParams.get("email");
   const providerId = searchParams.get("providerId");
   const oauthType = searchParams.get("oauthType");
+  const paramBirthDate = searchParams.get("birthDate");
   const img = searchParams.get("img");
+
+  const checkBirthDate = paramBirthDate && paramBirthDate !== "null";
 
   const [user, setUser] = useState({
     nickname: "",
@@ -117,10 +120,17 @@ function Signup() {
   };
 
   const handleOnRegisterUser = async () => {
-    const birthDate = `${user.selectedYear}-${user.selectedMonth.padStart(
-      2,
-      "0"
-    )}-${user.selectedDay.padStart(2, "0")}`;
+    let birthDate = null;
+
+    if (checkBirthDate) {
+      birthDate = paramBirthDate;
+    } else {
+      if (!user.selectedYear || !user.selectedMonth || !user.selectedDay) {
+        alert("생년월일을 모두 선택해주세요.");
+        return;
+      }
+      birthDate = `${user.selectedYear}-${user.selectedMonth.padStart(2, "0")}-${user.selectedDay.padStart(2, "0")}`;
+    }
 
     const regUser = {
       oauthType,
@@ -159,15 +169,21 @@ function Signup() {
   const isNicknameValid = SIGNUP_REGEX.nickName.test(user.nickname);
   const isPhoneNumberValid = SIGNUP_REGEX.phoneNumber.test(user.phoneNumber);
 
-  const isUserValid = [
-    user.isNicknameChecked,
-    isNicknameValid,
-    isPhoneNumberValid,
-    user.selectedYear,
-    user.selectedMonth,
-    user.selectedDay,
-    user.gender,
-  ].reduce((prev, curr) => prev && Boolean(curr), true);
+  const isUserValid = () => {
+    const basicFields = [
+      user.name.trim(),
+      user.isNicknameChecked,
+      isNicknameValid,
+      isPhoneNumberValid,
+      user.gender,
+      user.address.trim(),
+    ];
+
+    const birthdateValid = checkBirthDate || 
+      (user.selectedYear && user.selectedMonth && user.selectedDay);
+
+    return basicFields.every(Boolean) && birthdateValid;
+  };
 
   return (
     <div>
@@ -260,51 +276,51 @@ function Signup() {
       <div>
         <h3>생일</h3>
         <div style={{ display: "flex", gap: "10px" }}>
-          <select
-            value={user.selectedYear}
-            onChange={(e) => updateUser("selectedYear", e.target.value)}
-            required
-          >
-            <option value="">년도</option>
-            {BIRTHDAY_YEAR_LIST.map((year) => (
-              <option key={year} value={year}>
-                {year}년
-              </option>
-            ))}
-          </select>
+          {paramBirthDate !== "null"
+            ? <input type="text" value={paramBirthDate} disabled /> 
+            : (
+            <>
+              <select
+                value={user.selectedYear}
+                onChange={(e) => updateUser("selectedYear", e.target.value)}
+                required
+              >
+                <option value="">년도</option>
+                {BIRTHDAY_YEAR_LIST.map((year) => (
+                  <option key={year} value={year}>{year}년</option>
+                ))}
+              </select>
 
-          <select
-            value={user.selectedMonth}
-            onChange={(e) => updateUser("selectedMonth", e.target.value)}
-            required
-          >
-            <option value="">월</option>
-            {BIRTHDAY_MONTH_LIST.map((month) => (
-              <option key={month} value={month}>
-                {month}월
-              </option>
-            ))}
-          </select>
+              <select
+                value={user.selectedMonth}
+                onChange={(e) => updateUser("selectedMonth", e.target.value)}
+                required
+              >
+                <option value="">월</option>
+                {BIRTHDAY_MONTH_LIST.map((month) => (
+                  <option key={month} value={month}>{month}월</option>
+                ))}
+              </select>
 
-          <select
-            value={user.selectedDay}
-            onChange={(e) => updateUser("selectedDay", e.target.value)}
-            required
-          >
-            <option value="">일</option>
-            {BIRTHDAY_DAY_LIST.map((day) => (
-              <option key={day} value={day}>
-                {day}일
-              </option>
-            ))}
-          </select>
+              <select
+                value={user.selectedDay}
+                onChange={(e) => updateUser("selectedDay", e.target.value)}
+                required
+              >
+                <option value="">일</option>
+                {BIRTHDAY_DAY_LIST.map((day) => (
+                  <option key={day} value={day}>{day}일</option>
+                ))}
+              </select>
+            </>
+          )}
         </div>
       </div>
 
       <button
         type="button"
         onClick={handleOnRegisterUser}
-        disabled={!isUserValid}
+        disabled={!isUserValid()}
       >
         회원가입 완료
       </button>

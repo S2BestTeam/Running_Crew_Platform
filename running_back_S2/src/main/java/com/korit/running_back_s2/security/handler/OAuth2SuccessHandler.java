@@ -35,7 +35,10 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
             String oauthType = URLEncoder.encode(user.getOauthType(), StandardCharsets.UTF_8);
             String img = URLEncoder.encode(user.getProfileImg(), StandardCharsets.UTF_8);
             String providerId = URLEncoder.encode(user.getProviderId(), StandardCharsets.UTF_8);
-            redirectUrl = String.format("http://localhost:5173/auth/oauth2/signup?email=%s&providerId=%s&oauthType=%s&img=%s" ,email,providerId,oauthType,img);
+            String birthDate = URLEncoder.encode(String.valueOf(user.getBirthDate()), StandardCharsets.UTF_8);
+            redirectUrl = String
+                    .format("http://localhost:5173/auth/oauth2/signup?email=%s&providerId=%s&oauthType=%s&img=%s&birthDate=%s"
+                            ,email,providerId,oauthType,img,birthDate);
         } else {
             String accessToken = jwtUtil.generateAccessToken(foundUser);
             redirectUrl = String.format("http://localhost:5173/auth/oauth2/signin?accessToken=%s", accessToken);

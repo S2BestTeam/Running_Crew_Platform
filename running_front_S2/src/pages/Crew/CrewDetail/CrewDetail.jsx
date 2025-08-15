@@ -4,14 +4,22 @@ import MainContainer from '../../../components/MainContainer/MainContainer';
 import { useParams } from 'react-router-dom';
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
 import { useCrewDetailQuery } from '../../../queries/useCrewDetailQuery';
+import { useState } from 'react';
+import ReactQuill from 'react-quill-new';
 
 function CrewDetail() {
   const principal = usePrincipalQuery();
   const userId = principal?.data?.data?.body?.user?.userId;
 
   const { crewId } = useParams();
+  const { data: crewData, refetch } = useCrewDetailQuery(crewId);
 
-  const { data: crewData } = useCrewDetailQuery(crewId);
+  const [ isModify, setIsModify ] = useState(false);
+
+  const handleModifyOnClick = () => {
+    setIsModify(!isModify);
+
+  }
 
   const crew = crewData?.body || {
     gunguId: 0,
@@ -41,6 +49,9 @@ function CrewDetail() {
               <button>사진첩</button>
               <button>공지사항</button>
               <button>문의사항</button>
+              { crew.userId === userId && (
+                <button>설정</button>
+              )}
             </div>
           </div>
 
@@ -70,8 +81,13 @@ function CrewDetail() {
                 </div>
               </div>
               { crew.userId === userId 
-                ? <button css={s.modifyButton}>크루 수정</button>
-                : <button css={s.joinButton}>크루가입</button>
+                ? (
+                  <div>
+                    <button css={s.Button}>저장</button>
+                    <button css={s.Button} onClick={() => setIsModify(true)}>크루 수정</button>
+                  </div>
+                )
+                : <button css={s.Button}>크루가입</button>
               }
             </div>
           </div>
@@ -79,9 +95,32 @@ function CrewDetail() {
           <div css={s.mainLine}>
             <div>
               <p css={s.fontBold}>한줄 소개</p>
-              <div>{crew.title}</div>
+              {
+                isModify ? (
+                  <input type='text' placeholder='크루 한줄 소개를 입력하세요' defaultValue={crew.title} />
+                )
+                : <div>{crew.title}</div>
+              }
               <p css={s.fontBold}>크루 소개</p>
-              <div dangerouslySetInnerHTML={{ __html: crew.content }} />
+              {
+                isModify ? (
+                  <ReactQuill
+                    value={crew.content}
+                    onChange={(value) => {
+                      crew.content = value;
+                    }}
+                    modules={{
+                      toolbar: [
+                        [{ header: 1 }, { header: 2 }, { header: 3 }, { header: 4 }],
+                        ["bold", "italic", "underline", "strike"],
+                        [{ align: [] }, { color: [] }, { background: [] }],
+                        ["blockquote", "link"],
+                      ],
+                    }}
+                    />
+                )
+                : <div dangerouslySetInnerHTML={{ __html: crew.content }} />
+              }
             </div>
 
             <div>
