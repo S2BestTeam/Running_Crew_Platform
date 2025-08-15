@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -21,7 +23,9 @@ public class Crew {
     private String crewThumbnailImg;
     private Integer limitedPeople;
     private Integer userId;
+    private double crewTotalKm;
+    private LocalDateTime createdAt;
 
-    private User user;
-    private Gungu gungu;
+//    private User user;
+    private String gunguName;
 }

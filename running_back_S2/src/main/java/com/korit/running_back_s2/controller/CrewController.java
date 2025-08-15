@@ -22,7 +22,7 @@ public class CrewController {
 
     @GetMapping("/{crewId}")
     public ResponseEntity<ResponseDto<?>> getCrewById (@PathVariable Integer crewId) {
-        return ResponseEntity.ok(ResponseDto.success(null));
+        return ResponseEntity.ok(ResponseDto.success(crewService.getCrewById(crewId)));
     }
 
     @PostMapping

@@ -25,9 +25,7 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
         String providerId = null;
 
         OAuth2User oAuth2User = super.loadUser(userRequest);
-        System.out.println(oAuth2User.getAttributes());
 
-        // OAuth 제공자별 정보 추출
         if ("google".equals(registrationId)) {
             email = oAuth2User.getAttribute("email");
             img = oAuth2User.getAttribute("picture");
@@ -45,9 +43,10 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
         else if ("naver".equals(registrationId)) {
             Map<String, Object> response = (Map<String, Object>) oAuth2User.getAttributes().get("response");
 
-            providerId = (String) response.get("id");
-            email = (String) response.get("email");
-            img = (String) response.get("profile_image");
+            providerId = response.get("id").toString();
+            email = response.get("email").toString();
+            Object profileImageObj = response.get("profile_image").toString();
+            img = profileImageObj != null ? profileImageObj.toString() : "/images/default-profile.png";
         }
         
         User user = User.builder()

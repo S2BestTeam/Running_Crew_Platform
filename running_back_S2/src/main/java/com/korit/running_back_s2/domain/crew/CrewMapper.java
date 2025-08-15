@@ -8,4 +8,5 @@ import java.util.List;
 public interface CrewMapper {
     int insert(Crew crew);
     Crew findByCrewName(String crewName);
+    Crew findByCrewId(Integer crewId);
 }

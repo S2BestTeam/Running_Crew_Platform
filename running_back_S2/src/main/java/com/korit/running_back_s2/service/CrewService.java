@@ -39,4 +39,12 @@ public class CrewService {
             return "true";
         }
     }
+
+    public Crew getCrewById(Integer crewId) {
+        Crew crew = crewMapper.findByCrewId(crewId);
+        if (crew == null) {
+            throw new RuntimeException("크루를 찾을 수 없습니다. CREWID: " + crewId);
+        }
+        return crew;
+    }
 }

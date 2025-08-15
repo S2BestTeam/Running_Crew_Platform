@@ -1,6 +1,6 @@
 import api from "../axios";
 
-export const reqCrewDetail = async (crewId) => await api.get(`/api/crews/${crewId}`);
+export const reqCrewDetail = (crewId) => api.get(`/api/crews/${crewId}`);
 
 export const reqCheckCrewName = (crewName) => api.post("/api/crews/crewName", {data : crewName }, {
   headers: {
