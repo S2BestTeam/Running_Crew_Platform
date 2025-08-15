@@ -1,13 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import * as s from './styles';
 import MainContainer from '../../../components/MainContainer/MainContainer';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
 import { useCrewDetailQuery } from '../../../queries/useCrewDetailQuery';
 import { useState } from 'react';
 import ReactQuill from 'react-quill-new';
 
 function CrewDetail() {
+  const navigate = useNavigate();
   const principal = usePrincipalQuery();
   const userId = principal?.data?.data?.body?.user?.userId;
 
@@ -35,30 +36,49 @@ function CrewDetail() {
   return (
     <MainContainer>
       <div css={s.layout}>
-        <div css={s.leftBox}>
-          <div>
-            <div css={s.crewInfoBox}>
-              <div css={s.crewImgBox}></div>
-              <div css={s.crewNameBox}>{crew.crewName}</div>
-            </div>
-            <div css={s.buttonContainer}>
-              <button>크루 멤버</button>
-              <button>정모 일정</button>
-              <button>가입 인사</button>
-              <button>자유게시판</button>
-              <button>사진첩</button>
-              <button>공지사항</button>
-              <button>문의사항</button>
-              { crew.userId === userId && (
-                <button>설정</button>
-              )}
+        { crew.userId === userId ? (
+          <div css={s.leftBox}>
+            <div>
+              <div css={s.crewInfoBox}>
+                <div css={s.crewImgBox}></div>
+                <div css={s.crewNameBox}>{crew.crewName}</div>
+              </div>
+                <div css={s.buttonContainer}>
+                  <button>크루 멤버</button>
+                  <button>정모 일정</button>
+                  <button>가입 인사</button>
+                  <button>자유게시판</button>
+                  <button>사진첩</button>
+                  <button>공지사항</button>
+                  <button>문의사항</button>
+                  {/* 고민 중 상태를 변경해서 수정할 수 있게끔 할것인가 아니면 새로운 페이지로 넘어가서 할 것인가 */}
+                  {/* <button onClick={() => navigate(`/crews/${crew.crewId}/setting`)}>설정</button> */}
+                  <button onClick={() => navigate(`/crews/${crew.crewId}/setting`)}>설정</button>
+                </div>
+              </div>
+          </div>
+          )
+        : (
+          <div css={s.leftBox}>
+            <div>
+              <div css={s.crewInfoBox}>
+                <div css={s.crewImgBox}></div>
+                <div css={s.crewNameBox}>{crew.crewName}</div>
+              </div>
+                <div css={s.buttonContainer}>
+                  <button>크루 멤버</button>
+                  <button>정모 일정</button>
+                  <button>자유게시판</button>
+                  <button>사진첩</button>
+                  <button>공지사항</button>
+                  <button>문의사항</button>
+                </div>
+                </div>
+            <div css={s.getout}>
+              <button>탈퇴하기</button>
             </div>
           </div>
-
-          <div css={s.getout}>
-            <button>탈퇴하기</button>
-          </div>
-        </div>
+        )}
 
         <div css={s.mainBox}>
           <div css={s.titleBox}>
@@ -81,12 +101,7 @@ function CrewDetail() {
                 </div>
               </div>
               { crew.userId === userId 
-                ? (
-                  <div>
-                    <button css={s.Button}>저장</button>
-                    <button css={s.Button} onClick={() => setIsModify(true)}>크루 수정</button>
-                  </div>
-                )
+                ? <></>
                 : <button css={s.Button}>크루가입</button>
               }
             </div>

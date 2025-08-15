@@ -23,6 +23,7 @@ function CrewList() {
   const gunguList = gunguQuery?.data?.data?.body || [];
 
   const [crewList, setCrewList] = useState([]);
+  
   useEffect(() => {
     const pages = crewListQuery?.data?.pages || [];
     const merged = pages.flatMap((p) => p?.data?.body?.contents || []);
