@@ -37,7 +37,11 @@
 <!--    </resultMap>-->
 
     <insert id="insert" parameterType="com.korit.running_back_s2.domain.crew.Crew" useGeneratedKeys="true" keyProperty="crewId">
+<<<<<<< HEAD
         INSERT INTO crew_tb ( user_id, gungu_id, crew_name, title, content, limited_people, crew_profile_img , crew_thumbnail_img)
+=======
+        INSERT INTO crew_tb ( user_id, gungu_id, crew_name, title, content, limited_people, crew_profile_img, crew_thumbnail_img )
+>>>>>>> 20-crew-register
         VALUES ( #{userId}, #{gunguId}, #{crewName}, #{title}, #{content}, #{limitedPeople}, #{crewProfileImg}, #{crewThumbnailImg} )
     </insert>
 

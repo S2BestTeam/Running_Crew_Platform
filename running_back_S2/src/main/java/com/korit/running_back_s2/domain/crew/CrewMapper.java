@@ -8,5 +8,9 @@ import java.util.List;
 public interface CrewMapper {
     int insert(Crew crew);
     Crew findByCrewName(String crewName);
+<<<<<<< HEAD
     Crew findByCrewId(Integer crewId);
+=======
+    int registerProfileImgById(Integer userId, String profileImg);
+>>>>>>> 20-crew-register
 }
