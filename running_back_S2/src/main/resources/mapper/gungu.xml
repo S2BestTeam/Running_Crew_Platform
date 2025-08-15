@@ -14,7 +14,7 @@
     </select>
 
     <select id="getAllGungu" resultType="com.korit.running_back_s2.domain.gungu.Gungu">
-        selete
+        select
             gungu_id,
             gungu_name
         from

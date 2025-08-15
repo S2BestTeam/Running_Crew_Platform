@@ -7,9 +7,9 @@ import { FiPlus, FiX } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import usePrincipalQuery from "../../../queries/usePrincipalQuery";
 import MainContainer from "../../../components/MainContainer/MainContainer";
-import { reqGunguList } from "../../../api/useReqList";
 import { reqCheckCrewName, reqRegisterCrew } from "../../../api/Crew/crewApi";
 import api from "../../../api/axios";
+import { reqGunguList } from "../../../api/Gungu/gungu";
 
 function CrewRegister(props) {
   const principalQuery = usePrincipalQuery();

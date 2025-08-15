@@ -38,14 +38,18 @@ public class CrewController {
         System.out.println(crewName);
         return ResponseEntity.ok(ResponseDto.success(crewService.checkCrewNames(crewName)));
     }
-<<<<<<< HEAD
-=======
-
     @PostMapping("/{userId}/crew-profile-img")
     public ResponseEntity<ResponseDto<?>> registerCrewProfileImg(@RequestPart MultipartFile file) {
         System.out.println("프로필 이미지: " + file.getOriginalFilename());
         return ResponseEntity.ok(ResponseDto.success("프로필 이미지 등록 완료"));
     }
 
->>>>>>> 20-crew-register
+    @GetMapping
+    public ResponseEntity<ResponseDto<?>> getCrewList(
+            @RequestParam Integer page, @RequestParam Integer size,
+            @RequestParam(required = false) Integer gunguId,
+            @RequestParam(required = false) String searchText) {
+        return ResponseEntity.ok(ResponseDto.success(crewService.getCrewList(page, size, gunguId, searchText)));
+    }
+
 }
