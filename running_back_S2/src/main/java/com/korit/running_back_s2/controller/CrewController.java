@@ -19,7 +19,8 @@ public class CrewController {
     @GetMapping
     public ResponseEntity<ResponseDto<?>> getCrewList(
             @RequestParam Integer page, @RequestParam Integer size,
-            @RequestParam Integer gunguId, @RequestParam String searchText) {
+            @RequestParam(required = false) Integer gunguId,
+            @RequestParam(required = false) String searchText) {
         return ResponseEntity.ok(ResponseDto.success(crewService.getCrewList(page, size, gunguId, searchText)));
     }
 }

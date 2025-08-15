@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Select, MenuItem } from "@mui/material";
 import useGetCrewListQuery from "../../../queries/useGetCrewListQuery";
 import useGetGunguListQuery from "../../../queries/useGetGunguListQuery";
 
 function CrewList() {
+  const navigate = useNavigate();
   // URL 쿼리 먼저
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get("page") || "1", 10);
@@ -122,7 +123,11 @@ function CrewList() {
           crewList.map((crew) => (
             <div key={crew.crewId}>
               <div>{/* 이미지부분 일단 생략: <img src="" alt="" /> */}</div>
-              <div>{crew.crewName}</div>
+              <div>
+                <div>{crew.gunguName}</div>
+                <div onClick={() => navigate(`/crews/${crew.crewId}`)}>{crew.crewName}</div>
+                <div>{crew.title}</div>
+              </div>
             </div>
           ))
         )}

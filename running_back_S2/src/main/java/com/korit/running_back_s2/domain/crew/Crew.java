@@ -15,7 +15,9 @@ import java.util.Date;
 public class Crew {
     private Integer crewId;
     private Integer gunguId;
+    private String gunguName;
     private String crewProfileImg;
+    private String crewThumbnailImg;
     private String crewName;
     private Integer userId;
     private String title;

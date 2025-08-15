@@ -5,28 +5,33 @@
 
 <mapper namespace="com.korit.running_back_s2.domain.crew.CrewMapper">
     <resultMap id="CrewMap" type="com.korit.running_back_s2.domain.crew.Crew">
-        <id     property="crewId"         column="crew_id"/>
-        <result property="gunguId"        column="gungu_id"/>
-        <result property="crewProfileImg" column="crew_profile_img"/>
-        <result property="crewName"       column="crew_name"/>
-        <result property="userId"         column="user_id"/>
-        <result property="title"          column="title"/>
-        <result property="content"        column="content"/>
-        <result property="createdAt"      column="created_at"/>
+        <id     property="crewId"           column="crew_id"/>
+        <result property="gunguId"          column="gungu_id"/>
+        <result property="gunguName"        column="gungu_name" />
+        <result property="crewProfileImg"   column="crew_profile_img"/>
+        <result property="crewThumbnailImg" column="crew_thumbnail_img"/>
+        <result property="crewName"         column="crew_name"/>
+        <result property="userId"           column="user_id"/>
+        <result property="title"            column="title"/>
+        <result property="content"          column="content"/>
+        <result property="createdAt"        column="created_at"/>
     </resultMap>
 
     <select id="findAllBySearchOption" resultMap="CrewMap">
         select
-            crew_id,
-            gungu_id,
-            crew_profile_img,
-            crew_name,
-            user_id,
-            title,
-            content,
-            created_at
+        ct.crew_id as crew_id,
+        ct.gungu_id as gungu_id ,
+        gt.gungu_name as gungu_name,
+        ct.crew_profile_img as crew_profile_img,
+        ct.crew_thumbnail_img as crew_thumbnail_img,
+        ct.crew_name as crew_name,
+        ct.user_id as user_id,
+        ct.title as title,
+        ct.content as content,
+        ct.created_at as created_at
         from
-            crew_tb
+        crew_tb ct
+        left outer join gungu_tb gt on(ct.gungu_id = gt.gungu_id)
         <where>
             <if test="gunguId != null">
                 and gungu_id = #{gunguId}
@@ -39,7 +44,7 @@
                 )
             </if>
         </where>
-        ORDER BY created_at DESC
+        ORDER BY ct.created_at DESC
         LIMIT #{size} OFFSET #{startIndex}
     </select>
 
