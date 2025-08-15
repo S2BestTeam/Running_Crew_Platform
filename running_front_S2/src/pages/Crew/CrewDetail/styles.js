@@ -89,6 +89,12 @@ export const mainLine = css`
   padding-left: 1rem;
 `;
 
+export const fontBold = css`
+  font-weight: bold;
+  font-size: 2rem;
+
+`;
+
 export const titleBox = css`
   border: 0.1rem solid #dbdbdb;
   border-radius: 0.5rem;
