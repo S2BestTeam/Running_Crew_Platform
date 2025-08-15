@@ -9,8 +9,7 @@ function CrewDetail() {
   const principal = usePrincipalQuery();
   const userId = principal?.data?.data?.body?.user?.userId;
 
-  // const { crewId } = useParams();
-  const crewId = 6;
+  const { crewId } = useParams();
 
   const { data: crewData } = useCrewDetailQuery(crewId);
 

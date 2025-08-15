@@ -51,8 +51,6 @@ public class CrewService {
         }
         return crew;
     }
-<<<<<<< HEAD
-=======
 
     public PaginationRespDto<Crew> getCrewList(Integer page, Integer size,
                                                Integer gunguId, String searchText) {
@@ -78,5 +76,4 @@ public class CrewService {
                 .isLast(isLast)
                 .build();
     }
->>>>>>> da92693031fc45e21e10cf2b9c0f3d1466d4c09c
 }
