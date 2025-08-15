@@ -1,3 +1,4 @@
-import api from "./axios";
+
+import api from '../axios';
 
 export const reqGunguList = () => api.get("/api/gungus");

@@ -1,7 +1,10 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import {SIGNUP_REGEX, SIGNUP_REGEX_ERROR_MESSAGE,} from "../../../constants/signupRegex";
+import {
+  SIGNUP_REGEX,
+  SIGNUP_REGEX_ERROR_MESSAGE,
+} from "../../../constants/signupRegex";
 import { reqCheckNickname, reqRegisterUser } from "../../../api/User/userApi";
 
 function Signup() {
@@ -22,7 +25,7 @@ function Signup() {
     selectedYear: "",
     selectedMonth: "",
     selectedDay: "",
-    isNicknameChecked: false
+    isNicknameChecked: false,
   });
 
   const [errors, setErrors] = useState({
@@ -32,20 +35,24 @@ function Signup() {
 
   useEffect(() => {
     const script = document.createElement("script");
-    script.src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+    script.src =
+      "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
     script.async = true;
     document.body.appendChild(script);
   }, []);
 
   const currentYear = new Date().getFullYear();
-  const BIRTHDAY_YEAR_LIST = Array.from({ length: 51 }, (_, i) => currentYear - 50 + i);
+  const BIRTHDAY_YEAR_LIST = Array.from(
+    { length: 51 },
+    (_, i) => currentYear - 50 + i
+  );
   const BIRTHDAY_MONTH_LIST = Array.from({ length: 12 }, (_, i) => i + 1);
   const BIRTHDAY_DAY_LIST = Array.from({ length: 31 }, (_, i) => i + 1);
 
   const updateUser = (field, value) => {
-    setUser(prev => ({
+    setUser((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
@@ -99,13 +106,13 @@ function Signup() {
 
   const handlePostcode = () => {
     new window.daum.Postcode({
-      oncomplete: function(data) {
+      oncomplete: function (data) {
         const addr = data.roadAddress ? data.roadAddress : data.jibunAddress;
         updateUser("zipcode", data.zonecode);
         updateUser("address", addr);
         updateUser("detailAddress", "");
         document.getElementById("detailAddress").focus();
-      }
+      },
     }).open();
   };
 
@@ -114,7 +121,7 @@ function Signup() {
       2,
       "0"
     )}-${user.selectedDay.padStart(2, "0")}`;
-    
+
     const regUser = {
       oauthType,
       providerId,
@@ -131,7 +138,7 @@ function Signup() {
     try {
       const result = await reqRegisterUser(regUser);
       console.log(regUser);
-      
+
       const accessToken = result?.data?.body?.accessToken;
 
       if (accessToken) {
@@ -175,11 +182,11 @@ function Signup() {
         <h3>이메일</h3>
         <input disabled value={email} />
       </div>
-      
+
       <div>
         <h3>이름</h3>
-        <input 
-          value={user.name} 
+        <input
+          value={user.name}
           onChange={(e) => updateUser("name", e.target.value)}
         />
       </div>
@@ -223,12 +230,24 @@ function Signup() {
           <option value="2">여자</option>
         </select>
       </div>
-      
-      <div>
-        <input type="text" value={user.zipcode} readOnly placeholder="우편번호" />
-        <button type="button" onClick={handlePostcode}>주소 검색</button>
 
-        <input type="text" value={user.address} readOnly placeholder="기본주소" />
+      <div>
+        <input
+          type="text"
+          value={user.zipcode}
+          readOnly
+          placeholder="우편번호"
+        />
+        <button type="button" onClick={handlePostcode}>
+          주소 검색
+        </button>
+
+        <input
+          type="text"
+          value={user.address}
+          readOnly
+          placeholder="기본주소"
+        />
         <input
           type="text"
           id="detailAddress"
@@ -237,7 +256,7 @@ function Signup() {
           placeholder="상세주소"
         />
       </div>
-      
+
       <div>
         <h3>생일</h3>
         <div style={{ display: "flex", gap: "10px" }}>

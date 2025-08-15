@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.korit.running_back_s2.dto.crew.CrewRegisterReqDto;
 import com.korit.running_back_s2.service.CrewService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 
@@ -37,4 +38,18 @@ public class CrewController {
         System.out.println(crewName);
         return ResponseEntity.ok(ResponseDto.success(crewService.checkCrewNames(crewName)));
     }
+    @PostMapping("/{userId}/crew-profile-img")
+    public ResponseEntity<ResponseDto<?>> registerCrewProfileImg(@RequestPart MultipartFile file) {
+        System.out.println("프로필 이미지: " + file.getOriginalFilename());
+        return ResponseEntity.ok(ResponseDto.success("프로필 이미지 등록 완료"));
+    }
+
+    @GetMapping
+    public ResponseEntity<ResponseDto<?>> getCrewList(
+            @RequestParam Integer page, @RequestParam Integer size,
+            @RequestParam(required = false) Integer gunguId,
+            @RequestParam(required = false) String searchText) {
+        return ResponseEntity.ok(ResponseDto.success(crewService.getCrewList(page, size, gunguId, searchText)));
+    }
+
 }

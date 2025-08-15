@@ -14,3 +14,9 @@ export const reqRegisterCrew = (data) =>
       "Content-Type": "multipart/form-data",
     },
   });
+
+  export const reqGetCrewList = ({ page, size, gunguId, searchText }) => {
+  return api.get("/api/crews", {
+    params: { page, size, gunguId, searchText },
+  });
+};

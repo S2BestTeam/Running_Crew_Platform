@@ -7,8 +7,9 @@ import { FiPlus, FiX } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import usePrincipalQuery from "../../../queries/usePrincipalQuery";
 import MainContainer from "../../../components/MainContainer/MainContainer";
-import { reqGunguList } from "../../../api/useReqList";
 import { reqCheckCrewName, reqRegisterCrew } from "../../../api/Crew/crewApi";
+import api from "../../../api/axios";
+import { reqGunguList } from "../../../api/Gungu/gungu";
 
 function CrewRegister(props) {
   const principalQuery = usePrincipalQuery();
@@ -27,7 +28,31 @@ function CrewRegister(props) {
     userId: "",
   });
 
-  const handlePlusOnClick = () => {
+  const handleProfileImgRegisterOnClick = () => {
+    const fileInput = document.createElement("input");
+    fileInput.setAttribute("type", "file");
+    fileInput.onchange = (e) => {
+      const file = e.target.files[0];
+      const formData = new FormData();
+      formData.append("file", file);
+      api.post(`/api/crews/${userId}/crew-profile-img`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    };
+
+    fileInput.click();
+  };
+
+  const handleThumbnailImgRegisterOnClick = () => {
+    setRegisterCrew((prev) => ({
+      ...prev,
+      crewProfileImg: null,
+    }));
+  };
+
+  const handleThumbnailImgOnClick = () => {
     const fileInput = document.createElement("input");
     fileInput.setAttribute("type", "file");
     fileInput.click();
@@ -44,50 +69,19 @@ function CrewRegister(props) {
 
         setRegisterCrew((prev) => ({
           ...prev,
-          crewProfileImg: imageData,
+          crewThumbnailImg: imageData,
         }));
       };
       fileReader.readAsDataURL(file);
     };
   };
 
-  const handleImgDeleteOnClick = () => {
+  const handleThumbnailDeleteOnClick = () => {
     setRegisterCrew((prev) => ({
       ...prev,
-      crewProfileImg: null,
+      crewThumbnailImg: null,
     }));
   };
-
-  const handleThumbnailPlusOnClick = () => {
-  const fileInput = document.createElement("input");
-  fileInput.setAttribute("type", "file");
-  fileInput.click();
-  fileInput.onchange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const fileReader = new FileReader();
-    fileReader.onload = (e) => {
-      const imageData = {
-        file,
-        dataUrl: e.target.result,
-      };
-
-      setRegisterCrew((prev) => ({
-        ...prev,
-        crewThumbnailImg: imageData,
-      }));
-    };
-    fileReader.readAsDataURL(file);
-  };
-};
-
-const handleThumbnailDeleteOnClick = () => {
-  setRegisterCrew((prev) => ({
-    ...prev,
-    crewThumbnailImg: null,
-  }));
-};
 
   const [gunguList, setGunguList] = useState([]);
 
@@ -130,34 +124,35 @@ const handleThumbnailDeleteOnClick = () => {
     }));
   };
 
-  const createFormData = (data) => {
+  const registerFormData = (data) => {
     const formData = new FormData();
-    formData.append("crewName", data.crewName);
-    formData.append("title", data.title);
-    formData.append("content", data.content);
-    formData.append("limitedPeople", data.limitedPeople);
-    formData.append("gunguId", data.gunguId);
-    formData.append("userId", userId);
 
-    if (data.crewImgPath) {
-      formData.append("crewProfileImg", data.crewProfileImg.file);
-    }
-    if (data.crewThumbnailImg) {
-      formData.append("crewThumbnailImg", data.crewThumbnailImg.file);
-}
+    formData.append("userId", userId);
+    formData.append("gunguId", gunguId);
+    formData.append("crewName", crewName);
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("limitedPeople", limitedPeople);
+
+    formData.append("crewProfileImg", profileFile);
+    formData.append("crewThumbnailImg", thumbnailFile);
+
     return formData;
   };
 
   const handleRegisterCrewOnClick = async () => {
-    const formData = createFormData(registerCrew);
-    await reqRegisterCrew(formData)
-      .then((res) => {
-        console.log("등록 성공!", res);
-        navigate("/");
-      })
-      .catch((err) => {
-        console.error("등록 실패", err);
+    const formData = registerFormData(registerCrew);
+    try {
+      const res = await api.post("/api/crews", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
+      console.log("등록 성공!", res);
+      navigate("/");
+    } catch (err) {
+      console.error("등록 실패", err);
+    }
   };
 
   const toolbarOptions = [
@@ -177,7 +172,10 @@ const handleThumbnailDeleteOnClick = () => {
                 {/* 썸네일 업로드 */}
                 {!registerCrew.crewThumbnailImg && (
                   <div css={s.imgContainer}>
-                    <div css={s.plus} onClick={handleThumbnailPlusOnClick}>
+                    <div
+                      css={s.plus}
+                      onClick={handleThumbnailImgRegisterOnClick}
+                    >
                       <FiPlus />
                     </div>
                     <div>썸네일 이미지</div>
@@ -204,7 +202,7 @@ const handleThumbnailDeleteOnClick = () => {
               <div>
                 {!registerCrew.crewProfileImg && (
                   <div css={s.imgContainer}>
-                    <div css={s.plus} onClick={handlePlusOnClick}>
+                    <div css={s.plus} onClick={handleProfileImgRegisterOnClick}>
                       <FiPlus />
                     </div>
                   </div>
@@ -213,7 +211,10 @@ const handleThumbnailDeleteOnClick = () => {
                 {registerCrew.crewProfileImg && (
                   <div css={s.imgContainer}>
                     <div css={s.feedImg(registerCrew.crewProfileImg.dataUrl)}>
-                      <div css={s.fixButton} onClick={handleImgDeleteOnClick}>
+                      <div
+                        css={s.fixButton}
+                        onClick={handleProfileImgDeleteOnClick}
+                      >
                         <div>
                           <FiX />
                         </div>

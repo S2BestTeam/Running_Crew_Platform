@@ -5,6 +5,7 @@
 <mapper namespace="com.korit.running_back_s2.domain.crew.CrewMapper">
 
     <resultMap id="CrewMap" type="com.korit.running_back_s2.domain.crew.Crew">
+<<<<<<< HEAD
         <id property="crewId" column="crew_id" />
         <result property="gunguId" column="gungu_id" />
         <result property="crewName" column="crew_name" />
@@ -17,13 +18,28 @@
         <result property="createdAt" column="created_at" />
         <result property="crewTotalKm" column="crew_total_km" />
         <result property="gunguName" column="gungu_name" />
+=======
+        <id property="crewId" column="crew_id"/>
+        <result property="gunguId" column="gungu_id"/>
+        <result property="crewName" column="crew_name"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="limitedPeople" column="limited_people"/>
+        <result property="crewProfileImg" column="crew_profile_img"/>
+        <result property="crewThumbnailImg" column="crew_thumbnail_img"/>
+        <result property="userId" column="user_id"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="crewTotalKm" column="crew_total_km"/>
+        <result property="gunguName" column="gungu_name"/>
+>>>>>>> da92693031fc45e21e10cf2b9c0f3d1466d4c09c
     </resultMap>
 
     <resultMap id="GungguMap" type="com.korit.running_back_s2.domain.gungu.Gungu">
-        <id property="gunguId" column="gungu_id" />
-        <result property="gunguName" column="gungu_name" />
+        <id property="gunguId" column="gungu_id"/>
+        <result property="gunguName" column="gungu_name"/>
     </resultMap>
 
+<<<<<<< HEAD
 <!--    <resultMap id="UserMap" type="com.korit.running_back_s2.domain.user.User">-->
 <!--        <id property="userId" column="user_id" />-->
 <!--        <result property="email" column="email" />-->
@@ -39,6 +55,26 @@
     <insert id="insert" parameterType="com.korit.running_back_s2.domain.crew.Crew" useGeneratedKeys="true" keyProperty="crewId">
         INSERT INTO crew_tb ( user_id, gungu_id, crew_name, title, content, limited_people, crew_profile_img , crew_thumbnail_img)
         VALUES ( #{userId}, #{gunguId}, #{crewName}, #{title}, #{content}, #{limitedPeople}, #{crewProfileImg}, #{crewThumbnailImg} )
+=======
+    <!--    <resultMap id="UserMap" type="com.korit.running_back_s2.domain.user.User">-->
+    <!--        <id property="userId" column="user_id" />-->
+    <!--        <result property="email" column="email" />-->
+    <!--        <result property="fullName" column="full_name" />-->
+    <!--        <result property="phoneNumber" column="phone_number" />-->
+    <!--        <result property="nickname" column="nickname" />-->
+    <!--        <result property="birthDate" column="birth_date" />-->
+    <!--        <result property="gender" column="gender" />-->
+    <!--        <result property="profileImg" column="profile_img" />-->
+    <!--        <result property="gunguId" column="ut_gungu_id" />-->
+    <!--    </resultMap>-->
+
+    <insert id="insert" parameterType="com.korit.running_back_s2.domain.crew.Crew" useGeneratedKeys="true"
+            keyProperty="crewId">
+        INSERT INTO crew_tb ( user_id, gungu_id, crew_name, title, content, limited_people, crew_profile_img ,
+        crew_thumbnail_img)
+        VALUES ( #{userId}, #{gunguId}, #{crewName}, #{title}, #{content}, #{limitedPeople}, #{crewProfileImg},
+        #{crewThumbnailImg} )
+>>>>>>> da92693031fc45e21e10cf2b9c0f3d1466d4c09c
     </insert>
 
     <select id="findByCrewName" resultType="com.korit.running_back_s2.domain.crew.Crew">
@@ -70,5 +106,74 @@
         WHERE
             ct.crew_id = #{crewId}
     </select>
+
+    <select id="findByCrewId" resultMap="CrewMap">
+        SELECT
+        ct.crew_id AS crew_id,
+        ct.gungu_id AS gungu_id,
+        gt.gungu_name AS gungu_name,
+        ct.crew_name as crew_name,
+        ct.title as title,
+        ct.content as content,
+        ct.crew_profile_img as crew_profile_img,
+        ct.crew_thumbnail_img as crew_thumbnail_img,
+        ct.limited_people as limited_people,
+        ct.user_id AS user_id,
+        ct.created_at AS created_at,
+        ct.crew_total_km AS crew_total_km
+        FROM
+        crew_tb ct
+        left outer join gungu_tb gt on(ct.gungu_id = gt.gungu_id)
+        WHERE
+        ct.crew_id = #{crewId}
+    </select>
+    <select id="findAllBySearchOption" resultMap="CrewMap">
+        select
+        ct.crew_id as crew_id,
+        ct.gungu_id as gungu_id ,
+        gt.gungu_name as gungu_name,
+        ct.crew_profile_img as crew_profile_img,
+        ct.crew_thumbnail_img as crew_thumbnail_img,
+        ct.crew_name as crew_name,
+        ct.user_id as user_id,
+        ct.title as title,
+        ct.content as content,
+        ct.created_at as created_at
+        from
+        crew_tb ct
+        left outer join gungu_tb gt on(ct.gungu_id = gt.gungu_id)
+        <where>
+            <if test="gunguId != null">
+                and gungu_id = #{gunguId}
+            </if>
+            <if test="searchText != null and searchText != ''">
+                and (
+                crew_name LIKE CONCAT('%', #{searchText}, '%')
+                OR title LIKE CONCAT('%', #{searchText}, '%')
+                OR content LIKE CONCAT('%', #{searchText}, '%')
+                )
+            </if>
+        </where>
+        ORDER BY ct.created_at DESC
+        LIMIT #{size} OFFSET #{startIndex}
+    </select>
+
+    <select id="countBySearchOption" resultType="int">
+        select COUNT(*)
+        from crew_tb
+        <where>
+            <if test="gunguId != null">
+                and gungu_id = #{gunguId}
+            </if>
+            <if test="searchText != null and searchText != ''">
+                and (
+                crew_name LIKE CONCAT('%', #{searchText}, '%')
+                OR title LIKE CONCAT('%', #{searchText}, '%')
+                OR content LIKE CONCAT('%', #{searchText}, '%')
+                )
+            </if>
+        </where>
+    </select>
+
 
 </mapper>
