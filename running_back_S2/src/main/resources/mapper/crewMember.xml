@@ -15,7 +15,6 @@
         <result property="profileImg"   column="profile_img"/>
     </resultMap>
 
-
     <select id="findAllMembersBySearchOption"
             parameterType="com.korit.running_back_s2.domain.crew.member.CrewMemberSearchOption"
             resultMap="CrewMemberMap">
@@ -84,4 +83,12 @@
         and user_id = #{userId}
         and role_id != 2
     </delete>
+
+
+    <insert id="report" parameterType="com.korit.running_back_s2.domain.crew.member.Report">
+        insert into report_tb
+        (crew_id, reporter_id, reported_id, reason)
+        values
+        (#{crewId}, #{reporterId}, #{reportedId}, #{reason});
+    </insert>
 </mapper>

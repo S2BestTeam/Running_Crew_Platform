@@ -1,9 +1,11 @@
 package com.korit.running_back_s2.controller;
 
 import com.korit.running_back_s2.dto.response.ResponseDto;
+import com.korit.running_back_s2.security.model.PrincipalUser;
 import com.korit.running_back_s2.service.CrewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -37,6 +39,17 @@ public class CrewMemberController {
                                          @PathVariable Integer userId) {
         crewService.expel(crewId, userId);
         return ResponseEntity.ok(ResponseDto.success("멤버가 추방되었습니다."));
+    }
+
+    @PostMapping("/{crewId}/members/{userId}/report")
+    public ResponseEntity<?> report(
+            @PathVariable Integer crewId,
+            @PathVariable Integer userId,
+            @RequestBody String reason,
+            @AuthenticationPrincipal PrincipalUser principalUser
+    ) {
+        crewService.report(crewId, userId, principalUser, reason);
+        return ResponseEntity.ok(ResponseDto.success("신고가 접수되었습니다."));
     }
 }
 

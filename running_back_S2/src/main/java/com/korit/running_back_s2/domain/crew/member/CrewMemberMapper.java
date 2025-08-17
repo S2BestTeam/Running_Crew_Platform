@@ -15,4 +15,6 @@ public interface CrewMemberMapper {
 
     int deleteMember(@Param("crewId") Integer crewId,
                               @Param("userId") Integer userId);
+
+    int report(Report report);
 }

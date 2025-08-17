@@ -3,12 +3,10 @@ package com.korit.running_back_s2.service;
 import com.korit.running_back_s2.domain.crew.Crew;
 import com.korit.running_back_s2.domain.crew.CrewMapper;
 import com.korit.running_back_s2.domain.crew.CrewSearchOption;
-import com.korit.running_back_s2.domain.crew.member.CrewMember;
-import com.korit.running_back_s2.domain.crew.member.CrewMemberDetailResp;
-import com.korit.running_back_s2.domain.crew.member.CrewMemberMapper;
-import com.korit.running_back_s2.domain.crew.member.CrewMemberSearchOption;
+import com.korit.running_back_s2.domain.crew.member.*;
 import com.korit.running_back_s2.dto.crew.CrewRegisterReqDto;
 import com.korit.running_back_s2.dto.response.PaginationRespDto;
+import com.korit.running_back_s2.security.model.PrincipalUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -122,5 +120,18 @@ public class CrewService {
             throw new IllegalStateException("리더는 추방할 수 없거나 대상이 존재하지 않습니다.");
         }
     }
+
+
+    public void report(Integer crewId, Integer userId, PrincipalUser principalUser, String reason) {
+        Integer reporterId = principalUser.getUser().getUserId();
+        Report report = Report.builder()
+                .crewId(crewId)
+                .reporterId(reporterId)
+                .reportedId(userId)
+                .reason(reason)
+                .build();
+        crewMemberMapper.report(report);
+    }
+
 }
 

@@ -67,11 +67,6 @@ function CrewMember() {
     crewTotalKm: 0,
   };
 
-  const reportModal = (userId) => {
-    setSelectedUserId(null);
-    setReportUserId(userId);
-  };
-
   if (isLoading) {
     return (
       <MainContainer>
@@ -135,11 +130,21 @@ function CrewMember() {
               isLeader={isLeader}
               onChanged={() => membersQuery.refetch()}
               onClose={() => setSelectedUserId(null)}
-              onReport={reportModal}
+              onReport={(userId) => {
+                setSelectedUserId(null);
+                setReportUserId(userId);
+              }}
             />
           )}
-
-          {reportUserId && <ReportModal isOpen crewId={crewId} userId={reportUserId} onClose={() => setReportUserId(null)} />}
+          {reportUserId && (
+            <ReportModal
+              crewId={crewId}
+              userId={reportUserId}
+              nickname={members.find((m) => m.userId === reportUserId)?.nickname}
+              isOpen={!!reportUserId}
+              onClose={() => setReportUserId(null)}
+            />
+          )}
         </div>
       </div>
     </MainContainer>

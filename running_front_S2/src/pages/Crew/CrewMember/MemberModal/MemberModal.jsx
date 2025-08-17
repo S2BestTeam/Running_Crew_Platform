@@ -5,15 +5,15 @@ import useUserDetailQuery from "../../../../queries/useUserDetailQuery";
 import { reqExpelMember, reqGrantMember } from "../../../../api/Crew/crewApi";
 
 export default function MemberModal({ crewId, userId, isOpen, onClose, isLeader = false, onChanged, onReport }) {
-
   const { data: detail, isLoading, isError } = useUserDetailQuery({ crewId, userId, enabled: isOpen });
-  const canGrant = isLeader && detail?.roleId !== 2 && detail?.roleId !== 3;
-  const canExpel = isLeader && detail?.roleId !== 2;
+
+  const canGrant = !!(isLeader && detail && detail.roleId !== 2 && detail.roleId !== 3);
+  const canExpel = !!(isLeader && detail && detail.roleId !== 2);
 
   const handleGrantOnClick = async () => {
     try {
       await reqGrantMember({ crewId, userId: detail.userId });
-      onChanged?.(); // 부모에서도 알게 하는 코드
+      onChanged();
       onClose();
     } catch (e) {
       alert(e?.response?.data?.message ?? "권한 부여 실패");
@@ -24,11 +24,16 @@ export default function MemberModal({ crewId, userId, isOpen, onClose, isLeader 
     if (!confirm("추방할까요?")) return;
     try {
       await reqExpelMember({ crewId, userId: detail.userId });
-      onChanged?.();
+      onChanged();
       onClose();
     } catch (e) {
       alert(e?.response?.data?.message ?? "추방 실패");
     }
+  };
+
+  const handleReportOnClick = () => {
+    onClose();
+    onReport(userId);
   };
 
   const modalStyles = useMemo(
@@ -48,7 +53,7 @@ export default function MemberModal({ crewId, userId, isOpen, onClose, isLeader 
         padding: 0,
         overflow: "hidden",
         background: "#fff",
-        width: "360px",
+        width: 360,
         maxWidth: "calc(100% - 24px)",
         boxShadow: "0 10px 30px rgba(0,0,0,.2)",
       },
@@ -58,11 +63,26 @@ export default function MemberModal({ crewId, userId, isOpen, onClose, isLeader 
 
   return (
     <ReactModal isOpen={!!isOpen} onRequestClose={onClose} shouldCloseOnOverlayClick style={modalStyles}>
-      <div style={{ padding: "12px 16px", borderBottom: "1px solid #eee", fontWeight: 700 }}>멤버 정보</div>
+      <div
+        style={{
+          padding: "12px 16px",
+          borderBottom: "1px solid #eee",
+          fontWeight: 700,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <span>멤버 정보</span>
+        <button onClick={handleReportOnClick} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 18 }} title="신고하기">
+          🚨
+        </button>
+      </div>
 
       <div style={{ padding: 16 }}>
         {isLoading && <div>불러오는 중…</div>}
         {isError && <div style={{ color: "crimson" }}>정보를 불러오지 못했어요.</div>}
+
         {!isLoading && !isError && detail && (
           <div style={{ display: "grid", rowGap: 8 }}>
             {/* <img src={detail.profileImg} alt="" style={{ width: 64, height: 64, borderRadius: "50%" }}/> */}
@@ -83,29 +103,25 @@ export default function MemberModal({ crewId, userId, isOpen, onClose, isLeader 
             </div>
           </div>
         )}
-        <button
-          onClick={() => onReport?.(userId)}
-          style={{
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            fontSize: "18px",
-          }}
-          title="신고하기"
-        >
-          🚨
-        </button>
       </div>
 
       {isLeader && (
-        <>
+        <div
+          style={{
+            display: "flex",
+            gap: 8,
+            padding: "12px 16px",
+            borderTop: "1px solid #eee",
+            justifyContent: "flex-end",
+          }}
+        >
           <button disabled={!canGrant} onClick={handleGrantOnClick}>
             운영진 권한 부여
           </button>
           <button disabled={!canExpel} onClick={handleExpelOnClick}>
             추방하기
           </button>
-        </>
+        </div>
       )}
     </ReactModal>
   );

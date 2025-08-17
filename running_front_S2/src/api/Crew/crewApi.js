@@ -39,3 +39,6 @@ export const reqGrantMember = ({ crewId, userId }) =>
 
 export const reqExpelMember = ({ crewId, userId }) =>
   api.delete(`/api/crews/${crewId}/members/${userId}/expel`);
+
+export const reqReportMember = ({ crewId, userId, reason }) =>
+  api.post(`/api/crews/${crewId}/members/${userId}/report`, { reason });
