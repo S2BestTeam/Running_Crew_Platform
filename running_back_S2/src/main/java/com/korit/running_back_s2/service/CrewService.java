@@ -3,10 +3,13 @@ package com.korit.running_back_s2.service;
 import com.korit.running_back_s2.domain.crew.Crew;
 import com.korit.running_back_s2.domain.crew.CrewMapper;
 import com.korit.running_back_s2.domain.crew.CrewSearchOption;
+import com.korit.running_back_s2.domain.user.UserMapper;
 import com.korit.running_back_s2.dto.crew.CrewRegisterReqDto;
 import com.korit.running_back_s2.dto.response.PaginationRespDto;
+import com.korit.running_back_s2.security.model.PrincipalUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,25 +17,29 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CrewService {
 
+    private final PrincipalUtil principalUtil;
     private final CrewMapper crewMapper;
+    private final UserMapper userMapper;
     private final FileService fileService;
 
+    @Transactional(rollbackFor = Exception.class)
     public void register(CrewRegisterReqDto dto) {
-        String uploadedFilename = fileService.uploadFile(dto.getCrewProfileImg(), "/crew");
+        Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
+        String profileImg = fileService.uploadFile(dto.getCrewProfileImg(), "/crew");
+        String thumbnailImg = fileService.uploadFile(dto.getCrewProfileImg(), "/crew");
 
         Crew crew = Crew.builder()
-                .userId(dto.getUserId())
+                .userId(userId)
                 .gunguId(dto.getGunguId())
                 .crewName(dto.getCrewName())
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .limitedPeople(dto.getLimitedPeople())
-                .crewProfileImg("/crew/" + uploadedFilename)
-                .crewThumbnailImg("/crew/" + uploadedFilename)
-                .userId(dto.getUserId())
+                .crewProfileImg(profileImg)
+                .crewThumbnailImg(thumbnailImg)
                 .build();
-
         crewMapper.insert(crew);
+        userMapper.updateRoleId(userId, 2);
     }
 
     public String checkCrewNames(String crewName) {

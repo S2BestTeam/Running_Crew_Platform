@@ -32,10 +32,8 @@ public class CrewController {
         return ResponseEntity.ok(ResponseDto.success("Crew 등록 성공"));
     }
 
-    @PostMapping("/crewName")
-    public ResponseEntity<ResponseDto<?>> checkCrewName(@RequestBody Map<String, String> crewNameData) {
-        String crewName = crewNameData.get("data");
-        System.out.println(crewName);
+    @GetMapping("/duplicate/name")
+    public ResponseEntity<ResponseDto<?>> checkCrewName(@RequestParam String crewName) {
         return ResponseEntity.ok(ResponseDto.success(crewService.checkCrewNames(crewName)));
     }
     @PostMapping("/{userId}/crew-profile-img")

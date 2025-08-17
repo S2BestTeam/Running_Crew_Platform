@@ -8,14 +8,19 @@ import { useNavigate } from "react-router-dom";
 import usePrincipalQuery from "../../../queries/usePrincipalQuery";
 import MainContainer from "../../../components/MainContainer/MainContainer";
 import { reqCheckCrewName, reqRegisterCrew } from "../../../api/Crew/crewApi";
-import api from "../../../api/axios";
 import { reqGunguList } from "../../../api/Gungu/gungu";
+import useGetGunguListQuery from "../../../queries/useGetGunguListQuery";
 
 function CrewRegister(props) {
-  const principalQuery = usePrincipalQuery();
-  const principal = principalQuery.data?.data?.body;
   const navigate = useNavigate();
-  const userId = principal?.user?.userId;
+
+  const gunguQuery = useGetGunguListQuery();
+  const gunguList = gunguQuery?.data?.data.body || [];
+  const [preview, setPreview] = useState({
+    crewProfileImg: "",
+    crewThumbnailImg: "",
+  });
+  const [isDuplicated, setDuplicated] = useState(true);
 
   const [registerCrew, setRegisterCrew] = useState({
     crewName: "",
@@ -25,89 +30,37 @@ function CrewRegister(props) {
     crewProfileImg: null,
     crewThumbnailImg: null,
     gunguId: "",
-    userId: "",
   });
 
-  const handleProfileImgRegisterOnClick = () => {
+  const handleImgAddOnClick = (e, name) => {
     const fileInput = document.createElement("input");
     fileInput.setAttribute("type", "file");
     fileInput.onchange = (e) => {
       const file = e.target.files[0];
-      const formData = new FormData();
-      formData.append("file", file);
-      api.post(`/api/crews/${userId}/crew-profile-img`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-    };
-
-    fileInput.click();
-  };
-
-  const handleThumbnailImgRegisterOnClick = () => {
-    setRegisterCrew((prev) => ({
-      ...prev,
-      crewProfileImg: null,
-    }));
-  };
-
-  const handleThumbnailImgOnClick = () => {
-    const fileInput = document.createElement("input");
-    fileInput.setAttribute("type", "file");
-    fileInput.click();
-    fileInput.onchange = async (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-
-      const fileReader = new FileReader();
-      fileReader.onload = (e) => {
-        const imageData = {
-          file,
-          dataUrl: e.target.result,
-        };
-
-        setRegisterCrew((prev) => ({
-          ...prev,
-          crewThumbnailImg: imageData,
-        }));
-      };
-      fileReader.readAsDataURL(file);
-    };
-  };
-
-  const handleThumbnailDeleteOnClick = () => {
-    setRegisterCrew((prev) => ({
-      ...prev,
-      crewThumbnailImg: null,
-    }));
-  };
-
-  const [gunguList, setGunguList] = useState([]);
-
-  useEffect(() => {
-    if (principal?.user?.userId) {
       setRegisterCrew((prev) => ({
         ...prev,
-        userId: principal.user.userId,
+        [name]: file,
       }));
-    }
-  }, [principal]);
+      const fileReader = new FileReader();
+      fileReader.onload = (e) => {
+        setPreview((prev) => ({
+          ...prev,
+          [name]: e.target.result,
+        }));
+      };
 
-  useEffect(() => {
-    reqGunguList()
-      .then((res) => setGunguList(res.data.body))
-      .catch((err) => console.error(err));
-  }, []);
+      fileReader.readAsDataURL(file);
+    };
 
-  const [isCrewNameChecked, setIsCrewNameChecked] = useState(false);
+    fileInput.click();
+  };
 
   const handleCheckCrewNameOnClick = async () => {
     if (!registerCrew.crewName.trim()) return;
     try {
       const response = await reqCheckCrewName(registerCrew.crewName);
-      if (response.data?.body === "false") {
-        setIsCrewNameChecked(true);
+      setDuplicated(!response.data?.body);
+      if (response.data?.body) {
         alert("사용 가능한 크루명 입니다!");
       } else {
         alert("중복된 크루명 입니다.");
@@ -124,30 +77,24 @@ function CrewRegister(props) {
     }));
   };
 
-  const registerFormData = (data) => {
+  const handleRegisterCrewOnClick = async () => {
+    if (isDuplicated) {
+      alert("크루명 중복 확인 필요");
+      return;
+    }
     const formData = new FormData();
 
-    formData.append("userId", userId);
-    formData.append("gunguId", gunguId);
-    formData.append("crewName", crewName);
-    formData.append("title", title);
-    formData.append("content", content);
-    formData.append("limitedPeople", limitedPeople);
+    formData.append("gunguId", registerCrew.gunguId);
+    formData.append("crewName", registerCrew.crewName);
+    formData.append("title", registerCrew.title);
+    formData.append("content", registerCrew.content);
+    formData.append("limitedPeople", registerCrew.limitedPeople);
 
-    formData.append("crewProfileImg", profileFile);
-    formData.append("crewThumbnailImg", thumbnailFile);
+    formData.append("crewProfileImg", registerCrew.crewProfileImg);
+    formData.append("crewThumbnailImg", registerCrew.crewThumbnailImg);
 
-    return formData;
-  };
-
-  const handleRegisterCrewOnClick = async () => {
-    const formData = registerFormData(registerCrew);
     try {
-      const res = await api.post("/api/crews", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      reqRegisterCrew(formData);
       console.log("등록 성공!", res);
       navigate("/");
     } catch (err) {
@@ -170,58 +117,33 @@ function CrewRegister(props) {
             <div css={s.mainInputRow}>
               <div>
                 {/* 썸네일 업로드 */}
-                {!registerCrew.crewThumbnailImg && (
-                  <div css={s.imgContainer}>
-                    <div
-                      css={s.plus}
-                      onClick={handleThumbnailImgRegisterOnClick}
-                    >
-                      <FiPlus />
-                    </div>
-                    <div>썸네일 이미지</div>
+                <div css={s.imgContainer}>
+                  <div>
+                    <img src={preview.crewThumbnailImg} alt="" />
                   </div>
-                )}
-
-                {registerCrew.crewThumbnailImg && (
-                  <div css={s.imgContainer}>
-                    <div css={s.feedImg(registerCrew.crewThumbnailImg.dataUrl)}>
-                      <div
-                        css={s.fixButton}
-                        onClick={handleThumbnailDeleteOnClick}
-                      >
-                        <div>
-                          <FiX />
-                        </div>
-                      </div>
-                    </div>
-                    <div>썸네일 이미지</div>
+                  <div
+                    css={s.plus}
+                    onClick={(e) => handleImgAddOnClick(e, "crewThumbnailImg")}
+                  >
+                    <FiPlus />
                   </div>
-                )}
+                  <div>썸네일 이미지</div>
+                </div>
               </div>
 
               <div>
-                {!registerCrew.crewProfileImg && (
-                  <div css={s.imgContainer}>
-                    <div css={s.plus} onClick={handleProfileImgRegisterOnClick}>
-                      <FiPlus />
-                    </div>
+                <div css={s.imgContainer}>
+                  <div>
+                    <img src={preview.crewProfileImg} alt="" />
                   </div>
-                )}
-
-                {registerCrew.crewProfileImg && (
-                  <div css={s.imgContainer}>
-                    <div css={s.feedImg(registerCrew.crewProfileImg.dataUrl)}>
-                      <div
-                        css={s.fixButton}
-                        onClick={handleProfileImgDeleteOnClick}
-                      >
-                        <div>
-                          <FiX />
-                        </div>
-                      </div>
-                    </div>
+                  <div
+                    css={s.plus}
+                    onClick={(e) => handleImgAddOnClick(e, "crewProfileImg")}
+                  >
+                    <FiPlus />
                   </div>
-                )}
+                  <div>프로필 이미지</div>
+                </div>
               </div>
 
               <div css={s.selectContainer}>
@@ -311,12 +233,23 @@ function CrewRegister(props) {
                 css={s.limitedPeopleInput}
                 type="text"
                 value={registerCrew.limitedPeople}
-                onChange={(e) =>
+                onChange={(e) => {
                   setRegisterCrew((prev) => ({
                     ...prev,
                     limitedPeople: e.target.value,
-                  }))
-                }
+                  }));
+                }}
+                onBlur={(e) => {
+                  const regex = /^(?:[1-9]\d|100)$/;
+                  if (!regex.test(e.target.value)) {
+                    alert("정원은 10 ~ 100명으로 설정하여야합니다.");
+                    setRegisterCrew((prev) => ({
+                      ...prev,
+                      limitedPeople: "",
+                    }));
+                    return;
+                  }
+                }}
               />
             </div>
           </div>
