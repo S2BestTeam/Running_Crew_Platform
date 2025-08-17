@@ -3,17 +3,16 @@ package com.korit.running_back_s2.service;
 import com.korit.running_back_s2.domain.gungu.GunguMapper;
 import com.korit.running_back_s2.domain.user.User;
 import com.korit.running_back_s2.domain.user.UserMapper;
+import com.korit.running_back_s2.dto.response.ReportResDto;
+import com.korit.running_back_s2.dto.response.WelcomeByUserIdResDto;
 import com.korit.running_back_s2.dto.user.UserRegisterReqDto;
 import com.korit.running_back_s2.security.jwt.JwtUtil;
-import com.korit.running_back_s2.security.model.PrincipalUser;
 import com.korit.running_back_s2.security.model.PrincipalUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -56,6 +55,13 @@ public class UserService {
         }
     }
 
+    public List<WelcomeByUserIdResDto> getWelcomeByUserId(Integer userId) {
+        return userMapper.findWelcomeByUserId(userId);
+    }
+
+    public List<ReportResDto> getReport(Integer userId) {
+        return userMapper.findReportsByUserId(userId);
+    }
 //    public User getMyPage(Integer userId) {
 //        User user = userMapper.findById(userId);
 //        return user;
@@ -67,4 +73,6 @@ public class UserService {
 //        String fileName = fileService.uploadFile(file, "/profile");
 //        userMapper.updateProfileImgById(principalUser.getUser().getUserId(), fileName);
 //    }
+
+
 }

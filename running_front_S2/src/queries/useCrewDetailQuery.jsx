@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { reqCrewDetail } from "../api/Crew/crewApi";
 
-export const useCrewDetailQuery = (crewId) => {
+function useCrewDetailQuery(crewId) {
   return useQuery({
     queryKey: ["crewDetail", crewId],
     queryFn: async () => {
@@ -10,3 +10,5 @@ export const useCrewDetailQuery = (crewId) => {
     }
   })
 }
+
+export default useCrewDetailQuery;

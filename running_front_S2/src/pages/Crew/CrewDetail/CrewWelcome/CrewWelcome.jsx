@@ -1,16 +1,31 @@
 /** @jsxImportSource @emotion/react */
 import { reqRegisterCrewMember } from '../../../../api/Crew/crewApi';
-import { useGetCrewWelcomeListQuery } from '../../../../queries/useGetCrewWelcomeListQuery';
+import { reqGetReportByUserId } from '../../../../api/User/userApi';
+import useGetCrewWelcomeListQuery from '../../../../queries/useGetCrewWelcomeListQuery';
 import { useCrewStore } from '../../../../stores/useCrewStroes';
 import * as s from './styles';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function CrewWelcome({ isCrewLeader }) {
   const { crewId } = useCrewStore();
   const crewWelcomeList = useGetCrewWelcomeListQuery(crewId);
   const welcomes = crewWelcomeList?.data?.body || [];
   const [selectedUser, setSelectedUser] = useState(null);
+  const userId = selectedUser?.userId;
+  const [ reports, setReports ] = useState([]);
   
+  useEffect(() => {
+    if (!userId) return;
+    const fetchData = async () => {
+      try {
+        const res = await reqGetReportByUserId(userId);
+        setReports(res.data.body);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchData();
+  },[userId])
 
   const handleApproveOnClick = async () => {
     const reqRegCrewMember = {
@@ -42,8 +57,11 @@ function CrewWelcome({ isCrewLeader }) {
     return currentYear - birthYear + 1;
   };
 
-  const hasReportHistory = (userId) => {
-    return userId % 2 === 0; // 임시
+  const hasReport = (userId) => {
+    if (selectedUser?.userId === userId) {
+      return reports && reports.length > 0;
+    }
+    return false;
   };
 
   return (
@@ -79,8 +97,8 @@ function CrewWelcome({ isCrewLeader }) {
                   { isCrewLeader ? 
                   <td css={s.nicknameCell}>
                     {welcome.nickname}
-                    {hasReportHistory(welcome.userId || welcome.user_id) && (
-                      <span css={s.warningDot} title="신고 이력이 있습니다">⚠</span>
+                    {hasReport(welcome.userId) && (
+                      <span css={s.warningDot} title="신고 이력이 있습니다">🔴</span>
                     )}
                   </td>
                   :
@@ -148,24 +166,24 @@ function CrewWelcome({ isCrewLeader }) {
               <div css={s.infoSection}>
                 <h4>
                   신고 이력
-                  {hasReportHistory(selectedUser.userId || selectedUser.user_id) && (
+                  {reports && reports.length > 0 && (
                     <span css={s.warningBadge}>주의 필요</span>
                   )}
                 </h4>
                 <div css={s.reportHistory}>
-                  {hasReportHistory(selectedUser.userId || selectedUser.user_id) ? (
-                    <>
-                      <div css={s.reportItem}>
-                        <span css={s.reportDate}>2025-07-12</span>
-                        <span css={s.reportType}>욕설 신고</span>
-                        <span css={s.reportStatus}>처리완료</span>
-                      </div>
-                      <div css={s.reportItem}>
-                        <span css={s.reportDate}>2025-08-01</span>
-                        <span css={s.reportType}>불참 신고</span>
-                        <span css={s.reportStatus}>검토중</span>
-                      </div>
-                    </>
+                  {reports && reports.length > 0 ? (
+                    <div css={s.reportItem}>
+                      {reports.map((report, index) => (
+                        <div key={index} css={s.reportDetail}>
+                          <div css={s.reportDate}>
+                            <strong>신고일:</strong> {new Date(report.createdAt).toLocaleDateString("ko-KR")}
+                          </div>
+                          <div css={s.reportReason}>
+                            <strong>신고 사유:</strong> {report.reason?.reason}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   ) : (
                     <div css={s.noReports}>신고 이력이 없습니다.</div>
                   )}

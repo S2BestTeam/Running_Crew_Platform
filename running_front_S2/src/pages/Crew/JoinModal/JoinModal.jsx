@@ -27,7 +27,7 @@ function JoinModal({setIsOpen, crewId}) {
   }
   
   return (
-    <div css={s.backdrop} onClick={() => setIsOpen(false)}>
+    <div css={s.background} onClick={() => setIsOpen(false)}>
       <div css={s.modalBox} onClick={(e) => e.stopPropagation()}>
         <h2>크루 가입</h2>
         <p>닉네임</p>

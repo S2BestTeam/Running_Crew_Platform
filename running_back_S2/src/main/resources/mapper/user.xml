@@ -31,6 +31,33 @@
             user_id = #{userId}
     </select>
 
+    <select id="findWelcomeByUserId" resultType="com.korit.running_back_s2.dto.response.WelcomeByUserIdResDto">
+        select
+            cwt.crew_id as crewId,
+            ct.crew_name as crewName,
+            ct.crew_profile_img as crewProfileImg,
+            case
+                when cmt.crew_member_id is null then '대기중'
+                else '승인 완료'
+            end as status
+        from
+            crew_welcome_tb cwt
+            join crew_tb ct on (cwt.crew_id = ct.crew_id)
+            left outer join crew_member_tb cmt on (cwt.crew_id = cmt.crew_id and cwt.user_id = cmt.user_id)
+        where cwt.user_id = #{userId}
+    </select>
+
+    <select id="findReportsByUserId" resultType="com.korit.running_back_s2.dto.response.ReportResDto">
+        select
+            reason,
+            created_at
+        from
+            report_tb
+        where
+            reported_id = #{userId}
+        order by created_at desc
+    </select>
+
     <insert id="insert" useGeneratedKeys="true" keyProperty="userId">
         INSERT INTO user_tb
         (oauth_type, provider_id, email, profile_img, full_name, nickname, phone_number, gungu_id, address, birth_date, gender, role_id, user_total_km  )

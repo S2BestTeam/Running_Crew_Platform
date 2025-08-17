@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-export const backdrop = css`
+export const background = css`
   position: fixed;
   top: 0;
   left: 0;

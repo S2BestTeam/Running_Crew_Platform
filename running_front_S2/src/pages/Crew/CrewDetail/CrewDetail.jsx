@@ -3,11 +3,11 @@ import * as s from "./styles";
 import MainContainer from "../../../components/MainContainer/MainContainer";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import usePrincipalQuery from "../../../queries/usePrincipalQuery";
-import { useCrewDetailQuery } from "../../../queries/useCrewDetailQuery";
 import { useEffect } from "react";
 import CrewWelcome from "./CrewWelcome/CrewWelcome";
 import CrewHome from "./CrewHome/CrewHome";
 import { useCrewStore } from "../../../stores/useCrewStroes";
+import useCrewDetailQuery from "../../../queries/useCrewDetailQuery";
 
 function CrewDetail() {
   const navigate = useNavigate();
@@ -78,7 +78,7 @@ function CrewDetail() {
           )}
         </div>
         <Routes>
-          <Route path="/" element={<CrewHome crew={crew} userId={userId} />} />
+          <Route path="/" element={<CrewHome />} />
           <Route path="/welcome" element={<CrewWelcome isCrewLeader={isCrewLeader} />}/>
           
         </Routes>

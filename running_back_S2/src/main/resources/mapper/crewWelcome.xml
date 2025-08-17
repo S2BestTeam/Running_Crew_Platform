@@ -9,7 +9,7 @@
         values ( #{crewId}, #{userId}, #{content})
     </insert>
 
-    <select id="findAllByCrewId" resultType="com.korit.running_back_s2.dto.crew.CrewWelcomeResDto">
+    <select id="findAllByCrewId" resultType="com.korit.running_back_s2.dto.response.CrewWelcomeResDto">
         SELECT
             cw.crew_welcome_id,
             cw.crew_id,

@@ -5,6 +5,7 @@ function usePrincipalQuery() {
   return useQuery({
     queryKey: ["principal"],
     queryFn: async () => await reqPrincipal(),
+    
   });
 }
 

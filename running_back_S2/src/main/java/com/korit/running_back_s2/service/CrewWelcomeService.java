@@ -3,7 +3,7 @@ package com.korit.running_back_s2.service;
 import com.korit.running_back_s2.domain.crewWelcome.CrewWelComeMapper;
 import com.korit.running_back_s2.domain.crewWelcome.CrewWelcome;
 import com.korit.running_back_s2.dto.crew.CrewWelcomeReqDto;
-import com.korit.running_back_s2.dto.crew.CrewWelcomeResDto;
+import com.korit.running_back_s2.dto.response.CrewWelcomeResDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.korit.running_back_s2.dto.crew;
+package com.korit.running_back_s2.dto.response;
 
 import lombok.Data;
 

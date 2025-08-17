@@ -2,9 +2,10 @@
 import { useState } from 'react';
 import JoinModal from '../../JoinModal/JoinModal';
 import * as s from './styles';
+import { useCrewStore } from '../../../../stores/useCrewStroes';
 
-function CrewHome({ crew, userId }) {
-  
+function CrewHome({ userId }) {
+  const { crew } = useCrewStore();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -20,21 +21,21 @@ function CrewHome({ crew, userId }) {
           </div>
 
           <div css={s.crewTextBox}>
-            <h2>{crew.crewName}</h2>
+            <h2>{crew?.crewName}</h2>
             <div css={s.crewText}>
-              <p css={s.gungu}>{crew.gunguName}</p>
+              <p css={s.gungu}>{crew?.gunguName}</p>
               <p>멤버수 30</p>
               <p>•</p>
-              <p>총 {crew.crewTotalKm} KM</p>
+              <p>총 {crew?.crewTotalKm} KM</p>
             </div>
           </div>
-          { crew.userId === userId 
+          { crew?.userId === userId 
             ? <></>
             : <button css={s.Button} onClick={() => setIsOpen(true)}>크루가입</button>
           }
           {
             isOpen && (
-              <JoinModal setIsOpen={setIsOpen} crewId={crew.crewId}/>
+              <JoinModal setIsOpen={setIsOpen} crewId={crew?.crewId}/>
             )
           }
         </div>
@@ -43,9 +44,9 @@ function CrewHome({ crew, userId }) {
       <div css={s.mainLine}>
         <div>
           <p css={s.fontBold}>한줄 소개</p>
-          <div>{crew.title}</div>
+          <div>{crew?.title}</div>
           <p css={s.fontBold}>크루 소개</p>
-          <div dangerouslySetInnerHTML={{ __html: crew.content }} />
+          <div dangerouslySetInnerHTML={{ __html: crew?.content }} />
         </div>
 
         <div>

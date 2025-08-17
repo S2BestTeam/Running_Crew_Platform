@@ -30,6 +30,16 @@ public class UserController {
     public ResponseEntity<ResponseDto<?>> checkNickname(@RequestParam String nickname) {
         return ResponseEntity.ok(ResponseDto.success(userService.checkNickname(nickname)));
     }
+
+    @GetMapping("/mypage/{userId}")
+    public ResponseEntity<ResponseDto<?>> getUserWelcome(@PathVariable Integer userId) {
+        return ResponseEntity.ok(ResponseDto.success(userService.getWelcomeByUserId(userId)));
+    }
+
+    @GetMapping("/{userId}/report")
+    public  ResponseEntity<ResponseDto<?>> getReports(@PathVariable Integer userId) {
+        return ResponseEntity.ok(ResponseDto.success(userService.getReport(userId)));
+    }
 //
 //    @GetMapping("/mypage")
 //    public ResponseEntity<User> getMyPage(@AuthenticationPrincipal PrincipalUser principalUser) {

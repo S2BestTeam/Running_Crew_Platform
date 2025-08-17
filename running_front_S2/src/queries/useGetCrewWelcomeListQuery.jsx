@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { reqCrewWelcomes } from "../api/Crew/crewApi";
 
-export const useGetCrewWelcomeListQuery = (crewId) => {
+function useGetCrewWelcomeListQuery(crewId) {
   return useQuery({
     queryKey: ["crewWelcomeList", crewId],
     queryFn: async () => {
@@ -11,3 +11,5 @@ export const useGetCrewWelcomeListQuery = (crewId) => {
     enabled: !!crewId,
   })
 }
+
+export default useGetCrewWelcomeListQuery;

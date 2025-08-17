@@ -1,6 +1,6 @@
 package com.korit.running_back_s2.domain.crewWelcome;
 
-import com.korit.running_back_s2.dto.crew.CrewWelcomeResDto;
+import com.korit.running_back_s2.dto.response.CrewWelcomeResDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

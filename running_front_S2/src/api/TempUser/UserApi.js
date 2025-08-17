@@ -16,3 +16,7 @@ export const reqUpdateUser = (data) => api.post("/api/mypage", data, {
     "Content-Type": "multipart/form-data"
   }
 });
+
+export const reqGetUserWelcome = (userId) => api.get(`/api/mypage/${userId}`);
+
+export const reqGetReportByUserId = (userId) => api.get(`/api/${userId}/report`);

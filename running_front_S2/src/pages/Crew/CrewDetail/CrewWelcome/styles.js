@@ -59,7 +59,7 @@ export const nicknameCell = css`
 export const warningDot = css`
   color: #dc3545;
   font-size: 1.4rem;
-  cursor: help;
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -184,24 +184,6 @@ export const reportDate = css`
 export const reportType = css`
   font-size: 1.4rem;
   color: #333;
-`;
-
-export const reportStatus = css`
-  font-size: 1.2rem;
-  padding: 0.4rem 0.8rem;
-  border-radius: 0.4rem;
-  text-align: center;
-  font-weight: 500;
-  
-  &:contains('처리완료') {
-    background: #d4edda;
-    color: #155724;
-  }
-  
-  &:contains('검토중') {
-    background: #fff3cd;
-    color: #856404;
-  }
 `;
 
 export const noReports = css`

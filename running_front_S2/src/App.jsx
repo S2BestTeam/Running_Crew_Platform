@@ -8,6 +8,7 @@ import usePrincipalQuery from "./queries/usePrincipalQuery";
 import CrewDetail from "./pages/Crew/CrewDetail/CrewDetail";
 import CrewRegister from "./pages/Crew/CrewRegister/CrewRegister";
 import CrewList from "./pages/Crew/CrewList/CrewList";
+import Mypage from "./pages/User/Mypage/Mypage";
 
 function App() {
   const principalQuery = usePrincipalQuery();
@@ -22,6 +23,7 @@ function App() {
         <Route path="/crews/:crewId/*" element={<CrewDetail />} />
         <Route path="/crews" element={<CrewList />} />
         <Route path="/crew/register" element={<CrewRegister />} />
+        <Route path="/mypage" element={<Mypage />} />
       </Routes>
       <Footer />
     </>
