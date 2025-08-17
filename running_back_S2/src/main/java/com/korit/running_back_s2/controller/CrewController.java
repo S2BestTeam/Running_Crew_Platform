@@ -1,5 +1,6 @@
 package com.korit.running_back_s2.controller;
 
+import com.korit.running_back_s2.dto.crew.CrewWelcomeReqDto;
 import com.korit.running_back_s2.dto.response.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -51,5 +52,4 @@ public class CrewController {
             @RequestParam(required = false) String searchText) {
         return ResponseEntity.ok(ResponseDto.success(crewService.getCrewList(page, size, gunguId, searchText)));
     }
-
 }
