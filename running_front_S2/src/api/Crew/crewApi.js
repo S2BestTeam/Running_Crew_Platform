@@ -19,3 +19,9 @@ export const reqGetCrewList = ({ page, size, gunguId, searchText }) => {
     params: { page, size, gunguId, searchText },
   });
 };
+
+export const reqJoinCrew = (crewId, data) => api.post(`/api/crews/${crewId}/welcome`, data);
+
+export const reqCrewWelcomes = (crewId) => api.get(`/api/crews/${crewId}/welcomes`);
+
+export const reqRegisterCrewMember = (data) => api.post(`/api/crew/${data.crewId}/member`, data);

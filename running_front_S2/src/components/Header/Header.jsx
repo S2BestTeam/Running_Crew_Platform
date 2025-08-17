@@ -4,9 +4,11 @@ import * as s from "./styles";
 import { FiHeart, FiUser } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import usePrincipalQuery from "../../queries/usePrincipalQuery";
+import { useQueryClient } from "@tanstack/react-query";
 
 function Header(props) {
   const principalQuery = usePrincipalQuery();
+  const queryClient = useQueryClient();
 
   // 추후 프로필 이미지 또는 닉네임으로 변경하기 위해 코드 유지
   const princiapl = principalQuery?.data?.data?.body?.user;

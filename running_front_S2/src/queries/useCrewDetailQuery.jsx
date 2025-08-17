@@ -5,8 +5,8 @@ export const useCrewDetailQuery = (crewId) => {
   return useQuery({
     queryKey: ["crewDetail", crewId],
     queryFn: async () => {
-      const response = await reqCrewDetail(crewId);
-      return response.data;
+      const res = await reqCrewDetail(crewId);
+      return res.data;
     }
   })
 }
