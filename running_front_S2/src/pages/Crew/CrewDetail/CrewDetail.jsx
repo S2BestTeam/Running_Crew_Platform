@@ -47,7 +47,9 @@ function CrewDetail() {
               <button onClick={() => navigate(`/crews/${crewId}/members`)}>
                 크루 멤버
               </button>
-              <button>정모 일정</button>
+              <button onClick={() => navigate(`/crews/${crewId}/gathering`)}>
+                정모 일정
+              </button>
               <button onClick={() => navigate(`/crews/${crewId}/welcome`)}>
                 가입 인사
               </button>
@@ -74,11 +76,12 @@ function CrewDetail() {
           <Route path="/" element={<CrewHome crew={crew} userId={userId} />} />
           <Route
             path="/welcome"
-            element={
-              <CrewWelcome rcewId={crewId} isCrewLeader={isCrewLeader} />
-            }
+            element={<CrewWelcome cewId={crewId} isCrewLeader={isCrewLeader} />}
           />
-          <Route path="/gathering" element={<CrewGathering />} />
+          <Route
+            path="/gathering"
+            element={<CrewGathering crewId={crewId} />}
+          />
         </Routes>
       </div>
     </MainContainer>
