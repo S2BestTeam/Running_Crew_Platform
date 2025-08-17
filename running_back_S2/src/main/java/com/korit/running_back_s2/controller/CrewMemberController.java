@@ -39,4 +39,3 @@ public class CrewMemberController {
         return ResponseEntity.ok(ResponseDto.success("멤버가 추방되었습니다."));
     }
 }
-

@@ -1,5 +1,6 @@
 package com.korit.running_back_s2.controller;
 
+import com.korit.running_back_s2.dto.crew.CrewWelcomeReqDto;
 import com.korit.running_back_s2.dto.response.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -32,10 +33,8 @@ public class CrewController {
         return ResponseEntity.ok(ResponseDto.success("Crew 등록 성공"));
     }
 
-    @PostMapping("/crewName")
-    public ResponseEntity<ResponseDto<?>> checkCrewName(@RequestBody Map<String, String> crewNameData) {
-        String crewName = crewNameData.get("data");
-        System.out.println(crewName);
+    @GetMapping("/duplicate/name")
+    public ResponseEntity<ResponseDto<?>> checkCrewName(@RequestParam String crewName) {
         return ResponseEntity.ok(ResponseDto.success(crewService.checkCrewNames(crewName)));
     }
     @PostMapping("/{userId}/crew-profile-img")
@@ -51,6 +50,4 @@ public class CrewController {
             @RequestParam(required = false) String searchText) {
         return ResponseEntity.ok(ResponseDto.success(crewService.getCrewList(page, size, gunguId, searchText)));
     }
-
-
 }

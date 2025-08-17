@@ -1,6 +1,7 @@
 package com.korit.running_back_s2.domain.user;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface UserMapper {
@@ -8,5 +9,6 @@ public interface UserMapper {
     User findByEmail(String email);
     User findById(Integer userId);
     User findByNickname(String nickname);
+    int updateRoleId(@Param("userId") Integer userId, @Param("roleId") Integer roleId);
 //    int updateProfileImgById(Integer userId, String profileImg);
 }

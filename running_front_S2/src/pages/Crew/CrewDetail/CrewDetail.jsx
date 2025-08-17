@@ -14,7 +14,6 @@ function CrewDetail() {
 
   const { crewId } = useParams();
   const { data: crewData, refetch } = useCrewDetailQuery(crewId);
-
   const [isModify, setIsModify] = useState(false);
 
   const handleModifyOnClick = () => {
@@ -31,6 +30,34 @@ function CrewDetail() {
     content: "",
     limitedPeople: 0,
     crewTotalKm: 0,
+  };
+
+  const [activeTab, setActiveTab] = useState('home'); // 현재 활성 탭
+
+  const isCrewLeader = crew.userId === userId;
+
+  // 현재 탭에 따른 컴포넌트 렌더링
+  const renderMainContent = () => {
+    switch (activeTab) {
+      case 'home':
+        return <CrewHome crew={crew} userId={userId}/>;
+      // case 'members':
+      //   return <CrewMembers crewId={crewId} />;
+      // case 'schedule':
+      //   return <CrewSchedule crewId={crewId} isCrewLeader={isCrewLeader} />;
+      case 'welcome':
+        return <CrewWelcome crewId={crewId} isCrewLeader={isCrewLeader} />;
+      // case 'board':
+      //   return <CrewBoard crewId={crewId} userId={userId} />;
+      // case 'photos':
+      //   return <CrewPhotos crewId={crewId} userId={userId} />;
+      // case 'notice':
+      //   return <CrewNotice crewId={crewId} isCrewLeader={isCrewLeader} />;
+      // case 'inquiry':
+      //   return <CrewInquiry crewId={crewId} userId={userId} isCrewLeader={isCrewLeader} />;
+      default:
+        return <CrewHome crew={crew} />;
+    }
   };
 
   return (
@@ -154,8 +181,9 @@ function CrewDetail() {
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
+        {renderMainContent()}
       </div>
     </MainContainer>
   );

@@ -59,14 +59,14 @@ public class FileService {
         }
     }
 
-    public void deleteFile(String path) {
+    public boolean deleteFile(String path) {
         if (path.substring(path.lastIndexOf("/")).contains("default")) {
-            return;
+            return true;
         }
         File file = new File(rootPath + "/upload/" + path);
         if (!file.exists()) {
-            return;
+            return false;
         }
-        file.delete();
+        return file.delete();
     }
 }
