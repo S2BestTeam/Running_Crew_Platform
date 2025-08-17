@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import * as s from './styles';
-import MainContainer from '../../../components/MainContainer/MainContainer';
-import { useNavigate, useParams } from 'react-router-dom';
-import usePrincipalQuery from '../../../queries/usePrincipalQuery';
-import { useCrewDetailQuery } from '../../../queries/useCrewDetailQuery';
-import { useState } from 'react';
-import ReactQuill from 'react-quill-new';
+import * as s from "./styles";
+import MainContainer from "../../../components/MainContainer/MainContainer";
+import { useNavigate, useParams } from "react-router-dom";
+import usePrincipalQuery from "../../../queries/usePrincipalQuery";
+import { useCrewDetailQuery } from "../../../queries/useCrewDetailQuery";
+import { useState } from "react";
+import ReactQuill from "react-quill-new";
 
 function CrewDetail() {
   const navigate = useNavigate();
@@ -15,70 +15,61 @@ function CrewDetail() {
   const { crewId } = useParams();
   const { data: crewData, refetch } = useCrewDetailQuery(crewId);
 
-  const [ isModify, setIsModify ] = useState(false);
+  const [isModify, setIsModify] = useState(false);
 
   const handleModifyOnClick = () => {
     setIsModify(!isModify);
-
-  }
+  };
 
   const crew = crewData?.body || {
+    crewId: Number(crewId),
     gunguId: 0,
     crewProfileImg: "",
     crewName: "",
     userId: 0,
     title: "",
     content: "",
-    limtedPeople: 0,
+    limitedPeople: 0,
     crewTotalKm: 0,
   };
 
   return (
     <MainContainer>
       <div css={s.layout}>
-        { crew.userId === userId ? (
-          <div css={s.leftBox}>
-            <div>
-              <div css={s.crewInfoBox}>
-                <div css={s.crewImgBox}></div>
-                <div css={s.crewNameBox}>{crew.crewName}</div>
+        <div css={s.leftBox}>
+          <div>
+            <div css={s.crewInfoBox}>
+              <div css={s.crewImgBox}></div>
+              <div
+                css={s.crewNameBox}
+                onClick={() => navigate(`/crews/${crewId}`)}
+              >
+                {crew.crewName}
               </div>
-                <div css={s.buttonContainer}>
-                  <button>크루 멤버</button>
-                  <button>정모 일정</button>
-                  <button>가입 인사</button>
-                  <button>자유게시판</button>
-                  <button>사진첩</button>
-                  <button>공지사항</button>
-                  <button>문의사항</button>
-                  {/* 고민 중 상태를 변경해서 수정할 수 있게끔 할것인가 아니면 새로운 페이지로 넘어가서 할 것인가 */}
-                  {/* <button onClick={() => navigate(`/crews/${crew.crewId}/setting`)}>설정</button> */}
-                  <button onClick={() => navigate(`/crews/${crew.crewId}/setting`)}>설정</button>
-                </div>
-              </div>
+            </div>
+            <div css={s.buttonContainer}>
+              <button onClick={() => navigate(`/crews/${crewId}/members`)}>
+                크루 멤버
+              </button>
+              <button>정모 일정</button>
+              <button>가입 인사</button>
+              <button>자유게시판</button>
+              <button>사진첩</button>
+              <button>공지사항</button>
+              <button>문의사항</button>
+              {crew.userId === userId && (
+                <button onClick={() => navigate(`/crews/${crew.crewId}/setting`)}>
+                  설정
+                </button>
+              )}
+            </div>
           </div>
-          )
-        : (
-          <div css={s.leftBox}>
-            <div>
-              <div css={s.crewInfoBox}>
-                <div css={s.crewImgBox}></div>
-                <div css={s.crewNameBox}>{crew.crewName}</div>
-              </div>
-                <div css={s.buttonContainer}>
-                  <button>크루 멤버</button>
-                  <button>정모 일정</button>
-                  <button>자유게시판</button>
-                  <button>사진첩</button>
-                  <button>공지사항</button>
-                  <button>문의사항</button>
-                </div>
-                </div>
+          {crew.userId !== userId && (
             <div css={s.getout}>
               <button>탈퇴하기</button>
             </div>
-          </div>
-        )}
+          )}
+        </div>
 
         <div css={s.mainBox}>
           <div css={s.titleBox}>
@@ -100,42 +91,51 @@ function CrewDetail() {
                   <p>총 {crew.crewTotalKm} KM</p>
                 </div>
               </div>
-              { crew.userId === userId 
-                ? <></>
-                : <button css={s.Button}>크루가입</button>
-              }
+              {crew.userId === userId ? (
+                <></>
+              ) : (
+                <button css={s.Button}>크루가입</button>
+              )}
             </div>
           </div>
 
           <div css={s.mainLine}>
             <div>
               <p css={s.fontBold}>한줄 소개</p>
-              {
-                isModify ? (
-                  <input type='text' placeholder='크루 한줄 소개를 입력하세요' defaultValue={crew.title} />
-                )
-                : <div>{crew.title}</div>
-              }
+              {isModify ? (
+                <input
+                  type="text"
+                  placeholder="크루 한줄 소개를 입력하세요"
+                  defaultValue={crew.title}
+                />
+              ) : (
+                <div>{crew.title}</div>
+              )}
+
               <p css={s.fontBold}>크루 소개</p>
-              {
-                isModify ? (
-                  <ReactQuill
-                    value={crew.content}
-                    onChange={(value) => {
-                      crew.content = value;
-                    }}
-                    modules={{
-                      toolbar: [
-                        [{ header: 1 }, { header: 2 }, { header: 3 }, { header: 4 }],
-                        ["bold", "italic", "underline", "strike"],
-                        [{ align: [] }, { color: [] }, { background: [] }],
-                        ["blockquote", "link"],
+              {isModify ? (
+                <ReactQuill
+                  value={crew.content}
+                  onChange={(value) => {
+                    crew.content = value;
+                  }}
+                  modules={{
+                    toolbar: [
+                      [
+                        { header: 1 },
+                        { header: 2 },
+                        { header: 3 },
+                        { header: 4 },
                       ],
-                    }}
-                    />
-                )
-                : <div dangerouslySetInnerHTML={{ __html: crew.content }} />
-              }
+                      ["bold", "italic", "underline", "strike"],
+                      [{ align: [] }, { color: [] }, { background: [] }],
+                      ["blockquote", "link"],
+                    ],
+                  }}
+                />
+              ) : (
+                <div dangerouslySetInnerHTML={{ __html: crew.content }} />
+              )}
             </div>
 
             <div>

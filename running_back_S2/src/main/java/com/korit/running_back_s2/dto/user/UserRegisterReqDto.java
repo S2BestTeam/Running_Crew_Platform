@@ -32,7 +32,7 @@ public class UserRegisterReqDto {
                 .gender(gender)
                 .address(address)
                 .profileImg(profileImg)
-                .roleId(3)
+                .roleId(4)
                 .providerId(providerId)
                 .userTotalKM(0.0)
                 .build();

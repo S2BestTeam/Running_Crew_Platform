@@ -3,6 +3,10 @@ package com.korit.running_back_s2.service;
 import com.korit.running_back_s2.domain.crew.Crew;
 import com.korit.running_back_s2.domain.crew.CrewMapper;
 import com.korit.running_back_s2.domain.crew.CrewSearchOption;
+import com.korit.running_back_s2.domain.crew.member.CrewMember;
+import com.korit.running_back_s2.domain.crew.member.CrewMemberDetailResp;
+import com.korit.running_back_s2.domain.crew.member.CrewMemberMapper;
+import com.korit.running_back_s2.domain.crew.member.CrewMemberSearchOption;
 import com.korit.running_back_s2.dto.crew.CrewRegisterReqDto;
 import com.korit.running_back_s2.dto.response.PaginationRespDto;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +20,7 @@ public class CrewService {
 
     private final CrewMapper crewMapper;
     private final FileService fileService;
+    private final CrewMemberMapper crewMemberMapper;
 
     public void register(CrewRegisterReqDto dto) {
         String uploadedFilename = fileService.uploadFile(dto.getCrewProfileImg(), "/crew");
@@ -76,4 +81,46 @@ public class CrewService {
                 .isLast(isLast)
                 .build();
     }
+
+    public PaginationRespDto<CrewMember> getMembers( Integer page,Integer size, Integer crewId, String searchText) {
+        CrewMemberSearchOption opt = CrewMemberSearchOption.builder()
+                .crewId(crewId)
+                .startIndex((page - 1) * size)
+                .size(size)
+                .searchText((searchText != null && !searchText.isBlank()) ? searchText : null)
+                .build();
+
+        List<CrewMember> contents = crewMemberMapper.findAllMembersBySearchOption(opt);
+        Integer totalElements = crewMemberMapper.countMembersBySearchOption(opt);
+        Integer totalPages = (int) Math.ceil(totalElements.doubleValue() / size.doubleValue());
+        boolean isLast = page >= Math.max(totalPages, 1);
+
+        return PaginationRespDto.<CrewMember>builder()
+                .contents(contents)
+                .totalElements(totalElements)
+                .totalPages(totalPages)
+                .page(page)
+                .size(size)
+                .isLast(isLast)
+                .build();
+    }
+
+    public CrewMemberDetailResp getMemberDetail(Integer crewId, Integer userId) {
+        return crewMemberMapper.findMemberDetail(crewId, userId);
+    }
+
+    public void grant(Integer crewId, Integer userId) {
+        int updated = crewMemberMapper.updateRole(crewId, userId);
+        if (updated == 0) {
+            throw new IllegalStateException("변경 대상이 아니거나 이미 운영진/리더입니다.");
+        }
+    }
+
+    public void expel(Integer crewId, Integer userId) {
+        int deleted = crewMemberMapper.deleteMember(crewId, userId);
+        if (deleted == 0) {
+            throw new IllegalStateException("리더는 추방할 수 없거나 대상이 존재하지 않습니다.");
+        }
+    }
 }
+

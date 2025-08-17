@@ -23,14 +23,13 @@ function CrewList() {
   const gunguList = gunguQuery?.data?.data?.body || [];
 
   const [crewList, setCrewList] = useState([]);
-  
+
   useEffect(() => {
     const pages = crewListQuery?.data?.pages || [];
     const merged = pages.flatMap((p) => p?.data?.body?.contents || []);
     setCrewList(merged);
   }, [crewListQuery.data]);
 
-  // 무한 스크롤
   const loadMoreRef = useRef(null);
   useEffect(() => {
     const el = loadMoreRef.current;
@@ -38,11 +37,7 @@ function CrewList() {
 
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (
-          entry.isIntersecting &&
-          crewListQuery.hasNextPage &&
-          !crewListQuery.isFetchingNextPage
-        ) {
+        if (entry.isIntersecting && crewListQuery.hasNextPage && !crewListQuery.isFetchingNextPage) {
           crewListQuery.fetchNextPage();
         }
       },
@@ -51,11 +46,7 @@ function CrewList() {
 
     io.observe(el);
     return () => io.disconnect();
-  }, [
-    crewListQuery.hasNextPage,
-    crewListQuery.isFetchingNextPage,
-    crewListQuery.fetchNextPage,
-  ]);
+  }, [crewListQuery.hasNextPage, crewListQuery.isFetchingNextPage, crewListQuery.fetchNextPage]);
 
   // 핸들러
   const handleGunguChange = (e) => {
@@ -88,11 +79,7 @@ function CrewList() {
   return (
     <div>
       <div>
-        <Select
-          value={selectedGunguId}
-          onChange={handleGunguChange}
-          displayEmpty
-        >
+        <Select value={selectedGunguId} onChange={handleGunguChange} displayEmpty>
           <MenuItem value="">전체</MenuItem>
           {gunguList.map((gungu) => (
             <MenuItem key={gungu.gunguId} value={gungu.gunguId}>
@@ -102,29 +89,37 @@ function CrewList() {
         </Select>
 
         <div>
-          <input
-            type="text"
-            placeholder="크루 검색"
-            value={searchInput}
-            onChange={handleSearchOnChange}
-            onKeyDown={handleSearchOnKeyDown}
-          />
+          <input type="text" placeholder="크루 검색" value={searchInput} onChange={handleSearchOnChange} onKeyDown={handleSearchOnKeyDown} />
           <button onClick={handleSearchOnClick}>검색</button>
         </div>
       </div>
 
-      <div>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(4, 1fr)", // 가로 4칸
+          gap: "16px", // 카드 간격
+          padding: "16px",
+        }}
+      >
         {crewList.length === 0 ? (
           <p>크루가 없습니다.</p>
         ) : (
           crewList.map((crew) => (
-            <div key={crew.crewId}>
-              <div>{/* 이미지부분 일단 생략: <img src="" alt="" /> */}</div>
-              <div>
-                <div>{crew.gunguName}</div>
-                <div onClick={() => navigate(`/crews/${crew.crewId}`)}>{crew.crewName}</div>
-                <div>{crew.title}</div>
-              </div>
+            <div
+              key={crew.crewId}
+              style={{
+                border: "1px solid #ddd",
+                borderRadius: "8px",
+                padding: "12px",
+                backgroundColor: "#fafafa",
+                cursor: "pointer",
+              }}
+              onClick={() => navigate(`/crews/${crew.crewId}`)}
+            >
+              <div style={{ fontSize: "14px", color: "#666" }}>{crew.gunguName}</div>
+              <div style={{ fontWeight: "bold", marginTop: "8px" }}>{crew.crewName}</div>
+              <div style={{ fontSize: "13px", marginTop: "4px", color: "#333" }}>{crew.title}</div>
             </div>
           ))
         )}
