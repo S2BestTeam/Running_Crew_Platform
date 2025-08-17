@@ -19,7 +19,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/auth/oauth2/signin" element={<Signin />} />
         <Route path="/auth/oauth2/signup" element={<Signup />} />
-        <Route path="/crews/:crewId" element={<CrewDetail />} />
+        <Route path="/crews/:crewId/*" element={<CrewDetail />} />
         <Route path="/crews" element={<CrewList />} />
         <Route path="/crew/register" element={<CrewRegister />} />
       </Routes>

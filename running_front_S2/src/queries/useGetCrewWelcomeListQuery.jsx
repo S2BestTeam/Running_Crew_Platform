@@ -7,6 +7,7 @@ export const useGetCrewWelcomeListQuery = (crewId) => {
     queryFn: async () => {
       const res = await reqCrewWelcomes(crewId);
       return res.data;
-    }
+    },
+    enabled: !!crewId,
   })
 }

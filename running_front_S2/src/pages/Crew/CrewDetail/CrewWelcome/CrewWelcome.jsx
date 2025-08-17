@@ -1,26 +1,27 @@
 /** @jsxImportSource @emotion/react */
 import { reqRegisterCrewMember } from '../../../../api/Crew/crewApi';
 import { useGetCrewWelcomeListQuery } from '../../../../queries/useGetCrewWelcomeListQuery';
+import { useCrewStore } from '../../../../stores/useCrewStroes';
 import * as s from './styles';
 import { useState } from 'react';
 
-function CrewWelcome({ crewId, isCrewLeader }) {
+function CrewWelcome({ isCrewLeader }) {
+  const { crewId } = useCrewStore();
   const crewWelcomeList = useGetCrewWelcomeListQuery(crewId);
   const welcomes = crewWelcomeList?.data?.body || [];
   const [selectedUser, setSelectedUser] = useState(null);
+  
 
   const handleApproveOnClick = async () => {
     const reqRegCrewMember = {
-      crewId: selectedUser?.crewId,
+      crewId,
       userId: selectedUser?.userId,
     }
     await reqRegisterCrewMember(reqRegCrewMember);
     setSelectedUser(null);
   };
 
-  const handleRejectOnClick = (welcomeId) => {
-    console.log("거절:", welcomeId);
-    console.log("selectedUser 전체 데이터:", selectedUser);
+  const handleRejectOnClick = () => {
     setSelectedUser(null);
   };
 
@@ -41,10 +42,7 @@ function CrewWelcome({ crewId, isCrewLeader }) {
     return currentYear - birthYear + 1;
   };
 
-  // 신고이력이 있는지 확인하는 함수 (실제로는 API에서 가져와야 함)
   const hasReportHistory = (userId) => {
-    // TODO: 실제 API 호출로 신고이력 확인
-    // 현재는 임시로 일부 유저에게만 신고이력이 있다고 가정
     return userId % 2 === 0; // 임시
   };
 
