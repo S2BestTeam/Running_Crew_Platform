@@ -15,8 +15,10 @@ import com.korit.running_back_s2.dto.response.PaginationRespDto;
 import com.korit.running_back_s2.security.model.PrincipalUser;
 import com.korit.running_back_s2.security.model.PrincipalUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -32,8 +34,16 @@ public class CrewService {
     private final CrewWelComeMapper crewWelComeMapper;
 
     @Transactional(rollbackFor = Exception.class)
-    public void register(CrewRegisterReqDto dto) {
+    public void register(CrewRegisterReqDto dto) throws Exception {
         Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
+
+        int joinedCrew = crewMapper.checkCrew(userId);
+
+        if (joinedCrew != 0) {
+            // 409 CONFLICT와 함께 메시지 전달
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "이미 가입된 크루가 있습니다.");
+        }
+
         String profileImg = fileService.uploadFile(dto.getCrewProfileImg(), "/crew");
         String thumbnailImg = fileService.uploadFile(dto.getCrewProfileImg(), "/crew");
 
