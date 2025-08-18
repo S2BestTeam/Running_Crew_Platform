@@ -3,6 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.korit.running_back_s2.domain.user.UserMapper">
+    <update id="updateRoleId">
+        update user_tb
+        set
+            role_id = #{roleId}
+        where
+            user_id = #{userId}
+    </update>
 
     <select id="findByEmail" resultType="com.korit.running_back_s2.domain.user.User">
         select
@@ -63,4 +70,6 @@
         (oauth_type, provider_id, email, profile_img, full_name, nickname, phone_number, gungu_id, address, birth_date, gender, role_id, user_total_km  )
         VALUES (#{oauthType}, #{providerId}, #{email}, #{profileImg}, #{fullName}, #{nickname}, #{phoneNumber}, #{gunguId}, #{address}, #{birthDate}, #{gender}, #{roleId}, #{userTotalKM} )
     </insert>
+
+
 </mapper>

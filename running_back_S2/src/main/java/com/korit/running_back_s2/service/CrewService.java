@@ -3,17 +3,26 @@ package com.korit.running_back_s2.service;
 import com.korit.running_back_s2.domain.crew.Crew;
 import com.korit.running_back_s2.domain.crew.CrewMapper;
 import com.korit.running_back_s2.domain.crew.CrewSearchOption;
+<<<<<<< HEAD
 import com.korit.running_back_s2.domain.crew.member.*;
 import com.korit.running_back_s2.domain.crew.welcome.CrewWelComeMapper;
 import com.korit.running_back_s2.domain.crew.welcome.CrewWelcome;
 import com.korit.running_back_s2.dto.crew.CrewMemberDetailRespDto;
+=======
+import com.korit.running_back_s2.domain.user.UserMapper;
+>>>>>>> origin/22-크루-정모-일정-등록-기능-구현
 import com.korit.running_back_s2.dto.crew.CrewRegisterReqDto;
 import com.korit.running_back_s2.dto.crew.CrewWelcomeReqDto;
 import com.korit.running_back_s2.dto.response.CrewWelcomeResDto;
 import com.korit.running_back_s2.dto.response.PaginationRespDto;
+<<<<<<< HEAD
 import com.korit.running_back_s2.security.model.PrincipalUser;
+=======
+import com.korit.running_back_s2.security.model.PrincipalUtil;
+>>>>>>> origin/22-크루-정모-일정-등록-기능-구현
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,27 +30,31 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CrewService {
 
+    private final PrincipalUtil principalUtil;
     private final CrewMapper crewMapper;
+    private final UserMapper userMapper;
     private final FileService fileService;
     private final CrewMemberMapper crewMemberMapper;
     private final CrewWelComeMapper crewWelComeMapper;
 
+    @Transactional(rollbackFor = Exception.class)
     public void register(CrewRegisterReqDto dto) {
-        String uploadedFilename = fileService.uploadFile(dto.getCrewProfileImg(), "/crew");
+        Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
+        String profileImg = fileService.uploadFile(dto.getCrewProfileImg(), "/crew");
+        String thumbnailImg = fileService.uploadFile(dto.getCrewProfileImg(), "/crew");
 
         Crew crew = Crew.builder()
-                .userId(dto.getUserId())
+                .userId(userId)
                 .gunguId(dto.getGunguId())
                 .crewName(dto.getCrewName())
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .limitedPeople(dto.getLimitedPeople())
-                .crewProfileImg("/crew/" + uploadedFilename)
-                .crewThumbnailImg("/crew/" + uploadedFilename)
-                .userId(dto.getUserId())
+                .crewProfileImg(profileImg)
+                .crewThumbnailImg(thumbnailImg)
                 .build();
-
         crewMapper.insert(crew);
+        userMapper.updateRoleId(userId, 2);
     }
 
     public String checkCrewNames(String crewName) {
