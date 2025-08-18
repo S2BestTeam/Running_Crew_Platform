@@ -116,7 +116,7 @@ export default function MemberModal({ crewId, userId, isOpen, onClose, isLeader 
         )}
       </div>
 
-      {crew.userId === 2 && (
+     {isLeader && detail?.roleId !== 2 && (
         <div
           style={{
             display: "flex",

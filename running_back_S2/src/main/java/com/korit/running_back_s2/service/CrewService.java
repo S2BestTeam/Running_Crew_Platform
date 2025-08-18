@@ -37,6 +37,7 @@ public class CrewService {
     public void register(CrewRegisterReqDto dto) throws Exception {
         Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
 
+
         int registeredCrew = crewMapper.checkCrew(userId);
 
         if (registeredCrew != 0) {
