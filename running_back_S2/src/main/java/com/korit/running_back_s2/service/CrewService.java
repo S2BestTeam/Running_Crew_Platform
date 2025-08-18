@@ -3,23 +3,17 @@ package com.korit.running_back_s2.service;
 import com.korit.running_back_s2.domain.crew.Crew;
 import com.korit.running_back_s2.domain.crew.CrewMapper;
 import com.korit.running_back_s2.domain.crew.CrewSearchOption;
-<<<<<<< HEAD
 import com.korit.running_back_s2.domain.crew.member.*;
 import com.korit.running_back_s2.domain.crew.welcome.CrewWelComeMapper;
 import com.korit.running_back_s2.domain.crew.welcome.CrewWelcome;
 import com.korit.running_back_s2.dto.crew.CrewMemberDetailRespDto;
-=======
 import com.korit.running_back_s2.domain.user.UserMapper;
->>>>>>> origin/22-크루-정모-일정-등록-기능-구현
 import com.korit.running_back_s2.dto.crew.CrewRegisterReqDto;
 import com.korit.running_back_s2.dto.crew.CrewWelcomeReqDto;
 import com.korit.running_back_s2.dto.response.CrewWelcomeResDto;
 import com.korit.running_back_s2.dto.response.PaginationRespDto;
-<<<<<<< HEAD
 import com.korit.running_back_s2.security.model.PrincipalUser;
-=======
 import com.korit.running_back_s2.security.model.PrincipalUtil;
->>>>>>> origin/22-크루-정모-일정-등록-기능-구현
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

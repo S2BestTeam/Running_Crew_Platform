@@ -3,6 +3,7 @@ import { useState } from "react";
 import * as s from "./styles";
 import CrewGatheringRegisterModal from "./CrewGatheringRegisterModal/CrewGatheringRegisterModal";
 
+
 function CrewGathering({ crewId }) {
   const [isOpen, setOpen] = useState(true);
   const handleModalClose = () => {

@@ -3,21 +3,18 @@ import api from "../axios";
 export const reqCrewDetail = (crewId) => api.get(`/api/crews/${crewId}`);
 
 export const reqCheckCrewName = (crewName) =>
-<<<<<<< HEAD
-  api.post(
-    "/api/crews/crewName",
-    { data: crewName },
-    {
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-      },
-    }
-  );
-=======
-  api.get("/api/crews/duplicate/name", {
+  // api.post(
+  //   "/api/crews/crewName",
+  //   { data: crewName },
+  //   {
+  //     headers: {
+  //       "Content-Type": "application/json; charset=utf-8",
+  //     },
+  //   }
+    api.get("/api/crews/duplicate/name", {
     params: { crewName },
   });
->>>>>>> origin/22-크루-정모-일정-등록-기능-구현
+  // );
 
 export const reqRegisterCrew = (data) =>
   api.post("/api/crews", data, {

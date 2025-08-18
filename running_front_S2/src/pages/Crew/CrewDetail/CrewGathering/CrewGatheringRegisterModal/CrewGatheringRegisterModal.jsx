@@ -1,8 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./styles";
-import React, { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ReactModal from "react-modal";
-import { css } from "@emotion/react";
 import { FiPlus } from "react-icons/fi";
 import {
   Map,
@@ -10,7 +9,6 @@ import {
   MarkerClusterer,
   useKakaoLoader,
 } from "react-kakao-maps-sdk";
-import { useAsyncError } from "react-router-dom";
 import { reqRegisterGathering } from "../../../../../api/Crew/crewGatheringApi";
 
 function CrewGatheringRegisterModal({ crewId, isOpen, onClose }) {

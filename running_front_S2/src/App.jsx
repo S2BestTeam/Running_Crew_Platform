@@ -17,11 +17,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/auth/oauth2/signin" element={<Signin />} />
         <Route path="/auth/oauth2/signup" element={<Signup />} />
-<<<<<<< HEAD
-=======
-        <Route path="/crews/:crewId/*" element={<CrewDetail />} />
-        <Route path="/crews" element={<CrewList />} />
->>>>>>> origin/22-크루-정모-일정-등록-기능-구현
         <Route path="/crew/register" element={<CrewRegister />} />
         <Route path="/crews" element={<CrewList />} />
         <Route path="/crews/:crewId/*" element={<CrewDetail />} />

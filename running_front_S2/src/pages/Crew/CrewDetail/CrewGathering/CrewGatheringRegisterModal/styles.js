@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { backdrop } from "../../../JoinModal/styles";
+// import { backdrop } from "../../../JoinModal/styles";
 
 export const layout = css`
   width: 80rem;

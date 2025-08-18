@@ -94,7 +94,7 @@ function CrewRegister(props) {
     formData.append("crewThumbnailImg", registerCrew.crewThumbnailImg);
 
     try {
-      reqRegisterCrew(formData);
+      const res = await reqRegisterCrew(formData);
       console.log("등록 성공!", res);
       navigate("/");
     } catch (err) {
@@ -116,7 +116,6 @@ function CrewRegister(props) {
           <div css={s.header}>
             <div css={s.mainInputRow}>
               <div>
-                {/* 썸네일 업로드 */}
                 <div css={s.imgContainer}>
                   <div>
                     <img src={preview.crewThumbnailImg} alt="" />
