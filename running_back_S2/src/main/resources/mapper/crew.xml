@@ -77,7 +77,7 @@
         left outer join gungu_tb gt on(ct.gungu_id = gt.gungu_id)
         <where>
             <if test="gunguId != null">
-                and gungu_id = #{gunguId}
+                and ct.gungu_id = #{gunguId}
             </if>
             <if test="searchText != null and searchText != ''">
                 and (

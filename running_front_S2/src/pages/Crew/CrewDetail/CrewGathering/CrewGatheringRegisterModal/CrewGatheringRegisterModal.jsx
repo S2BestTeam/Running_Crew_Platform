@@ -160,14 +160,31 @@ function CrewGatheringRegisterModal({ crewId, isOpen, onClose }) {
     }));
   };
 
-  const handleRegisterOnClick = () => {
+  // const handleRegisterOnClick = () => {
+  //   const formData = new FormData();
+  //   Object.entries(gatheringData).forEach(([key, value]) => {
+  //     formData.append(key, value);
+  //   });
+  //   formData.append("crewId", crewId);
+  //   reqRegisterGathering(crewId, formData);
+  // };
+
+  const handleRegisterOnClick = async () => {
+  try {
     const formData = new FormData();
     Object.entries(gatheringData).forEach(([key, value]) => {
       formData.append(key, value);
     });
     formData.append("crewId", crewId);
-    reqRegisterGathering(crewId, formData);
-  };
+
+    await reqRegisterGathering(crewId, formData);
+
+    onClose();
+  } catch (error) {
+    console.error("등록 실패:", error);
+    alert("등록 중 오류가 발생했습니다.");
+  }
+}
 
   return (
     <ReactModal
