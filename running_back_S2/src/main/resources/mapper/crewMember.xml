@@ -73,12 +73,20 @@
         limit 1
     </select>
 
-    <update id="updateRole">
+    <update id="updateRoleUp">
         update crew_member_tb
         set role_id = 3
         where crew_id = #{crewId}
         and user_id = #{userId}
         and role_id = 4
+    </update>
+
+    <update id="updateRoleDown">
+        update crew_member_tb
+        set role_id = 4
+        where crew_id = #{crewId}
+        and user_id = #{userId}
+        and role_id = 3
     </update>
 
     <delete id="deleteMember">

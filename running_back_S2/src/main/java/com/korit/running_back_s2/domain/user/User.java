@@ -24,7 +24,6 @@ public class User {
     private String phoneNumber;
     private LocalDate birthDate;
     private Integer gender;
-    private Integer roleId;
     private Double userTotalKM;
 
 }

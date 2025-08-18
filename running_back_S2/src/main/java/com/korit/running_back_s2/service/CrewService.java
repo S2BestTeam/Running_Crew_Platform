@@ -48,7 +48,7 @@ public class CrewService {
                 .crewThumbnailImg(thumbnailImg)
                 .build();
         crewMapper.insert(crew);
-        userMapper.updateRoleId(userId, 2);
+        userMapper.insertLeaderRole(userId, crew.getCrewId());
     }
 
     public String checkCrewNames(String crewName) {
@@ -121,9 +121,16 @@ public class CrewService {
     }
 
     public void grant(Integer crewId, Integer userId) {
-        int updated = crewMemberMapper.updateRole(crewId, userId);
+        int updated = crewMemberMapper.updateRoleUp(crewId, userId);
         if (updated == 0) {
             throw new IllegalStateException("변경 대상이 아니거나 이미 운영진/리더입니다.");
+        }
+    }
+
+    public void down(Integer crewId, Integer userId) {
+        int updated = crewMemberMapper.updateRoleDown(crewId, userId);
+        if (updated == 0) {
+            throw new IllegalStateException("변경 대상이 아니거나 이미 User입니다.");
         }
     }
 
