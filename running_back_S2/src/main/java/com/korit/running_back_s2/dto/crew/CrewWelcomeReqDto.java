@@ -1,6 +1,6 @@
 package com.korit.running_back_s2.dto.crew;
 
-import com.korit.running_back_s2.domain.crewWelcome.CrewWelcome;
+import com.korit.running_back_s2.domain.crew.welcome.CrewWelcome;
 import lombok.Data;
 
 @Data

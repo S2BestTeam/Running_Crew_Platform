@@ -34,9 +34,6 @@ public class UserService {
         Integer gunguId = gunguMapper.findGunguIdByName(gunguName);
         user.setGunguId(gunguId);
         userMapper.insert(user);
-        // 이 과정으로 프론트에서는 address 라는 값만 받아오지만 백엔드에서 address의 지역구 부분을 잘라서 gungu_tb에 name과 동일한
-        // gunguName의 Id 를 다시 대입!, 그럼 DB에 gunguId 와 address 라는 두개의 컬럼이 존재
-        // gunguId를 통해 사용자의 현재 지역구 위주의 기타 사항들을 서칭 할 수 있게 가능해짐! - 일단 이정도?
 
         String accessToken = jwtUtil.generateAccessToken(user);
 
@@ -62,6 +59,7 @@ public class UserService {
     public List<ReportResDto> getReport(Integer userId) {
         return userMapper.findReportsByUserId(userId);
     }
+
 //    public User getMyPage(Integer userId) {
 //        User user = userMapper.findById(userId);
 //        return user;

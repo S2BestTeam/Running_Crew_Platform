@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import ReactModal from "react-modal";
-import useUserDetailQuery from "../../../../queries/useUserDetailQuery";
-import { reqExpelMember, reqGrantMember } from "../../../../api/Crew/crewApi";
+import useUserDetailQuery from "../../../../../queries/useUserDetailQuery";
+import { reqExpelMember, reqGrantMember } from "../../../../../api/Crew/crewApi";
 
 export default function MemberModal({ crewId, userId, isOpen, onClose, isLeader = false, onChanged, onReport }) {
   const { data: detail, isLoading, isError } = useUserDetailQuery({ crewId, userId, enabled: isOpen });

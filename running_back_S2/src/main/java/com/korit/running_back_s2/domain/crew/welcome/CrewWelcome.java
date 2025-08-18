@@ -1,4 +1,4 @@
-package com.korit.running_back_s2.domain.crewMember;
+package com.korit.running_back_s2.domain.crew.welcome;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CrewMember {
-    private Integer crewMemberId;
+public class CrewWelcome {
+    private Integer crewWelcomeId;
     private Integer crewId;
     private Integer userId;
-    private Integer roleId;
+    private String content;
 }

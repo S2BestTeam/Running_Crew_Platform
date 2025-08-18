@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CrewMember {
     private Integer crewMemberId;
+    private Integer crewId;
     private Integer userId;
     private Integer roleId;
     private String fullName;

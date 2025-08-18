@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import ReactModal from "react-modal";
-import { reqReportMember } from "../../../../../api/Crew/crewApi";
+import { reqReportMember } from "../../../../../../api/Crew/crewApi";
 
-export default function ReportModal({ isOpen, onClose, userId, nickname, crewId, onSubmit }) {
+function ReportModal({ isOpen, onClose, userId, nickname, crewId, onSubmit }) {
   const [reason, setReason] = useState("");
 
   const modalStyles = useMemo(
@@ -75,3 +75,5 @@ export default function ReportModal({ isOpen, onClose, userId, nickname, crewId,
     </ReactModal>
   );
 }
+
+export default ReportModal;

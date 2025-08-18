@@ -1,28 +1,6 @@
 package com.korit.running_back_s2.controller;
 
-<<<<<<< HEAD
-import com.korit.running_back_s2.domain.crewMember.CrewMember;
-import com.korit.running_back_s2.dto.response.ResponseDto;
-import com.korit.running_back_s2.service.CrewMemberService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-@RestController
-@RequestMapping("/api/crew")
-@RequiredArgsConstructor
-public class CrewMemberController {
-
-    private final CrewMemberService crewMemberService;
-
-    @PostMapping("/{crewId}/member")
-    public ResponseEntity<ResponseDto<?>> registerCrewMember(@RequestBody CrewMember dto) {
-        System.out.println(dto);
-        crewMemberService.registerCrewMember(dto);
-        return ResponseEntity.ok(ResponseDto.success("크루 멤버 등록 성공"));
-    }
-}
-=======
+import com.korit.running_back_s2.domain.crew.member.CrewMember;
 import com.korit.running_back_s2.dto.response.ResponseDto;
 import com.korit.running_back_s2.security.model.PrincipalUser;
 import com.korit.running_back_s2.service.CrewService;
@@ -37,6 +15,13 @@ import org.springframework.web.bind.annotation.*;
 public class CrewMemberController {
 
     private final CrewService crewService;
+
+    @PostMapping("/{crewId}/member")
+    public ResponseEntity<ResponseDto<?>> registerCrewMember(@RequestBody CrewMember dto) {
+        System.out.println(dto);
+        crewService.registerCrewMember(dto);
+        return ResponseEntity.ok(ResponseDto.success("크루 멤버 등록 성공"));
+    }
 
     @GetMapping("/{crewId}/members")
     public ResponseEntity<ResponseDto<?>> getCrewMembers(@RequestParam Integer page, @RequestParam Integer size,
@@ -75,5 +60,3 @@ public class CrewMemberController {
         return ResponseEntity.ok(ResponseDto.success("신고가 접수되었습니다."));
     }
 }
-
->>>>>>> origin/28-crewMember-modal-report

@@ -2,16 +2,6 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<<<<<<< HEAD
-<mapper namespace="com.korit.running_back_s2.domain.crewMember.CrewMemberMapper">
-
-    <insert id="insert" useGeneratedKeys="true" keyProperty="crewMemberId">
-        insert into crew_member_tb (crew_id, user_id, role_id)
-        values ( #{crewId}, #{userId}, 4)
-    </insert>
-</mapper>
-=======
-
 <mapper namespace="com.korit.running_back_s2.domain.crew.member.CrewMemberMapper">
 
     <resultMap id="CrewMemberMap"
@@ -23,6 +13,11 @@
         <result property="nickname"     column="nickname"/>
         <result property="profileImg"   column="profile_img"/>
     </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="crewMemberId">
+        insert into crew_member_tb (crew_id, user_id, role_id)
+        values ( #{crewId}, #{userId}, 4)
+    </insert>
 
     <select id="findAllMembersBySearchOption"
             parameterType="com.korit.running_back_s2.domain.crew.member.CrewMemberSearchOption"
@@ -62,7 +57,7 @@
         </if>
     </select>
     <select id="findMemberDetail"
-            resultType="com.korit.running_back_s2.domain.crew.member.CrewMemberDetailResp">
+            resultType="com.korit.running_back_s2.dto.crew.CrewMemberDetailRespDto">
         select
             u.user_id     as userId,
             u.nickname    as nickname,
@@ -101,4 +96,3 @@
         (#{crewId}, #{reporterId}, #{reportedId}, #{reason});
     </insert>
 </mapper>
->>>>>>> origin/28-crewMember-modal-report

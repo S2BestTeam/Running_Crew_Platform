@@ -1,4 +1,4 @@
-package com.korit.running_back_s2.domain.crewWelcome;
+package com.korit.running_back_s2.domain.crew.welcome;
 
 import com.korit.running_back_s2.dto.response.CrewWelcomeResDto;
 import org.apache.ibatis.annotations.Mapper;

@@ -4,7 +4,12 @@ import com.korit.running_back_s2.domain.crew.Crew;
 import com.korit.running_back_s2.domain.crew.CrewMapper;
 import com.korit.running_back_s2.domain.crew.CrewSearchOption;
 import com.korit.running_back_s2.domain.crew.member.*;
+import com.korit.running_back_s2.domain.crew.welcome.CrewWelComeMapper;
+import com.korit.running_back_s2.domain.crew.welcome.CrewWelcome;
+import com.korit.running_back_s2.dto.crew.CrewMemberDetailRespDto;
 import com.korit.running_back_s2.dto.crew.CrewRegisterReqDto;
+import com.korit.running_back_s2.dto.crew.CrewWelcomeReqDto;
+import com.korit.running_back_s2.dto.response.CrewWelcomeResDto;
 import com.korit.running_back_s2.dto.response.PaginationRespDto;
 import com.korit.running_back_s2.security.model.PrincipalUser;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +24,7 @@ public class CrewService {
     private final CrewMapper crewMapper;
     private final FileService fileService;
     private final CrewMemberMapper crewMemberMapper;
+    private final CrewWelComeMapper crewWelComeMapper;
 
     public void register(CrewRegisterReqDto dto) {
         String uploadedFilename = fileService.uploadFile(dto.getCrewProfileImg(), "/crew");
@@ -103,7 +109,7 @@ public class CrewService {
                 .build();
     }
 
-    public CrewMemberDetailResp getMemberDetail(Integer crewId, Integer userId) {
+    public CrewMemberDetailRespDto getMemberDetail(Integer crewId, Integer userId) {
         return crewMemberMapper.findMemberDetail(crewId, userId);
     }
 
@@ -131,6 +137,19 @@ public class CrewService {
                 .reason(reason)
                 .build();
         crewMemberMapper.report(report);
+    }
+
+    public void registerCrewMember(CrewMember member) {
+        crewMemberMapper.insert(member);
+    }
+
+    public List<CrewWelcomeResDto> getCrewWelcomes(Integer crewId) {
+        return crewWelComeMapper.findAllByCrewId(crewId);
+    }
+
+    public void registerCrewWelcome(Integer crewId, CrewWelcomeReqDto dto) {
+        CrewWelcome welcome = dto.welcome(crewId);
+        crewWelComeMapper.insert(welcome);
     }
 
 }
