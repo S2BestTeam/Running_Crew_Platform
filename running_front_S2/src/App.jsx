@@ -8,7 +8,11 @@ import usePrincipalQuery from "./queries/usePrincipalQuery";
 import CrewDetail from "./pages/Crew/CrewDetail/CrewDetail";
 import CrewRegister from "./pages/Crew/CrewRegister/CrewRegister";
 import CrewList from "./pages/Crew/CrewList/CrewList";
+<<<<<<< HEAD
 import Mypage from "./pages/User/Mypage/Mypage";
+=======
+import CrewMember from "./pages/Crew/CrewMember/CrewMember";
+>>>>>>> origin/28-crewMember-modal-report
 
 function App() {
   const principalQuery = usePrincipalQuery();
@@ -20,10 +24,18 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/auth/oauth2/signin" element={<Signin />} />
         <Route path="/auth/oauth2/signup" element={<Signup />} />
+<<<<<<< HEAD
         <Route path="/crews/:crewId/*" element={<CrewDetail />} />
         <Route path="/crews" element={<CrewList />} />
         <Route path="/crew/register" element={<CrewRegister />} />
         <Route path="/mypage" element={<Mypage />} />
+=======
+        <Route path="/crew/register" element={<CrewRegister />} />
+        <Route path="/crews" element={<CrewList />} />
+        <Route path="/crews/:crewId" element={<CrewDetail />} />
+        <Route path="/crews/:crewId/members" element={<CrewMember />} />
+
+>>>>>>> origin/28-crewMember-modal-report
       </Routes>
       <Footer />
     </>

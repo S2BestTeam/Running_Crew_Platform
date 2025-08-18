@@ -12,84 +12,99 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 public class OAuth2UserService extends DefaultOAuth2UserService {
 
+    private static String s(Object o) { return (o == null) ? null : String.valueOf(o); }
+
+    @SuppressWarnings("unchecked")
+    private static Map<String, Object> map(Map<String, Object> src, String key) {
+        Object v = (src == null) ? null : src.get(key);
+        return (v instanceof Map) ? (Map<String, Object>) v : null;
+    }
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        String registrationId = userRequest.getClientRegistration().getRegistrationId();
-        String img = null;
+        OAuth2User oAuth2User = super.loadUser(userRequest);
+        String registrationId = userRequest.getClientRegistration().getRegistrationId(); // google / kakao / naver
+
         String email = null;
+        String img = null;
         String providerId = null;
-        String birthyear = null;
-        String birthday = null;
         LocalDate birthDate = null;
 
-        OAuth2User oAuth2User = super.loadUser(userRequest);
+        Map<String, Object> attrs = oAuth2User.getAttributes();
 
-        if ("google".equals(registrationId)) {
-            email = oAuth2User.getAttribute("email");
-            img = oAuth2User.getAttribute("picture");
-            providerId = oAuth2User.getAttribute("sub");
-        }
-        else if ("kakao".equals(registrationId)) {
-            Map<String, Object> attributes = oAuth2User.getAttributes();
-            Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
-            Map<String, Object> profile = (Map<String, Object>) kakaoAccount.get("profile");
-
-            email = kakaoAccount.get("email").toString();
-            birthday = kakaoAccount.get("birthday").toString();
-            birthyear = kakaoAccount.get("birthyear").toString();
-            providerId = attributes.get("id").toString();
-            img = profile.get("thumbnail_image_url").toString();
-
-            if (birthyear != null && birthday != null) {
-                String month = birthday.substring(0, 2);
-                String day = birthday.substring(2, 4);
-
-                try {
-                    LocalDate birthDateLocal = LocalDate.of(
-                            Integer.parseInt(birthyear),
-                            Integer.parseInt(month),
-                            Integer.parseInt(day)
-                    );
-                    birthDate = birthDateLocal;
-                } catch (DateTimeException e) {
-                    birthDate = null;
-                }
+        switch (registrationId) {
+            case "google": {
+                email = s(attrs.get("email"));
+                img = s(attrs.get("picture"));
+                providerId = s(attrs.get("sub"));
+                break;
             }
-        }
-        else if ("naver".equals(registrationId)) {
-            Map<String, Object> response = (Map<String, Object>) oAuth2User.getAttributes().get("response");
+            case "kakao": {
+                // 구조: { id, kakao_account: { email, birthday(MMdd), birthyear(yyyy), profile: { nickname, profile_image_url, thumbnail_image_url } } }
+                Map<String, Object> account = map(attrs, "kakao_account");
+                Map<String, Object> profile = map(account, "profile");
 
-            providerId = response.get("id").toString();
-            email = response.get("email").toString();
-            Object profileImageObj = response.get("profile_image").toString();
-            img = profileImageObj != null ? profileImageObj.toString() : "/images/default-profile.png";
-            birthyear = response.get("birthyear").toString();
-            birthday = response.get("birthday").toString();
+                providerId = s(attrs.get("id"));
+                email = s(account == null ? null : account.get("email"));
 
-            if (birthyear != null && birthday != null) {
-                String[] parts = birthday.split("-");
-                if (parts.length == 2) {
+                String birthday = s(account == null ? null : account.get("birthday"));   // MMdd
+                String birthyear = s(account == null ? null : account.get("birthyear")); // yyyy
+
+                String profileImage = s(profile == null ? null : profile.get("profile_image_url"));
+                String thumbnail = s(profile == null ? null : profile.get("thumbnail_image_url"));
+                img = (profileImage != null) ? profileImage :
+                        (thumbnail != null ? thumbnail : "/images/default-profile.png");
+
+                if (birthyear != null && birthday != null && birthday.length() == 4) {
+                    String mm = birthday.substring(0, 2);
+                    String dd = birthday.substring(2, 4);
                     try {
-                        LocalDate birthDateLocal = LocalDate.of(
-                                Integer.parseInt(birthyear),
-                                Integer.parseInt(parts[0]),
-                                Integer.parseInt(parts[1])
-                        );
-                        birthDate = birthDateLocal;
-                    } catch (DateTimeException e) {
-                        birthDate = null; // 형식 잘못된 경우
+                        birthDate = LocalDate.of(Integer.parseInt(birthyear), Integer.parseInt(mm), Integer.parseInt(dd));
+                    } catch (DateTimeException | NumberFormatException ignored) { /* leave null */ }
+                }
+                break;
+            }
+            case "naver": {
+                // 구조: { response: { id, email, profile_image, birthyear(yyyy), birthday(MM-dd), ... } }
+                Map<String, Object> response = map(attrs, "response");
+
+                providerId = s(response == null ? null : response.get("id"));
+                email = s(response == null ? null : response.get("email"));
+                img = s(response == null ? null : response.get("profile_image"));
+                if (img == null) img = "/images/default-profile.png";
+
+                String birthyear = s(response == null ? null : response.get("birthyear")); // yyyy
+                String birthday = s(response == null ? null : response.get("birthday"));   // MM-dd
+                if (birthyear != null && birthday != null && birthday.contains("-")) {
+                    String[] parts = birthday.split("-");
+                    if (parts.length == 2) {
+                        try {
+                            birthDate = LocalDate.of(
+                                    Integer.parseInt(birthyear),
+                                    Integer.parseInt(parts[0]),
+                                    Integer.parseInt(parts[1])
+                            );
+                        } catch (DateTimeException | NumberFormatException ignored) { /* leave null */ }
                     }
                 }
+                break;
             }
+            default:
+                throw new OAuth2AuthenticationException("Unsupported provider: " + registrationId);
         }
-        
+
+        if (providerId == null) {
+            throw new OAuth2AuthenticationException("Provider id is null for " + registrationId);
+        }
+
         User user = User.builder()
                 .email(email)
                 .oauthType(registrationId)
@@ -98,6 +113,6 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
                 .birthDate(birthDate)
                 .build();
 
-        return new PrincipalUser(user, oAuth2User.getAttributes());
+        return new PrincipalUser(user, attrs != null ? attrs : Collections.emptyMap());
     }
 }
