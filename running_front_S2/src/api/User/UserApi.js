@@ -19,4 +19,4 @@ export const reqUpdateUser = (data) => api.post("/api/mypage", data, {
 
 export const reqGetUserWelcome = (userId) => api.get(`/api/mypage/${userId}`);
 
-export const reqGetReportByUserId = (userId) => api.get(`/api/${userId}/report`);
+export const reqGetReportByUserId = (userId) => api.get(`/api/${userId}/reports`);

@@ -36,10 +36,12 @@ public class UserController {
         return ResponseEntity.ok(ResponseDto.success(userService.getWelcomeByUserId(userId)));
     }
 
-    @GetMapping("/{userId}/report")
+    @GetMapping("/{userId}/reports")
     public  ResponseEntity<ResponseDto<?>> getReports(@PathVariable Integer userId) {
         return ResponseEntity.ok(ResponseDto.success(userService.getReport(userId)));
     }
+
+//    @GetMapping("/{userId}/")
 //
 //    @GetMapping("/mypage")
 //    public ResponseEntity<User> getMyPage(@AuthenticationPrincipal PrincipalUser principalUser) {
