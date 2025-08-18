@@ -94,7 +94,12 @@ function CrewMember() {
               <button>사진첩</button>
               <button>공지사항</button>
               <button>문의사항</button>
-              {crew.userId === userId && <button onClick={() => navigate(`/crews/${crew.crewId}/setting`)}>설정</button>}
+              {crew.userId === userId && (
+                <>
+                  <button onClick={() => navigate(`/crews/${crew.crewId}/report`)}>신고사항</button>
+                  <button onClick={() => navigate(`/crews/${crew.crewId}/setting`)}>설정</button>
+                </>
+              )}
             </div>
           </div>
           {crew.userId !== userId && (

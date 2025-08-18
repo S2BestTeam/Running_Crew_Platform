@@ -132,6 +132,5 @@ public class CrewService {
                 .build();
         crewMemberMapper.report(report);
     }
-
 }
 
