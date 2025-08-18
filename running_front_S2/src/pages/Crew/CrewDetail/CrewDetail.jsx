@@ -45,7 +45,9 @@ function CrewDetail() {
         <div css={s.leftBox}>
           <div>
             <div css={s.crewInfoBox}>
-              <div css={s.crewImgBox}></div>
+              <div css={s.crewImgBox}>
+                <img src={`http://localhost:8080/image/crew/profile/${crew?.crewProfileImg}`} alt="" />
+              </div>
               <div
                 css={s.crewNameBox}
                 onClick={() => navigate(`/crews/${crewId}`)}

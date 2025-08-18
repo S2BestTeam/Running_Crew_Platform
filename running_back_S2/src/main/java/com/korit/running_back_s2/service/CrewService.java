@@ -34,8 +34,8 @@ public class CrewService {
     @Transactional(rollbackFor = Exception.class)
     public void register(CrewRegisterReqDto dto) {
         Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
-        String profileImg = fileService.uploadFile(dto.getCrewProfileImg(), "/crew");
-        String thumbnailImg = fileService.uploadFile(dto.getCrewProfileImg(), "/crew");
+        String profileImg = fileService.uploadFile(dto.getCrewProfileImg(), "/crew/profile");
+        String thumbnailImg = fileService.uploadFile(dto.getCrewThumbnailImg(), "/crew/thumnail");
 
         Crew crew = Crew.builder()
                 .userId(userId)

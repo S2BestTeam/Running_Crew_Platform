@@ -35,6 +35,14 @@ export const crewImgBox = css`
   width: 4rem;
   height: 4rem;
   background-color: black;
+  overflow: hidden;
+
+  & > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
 `;
 
 export const crewNameBox = css`

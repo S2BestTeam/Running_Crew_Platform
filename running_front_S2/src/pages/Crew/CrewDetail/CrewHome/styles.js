@@ -33,12 +33,13 @@ export const banner = css`
     height: 100%;
     background-color: black;
     display: block;
+
+    & > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
-  /* & > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  } */
 `;
 
 export const crewInfoSection = css`
@@ -68,11 +69,11 @@ export const profileImg = css`
     height: 100%;
     background-color: #5f5f5f;
   }
-  /* & > img {
+  & > img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-  } */
+  }
 `;
 
 export const crewTextBox = css`

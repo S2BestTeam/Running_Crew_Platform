@@ -12,12 +12,13 @@ function CrewHome({ userId }) {
     <div css={s.mainBox}>
       <div css={s.titleBox}>
         <div css={s.banner}>
-          <div></div>
+          <div>
+            <img src={`http://localhost:8080/image/crew/thumnail/${crew?.crewThumbnailImg}`} alt="" />
+          </div>
         </div>
         <div css={s.crewInfoSection}>
           <div css={s.profileImg}>
-            <div></div>
-            <img src="crew.crewProfileImg" alt="크루 프로필" />
+            <img src={`http://localhost:8080/image/crew/profile/${crew?.crewProfileImg}`} alt="크루 프로필" />
           </div>
 
           <div css={s.crewTextBox}>

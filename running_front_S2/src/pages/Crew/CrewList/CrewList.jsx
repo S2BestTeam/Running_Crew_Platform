@@ -1,8 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+/** @jsxImportSource @emotion/react */
+import * as s from './styles';
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Select, MenuItem } from "@mui/material";
 import useGetCrewListQuery from "../../../queries/useGetCrewListQuery";
 import useGetGunguListQuery from "../../../queries/useGetGunguListQuery";
+import MainContainer from "../../../components/MainContainer/MainContainer";
+import { FaHeart } from 'react-icons/fa';
+import { FiHeart } from 'react-icons/fi';
+import { motion } from "framer-motion";
 
 function CrewList() {
   const navigate = useNavigate();
@@ -10,8 +15,13 @@ function CrewList() {
   const page = parseInt(searchParams.get("page") || "1", 10);
   const searchText = searchParams.get("searchText") || "";
   const selectedGunguId = searchParams.get("gunguId") || "";
-
+  const [liked, setLiked] = useState(false);
   const [searchInput, setSearchInput] = useState(searchText);
+
+  const handleLike = (e) => {
+    e.stopPropagation();
+    setLiked(!liked);
+  };
 
   const crewListQuery = useGetCrewListQuery({
     page,
@@ -48,7 +58,6 @@ function CrewList() {
     return () => io.disconnect();
   }, [crewListQuery.hasNextPage, crewListQuery.isFetchingNextPage, crewListQuery.fetchNextPage]);
 
-  // 핸들러
   const handleGunguChange = (e) => {
     const value = e.target.value;
     setSearchParams((prev) => {
@@ -77,56 +86,58 @@ function CrewList() {
   };
 
   return (
-    <div>
-      <div>
-        <Select value={selectedGunguId} onChange={handleGunguChange} displayEmpty>
-          <MenuItem value="">전체</MenuItem>
-          {gunguList.map((gungu) => (
-            <MenuItem key={gungu.gunguId} value={gungu.gunguId}>
-              {gungu.gunguName}
-            </MenuItem>
-          ))}
-        </Select>
+    <MainContainer>
+      <div css={s.layout}>
+        <div css={s.headerBox}>
+          <select value={selectedGunguId} onChange={handleGunguChange}>
+            <option value="">전체</option>
+            {gunguList.map((gungu) => (
+              <option key={gungu.gunguId} value={gungu.gunguId}>
+                {gungu.gunguName}
+              </option>
+            ))}
+          </select>
 
-        <div>
-          <input type="text" placeholder="크루 검색" value={searchInput} onChange={handleSearchOnChange} onKeyDown={handleSearchOnKeyDown} />
-          <button onClick={handleSearchOnClick}>검색</button>
+          <div>
+            <input type="text" placeholder="크루 검색" value={searchInput} onChange={handleSearchOnChange} onKeyDown={handleSearchOnKeyDown} />
+            <button onClick={handleSearchOnClick}>검색</button>
+          </div>
         </div>
-      </div>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)", // 가로 4칸
-          gap: "16px", // 카드 간격
-          padding: "16px",
-        }}
-      >
-        {crewList.length === 0 ? (
-          <p>크루가 없습니다.</p>
-        ) : (
-          crewList.map((crew) => (
-            <div
+        <div css={s.gridBox}>
+          {crewList.length === 0 ? (
+            <p>크루가 없습니다.</p>
+          ) : (
+            crewList.map((crew) => (
+              <div
               key={crew.crewId}
-              style={{
-                border: "1px solid #ddd",
-                borderRadius: "8px",
-                padding: "12px",
-                backgroundColor: "#fafafa",
-                cursor: "pointer",
-              }}
+              css={s.cards}
               onClick={() => navigate(`/crews/${crew.crewId}`)}
-            >
-              <div style={{ fontSize: "14px", color: "#666" }}>{crew.gunguName}</div>
-              <div style={{ fontWeight: "bold", marginTop: "8px" }}>{crew.crewName}</div>
-              <div style={{ fontSize: "13px", marginTop: "4px", color: "#333" }}>{crew.title}</div>
-            </div>
-          ))
-        )}
-      </div>
+              >
+                <div css={s.tumbnailBox}>
+                  <img src={`http://localhost:8080/image/crew/thumnail/${crew?.crewThumbnailImg}`} alt="" />
+                  <motion.div
+                    css={s.heartIcon}
+                    onClick={handleLike}
+                    animate={{ scale: liked ? [1, 1.4, 1] : [1, 0.8, 1] }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {liked ? <FaHeart color="red" /> : <FiHeart color="black" />}
+                  </motion.div>
+                </div>
+                <div css={s.textBox}>
+                  <div css={s.gungu}>{crew.gunguName}</div>
+                  <div css={s.crewName}>[{crew.crewName}]</div>
+                  <div css={s.crewTitle}>{crew.title}</div>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
 
-      <div ref={loadMoreRef} style={{ height: 1 }} />
-    </div>
+        <div ref={loadMoreRef} style={{ height: 1 }} />
+      </div>
+    </MainContainer>
   );
 }
 
