@@ -99,7 +99,7 @@ function CrewRegister(props) {
       navigate("/");
     } catch (err) {
       if (err?.response?.status === 409) {
-        alert("이미 가입된 크루가 있습니다.");
+        alert("이미 등록 크루가 있습니다.");
       } else {
         alert("등록에 실패했습니다.");
       }

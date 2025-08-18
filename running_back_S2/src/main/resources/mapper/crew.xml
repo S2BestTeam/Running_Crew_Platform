@@ -83,8 +83,6 @@
             <if test="searchText != null and searchText != ''">
                 and (
                 crew_name LIKE CONCAT('%', #{searchText}, '%')
-                OR title LIKE CONCAT('%', #{searchText}, '%')
-                OR content LIKE CONCAT('%', #{searchText}, '%')
                 )
             </if>
         </where>
@@ -102,8 +100,6 @@
             <if test="searchText != null and searchText != ''">
                 and (
                 crew_name LIKE CONCAT('%', #{searchText}, '%')
-                OR title LIKE CONCAT('%', #{searchText}, '%')
-                OR content LIKE CONCAT('%', #{searchText}, '%')
                 )
             </if>
         </where>
@@ -114,7 +110,7 @@
         from
             crew_member_tb
         where
-            user_id = #{userId}
+            user_id = #{userId} and role_id = 2
     </select>
 
 

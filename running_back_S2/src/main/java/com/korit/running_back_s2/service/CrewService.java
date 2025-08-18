@@ -37,11 +37,11 @@ public class CrewService {
     public void register(CrewRegisterReqDto dto) throws Exception {
         Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
 
-        int joinedCrew = crewMapper.checkCrew(userId);
+        int registeredCrew = crewMapper.checkCrew(userId);
 
-        if (joinedCrew != 0) {
+        if (registeredCrew != 0) {
             // 409 CONFLICT와 함께 메시지 전달
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "이미 가입된 크루가 있습니다.");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "이미 등록한 크루가 있습니다.");
         }
 
         String profileImg = fileService.uploadFile(dto.getCrewProfileImg(), "/crew");
