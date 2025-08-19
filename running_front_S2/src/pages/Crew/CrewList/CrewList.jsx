@@ -115,7 +115,7 @@ function CrewList() {
               onClick={() => navigate(`/crews/${crew.crewId}`)}
               >
                 <div css={s.tumbnailBox}>
-                  <img src={`http://localhost:8080/image/crew/thumnail/${crew?.crewThumbnailImg}`} alt="" />
+                  <img src={`http://localhost:8080/image/crew/thumnail/${crew?.thumbnailPicture}`} alt="" />
                   <motion.div
                     css={s.heartIcon}
                     onClick={handleLike}

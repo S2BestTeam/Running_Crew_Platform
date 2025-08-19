@@ -18,7 +18,7 @@ public class CrewGathering {
     private Integer userId;
     private String title;
     private String content;
-    private String crewThumbnailImg;
+    private String thumbnailPicture;
     private String runningDate;
     private String runningTime;
     private String placeName;

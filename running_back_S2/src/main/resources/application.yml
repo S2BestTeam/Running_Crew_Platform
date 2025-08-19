@@ -27,4 +27,6 @@ mybatis:
   mapper-locations: classpath:mapper/**/*.xml
   configuration:
     map-underscore-to-camel-case: true
-  type-aliases-package: com.korit.running_back_s2.domain.entity
+  type-aliases-package: com.korit.running_back_s2.domain
+  configuration-properties:
+    serverHost: "${server.domain}"

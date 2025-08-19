@@ -2,28 +2,18 @@
 import { useMemo } from "react";
 import ReactModal from "react-modal";
 import useUserDetailQuery from "../../../../../queries/useUserDetailQuery";
-import { reqDownMember, reqExpelMember, reqGrantMember } from "../../../../../api/Crew/crewApi";
+import { reqExpelMember, reqUpdateMemberRole } from "../../../../../api/Crew/crewApi";
 
-export default function MemberModal({ crewId, userId, isOpen, onClose, isLeader = false, onChanged, onReport }) {
-  const { data: detail, isLoading, isError } = useUserDetailQuery({ crewId, userId, enabled: isOpen });
+export default function MemberModal({ memberId, isOpen, onClose, isLeader = false, onChanged, onReport }) {
+  const { data: detail, isLoading, isError } = useUserDetailQuery(memberId);
 
   const canGrant = !!(isLeader && detail && detail.roleId !== 2 && detail.roleId !== 3);
   const canDown = !!(isLeader && detail && detail.roleId !== 2 && detail.roleId !== 4);
   const canExpel = !!(isLeader && detail && detail.roleId !== 2);
 
-  const handleGrantOnClick = async () => {
+  const handleUpdateRoleOnClick = async (roleId) => {
     try {
-      await reqGrantMember({ crewId, userId: detail.userId });
-      onChanged();
-      onClose();
-    } catch (e) {
-      alert(e?.response?.data?.message ?? "권한 부여 실패");
-    }
-  };
-
-  const handleDownOnClick = async () => {
-    try {
-      await reqDownMember({ crewId, userId: detail.userId });
+      await reqUpdateMemberRole({ memberId, roleId });
       onChanged();
       onClose();
     } catch (e) {
@@ -55,6 +45,7 @@ export default function MemberModal({ crewId, userId, isOpen, onClose, isLeader 
         justifyContent: "center",
         alignItems: "center",
         zIndex: 1000,
+        fontSize: "1.6rem" 
       },
       content: {
         position: "static",
@@ -64,16 +55,15 @@ export default function MemberModal({ crewId, userId, isOpen, onClose, isLeader 
         padding: 0,
         overflow: "hidden",
         background: "#fff",
-        width: 360,
+        width: 500,
         maxWidth: "calc(100% - 24px)",
         boxShadow: "0 10px 30px rgba(0,0,0,.2)",
       },
     }),
     []
   );
-
   return (
-    <ReactModal isOpen={!!isOpen} onRequestClose={onClose} shouldCloseOnOverlayClick style={modalStyles}>
+    <ReactModal isOpen={!!isOpen} onRequestClose={onClose} shouldCloseOnOverlayClick style={modalStyles} >
       <div
         style={{
           padding: "12px 16px",
@@ -90,31 +80,32 @@ export default function MemberModal({ crewId, userId, isOpen, onClose, isLeader 
         </button>
       </div>
 
-      <div style={{ padding: 16 }}>
+      <div style={{ padding: 16}}>
         {isLoading && <div>불러오는 중…</div>}
         {isError && <div style={{ color: "crimson" }}>정보를 불러오지 못했어요.</div>}
 
         {!isLoading && !isError && detail && (
-          <div style={{ display: "grid", rowGap: 8 }}>
-            {/* <img src={detail.profileImg} alt="" style={{ width: 64, height: 64, borderRadius: "50%" }}/> */}
+          <div style={{ display: "grid", rowGap: 15 }}>
+            <img src={detail.user.picture} alt="" style={{ width: 64, height: 64, borderRadius: "50%" }}/>
             <div>
-              <b>닉네임</b> : {detail.nickname}
+              <b>닉네임</b> : {detail.user.nickname}
             </div>
             <div>
-              <b>실명</b> : {detail.fullName}
+              <b>실명</b> : {detail.user.fullName}
             </div>
             <div>
-              <b>성별</b> : {detail.gender === 1 ? "남" : detail.gender === 2 ? "여" : "-"}
+              <b>성별</b> : {detail.user.gender === 1 ? "남" : detail.user.gender === 2 ? "여" : "-"}
             </div>
             <div>
-              <b>생년월일</b> : {detail.birthDate ?? "-"}
+              <b>생년월일</b> : {detail.user.birthDate ?? "-"}
             </div>
             <div>
-              <b>총 거리</b> : {detail.userTotalKm ?? 0} km
+              <b>총 거리</b> : {detail.user.totalKM ?? 0} km
             </div>
           </div>
         )}
       </div>
+      
 
      {isLeader && detail?.roleId !== 2 && (
         <div
@@ -126,9 +117,9 @@ export default function MemberModal({ crewId, userId, isOpen, onClose, isLeader 
             justifyContent: "flex-end",
           }}
         >
-          {detail?.roleId === 3 ? (<button disabled={!canDown} onClick={handleDownOnClick}>
+          {detail?.roleId === 3 ? (<button disabled={!canDown} onClick={() => handleUpdateRoleOnClick(4)}>
             운영진 권한 박탈
-          </button>) : (<button disabled={!canGrant} onClick={handleGrantOnClick}>
+          </button>) : (<button disabled={!canGrant} onClick={() => handleUpdateRoleOnClick(3)}>
             운영진 권한 부여
           </button>)
           }

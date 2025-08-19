@@ -33,7 +33,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         if (foundUser == null) {
             String email = URLEncoder.encode(user.getEmail(), StandardCharsets.UTF_8);
             String oauthType = URLEncoder.encode(user.getOauthType(), StandardCharsets.UTF_8);
-            String img = URLEncoder.encode(user.getProfileImg(), StandardCharsets.UTF_8);
+            String img = URLEncoder.encode(user.getPicture(), StandardCharsets.UTF_8);
             String providerId = URLEncoder.encode(user.getProviderId(), StandardCharsets.UTF_8);
             String birthDate = URLEncoder.encode(String.valueOf(user.getBirthDate()), StandardCharsets.UTF_8);
             redirectUrl = String

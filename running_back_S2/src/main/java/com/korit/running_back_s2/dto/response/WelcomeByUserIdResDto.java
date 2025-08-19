@@ -6,6 +6,6 @@ import lombok.Data;
 public class WelcomeByUserIdResDto {
     private Integer crewId;
     private String crewName;
-    private String crewProfileImg;
+    private String profilePicture;
     private String status;
 }

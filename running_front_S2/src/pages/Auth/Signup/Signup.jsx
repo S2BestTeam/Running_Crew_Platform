@@ -136,7 +136,7 @@ function Signup() {
       oauthType,
       providerId,
       email,
-      profileImg: img,
+      profilePicture: img,
       fullName: user.name,
       nickname: user.nickname,
       phoneNumber: user.phoneNumber,

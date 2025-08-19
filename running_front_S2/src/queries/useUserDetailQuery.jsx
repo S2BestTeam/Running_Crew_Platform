@@ -1,13 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { reqGetMemberDetail } from "../api/Crew/crewApi";
 
-export default function useUserDetailQuery({ crewId, userId }) {
+export default function useUserDetailQuery(memberId) {
   return useQuery({
-    queryKey: ["userDetail", crewId, userId],
+    queryKey: ["userDetail", memberId],
     queryFn: async () => {
-      const res = await reqGetMemberDetail({ crewId, userId });
+      const res = await reqGetMemberDetail(memberId);
       return res?.data?.body;
     },
-    enabled: !!crewId && !!userId,
+    staleTime: 0,
+    gcTime: 0,
+    enabled: !!memberId,
   });
 }

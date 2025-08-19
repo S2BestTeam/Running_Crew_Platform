@@ -12,7 +12,7 @@
             #{userId},
             #{title},
             #{content},
-            #{crewThumbnailImg},
+            #{thumbnailPicture},
             #{runningDate},
             #{runningTime},
             #{placeName},

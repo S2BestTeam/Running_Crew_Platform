@@ -10,7 +10,7 @@ public class UserRegisterReqDto {
     private String oauthType;
     private String providerId;
     private String email;
-    private String profileImg;
+    private String picture;
     private String fullName;
     private String nickname;
     private String phoneNumber;
@@ -18,7 +18,7 @@ public class UserRegisterReqDto {
     private Integer gender;
     private String address;
     private Integer gunguId;
-    private Double userTotalKM;
+    private Double totalKM;
 
     public User toEntity() {
         return User.builder()
@@ -30,9 +30,9 @@ public class UserRegisterReqDto {
                 .birthDate(birthDate)
                 .gender(gender)
                 .address(address)
-                .profileImg(profileImg)
+                .picture(picture)
                 .providerId(providerId)
-                .userTotalKM(0.0)
+                .totalKM(0.0)
                 .build();
     }
 }

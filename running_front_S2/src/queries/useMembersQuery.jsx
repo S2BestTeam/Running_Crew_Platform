@@ -15,7 +15,7 @@ export default function useMembersQuery({ crewId, searchText = "", size = 20 }) 
       const totalPages = Number(body.totalPages ?? 1) || 1;
       return currentPage < totalPages ? currentPage + 1 : undefined;
     },
-    staleTime: 60_000,
+    staleTime: 60000,
     keepPreviousData: true,
   });
 }

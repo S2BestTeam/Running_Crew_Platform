@@ -11,8 +11,8 @@
         <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="limitedPeople" column="limited_people"/>
-        <result property="crewProfileImg" column="crew_profile_img"/>
-        <result property="crewThumbnailImg" column="crew_thumbnail_img"/>
+        <result property="profilePicture" column="profile_picture"/>
+        <result property="thumbnailPicture" column="thumbnail_picture"/>
         <result property="userId" column="user_id"/>
         <result property="createdAt" column="created_at"/>
         <result property="crewTotalKm" column="crew_total_km"/>
@@ -25,15 +25,25 @@
     </resultMap>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="crewId">
-        INSERT INTO crew_tb ( user_id, gungu_id, crew_name, title, content, limited_people, crew_profile_img ,
-        crew_thumbnail_img)
-        VALUES ( #{userId}, #{gunguId}, #{crewName}, #{title}, #{content}, #{limitedPeople}, #{crewProfileImg},
-        #{crewThumbnailImg} )
+        INSERT INTO crew_tb ( user_id, gungu_id, crew_name, title, content, limited_people, profile_picture ,
+        thumbnail_picture)
+        VALUES ( #{userId}, #{gunguId}, #{crewName}, #{title}, #{content}, #{limitedPeople}, #{profilePicture},
+        #{thumbnailPicture} )
     </insert>
 
     <select id="findByCrewName" resultType="com.korit.running_back_s2.domain.crew.Crew">
         select
-            *
+            crew_id,
+            gungu_id,
+            convert_url('${serverHost}', '/image/crew/profile/', profile_picture) as profile_picture,
+            convert_url('${serverHost}', '/image/crew/thumbnail/', thumbnail_picture) as thumbnail_picture,
+            crew_name,
+            user_id,
+            title,
+            content,
+            limited_people,
+            created_at,
+            crew_total_km
         from
             crew_tb
         where
@@ -42,40 +52,39 @@
 
     <select id="findByCrewId" resultMap="CrewMap">
         SELECT
-        ct.crew_id AS crew_id,
-        ct.gungu_id AS gungu_id,
-        gt.gungu_name AS gungu_name,
-        ct.crew_name as crew_name,
-        ct.title as title,
-        ct.content as content,
-        ct.crew_profile_img as crew_profile_img,
-        ct.crew_thumbnail_img as crew_thumbnail_img,
-        ct.limited_people as limited_people,
-        ct.user_id AS user_id,
-        ct.created_at AS created_at,
-        ct.crew_total_km AS crew_total_km
+            ct.crew_id AS crew_id,
+            ct.gungu_id AS gungu_id,
+            gt.gungu_name AS gungu_name,
+            ct.crew_name as crew_name,
+            ct.title as title,
+            ct.content as content,
+            convert_url('${serverHost}', '/image/crew/profile/', ct.profile_picture) as profile_picture,
+            convert_url('${serverHost}', '/image/crew/thumbnail/', ct.thumbnail_picture) as thumbnail_picture,
+            ct.limited_people as limited_people,
+            ct.user_id AS user_id,
+            ct.created_at AS created_at,
+            ct.crew_total_km AS crew_total_km
         FROM
-        crew_tb ct
-        left outer join gungu_tb gt on(ct.gungu_id = gt.gungu_id)
+            crew_tb ct
+            left outer join gungu_tb gt on(ct.gungu_id = gt.gungu_id)
         WHERE
-        ct.crew_id = #{crewId}
+            ct.crew_id = #{crewId}
     </select>
     <select id="findAllBySearchOption" resultMap="CrewMap">
         select
-        ct.crew_id as crew_id,
-        ct.gungu_id as gungu_id ,
-        gt.gungu_name as gungu_name,
-        ct.crew_profile_img as crew_profile_img,
-        ct.crew_thumbnail_img as crew_thumbnail_img,
-        ct.crew_name as crew_name,
-        ct.user_id as user_id,
-        ct.title as title,
-        ct.content as content,
-        ct.created_at as created_at
+            ct.crew_id as crew_id,
+            ct.gungu_id as gungu_id ,
+            gt.gungu_name as gungu_name,
+            convert_url('${serverHost}', '/image/crew/profile/', ct.profile_picture) as profile_picture,
+            convert_url('${serverHost}', '/image/crew/thumbnail/', ct.thumbnail_picture) as thumbnail_picture,
+            ct.crew_name as crew_name,
+            ct.user_id as user_id,
+            ct.title as title,
+            ct.content as content,
+            ct.created_at as created_at
         from
-        crew_tb ct
-
-        left outer join gungu_tb gt on(ct.gungu_id = gt.gungu_id)
+            crew_tb ct
+            left outer join gungu_tb gt on(ct.gungu_id = gt.gungu_id)
         <where>
             <if test="gunguId != null">
                 and ct.gungu_id = #{gunguId}

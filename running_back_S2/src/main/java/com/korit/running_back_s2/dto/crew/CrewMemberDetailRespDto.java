@@ -11,9 +11,9 @@ public class CrewMemberDetailRespDto {
     private Integer userId;
     private String nickname;
     private String fullName;
-    private String profileImg;
+    private String picture;
     private Integer gender;
     private LocalDate birthDate;
-    private Double userTotalKm;
+    private Double totalKM;
     private Integer roleId;
 }

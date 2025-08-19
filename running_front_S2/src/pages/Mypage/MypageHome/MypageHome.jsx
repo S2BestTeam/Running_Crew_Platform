@@ -70,7 +70,7 @@ function Mypage() {
               <div>
                 <div css={s.aAndbImg}>
                   <div css={s.profileImgBox} onClick={handleProfileImgUpdateClick}>
-                    <img src={userInfo?.profileImg} alt="" />
+                    <img src={userInfo?.profilePicture} alt="" />
                   </div>
                   <button css={s.button}>저장</button>
                 </div>

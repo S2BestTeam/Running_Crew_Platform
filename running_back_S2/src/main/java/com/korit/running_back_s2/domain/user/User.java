@@ -16,7 +16,7 @@ public class User {
     private String oauthType;
     private String providerId;
     private String email;
-    private String profileImg;
+    private String picture;
     private String fullName;
     private String nickname;
     private Integer gunguId;
@@ -24,5 +24,5 @@ public class User {
     private String phoneNumber;
     private LocalDate birthDate;
     private Integer gender;
-    private Double userTotalKM;
+    private Double totalKM;
 }

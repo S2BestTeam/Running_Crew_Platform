@@ -34,8 +34,8 @@ public class CrewService {
     @Transactional(rollbackFor = Exception.class)
     public void register(CrewRegisterReqDto dto) throws Exception {
         Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
-        String profileImg = fileService.uploadFile(dto.getCrewProfileImg(), "/crew/profile");
-        String thumbnailImg = fileService.uploadFile(dto.getCrewThumbnailImg(), "/crew/thumnail");
+        String picture = fileService.uploadFile(dto.getProfilePicture(), "/crew/profile");
+        String thumbnailImg = fileService.uploadFile(dto.getThumbnailPicture(), "/crew/thumbnail");
 
         Crew crew = Crew.builder()
                 .userId(userId)
@@ -44,8 +44,8 @@ public class CrewService {
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .limitedPeople(dto.getLimitedPeople())
-                .crewProfileImg(profileImg)
-                .crewThumbnailImg(thumbnailImg)
+                .profilePicture(picture)
+                .thumbnailPicture(thumbnailImg)
                 .build();
         crewMapper.insert(crew);
         crewMemberMapper.insertLeaderRole(userId, crew.getCrewId());
@@ -116,26 +116,19 @@ public class CrewService {
                 .build();
     }
 
-    public CrewMemberDetailRespDto getMemberDetail(Integer crewId, Integer userId) {
-        return crewMemberMapper.findMemberDetail(crewId, userId);
+    public CrewMember getMemberDetail(Integer memberId) {
+        return crewMemberMapper.findById(memberId);
     }
 
-    public void grant(Integer crewId, Integer userId) {
-        int updated = crewMemberMapper.updateRoleUp(crewId, userId);
+    public void updateRole(CrewMemberRoleUpdateReqDto dto) {
+        int updated = crewMemberMapper.updateRole(dto.getMemberId(), dto.getRoleId());
         if (updated == 0) {
-            throw new IllegalStateException("변경 대상이 아니거나 이미 운영진/리더입니다.");
+            throw new IllegalStateException("권한 변경 중 오류");
         }
     }
 
-    public void down(Integer crewId, Integer userId) {
-        int updated = crewMemberMapper.updateRoleDown(crewId, userId);
-        if (updated == 0) {
-            throw new IllegalStateException("변경 대상이 아니거나 이미 User입니다.");
-        }
-    }
-
-    public void expel(Integer crewId, Integer userId) {
-        int deleted = crewMemberMapper.deleteMember(crewId, userId);
+    public void expel(Integer memberId) {
+        int deleted = crewMemberMapper.deleteMember(memberId);
         if (deleted == 0) {
             throw new IllegalStateException("리더는 추방할 수 없거나 대상이 존재하지 않습니다.");
         }
@@ -155,13 +148,12 @@ public class CrewService {
         CrewWelcome welcome = dto.welcome(crewId);
         crewWelComeMapper.insert(welcome);
     }
-    public void report(Integer crewId, Integer userId,PrincipalUser principalUser,String reason) {
-        Integer reporterId = principalUser.getUser().getUserId();
+    public void report(CrewReportReqDto dto) {
+        Integer reporterId = principalUtil.getPrincipalUser().getUser().getUserId();
         Report report = Report.builder()
-                .crewId(crewId)
                 .reporterId(reporterId)
-                .reportedId(userId)
-                .reason(reason)
+                .reportedId(dto.getMemberId())
+                .reason(dto.getReason())
                 .build();
         crewMemberMapper.report(report);
     }

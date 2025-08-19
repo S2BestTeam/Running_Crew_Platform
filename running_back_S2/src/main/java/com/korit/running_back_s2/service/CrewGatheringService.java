@@ -27,10 +27,10 @@ public class CrewGatheringService {
     @Transactional(rollbackFor = Exception.class)
     public void register(CrewGatheringRegisterReqDto dto) {
         Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
-        String thumbnailImg = fileService.uploadFile(dto.getCrewThumbnailImg(), "/crew/gathering");
+        String thumbnailImg = fileService.uploadFile(dto.getThumbnailPicture(), "/crew/gathering");
         CrewGathering crewGathering = dto.toEntity();
         crewGathering.setUserId(userId);
-        crewGathering.setCrewThumbnailImg(thumbnailImg);
+        crewGathering.setThumbnailPicture(thumbnailImg);
 
         crewGatheringMapper.insert(crewGathering);
     }

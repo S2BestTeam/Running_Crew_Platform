@@ -22,7 +22,7 @@ function CrewDetail() {
   const crew = crewData?.body || {
     crewId: Number(crewId),
     gunguId: 0,
-    crewProfileImg: "",
+    profilePicture: "",
     crewName: "",
     userId: 0,
     title: "",
@@ -47,7 +47,7 @@ function CrewDetail() {
           <div>
             <div css={s.crewInfoBox}>
               <div css={s.crewImgBox}>
-                <img src={`http://localhost:8080/image/crew/profile/${crew?.crewProfileImg}`} alt="" />
+                <img src={crew?.profilePicture} alt="" />
               </div>
               <div
                 css={s.crewNameBox}

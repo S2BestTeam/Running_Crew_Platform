@@ -10,7 +10,7 @@ public class CrewRegisterReqDto {
     private String title;
     private String content;
     private Integer limitedPeople;
-    private MultipartFile crewProfileImg;
-    private MultipartFile crewThumbnailImg;
+    private MultipartFile profilePicture;
+    private MultipartFile thumbnailPicture;
     private Integer userId;
 }
