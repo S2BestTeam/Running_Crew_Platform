@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 /** @jsxImportSource @emotion/react */
 import * as s from "./styles";
@@ -8,8 +8,9 @@ import usePrincipalQuery from "../../../../queries/usePrincipalQuery";
 import useCrewDetailQuery from "../../../../queries/useCrewDetailQuery";
 import useMembersQuery from "../../../../queries/useMembersQuery";
 import MemberModal from "./MemberModal/MemberModal";
-import ReportModal from "./MemberModal/ReportModal/ReportModal";
 import useUserDetailQuery from "../../../../queries/useUserDetailQuery";
+import ReportModal from "../Report/ReportModal/ReportModal";
+import CrewReport from "../Report/CrewReport";
 
 function CrewMember() {
   const { crewId } = useParams();
@@ -47,7 +48,6 @@ function CrewMember() {
   };
   const handleSearchOnKeyDown = (e) => { if (e.key === "Enter") handleSearchOnClick(); };
 
-  // ✅ 스크롤 컨테이너 & 센티넬
   const scrollBoxRef = useRef(null);
   const loadMoreRef = useRef(null);
 
@@ -76,6 +76,11 @@ function CrewMember() {
   const crew = crewData?.body || {
     crewId: Number(crewId), crewProfileImg: "", crewName: "", userId: 0,
     title: "", content: "", limitedPeople: 0, crewTotalKm: 0,
+  };
+
+  const handlePickUser = (id) => {
+    if (id == null) return;
+    setSelectedUserId(Number(id));
   };
 
   if (isLoading) {
@@ -107,6 +112,7 @@ function CrewMember() {
             ))}
             <div ref={loadMoreRef} style={{ height: 8 }} />
           </div>
+
           {selectedUserId && (
             <MemberModal
               crewId={crewId}

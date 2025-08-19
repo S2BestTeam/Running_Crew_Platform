@@ -6,10 +6,8 @@ import com.korit.running_back_s2.domain.crew.CrewSearchOption;
 import com.korit.running_back_s2.domain.crew.member.*;
 import com.korit.running_back_s2.domain.crew.welcome.CrewWelComeMapper;
 import com.korit.running_back_s2.domain.crew.welcome.CrewWelcome;
-import com.korit.running_back_s2.dto.crew.CrewMemberDetailRespDto;
+import com.korit.running_back_s2.dto.crew.*;
 import com.korit.running_back_s2.domain.user.UserMapper;
-import com.korit.running_back_s2.dto.crew.CrewRegisterReqDto;
-import com.korit.running_back_s2.dto.crew.CrewWelcomeReqDto;
 import com.korit.running_back_s2.dto.response.CrewWelcomeResDto;
 import com.korit.running_back_s2.dto.response.PaginationRespDto;
 import com.korit.running_back_s2.security.model.PrincipalUser;
@@ -59,7 +57,7 @@ public class CrewService {
                 .crewThumbnailImg(thumbnailImg)
                 .build();
         crewMapper.insert(crew);
-        userMapper.insertLeaderRole(userId, crew.getCrewId());
+        crewMemberMapper.insertLeaderRole(userId, crew.getCrewId());
     }
 
     public String checkCrewNames(String crewName) {
@@ -153,16 +151,6 @@ public class CrewService {
     }
 
 
-    public void report(Integer crewId, Integer userId, PrincipalUser principalUser, String reason) {
-        Integer reporterId = principalUser.getUser().getUserId();
-        Report report = Report.builder()
-                .crewId(crewId)
-                .reporterId(reporterId)
-                .reportedId(userId)
-                .reason(reason)
-                .build();
-        crewMemberMapper.report(report);
-    }
 
     public void registerCrewMember(CrewMember member) {
         crewMemberMapper.insert(member);
@@ -176,6 +164,19 @@ public class CrewService {
         CrewWelcome welcome = dto.welcome(crewId);
         crewWelComeMapper.insert(welcome);
     }
+    public void report(Integer crewId, Integer userId,PrincipalUser principalUser,String reason) {
+        Integer reporterId = principalUser.getUser().getUserId();
+        Report report = Report.builder()
+                .crewId(crewId)
+                .reporterId(reporterId)
+                .reportedId(userId)
+                .reason(reason)
+                .build();
+        crewMemberMapper.report(report);
+    }
 
+    public List<CrewReportRespDto> getReportList(Integer crewId) {
+        return crewMapper.getReportList(crewId);
+    }
 }
 

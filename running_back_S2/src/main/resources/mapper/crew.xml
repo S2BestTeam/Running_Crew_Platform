@@ -113,5 +113,20 @@
             user_id = #{userId} and role_id = 2
     </select>
 
+    <select id="getReportList" resultType="com.korit.running_back_s2.dto.crew.CrewReportRespDto">
+        select
+            rt.report_id,
+            rt.crew_id,
+            rpt.user_id as reporter_user_id,
+            rpt.full_name as reporter_user_name,
+            rpd.user_id as reported_user_id,
+            rpd.full_name as reported_user_name,
+            rt.reason
+        from
+            report_tb rt
+            left outer join user_tb rpt on(rt.reporter_id = rpt.user_id)
+            left outer join user_tb rpd on(rt.reported_id = rpd.user_id)
+    </select>
+
 
 </mapper>

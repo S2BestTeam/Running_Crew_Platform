@@ -46,5 +46,6 @@ export const reqGrantMember = ({ crewId, userId }) => api.put(`/api/crews/${crew
 export const reqDownMember = ({ crewId, userId }) => api.put(`/api/crews/${crewId}/members/${userId}/down`);
 export const reqExpelMember = ({ crewId, userId }) => api.delete(`/api/crews/${crewId}/members/${userId}/expel`);
 
-export const reqReportMember = ({ crewId, userId, reason }) => api.post(`/api/crews/${crewId}/members/${userId}/report`, { reason });
-export const reqGetReportList = ({crewId}) => api.get(`/api/crews/${crewId}/report`);
+export const reqReportMember = ({ crewId, userId, reason }) => api.post(`/api/crews/${crewId}/members/${userId}/report`, {reason});
+
+export const reqGetReportList = ({crewId}) => api.get(`/api/crews/${crewId}/members/report`);

@@ -25,5 +25,4 @@ public class User {
     private LocalDate birthDate;
     private Integer gender;
     private Double userTotalKM;
-
 }

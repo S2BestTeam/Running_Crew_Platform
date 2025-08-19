@@ -21,4 +21,6 @@ public interface CrewMemberMapper {
     int report(Report report);
 
     int updateRoleDown(Integer crewId, Integer userId);
+
+    void insertLeaderRole(Integer userId, Integer crewId);
 }

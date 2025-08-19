@@ -17,5 +17,4 @@ public interface UserMapper {
     List<WelcomeByUserIdResDto> findWelcomeByUserId(Integer userId);
     List<ReportResDto> findReportsByUserId(Integer userId);
 
-    void insertLeaderRole(Integer userId, Integer crewId);
 }

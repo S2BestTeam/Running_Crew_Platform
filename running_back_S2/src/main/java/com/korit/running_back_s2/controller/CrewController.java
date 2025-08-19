@@ -49,4 +49,6 @@ public class CrewController {
             @RequestParam(required = false) String searchText) {
         return ResponseEntity.ok(ResponseDto.success(crewService.getCrewList(page, size, gunguId, searchText)));
     }
+
+
 }
