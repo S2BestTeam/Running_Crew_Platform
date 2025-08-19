@@ -13,7 +13,12 @@ public interface UserMapper {
     User findByEmail(String email);
     User findById(Integer userId);
     User findByNickname(String nickname);
+<<<<<<< HEAD
     int updateProfileImgById(Integer userId, String profileImg);
+=======
+//    int updateProfileImgById(Integer userId, String profileImg);
+>>>>>>> origin/34-crewReportlist불러오기작업중
     List<WelcomeByUserIdResDto> findWelcomeByUserId(Integer userId);
     List<ReportResDto> findReportsByUserId(Integer userId);
+
 }

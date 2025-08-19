@@ -73,12 +73,20 @@
         limit 1
     </select>
 
-    <update id="updateRole">
+    <update id="updateRoleUp">
         update crew_member_tb
         set role_id = 3
         where crew_id = #{crewId}
         and user_id = #{userId}
         and role_id = 4
+    </update>
+
+    <update id="updateRoleDown">
+        update crew_member_tb
+        set role_id = 4
+        where crew_id = #{crewId}
+        and user_id = #{userId}
+        and role_id = 3
     </update>
 
     <delete id="deleteMember">
@@ -97,7 +105,13 @@
     </insert>
 
     <insert id="insertLeaderRole">
+<<<<<<< HEAD
         insert into crew_member_tb (crew_id, user_id, role_id)
         values (#{crewId}, #{userId}, 2)
+=======
+        insert into crew_member_tb
+        (crew_id, user_id, role_id)
+        values(#{crewId}, #{userId}, 2)
+>>>>>>> origin/34-crewReportlist불러오기작업중
     </insert>
 </mapper>

@@ -6,17 +6,17 @@ import com.korit.running_back_s2.domain.crew.CrewSearchOption;
 import com.korit.running_back_s2.domain.crew.member.*;
 import com.korit.running_back_s2.domain.crew.welcome.CrewWelComeMapper;
 import com.korit.running_back_s2.domain.crew.welcome.CrewWelcome;
-import com.korit.running_back_s2.dto.crew.CrewMemberDetailRespDto;
+import com.korit.running_back_s2.dto.crew.*;
 import com.korit.running_back_s2.domain.user.UserMapper;
-import com.korit.running_back_s2.dto.crew.CrewRegisterReqDto;
-import com.korit.running_back_s2.dto.crew.CrewWelcomeReqDto;
 import com.korit.running_back_s2.dto.response.CrewWelcomeResDto;
 import com.korit.running_back_s2.dto.response.PaginationRespDto;
 import com.korit.running_back_s2.security.model.PrincipalUser;
 import com.korit.running_back_s2.security.model.PrincipalUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -32,10 +32,24 @@ public class CrewService {
     private final CrewWelComeMapper crewWelComeMapper;
 
     @Transactional(rollbackFor = Exception.class)
-    public void register(CrewRegisterReqDto dto) {
+    public void register(CrewRegisterReqDto dto) throws Exception {
         Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
+<<<<<<< HEAD
         String profileImg = fileService.uploadFile(dto.getCrewProfileImg(), "/crew/profile");
         String thumbnailImg = fileService.uploadFile(dto.getCrewThumbnailImg(), "/crew/thumnail");
+=======
+
+
+        int registeredCrew = crewMapper.checkCrew(userId);
+
+        if (registeredCrew != 0) {
+            // 409 CONFLICT와 함께 메시지 전달
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "이미 등록한 크루가 있습니다.");
+        }
+
+        String profileImg = fileService.uploadFile(dto.getCrewProfileImg(), "/crew");
+        String thumbnailImg = fileService.uploadFile(dto.getCrewProfileImg(), "/crew");
+>>>>>>> origin/34-crewReportlist불러오기작업중
 
         Crew crew = Crew.builder()
                 .userId(userId)
@@ -121,9 +135,16 @@ public class CrewService {
     }
 
     public void grant(Integer crewId, Integer userId) {
-        int updated = crewMemberMapper.updateRole(crewId, userId);
+        int updated = crewMemberMapper.updateRoleUp(crewId, userId);
         if (updated == 0) {
             throw new IllegalStateException("변경 대상이 아니거나 이미 운영진/리더입니다.");
+        }
+    }
+
+    public void down(Integer crewId, Integer userId) {
+        int updated = crewMemberMapper.updateRoleDown(crewId, userId);
+        if (updated == 0) {
+            throw new IllegalStateException("변경 대상이 아니거나 이미 User입니다.");
         }
     }
 
@@ -135,16 +156,6 @@ public class CrewService {
     }
 
 
-    public void report(Integer crewId, Integer userId, PrincipalUser principalUser, String reason) {
-        Integer reporterId = principalUser.getUser().getUserId();
-        Report report = Report.builder()
-                .crewId(crewId)
-                .reporterId(reporterId)
-                .reportedId(userId)
-                .reason(reason)
-                .build();
-        crewMemberMapper.report(report);
-    }
 
     public void registerCrewMember(CrewMember member) {
         crewMemberMapper.insert(member);
@@ -158,6 +169,19 @@ public class CrewService {
         CrewWelcome welcome = dto.welcome(crewId);
         crewWelComeMapper.insert(welcome);
     }
+    public void report(Integer crewId, Integer userId,PrincipalUser principalUser,String reason) {
+        Integer reporterId = principalUser.getUser().getUserId();
+        Report report = Report.builder()
+                .crewId(crewId)
+                .reporterId(reporterId)
+                .reportedId(userId)
+                .reason(reason)
+                .build();
+        crewMemberMapper.report(report);
+    }
 
+    public List<CrewReportRespDto> getReportList(Integer crewId) {
+        return crewMapper.getReportList(crewId);
+    }
 }
 

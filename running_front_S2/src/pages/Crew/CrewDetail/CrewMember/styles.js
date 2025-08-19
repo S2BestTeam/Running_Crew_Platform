@@ -1,127 +1,106 @@
+/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 
 export const layout = css`
-  display: flex;
-  flex-direction: row;
-  padding-top: 2rem;
-`;
-
-export const leftBox = css`
+  width: 60%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  border: 0.1rem solid #dbdbdb;
-  border-radius: 0.5rem;
-  width: 18rem;
-  padding: 1rem;
-  background-color: #ffffff;
-  top: 0;
+  padding-left: 10rem;
 `;
 
-export const crewInfoBox = css`
-  display: flex;
-  align-items: center;
-  padding: 3rem 1rem 2rem 1rem;
-  border-bottom: 0.1rem solid #dbdbdb;
-`;
-
-export const crewImgBox = css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  margin-right: 1rem;
-  width: 4rem;
-  height: 4rem;
-  background-color: black;
-`;
-
-export const crewNameBox = css`
-  font-size: 1.4rem;
-  font-weight: bold;
-`;
-
-export const buttonContainer = css`
+export const rightPane = css`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 1rem 0;
+  gap: 12px;
+`;
 
-  & > button {
-    text-align: left;
-    margin: 0.3rem 0;
-    padding: 0.6rem;
-    border-radius: 0.5rem;
-    background-color: transparent;
-    border: none;
+/* ⬇️ (input | button) 한 줄 + 아래로 리스트가 전폭 차지 */
+export const searchBar = css`
+  display: grid;
+  grid-template-columns: 1fr auto;  /* input(늘어남) | button(작게) */
+  grid-auto-rows: min-content;
+  gap: 8px;
+  width: 100%;
+
+  /* 1) input */
+  > input {
+    grid-column: 1 / 2;
+    height: 36px;
+    padding: 0 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    outline: none;
+  }
+
+  /* 2) button */
+  > button {
+    grid-column: 2 / 3;
+    height: 36px;
+    padding: 0 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #fff;
     cursor: pointer;
+    white-space: nowrap;
+    &:hover { background: #fafafa; }
+  }
 
-    :hover {
-      font-weight: bold;
-      background-color: rgba(129, 126, 126, 0.1);
-    }
+  /* 3) 리스트 컨테이너(세 번째 자식 div)가 아래 행 전체를 차지 */
+  > div {
+    grid-column: 1 / -1;
   }
 `;
 
-export const getout = css`
-  padding-top: 4rem;
-
-  & > button {
-    width: 100%;
-    padding: 0.6rem;
-    background-color: rgba(129, 126, 126, 0.1);
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-
-    :hover {
-      font-weight: bold;
-      background-color: rgba(251, 72, 72, 0.4);
-    }
-  }
+/* ⬇️ 멤버 리스트 박스 (스크롤) */
+export const scrollBox = css`
+  width: 100%;
+  height: 70vh;
+  overflow-y: auto;
+  padding: 12px;
+  border: 1px solid #eee;
+  border-radius: 14px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `;
 
+/* ⬇️ 멤버 아이템 (좌측 아바타 공간 고려해 여백만) */
 export const memberItem = css`
   display: flex;
   align-items: center;
-  padding: 0.6rem 0.8rem;
-  border-bottom: 1px solid #eee;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid #f2f2f2;
+  border-radius: 12px;
+  background: #fff;
   cursor: pointer;
-`;
-
-export const profileImg = css`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 0.8rem;
+  transition: background 0.15s ease;
+  &:hover { background: #fafafa; }
 `;
 
 export const memberInfo = css`
   display: flex;
   flex-direction: column;
-  flex: 1;
-  min-width: 0; /* ellipsis 잘리게 */
 `;
 
 export const nickname = css`
-  font-size: 0.95rem;
-  font-weight: bold;
-  color: #222;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`;
-
-export const fullName = css`
-  font-size: 0.8rem;
-  color: #666;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.2;
 `;
 
 export const roleIcon = css`
-  margin-left: 0.5rem;
-  font-size: 1rem;
-  color: gold;
+  font-size: 14px;
+`;
+
+export const fullName = css`
+  color: #888;
+  font-size: 13px;
 `;

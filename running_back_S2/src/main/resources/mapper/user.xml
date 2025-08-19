@@ -3,12 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.korit.running_back_s2.domain.user.UserMapper">
+<<<<<<< HEAD
 
     <update id="updateProfileImgById">
         update user_tb
         set profile_img = #{profileImg}
         where user_id = #{userId}
     </update>
+=======
+>>>>>>> origin/34-crewReportlist불러오기작업중
 
     <select id="findByEmail" resultType="com.korit.running_back_s2.domain.user.User">
         select
@@ -66,8 +69,17 @@
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="userId">
         INSERT INTO user_tb
+<<<<<<< HEAD
         (oauth_type, provider_id, email, profile_img, full_name, nickname, phone_number, gungu_id, address, birth_date, gender, user_total_km  )
         VALUES (#{oauthType}, #{providerId}, #{email}, #{profileImg}, #{fullName}, #{nickname}, #{phoneNumber}, #{gunguId}, #{address}, #{birthDate}, #{gender}, #{userTotalKM} )
     </insert>
 
+=======
+        (oauth_type, provider_id, email, profile_img, full_name, nickname, phone_number, gungu_id, address, birth_date, gender,user_total_km  )
+        VALUES (#{oauthType}, #{providerId}, #{email}, #{profileImg}, #{fullName}, #{nickname}, #{phoneNumber}, #{gunguId}, #{address}, #{birthDate}, #{gender}, #{userTotalKM} )
+    </insert>
+
+
+
+>>>>>>> origin/34-crewReportlist불러오기작업중
 </mapper>

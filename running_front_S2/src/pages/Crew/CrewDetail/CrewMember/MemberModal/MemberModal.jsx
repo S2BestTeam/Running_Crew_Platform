@@ -2,12 +2,13 @@
 import { useMemo } from "react";
 import ReactModal from "react-modal";
 import useUserDetailQuery from "../../../../../queries/useUserDetailQuery";
-import { reqExpelMember, reqGrantMember } from "../../../../../api/Crew/crewApi";
+import { reqDownMember, reqExpelMember, reqGrantMember } from "../../../../../api/Crew/crewApi";
 
 export default function MemberModal({ crewId, userId, isOpen, onClose, isLeader = false, onChanged, onReport }) {
   const { data: detail, isLoading, isError } = useUserDetailQuery({ crewId, userId, enabled: isOpen });
 
   const canGrant = !!(isLeader && detail && detail.roleId !== 2 && detail.roleId !== 3);
+  const canDown = !!(isLeader && detail && detail.roleId !== 2 && detail.roleId !== 4);
   const canExpel = !!(isLeader && detail && detail.roleId !== 2);
 
   const handleGrantOnClick = async () => {
@@ -19,6 +20,16 @@ export default function MemberModal({ crewId, userId, isOpen, onClose, isLeader 
       alert(e?.response?.data?.message ?? "권한 부여 실패");
     }
   };
+
+  const handleDownOnClick = async () => {
+    try {
+      await reqDownMember({ crewId, userId: detail.userId });
+      onChanged();
+      onClose();
+    } catch (e) {
+      alert(e?.response?.data?.message ?? "권한 부여 실패");
+    }
+  }
 
   const handleExpelOnClick = async () => {
     if (!confirm("추방할까요?")) return;
@@ -105,7 +116,7 @@ export default function MemberModal({ crewId, userId, isOpen, onClose, isLeader 
         )}
       </div>
 
-      {isLeader && (
+     {isLeader && detail?.roleId !== 2 && (
         <div
           style={{
             display: "flex",
@@ -115,9 +126,12 @@ export default function MemberModal({ crewId, userId, isOpen, onClose, isLeader 
             justifyContent: "flex-end",
           }}
         >
-          <button disabled={!canGrant} onClick={handleGrantOnClick}>
+          {detail?.roleId === 3 ? (<button disabled={!canDown} onClick={handleDownOnClick}>
+            운영진 권한 박탈
+          </button>) : (<button disabled={!canGrant} onClick={handleGrantOnClick}>
             운영진 권한 부여
-          </button>
+          </button>)
+          }
           <button disabled={!canExpel} onClick={handleExpelOnClick}>
             추방하기
           </button>

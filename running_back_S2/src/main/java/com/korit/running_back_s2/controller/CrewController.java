@@ -27,7 +27,7 @@ public class CrewController {
     }
 
     @PostMapping
-    public ResponseEntity<ResponseDto<?>> registerCrew(@ModelAttribute CrewRegisterReqDto dto) {
+    public ResponseEntity<ResponseDto<?>> registerCrew(@ModelAttribute CrewRegisterReqDto dto) throws Exception {
         crewService.register(dto);
         return ResponseEntity.ok(ResponseDto.success("Crew 등록 성공"));
     }
@@ -49,4 +49,6 @@ public class CrewController {
             @RequestParam(required = false) String searchText) {
         return ResponseEntity.ok(ResponseDto.success(crewService.getCrewList(page, size, gunguId, searchText)));
     }
+
+
 }
