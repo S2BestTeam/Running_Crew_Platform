@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import * as s from './styles';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import MypageHome from './MypageHome/MypageHome';
 import MainContainer from '../../components/MainContainer/MainContainer';
 import usePrincipalQuery from '../../queries/usePrincipalQuery';
 
 function Mypage(props) {
+  const navigate = useNavigate();
   const principal = usePrincipalQuery();
   const user = principal?.data?.data?.body?.user;
 
@@ -15,9 +16,9 @@ function Mypage(props) {
         {/* 좌측 버튼 박스 */}
         <div css={s.leftBox}>
           {/* user */}
-          <div css={s.userSimpleInfo}>
+          <div css={s.userSimpleInfo} onClick={() => navigate("/mypage")}>
             <div css={s.profileImgBox}>
-              <img src={user?.profilePicture} alt="프로필 이미지" />
+              <img src={user?.picture} alt="프로필 이미지" />
             </div>
             <div css={s.userText}>
               <div css={s.nick}>{user?.nickname}</div>
@@ -26,8 +27,8 @@ function Mypage(props) {
           </div>
           {/* 버튼 */}
           <div css={s.buttonContainer}>
-            <button>A</button>
-            <button>B</button>
+            <button>크루 신청 내역</button>
+            <button>위시 리스트</button>
             <button>C</button>
             <button>D</button>
           </div>

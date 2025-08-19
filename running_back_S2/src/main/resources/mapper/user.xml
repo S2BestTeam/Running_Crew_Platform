@@ -26,6 +26,15 @@
         where user_id = #{userId}
     </update>
 
+    <update id="updateUser">
+        update user_tb
+        set
+            nickname = #{nickname},
+            phone_number = #{phoneNumber}
+        where
+            user_id = #{userId}
+    </update>
+
     <select id="findByEmail" resultMap="UserMap">
         select
             user_id,

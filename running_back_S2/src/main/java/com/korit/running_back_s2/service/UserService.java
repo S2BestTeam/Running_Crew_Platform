@@ -5,6 +5,7 @@ import com.korit.running_back_s2.domain.user.User;
 import com.korit.running_back_s2.domain.user.UserMapper;
 import com.korit.running_back_s2.dto.response.ReportResDto;
 import com.korit.running_back_s2.dto.response.WelcomeByUserIdResDto;
+import com.korit.running_back_s2.dto.user.UserMyPageUpdateReqDto;
 import com.korit.running_back_s2.dto.user.UserRegisterReqDto;
 import com.korit.running_back_s2.security.jwt.JwtUtil;
 import com.korit.running_back_s2.security.model.PrincipalUtil;
@@ -61,16 +62,15 @@ public class UserService {
         return userMapper.findReportsByUserId(userId);
     }
 
-//    public User getMyPage(Integer userId) {
-//        User user = userMapper.findById(userId);
-//        return user;
-//    }
-//
     @Transactional(rollbackFor = Exception.class)
     public void updateUserProfileImg(Integer userId, MultipartFile file) {
         String fileName = fileService.uploadFile(file, "/profile");
         userMapper.updateProfileImgById(userId, fileName);
     }
 
+    public void updateUserInfo(UserMyPageUpdateReqDto dto) {
+        User user = dto.Entity();
+        userMapper.updateUser(user);
+    }
 
 }

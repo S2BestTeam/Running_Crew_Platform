@@ -8,18 +8,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/crews")
+@RequestMapping("/api/welcomes")
 @RequiredArgsConstructor
 public class CrewWelcomeController {
 
     private final CrewService crewService;
 
-    @GetMapping("/{crewId}/welcomes")
+    @GetMapping("/{crewId}")
     public ResponseEntity<ResponseDto<?>> getCrewWelcomes(@PathVariable Integer crewId) {
         return ResponseEntity.ok(ResponseDto.success(crewService.getCrewWelcomes(crewId)));
     }
 
-    @PostMapping("/{crewId}/welcome")
+    @PostMapping("/{crewId}")
     public ResponseEntity<ResponseDto<?>> registerCrewWelcome(@PathVariable Integer crewId, @RequestBody CrewWelcomeReqDto dto) {
         crewService.registerCrewWelcome(crewId, dto);
         return ResponseEntity.ok(ResponseDto.success("등록성공"));

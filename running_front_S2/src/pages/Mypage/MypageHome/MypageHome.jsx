@@ -2,63 +2,172 @@
 import * as s from "./styles";
 import { useEffect, useState } from "react";
 import usePrincipalQuery from "../../../queries/usePrincipalQuery";
-import { reqCheckNickname, reqUserProfileUpdate } from "../../../api/User/userApi";
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import { reqCheckNickname, reqUserInfoUpdate, reqUserProfileUpdate } from "../../../api/User/userApi";
+import { SIGNUP_REGEX, SIGNUP_REGEX_ERROR_MESSAGE } from "../../../constants/signupRegex";
 
 function Mypage() {
   const principalQuery = usePrincipalQuery();
   const userInfo = principalQuery.data?.data?.body.user;
   const userId = userInfo?.userId;
 
-  const [ nickname, setNickname] = useState("");
-  const [ isNicknameChecked, setIsNicknameChecked ] = useState(false);
-  const [ phoneNumber, setPhoneNumber ] = useState("");
+  const [updateUser, setUpdateUser] = useState({
+    userId: userId,
+    nickname: "",
+    phoneNumber: "",
+  });
+
+  const [isNicknameChecked, setIsNicknameChecked] = useState(false);
+  const [ispatch, setIspatch] = useState(false);
+  
+  const [errors, setErrors] = useState({
+    nickname: "",
+    phoneNumber: "",
+  });
 
   useEffect(() => {
-    setNickname(userInfo?.nickname);
-    setPhoneNumber(userInfo?.phoneNumber);
-  },[])
-
+    if (userInfo) {
+      setUpdateUser({
+        nickname: userInfo.nickname || "",
+        phoneNumber: userInfo.phoneNumber || "",
+      });
+      setIsNicknameChecked(true);
+    }
+  }, [userInfo]);
+  
   const handleProfileImgUpdateClick = () => {
     const fileInput = document.createElement("input");
     fileInput.setAttribute("type", "file");
+    fileInput.setAttribute("accept", "image/*");
     fileInput.onchange = async (e) => {
       const file = e.target.files[0];
-      const formData = new FormData();
-      formData.append("profileFile", file);
-      await reqUserProfileUpdate(userId, formData);
-      principalQuery.refetch();
+      if (!file) return;
+      
+      try {
+        const formData = new FormData();
+        formData.append("profileFile", file);
+        await reqUserProfileUpdate(userId, formData);
+        principalQuery.refetch();
+      } catch (error) {
+        alert("프로필 사진 변경에 실패했습니다.");
+        console.error(error);
+      }
     };
-
     fileInput.click();
   };
 
-  const handleNicknameOnChange = (e) => {
-    const value = e.target.value;
-    setNickname(value);
-    setIsNicknameChecked(false);
+  const validateField = (field, value) => {
+    switch (field) {
+      case "nickname":
+        if (!SIGNUP_REGEX.nickName.test(value)) {
+          return SIGNUP_REGEX_ERROR_MESSAGE.nickName;
+        }
+        return "";
+      case "phoneNumber":
+        if (!SIGNUP_REGEX.phoneNumber.test(value)) {
+          return SIGNUP_REGEX_ERROR_MESSAGE.phoneNumber;
+        }
+        return "";
+      default:
+        return "";
+    }
   };
 
-  const handleNicknameOnCheck = async () => {
-    if (!nickname.trim()) return;
+  const handleNicknameChange = (e) => {
+    const value = e.target.value;
+    setUpdateUser(prev => ({ ...prev, nickname: value }));
+    if (value !== userInfo?.nickname) {
+      setIsNicknameChecked(false);
+    } else {
+      setIsNicknameChecked(true);
+    }
+    
+    const errorMsg = validateField("nickname", value);
+    setErrors(prev => ({ ...prev, nickname: errorMsg }));
+  };
+
+  const handlePhoneChange = (e) => {
+    const value = e.target.value;
+    setUpdateUser(prev => ({ ...prev, phoneNumber: value }));
+    
+    const errorMsg = validateField("phoneNumber", value);
+    setErrors(prev => ({ ...prev, phoneNumber: errorMsg }));
+  };
+
+  const handleNicknameCheck = async () => {
+    const nickname = updateUser.nickname.trim();
+    if (!nickname) return;
+    if (nickname === userInfo?.nickname) {
+      setIsNicknameChecked(true);
+      alert("현재 사용 중인 닉네임입니다.");
+      return;
+    }
+
     try {
       const response = await reqCheckNickname(nickname);
       const isAvailable = response.data.body === "false";
       if (isAvailable) {
         setIsNicknameChecked(true);
-        alert("사용 가능한 닉네임입니다!");
       } else {
+        setIsNicknameChecked(false);
         alert("중복된 닉네임입니다.");
       }
-    } catch {
+    } catch (error) {
       alert("중복확인 중 오류가 발생했습니다.");
+      console.error(error);
     }
   };
 
-  const handlePhoneOnChange = (e) => {
-    const value = e.target.value;
-    setPhoneNumber(value);
+  const validateAll = () => {
+    const nicknameError = validateField("nickname", updateUser.nickname);
+    const phoneError = validateField("phoneNumber", updateUser.phoneNumber);
+    
+    setErrors({
+      nickname: nicknameError,
+      phoneNumber: phoneError,
+    });
+
+    if (updateUser.nickname !== userInfo?.nickname && !isNicknameChecked) {
+      alert("닉네임 중복 확인을 해주세요.");
+      return false;
+    }
+
+    return !nicknameError && !phoneError;
+  };
+
+  const hasChanges = () => {
+    return (
+      updateUser.nickname !== userInfo?.nickname ||
+      updateUser.phoneNumber !== userInfo?.phoneNumber
+    );
+  };
+
+  const handleUpdateUserOnClick = async () => {
+    if (!validateAll()) {
+      return;
+    }
+    if (!hasChanges()) {
+      alert("변경된 내용이 없습니다.");
+      return;
+    }
+    setIspatch(true);
+    
+    try {
+      const updateData = {
+        userId: userId,
+        nickname: updateUser.nickname,
+        phoneNumber: updateUser.phoneNumber,
+      };
+      
+      await reqUserInfoUpdate(updateData);
+      await principalQuery.refetch();
+      
+      alert("정보가 성공적으로 저장되었습니다.");
+    } catch (error) {
+      alert("정보 저장에 실패했습니다.");
+      console.error(error);
+    } finally {
+      setIspatch(false);
+    }
   };
 
   return (
@@ -66,60 +175,84 @@ function Mypage() {
       {!principalQuery.isLoading && (
         <div css={s.layout}>
           <div css={s.userInfoContainer}>
+            <button 
+              css={s.saveButton}
+              onClick={handleUpdateUserOnClick}
+              disabled={ispatch}
+            >
+              {ispatch ? "저장 중..." : "저장"}
+            </button>
             <div css={s.title}>내 정보 관리</div>
-              <div>
-                <div css={s.aAndbImg}>
-                  <div css={s.profileImgBox} onClick={handleProfileImgUpdateClick}>
-                    <img src={userInfo?.profilePicture} alt="" />
-                  </div>
-                  <button css={s.button}>저장</button>
+
+            <div css={s.profileSection}>
+              <div css={s.profileImgBox} onClick={handleProfileImgUpdateClick}>
+                <img src={userInfo?.picture} alt="profile" />
+              </div>
+            </div>
+
+            <div css={s.nameNicknameRow}>
+              <div css={s.nameField}>
+                <label css={s.label}>이름</label>
+                <div css={s.value}>{userInfo?.fullName}</div>
+              </div>
+              
+              <div css={s.nicknameField}>
+                <label css={s.label}>닉네임</label>
+                <div css={s.inputRow}>
+                  <input
+                    type="text"
+                    value={updateUser.nickname}
+                    onChange={handleNicknameChange}
+                    css={s.input}
+                    autoFocus
+                  />
                 </div>
+                {errors.nickname && <p css={s.nicknameErrMsg}>{errors.nickname}</p>}
               </div>
-              <div>
-                <Box css={s.TextFieldBox} sx={{
-                    "& .MuiInputBase-input": {
-                      fontSize: "1.2rem",
-                    }}}>
-                  <div css={s.line}>
-                    <div css={s.nickNameBox}>
-                      <TextField label="닉네임" variant="outlined" value={nickname}
-                        onChange={handleNicknameOnChange} InputLabelProps={{ shrink: true }} sx={{width: '40rem'}}/>
-                      <button onClick={handleNicknameOnCheck}>
-                        {isNicknameChecked ? "❤️ 사용 가능!" : "닉네임 중복 확인"}
-                      </button>
-                    </div>
-                    <div css={s.aAndb}>
-                      <div>
-                        <TextField label="이름" disabled variant="outlined" value={userInfo?.fullName} InputLabelProps={{ shrink: true }}  css={s.font} sx={{width: '40rem'}}/>
-                      </div>
-                      <div>
-                        <div>
-                          <TextField label="이메일" disabled variant="outlined" value={userInfo?.email} InputLabelProps={{ shrink: true }} sx={{width: '40rem'}}/>
-                        </div>
-                        <div css={s.oauthType}>{userInfo?.oauthType} 아이디로 가입한 유저입니다.</div>
-                      </div>
-                    </div>
-                    <div css={s.aAndb}>
-                      <div>
-                        <TextField label="생년월일" disabled variant="outlined" value={userInfo?.birthDate} InputLabelProps={{ shrink: true }} sx={{width: '40rem'}}/>
-                      </div>
-                      <div>
-                        <TextField label="성별" disabled variant="outlined" value={userInfo?.gender === 1 ? "남성" : "여성"} InputLabelProps={{ shrink: true }} sx={{width: '40rem'}}/>
-                      </div>
-                    </div>
-                    <div css={s.aAndb}>
-                      <div>
-                        <TextField label="연락처" variant="outlined" value={phoneNumber} type="tel"
-                          onChange={handlePhoneOnChange} InputLabelProps={{ shrink: true }} sx={{width: '40rem'}}/>
-                      </div>
-                      <div>
-                        <TextField label="도시" disabled variant="outlined" value={userInfo?.address} InputLabelProps={{ shrink: true }} sx={{width: '40rem'}}/>
-                      </div>
-                    </div>
-                  </div>
-                </Box>
+              
+              <div css={s.checkButtonWrapper}>
+                <button 
+                  onClick={handleNicknameCheck} 
+                  css={s.checkButton}
+                  disabled={!updateUser.nickname.trim() || errors.nickname}
+                >
+                  {isNicknameChecked ? "❤️ 사용 가능!" : "중복 확인"}
+                </button>
               </div>
-              <div>
+            </div>
+
+            <div css={s.field}>
+              <label css={s.label}>이메일</label>
+              <div css={s.value}>{userInfo?.email}</div>
+              <div css={s.subText}>{userInfo?.oauthType} 아이디로 가입한 유저</div>
+            </div>
+
+            <div css={s.field}>
+              <label css={s.label}>생년월일</label>
+              <div css={s.value}>{userInfo?.birthDate}</div>
+            </div>
+
+            <div css={s.field}>
+              <label css={s.label}>성별</label>
+              <div css={s.value}>
+                {userInfo?.gender === 1 ? "남성" : "여성"}
+              </div>
+            </div>
+
+            <div css={s.field}>
+              <label css={s.label}>연락처</label>
+              <input
+                type="tel"
+                value={updateUser.phoneNumber}
+                onChange={handlePhoneChange}
+                css={s.phoneinput}
+              />
+              {errors.phoneNumber && <p css={s.errMsg}>{errors.phoneNumber}</p>}
+            </div>
+
+            <div css={s.field}>
+              <label css={s.label}>도시</label>
+              <div css={s.value}>{userInfo?.address}</div>
             </div>
           </div>
         </div>

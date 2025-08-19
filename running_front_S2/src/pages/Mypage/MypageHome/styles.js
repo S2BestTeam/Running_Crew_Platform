@@ -2,39 +2,57 @@ import { css } from "@emotion/react";
 
 export const layout = css`
   display: flex;
+  justify-content: center;
   width: 100%;
-  padding: 3rem 4rem 2rem 8rem;
+  padding: 4rem 2rem;
+  background: #ffffff;
 `;
 
 export const userInfoContainer = css`
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 2rem;
+  background: #ffffff;
+  border-radius: 1rem;
+  padding: 3rem 4rem;
+  border: 0.1rem solid #e5e5e5;
+  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.05);
+  max-width: 70rem;
+  width: 100%;
 `;
 
 export const title = css`
-  font-size: 3rem;
-  font-weight: bold;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111111;
+  border-bottom: 0.1rem solid #e5e5e5;
+  padding-bottom: 1rem;
+`;
+
+export const profileSection = css`
+  display: flex;
+  align-items: center;
+  gap: 2rem;
 `;
 
 export const profileImgBox = css`
-position: relative;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-sizing: border-box;
-  border: 0.1rem solid #dbdbdb;
+  border: 2px solid #e5e5e5;
   border-radius: 50%;
-  width: 8rem;
-  height: 8rem;
+  width: 10rem;
+  height: 10rem;
   overflow: hidden;
-
-  & > input[type="file"] {
-    display: none;
-  }
+  background: #f9f9f9;
+  transition: all 0.3s ease;
 
   & > img {
+    width: 100%;
     height: 100%;
+    object-fit: cover;
   }
 
   &:hover::after {
@@ -43,61 +61,168 @@ position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #00000088;
+    background-color: rgba(0, 0, 0, 0.55);
     color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 500;
     cursor: pointer;
     width: 100%;
     height: 100%;
   }
 `;
 
-export const TextFieldBox = css`
+export const saveButton = css`
+  position: absolute;
+  top: 3rem;
+  right: 2rem;
+  background: #111111;
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.6rem;
+  padding: 0.8rem 3rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  :hover {
+    background: #333333;
+  }
+`;
+
+export const field = css`
+  position: relative; // 추가
   display: flex;
   flex-direction: column;
-  width: 80rem;
+  gap: 0.6rem;
 `;
 
-export const line = css`  
-  & > div {
-    padding-bottom: 2rem;
-  }
-`;
-
-export const button = css`
-  justify-content: space-around;
-`;
-
-export const nickNameBox = css`
+// 이름과 닉네임을 한 줄에 배치하기 위한 새로운 스타일
+export const nameNicknameRow = css`
   display: flex;
-  flex-direction: row;
-
-  & > button {
-    font-size: 1rem;
-    margin-left: 2rem;
-    border: none;
-    border-radius: 0.5rem;
-
-    :hover {
-      background-color: rgba(71, 216, 91, 0.5);
-    }
-  }
-`;
-
-export const aAndbImg = css`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  align-items: end;
   gap: 2rem;
+  width: 100%;
 `;
 
-export const aAndb = css`
+export const nameField = css`
   display: flex;
-  flex-direction: row;
-  gap: 2rem;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex: 1;
+  min-width: 20rem;
 `;
 
-export const oauthType = css`
-  padding-left: 1rem;
+export const nicknameField = css`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex: 1;
+  min-width: 20rem;
+`;
+
+export const label = css`
   font-size: 1rem;
-  font-weight: 300;
+  font-weight: 500;
+  color: #333333;
+`;
+
+export const value = css`
+  font-size: 1.2rem;
+  flex: 1;
+  color: #111111;
+  padding: 0.8rem 1rem;
+  background: #f9f9f9;
+  border: 0.1rem solid #e5e5e5;
+  border-radius: 0.6rem;
+`;
+
+export const input = css`
+  flex: 1;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 0.8rem 1rem;
+  border: 0.1rem solid #e5e5e5;
+  border-radius: 0.6rem;
+  font-size: 1rem;
+  background: #fff;
+  color: #111;
+  height: 2rem;
+
+  &:focus {
+    outline: none;
+    border-color: #111;
+  }
+`;
+
+export const inputRow = css`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+`;
+
+export const checkButtonWrapper = css`
+  display: flex;
+  align-items: end;
+  padding-bottom: 0.1rem;
+`;
+
+export const checkButton = css`
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 0.8rem 1.6rem;
+  background: #dbdbdb;
+  color: #000;
+  border: none;
+  border-radius: 0.6rem;
+  font-size: 1.4rem;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  height: 3.6rem;
+
+  :hover {
+    background: #acababff;
+  }
+`;
+
+export const phoneinput = css`
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 1rem 1rem;
+  border: 0.1rem solid #e5e5e5;
+  border-radius: 0.6rem;
+  background: #fff;
+  color: #111;
+  height: auto;
+
+  &:focus {
+    outline: none;
+    border-color: #111;
+  }
+`;
+
+export const subText = css`
+  font-size: 0.9rem;
+  color: #5f5f5f;
+`;
+
+export const nicknameErrMsg = css`
+  position: absolute;
+  bottom: -2.8rem;
+  left: 1rem;
+  font-size: 1rem;
+  color: red;
+  white-space: nowrap;
+`;
+
+export const errMsg = css`
+  position: absolute;
+  bottom: -2.8rem;
+  left: 1rem;
+  font-size: 1rem;
+  color: red;
+  white-space: nowrap;
 `;

@@ -18,9 +18,14 @@ function CrewList() {
   const [liked, setLiked] = useState(false);
   const [searchInput, setSearchInput] = useState(searchText);
 
-  const handleLike = (e) => {
-    e.stopPropagation();
-    setLiked(!liked);
+  const [likedCrewIds, setLikedCrewIds] = useState([]);
+  console.log(likedCrewIds);
+  const handleLike = (crewId) => {
+    setLikedCrewIds((prev) =>
+      prev.includes(crewId)
+        ? prev.filter((id) => id !== crewId)
+        : [...prev, crewId]
+    );
   };
 
   const crewListQuery = useGetCrewListQuery({
@@ -108,33 +113,38 @@ function CrewList() {
           {crewList.length === 0 ? (
             <p>크루가 없습니다.</p>
           ) : (
-            crewList.map((crew) => (
-              <div
-              key={crew.crewId}
-              css={s.cards}
-              onClick={() => navigate(`/crews/${crew.crewId}`)}
-              >
-                <div css={s.tumbnailBox}>
-                  <img src={`http://localhost:8080/image/crew/thumnail/${crew?.thumbnailPicture}`} alt="" />
-                  <motion.div
-                    css={s.heartIcon}
-                    onClick={handleLike}
-                    animate={{ scale: liked ? [1, 1.4, 1] : [1, 0.8, 1] }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {liked ? <FaHeart color="red" /> : <FiHeart color="black" />}
-                  </motion.div>
+            crewList.map((crew) => {
+              const liked = likedCrewIds.includes(crew.crewId);
+              return (
+                <div
+                  key={crew.crewId}
+                  css={s.cards}
+                  onClick={() => navigate(`/crews/${crew.crewId}`)}
+                >
+                  <div css={s.tumbnailBox}>
+                    <img src={crew?.thumbnailPicture} alt="" />
+                    <motion.div
+                      css={s.heartIcon}
+                      onClick={(e) => {
+                        e.stopPropagation(); // 카드 클릭과 구분
+                        handleLike(crew.crewId);
+                      }}
+                      animate={{ scale: liked ? [1, 1.4, 1] : [1, 0.8, 1] }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {liked ? <FaHeart color="red" /> : <FiHeart color="white" />}
+                    </motion.div>
+                  </div>
+                  <div css={s.textBox}>
+                    <div css={s.gungu}>{crew.gunguName}</div>
+                    <div css={s.crewName}>[{crew.crewName}]</div>
+                    <div css={s.crewTitle}>{crew.title}</div>
+                  </div>
                 </div>
-                <div css={s.textBox}>
-                  <div css={s.gungu}>{crew.gunguName}</div>
-                  <div css={s.crewName}>[{crew.crewName}]</div>
-                  <div css={s.crewTitle}>{crew.title}</div>
-                </div>
-              </div>
-            ))
+              );
+            })
           )}
         </div>
-
         <div ref={loadMoreRef} style={{ height: 1 }} />
       </div>
     </MainContainer>

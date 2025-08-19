@@ -2,6 +2,8 @@ import api from "../axios";
 
 export const reqPrincipal = async () => await api.get("/api/account/principal");
 
+export const reqUserInfoUpdate = (data) => api.patch('/api/user/update', data);
+
 export const reqCheckNickname = (nickname) =>
   api.get("/api/users/nickname/check", { params : {nickname} }, {
     headers: {
@@ -17,12 +19,13 @@ export const reqUpdateUser = (data) => api.post("/api/mypage", data, {
   }
 });
 
-export const reqGetUserWelcome = (userId) => api.get(`/api/mypage/${userId}`);
 
 export const reqGetReportByUserId = (userId) => api.get(`/api/${userId}/reports`);
 
-export const reqUserProfileUpdate = (userId, formData) => api.post(`/api/mypage/${userId}/profile-image`, formData, {
+export const reqUserProfileUpdate = (userId, formData) => api.post(`/api/${userId}/picture`, formData, {
   headers: {
     "Content-Type": "mutipart/form-data",
   },
 });
+
+export const reqGetUserWelcome = (userId) => api.get(`/api/mypage/${userId}`);
