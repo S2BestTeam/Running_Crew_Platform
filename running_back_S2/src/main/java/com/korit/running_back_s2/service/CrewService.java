@@ -48,7 +48,7 @@ public class CrewService {
                 .crewThumbnailImg(thumbnailImg)
                 .build();
         crewMapper.insert(crew);
-        userMapper.updateRoleId(userId, 2);
+        crewMemberMapper.insertLeaderRole(userId, crew.getCrewId());
     }
 
     public String checkCrewNames(String crewName) {

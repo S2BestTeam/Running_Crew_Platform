@@ -1,17 +1,12 @@
 package com.korit.running_back_s2.controller;
 
-import com.korit.running_back_s2.domain.user.User;
 import com.korit.running_back_s2.dto.response.ResponseDto;
 import com.korit.running_back_s2.dto.user.UserRegisterReqDto;
-import com.korit.running_back_s2.security.model.PrincipalUser;
 import com.korit.running_back_s2.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -31,29 +26,23 @@ public class UserController {
         return ResponseEntity.ok(ResponseDto.success(userService.checkNickname(nickname)));
     }
 
-    @GetMapping("/mypage/{userId}")
-    public ResponseEntity<ResponseDto<?>> getUserWelcome(@PathVariable Integer userId) {
-        return ResponseEntity.ok(ResponseDto.success(userService.getWelcomeByUserId(userId)));
-    }
 
     @GetMapping("/{userId}/reports")
     public  ResponseEntity<ResponseDto<?>> getReports(@PathVariable Integer userId) {
         return ResponseEntity.ok(ResponseDto.success(userService.getReport(userId)));
     }
 
-//    @GetMapping("/{userId}/")
-//
-//    @GetMapping("/mypage")
-//    public ResponseEntity<User> getMyPage(@AuthenticationPrincipal PrincipalUser principalUser) {
-//        User user = userService.getMyPage(principalUser.getUser().getUserId());
-//        return ResponseEntity.ok(user);
-//    }
-//
-//    @PostMapping("/users/{userId}/img")
-//    public ResponseEntity<ResponseDto<?>> updateUserInfo(@RequestPart MultipartFile file) {
-//        userService.updateUserProfileImg(file);
-//        return ResponseEntity.ok(ResponseDto.success("수정 완료"));
-//    }
+    @GetMapping("/mypage/{userId}")
+    public ResponseEntity<ResponseDto<?>> getUserWelcome(@PathVariable Integer userId) {
+        return ResponseEntity.ok(ResponseDto.success(userService.getWelcomeByUserId(userId)));
+    }
+
+    @PostMapping("/mypage/{userId}/profile-image")
+    public ResponseEntity<ResponseDto<?>> updateUserProfile(@RequestPart("profileFile") MultipartFile profileFile,
+                                                            @PathVariable Integer userId) {
+        userService.updateUserProfileImg(userId, profileFile);
+        return ResponseEntity.ok(ResponseDto.success("수정 완료"));
+    }
 
 //    @PutMapping("/users/{userId}")
 //    public ResponseEntity<ResponseDto<?>> updateUserInfo(@RequestBody UserMyPageUpdateReqDto dto) {

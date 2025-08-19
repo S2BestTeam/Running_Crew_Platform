@@ -95,4 +95,9 @@
         values
         (#{crewId}, #{reporterId}, #{reportedId}, #{reason});
     </insert>
+
+    <insert id="insertLeaderRole">
+        insert into crew_member_tb (crew_id, user_id, role_id)
+        values (#{crewId}, #{userId}, 2)
+    </insert>
 </mapper>

@@ -17,6 +17,6 @@ public interface CrewMemberMapper {
 
     int deleteMember(@Param("crewId") Integer crewId,
                               @Param("userId") Integer userId);
-
+    void insertLeaderRole(Integer userId, Integer crewId);
     int report(Report report);
 }
