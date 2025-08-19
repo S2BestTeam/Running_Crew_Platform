@@ -105,13 +105,7 @@
     </insert>
 
     <insert id="insertLeaderRole">
-<<<<<<< HEAD
         insert into crew_member_tb (crew_id, user_id, role_id)
         values (#{crewId}, #{userId}, 2)
-=======
-        insert into crew_member_tb
-        (crew_id, user_id, role_id)
-        values(#{crewId}, #{userId}, 2)
->>>>>>> origin/34-crewReportlist불러오기작업중
     </insert>
 </mapper>

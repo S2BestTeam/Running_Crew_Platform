@@ -83,11 +83,6 @@
             <if test="searchText != null and searchText != ''">
                 and (
                 crew_name LIKE CONCAT('%', #{searchText}, '%')
-<<<<<<< HEAD
-<!--                OR title LIKE CONCAT('%', #{searchText}, '%')-->
-<!--                OR content LIKE CONCAT('%', #{searchText}, '%')-->
-=======
->>>>>>> origin/34-crewReportlist불러오기작업중
                 )
             </if>
         </where>
@@ -105,17 +100,11 @@
             <if test="searchText != null and searchText != ''">
                 and (
                 crew_name LIKE CONCAT('%', #{searchText}, '%')
-<<<<<<< HEAD
-<!--                OR title LIKE CONCAT('%', #{searchText}, '%')-->
-<!--                OR content LIKE CONCAT('%', #{searchText}, '%')-->
-=======
->>>>>>> origin/34-crewReportlist불러오기작업중
                 )
             </if>
         </where>
     </select>
-<<<<<<< HEAD
-=======
+
     <select id="checkCrew" resultType="java.lang.Integer">
         select
             count(*)
@@ -140,6 +129,4 @@
             left outer join user_tb rpd on(rt.reported_id = rpd.user_id)
     </select>
 
-
->>>>>>> origin/34-crewReportlist불러오기작업중
 </mapper>

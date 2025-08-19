@@ -34,22 +34,8 @@ public class CrewService {
     @Transactional(rollbackFor = Exception.class)
     public void register(CrewRegisterReqDto dto) throws Exception {
         Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
-<<<<<<< HEAD
         String profileImg = fileService.uploadFile(dto.getCrewProfileImg(), "/crew/profile");
         String thumbnailImg = fileService.uploadFile(dto.getCrewThumbnailImg(), "/crew/thumnail");
-=======
-
-
-        int registeredCrew = crewMapper.checkCrew(userId);
-
-        if (registeredCrew != 0) {
-            // 409 CONFLICT와 함께 메시지 전달
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "이미 등록한 크루가 있습니다.");
-        }
-
-        String profileImg = fileService.uploadFile(dto.getCrewProfileImg(), "/crew");
-        String thumbnailImg = fileService.uploadFile(dto.getCrewProfileImg(), "/crew");
->>>>>>> origin/34-crewReportlist불러오기작업중
 
         Crew crew = Crew.builder()
                 .userId(userId)
