@@ -7,7 +7,7 @@ import Signup from "./pages/Auth/Signup/Signup";
 import CrewDetail from "./pages/Crew/CrewDetail/CrewDetail";
 import CrewRegister from "./pages/Crew/CrewRegister/CrewRegister";
 import CrewList from "./pages/Crew/CrewList/CrewList";
-import Mypage from "./pages/User/Mypage/Mypage";
+import Mypage from "./pages/Mypage/Mypage";
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
         <Route path="/crew/register" element={<CrewRegister />} />
         <Route path="/crews" element={<CrewList />} />
         <Route path="/crews/:crewId/*" element={<CrewDetail />} />
-        <Route path="/mypage" element={<Mypage />} />
+        <Route path="/mypage/*" element={<Mypage />} />
       </Routes>
       <Footer />
     </>

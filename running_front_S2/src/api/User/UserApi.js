@@ -20,3 +20,9 @@ export const reqUpdateUser = (data) => api.post("/api/mypage", data, {
 export const reqGetUserWelcome = (userId) => api.get(`/api/mypage/${userId}`);
 
 export const reqGetReportByUserId = (userId) => api.get(`/api/${userId}/reports`);
+
+export const reqUserProfileUpdate = (userId, formData) => api.post(`/api/mypage/${userId}/profile-image`, formData, {
+  headers: {
+    "Content-Type": "mutipart/form-data",
+  },
+});

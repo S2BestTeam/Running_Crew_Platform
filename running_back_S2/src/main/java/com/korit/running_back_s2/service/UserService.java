@@ -10,6 +10,8 @@ import com.korit.running_back_s2.security.jwt.JwtUtil;
 import com.korit.running_back_s2.security.model.PrincipalUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +25,6 @@ public class UserService {
     private final UserMapper userMapper;
     private final GunguMapper gunguMapper;
     private final FileService fileService;
-    private final PrincipalUtil principalUtil;
 
     public Map<String, String> register(UserRegisterReqDto dto) {
         User user = dto.toEntity();
@@ -65,12 +66,11 @@ public class UserService {
 //        return user;
 //    }
 //
-//    @Transactional(rollbackFor = Exception.class)
-//    public void updateUserProfileImg(MultipartFile file) {
-//        PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        String fileName = fileService.uploadFile(file, "/profile");
-//        userMapper.updateProfileImgById(principalUser.getUser().getUserId(), fileName);
-//    }
+    @Transactional(rollbackFor = Exception.class)
+    public void updateUserProfileImg(Integer userId, MultipartFile file) {
+        String fileName = fileService.uploadFile(file, "/profile");
+        userMapper.updateProfileImgById(userId, fileName);
+    }
 
 
 }

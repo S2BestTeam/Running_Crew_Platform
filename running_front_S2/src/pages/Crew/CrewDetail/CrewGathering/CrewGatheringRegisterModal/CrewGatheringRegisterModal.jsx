@@ -10,8 +10,10 @@ import {
   useKakaoLoader,
 } from "react-kakao-maps-sdk";
 import { reqRegisterGathering } from "../../../../../api/Crew/crewGatheringApi";
+import { useNavigate } from "react-router-dom";
 
 function CrewGatheringRegisterModal({ crewId, isOpen, onClose }) {
+  const navigate = useNavigate();
   const mapLoader = useKakaoLoader({
     appkey: import.meta.env.VITE_KAKAO_JAVASCRIPT_KEY,
     libraries: ["clusterer", "drawing", "services"],
@@ -167,6 +169,8 @@ function CrewGatheringRegisterModal({ crewId, isOpen, onClose }) {
     });
     formData.append("crewId", crewId);
     reqRegisterGathering(crewId, formData);
+    onClose();
+    navigate(`/crews/${crewId}/gathering`);
   };
 
   return (

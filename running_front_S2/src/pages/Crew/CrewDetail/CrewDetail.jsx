@@ -10,6 +10,7 @@ import { useCrewStore } from "../../../stores/useCrewStroes";
 import useCrewDetailQuery from "../../../queries/useCrewDetailQuery";
 import CrewMember from "./CrewMember/CrewMember";
 import CrewGathering from "./CrewGathering/CrewGathering";
+import CrewReport from "./Report/CrewReport";
 
 function CrewDetail() {
   const navigate = useNavigate();
@@ -45,7 +46,9 @@ function CrewDetail() {
         <div css={s.leftBox}>
           <div>
             <div css={s.crewInfoBox}>
-              <div css={s.crewImgBox}></div>
+              <div css={s.crewImgBox}>
+                <img src={`http://localhost:8080/image/crew/profile/${crew?.crewProfileImg}`} alt="" />
+              </div>
               <div
                 css={s.crewNameBox}
                 onClick={() => navigate(`/crews/${crewId}`)}
@@ -83,6 +86,7 @@ function CrewDetail() {
           <Route path="/members" element={<CrewMember />} />
           {/* <Route path="/report" element={<ReportMember />} */}
           <Route path="/gathering" element={<CrewGathering crewId={crewId} />}/>
+          <Route path="/report" element={<CrewReport crewId={crewId} isCrewLeader={isCrewLeader} />} />
         </Routes>
       </div>
     </MainContainer>
