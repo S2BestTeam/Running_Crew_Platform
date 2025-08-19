@@ -1,6 +1,7 @@
 package com.korit.running_back_s2.controller;
 
 import com.korit.running_back_s2.domain.crew.member.CrewMember;
+import com.korit.running_back_s2.dto.crew.CrewMemberRoleUpdateReqDto;
 import com.korit.running_back_s2.dto.crew.CrewRegisterReqDto;
 import com.korit.running_back_s2.dto.crew.CrewReportReqDto;
 import com.korit.running_back_s2.dto.response.ResponseDto;
@@ -12,67 +13,41 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/crews")
+@RequestMapping("/api/members")
 @RequiredArgsConstructor
 public class CrewMemberController {
 
     private final CrewService crewService;
 
-    @PostMapping("/{crewId}/member")
+    @PostMapping
     public ResponseEntity<ResponseDto<?>> registerCrewMember(@RequestBody CrewMember dto) {
         System.out.println(dto);
         crewService.registerCrewMember(dto);
         return ResponseEntity.ok(ResponseDto.success("크루 멤버 등록 성공"));
     }
 
-    @GetMapping("/{crewId}/members")
+    @GetMapping
     public ResponseEntity<ResponseDto<?>> getCrewMembers(@RequestParam Integer page, @RequestParam Integer size,
-                                                         @PathVariable Integer crewId,
+                                                         @RequestParam Integer crewId,
                                                          @RequestParam(required = false) String searchText) {
         return ResponseEntity.ok(ResponseDto.success(crewService.getMembers(page, size, crewId, searchText)));
     }
 
-    @GetMapping("/{crewId}/members/{userId}")
-    public ResponseEntity<?> getMemberDetail(@PathVariable Integer crewId, @PathVariable Integer userId) {
-        return ResponseEntity.ok(ResponseDto.success(crewService.getMemberDetail(crewId, userId)));
+    @GetMapping("/{memberId}")
+    public ResponseEntity<?> getMemberDetail(@PathVariable Integer memberId) {
+        return ResponseEntity.ok(ResponseDto.success(crewService.getMemberDetail(memberId)));
     }
 
-    @PutMapping("/{crewId}/members/{userId}/grant")
-    public ResponseEntity<?> grant(@PathVariable Integer crewId,
-                                           @PathVariable Integer userId) {
-        crewService.grant(crewId, userId);
-        return ResponseEntity.ok(ResponseDto.success("운영진으로 올렸습니다"));
+    @PutMapping("/{memberId}/role")
+    public ResponseEntity<?> updateRole(@PathVariable Integer memberId,
+                                           @RequestBody CrewMemberRoleUpdateReqDto dto) {
+        crewService.updateRole(dto);
+        return ResponseEntity.ok(ResponseDto.success("권한 변경 완료."));
     }
 
-    @PutMapping("/{crewId}/members/{userId}/down")
-    public ResponseEntity<?> down(@PathVariable Integer crewId,
-                                   @PathVariable Integer userId) {
-        crewService.down(crewId, userId);
-        return ResponseEntity.ok(ResponseDto.success("운영진에서 박탈되었습니다."));
-    }
-
-
-
-    @DeleteMapping("/{crewId}/members/{userId}/expel")
-    public ResponseEntity<?> expel(@PathVariable Integer crewId,
-                                         @PathVariable Integer userId) {
-        crewService.expel(crewId, userId);
+    @DeleteMapping("/{memberId}")
+    public ResponseEntity<?> expel(@PathVariable Integer memberId) {
+        crewService.expel(memberId);
         return ResponseEntity.ok(ResponseDto.success("멤버가 추방되었습니다."));
-    }
-
-    @PostMapping("/{crewId}/members/{userId}/report")
-    public ResponseEntity<?> report(
-            @PathVariable Integer crewId,
-            @PathVariable Integer userId,
-            @RequestBody CrewReportReqDto dto,
-            @AuthenticationPrincipal PrincipalUser principalUser) {
-
-        crewService.report(crewId, userId, principalUser, dto.getReason());
-        return ResponseEntity.ok(ResponseDto.success("신고가 접수되었습니다."));
-    }
-
-    @GetMapping("/{crewId}/members/report")
-    public ResponseEntity<?> getReportList(@PathVariable Integer crewId) {
-        return ResponseEntity.ok(ResponseDto.success(crewService.getReportList(crewId)));
     }
 }

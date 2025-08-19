@@ -108,7 +108,7 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
         User user = User.builder()
                 .email(email)
                 .oauthType(registrationId)
-                .profileImg(img)
+                .picture(img)
                 .providerId(providerId)
                 .birthDate(birthDate)
                 .build();

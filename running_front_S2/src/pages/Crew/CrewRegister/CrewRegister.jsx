@@ -17,8 +17,8 @@ function CrewRegister(props) {
   const gunguQuery = useGetGunguListQuery();
   const gunguList = gunguQuery?.data?.data.body || [];
   const [preview, setPreview] = useState({
-    crewProfileImg: "",
-    crewThumbnailImg: "",
+    profilePicture: "",
+    thumbnailPicture: "",
   });
   const [isDuplicated, setDuplicated] = useState(true);
 
@@ -27,8 +27,8 @@ function CrewRegister(props) {
     title: "",
     content: "",
     limitedPeople: "",
-    crewProfileImg: null,
-    crewThumbnailImg: null,
+    profilePicture: null,
+    thumbnailPicture: null,
     gunguId: "",
   });
 
@@ -90,8 +90,8 @@ function CrewRegister(props) {
     formData.append("content", registerCrew.content);
     formData.append("limitedPeople", registerCrew.limitedPeople);
 
-    formData.append("crewProfileImg", registerCrew.crewProfileImg);
-    formData.append("crewThumbnailImg", registerCrew.crewThumbnailImg);
+    formData.append("profilePicture", registerCrew.profilePicture);
+    formData.append("thumbnailPicture", registerCrew.thumbnailPicture);
 
     try {
       const res = await reqRegisterCrew(formData);
@@ -122,11 +122,11 @@ function CrewRegister(props) {
                 <div>
                   <div css={s.imgContainer}>
                     <div>
-                      <img src={preview.crewThumbnailImg} alt="" />
+                      <img src={preview.thumbnailPicture} alt="" />
                     </div>
                     <div
                       css={s.plus}
-                      onClick={(e) => handleImgAddOnClick(e, "crewThumbnailImg")}
+                      onClick={(e) => handleImgAddOnClick(e, "thumbnailPicture")}
                     >
                       <FiPlus />
                     </div>
@@ -137,11 +137,11 @@ function CrewRegister(props) {
                 <div>
                   <div css={s.imgContainer}>
                     <div>
-                      <img src={preview.crewProfileImg} alt="" />
+                      <img src={preview.profilePicture} alt="" />
                     </div>
                     <div
                       css={s.plus}
-                      onClick={(e) => handleImgAddOnClick(e, "crewProfileImg")}
+                      onClick={(e) => handleImgAddOnClick(e, "profilePicture")}
                     >
                       <FiPlus />
                     </div>

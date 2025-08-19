@@ -14,7 +14,7 @@ public class UserMyPageUpdateReqDto {
     private String nickname;
     private LocalDate birthDate;
     private Integer gender;
-    private String profileImg;
+    private String picture;
     private Integer gunguId;
 
 
@@ -27,7 +27,7 @@ public class UserMyPageUpdateReqDto {
                 .nickname(nickname)
                 .birthDate(birthDate)
                 .gender(gender)
-                .profileImg(profileImg)
+                .picture(picture)
                 .gunguId(gunguId)
                 .build();
     }

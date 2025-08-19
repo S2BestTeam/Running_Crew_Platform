@@ -17,7 +17,7 @@ function Mypage(props) {
           {/* user */}
           <div css={s.userSimpleInfo}>
             <div css={s.profileImgBox}>
-              <img src={user?.profileImg} alt="프로필 이미지" />
+              <img src={user?.profilePicture} alt="프로필 이미지" />
             </div>
             <div css={s.userText}>
               <div css={s.nick}>{user?.nickname}</div>

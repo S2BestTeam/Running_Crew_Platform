@@ -11,7 +11,7 @@ public interface CrewMapper {
 
     Crew findByCrewName(String crewName);
     Crew findByCrewId(Integer crewId);
-    //    int registerProfileImgById(Integer userId, String profileImg);
+    //    int registerProfileImgById(Integer userId, String picture);
     List<Crew> findAllBySearchOption(CrewSearchOption crewSearchOption);
 
     int countBySearchOption(CrewSearchOption crewSearchOption);

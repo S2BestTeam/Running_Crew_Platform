@@ -19,8 +19,8 @@ public class Crew {
     private String crewName;
     private String title;
     private String content;
-    private String crewProfileImg;
-    private String crewThumbnailImg;
+    private String profilePicture;
+    private String thumbnailPicture;
     private Integer limitedPeople;
     private Integer userId;
     private double crewTotalKm;

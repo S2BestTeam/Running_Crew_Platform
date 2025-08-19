@@ -21,14 +21,14 @@ function CrewGatheringRegisterModal({ crewId, isOpen, onClose }) {
   const [location, setLocation] = useState({ lat: null, lng: null });
   const [map, setMap] = useState(<></>);
   const [preview, setPreview] = useState({
-    crewThumbnailImg: "",
+    thumbnailPicture: "",
   });
   const [addressText, setAddressText] = useState("");
   const [searchResultList, setSearchResultList] = useState([]);
   const [gatheringData, setGatheringData] = useState({
     title: "",
     content: "",
-    crewThumbnailImg: "",
+    thumbnailPicture: "",
     runningDate: "",
     runningTime: "",
     placeName: "",
@@ -202,11 +202,11 @@ function CrewGatheringRegisterModal({ crewId, isOpen, onClose }) {
             {/* 썸네일 업로드 */}
             <div>
               <div>
-                <img src={preview.crewThumbnailImg} alt="" />
+                <img src={preview.thumbnailPicture} alt="" />
               </div>
               <div
                 css={s.plus}
-                onClick={(e) => handleImgAddOnClick(e, "crewThumbnailImg")}
+                onClick={(e) => handleImgAddOnClick(e, "thumbnailPicture")}
               >
                 <FiPlus />
               </div>

@@ -36,11 +36,6 @@ public class CrewController {
     public ResponseEntity<ResponseDto<?>> checkCrewName(@RequestParam String crewName) {
         return ResponseEntity.ok(ResponseDto.success(crewService.checkCrewNames(crewName)));
     }
-    @PostMapping("/{userId}/crew-profile-img")
-    public ResponseEntity<ResponseDto<?>> registerCrewProfileImg(@RequestPart MultipartFile file) {
-        System.out.println("프로필 이미지: " + file.getOriginalFilename());
-        return ResponseEntity.ok(ResponseDto.success("프로필 이미지 등록 완료"));
-    }
 
     @GetMapping
     public ResponseEntity<ResponseDto<?>> getCrewList(

@@ -61,10 +61,10 @@ public class JwtFilter implements Filter {
             return;
         }
 
-        if (!foundUser.getProfileImg().startsWith("http")) {
-            String newProfileImg = domain + "/image/profile/" + foundUser.getProfileImg();
+        if (!foundUser.getPicture().startsWith("http")) {
+            String newProfileImg = domain + "/image/profile/" + foundUser.getPicture();
             System.out.println(newProfileImg);
-            foundUser.setProfileImg(newProfileImg);
+            foundUser.setPicture(newProfileImg);
         }
 
         // PrincipalUser 생성

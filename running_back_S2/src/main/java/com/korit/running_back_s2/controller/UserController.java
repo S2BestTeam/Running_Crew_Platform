@@ -32,12 +32,12 @@ public class UserController {
         return ResponseEntity.ok(ResponseDto.success(userService.getReport(userId)));
     }
 
-    @GetMapping("/mypage/{userId}")
+    @GetMapping("/{userId}/mypage/")
     public ResponseEntity<ResponseDto<?>> getUserWelcome(@PathVariable Integer userId) {
         return ResponseEntity.ok(ResponseDto.success(userService.getWelcomeByUserId(userId)));
     }
 
-    @PostMapping("/mypage/{userId}/profile-image")
+    @PostMapping("/{userId}/picture")
     public ResponseEntity<ResponseDto<?>> updateUserProfile(@RequestPart("profileFile") MultipartFile profileFile,
                                                             @PathVariable Integer userId) {
         userService.updateUserProfileImg(userId, profileFile);

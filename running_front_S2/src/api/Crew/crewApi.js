@@ -33,17 +33,16 @@ export const reqJoinCrew = (crewId, data) => api.post(`/api/crews/${crewId}/welc
 
 export const reqCrewWelcomes = (crewId) => api.get(`/api/crews/${crewId}/welcomes`);
 
-export const reqRegisterCrewMember = (data) => api.post(`/api/crews/${data.crewId}/member`, data);
+export const reqRegisterCrewMember = (data) => api.post(`/api/members`, data);
 
 export const reqGetCrewMembers = ({ page, size, crewId, searchText }) => {
-  return api.get(`/api/crews/${crewId}/members`, {
+  return api.get(`/api/members`, {
     params: { page, size, crewId, searchText },
   });
 };
-export const reqGetMemberDetail = ({ crewId, userId }) => api.get(`/api/crews/${crewId}/members/${userId}`);
+export const reqGetMemberDetail = (memberId) => api.get(`/api/members/${memberId}`);
 
-export const reqGrantMember = ({ crewId, userId }) => api.put(`/api/crews/${crewId}/members/${userId}/grant`);
-export const reqDownMember = ({ crewId, userId }) => api.put(`/api/crews/${crewId}/members/${userId}/down`);
+export const reqUpdateMemberRole = ({ memberId, roleId }) => api.put(`/api/members/${memberId}/role`, {memberId, roleId});
 export const reqExpelMember = ({ crewId, userId }) => api.delete(`/api/crews/${crewId}/members/${userId}/expel`);
 
 export const reqReportMember = ({ crewId, userId, reason }) => api.post(`/api/crews/${crewId}/members/${userId}/report`, {reason});

@@ -9,7 +9,7 @@ public class CrewGatheringRegisterReqDto {
     private Integer crewId;
     private String title;
     private String content;
-    private MultipartFile crewThumbnailImg;
+    private MultipartFile thumbnailPicture;
     private String runningDate;
     private String runningTime;
     private String placeName;

@@ -53,7 +53,7 @@ export const crewInfoSection = css`
   justify-content: space-between;
 `;
 
-export const profileImg = css`
+export const profilePicture = css`
   position: absolute;
   top: -4rem;
   left: 2rem;

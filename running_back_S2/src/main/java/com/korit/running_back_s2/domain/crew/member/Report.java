@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Report {
     private Integer reportId;
-    private Integer crewId;
     private Integer reporterId;
     private Integer reportedId;
     private String reason;

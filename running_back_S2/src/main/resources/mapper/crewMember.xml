@@ -7,11 +7,25 @@
     <resultMap id="CrewMemberMap"
                type="com.korit.running_back_s2.domain.crew.member.CrewMember">
         <id     property="crewMemberId" column="crew_member_id"/>
-        <result property="userId"       column="user_id"/>
+        <result property="userId"       column="cm_user_id"/>
         <result property="roleId"       column="role_id"/>
-        <result property="fullName"     column="full_name"/>
-        <result property="nickname"     column="nickname"/>
-        <result property="profileImg"   column="profile_img"/>
+        <association property="user" resultMap="UserMap" />
+    </resultMap>
+
+    <resultMap id="UserMap" type="User" >
+        <id property="userId" column="user_id" />
+        <result property="oauthType" column="oauth_type" />
+        <result property="providerId" column="provider_id" />
+        <result property="email" column="email" />
+        <result property="picture" column="picture" />
+        <result property="fullName" column="full_name" />
+        <result property="nickname" column="nickname" />
+        <result property="phoneNumber" column="phone_number" />
+        <result property="gunguId" column="gungu_id" />
+        <result property="address" column="address" />
+        <result property="birthDate" column="birth_date" />
+        <result property="gender" column="gender" />
+        <result property="totalKM" column="total_km" />
     </resultMap>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="crewMemberId">
@@ -24,76 +38,76 @@
             resultMap="CrewMemberMap">
         select
             cm.crew_member_id,
-            cm.user_id,
+            cm.user_id as cm_user_id,
             cm.role_id,
             u.full_name,
             u.nickname,
-            u.profile_img
-        from s2.crew_member_tb cm
-        left outer join s2.user_tb u on (u.user_id = cm.user_id)
-        where cm.crew_id = #{crewId}
-        <if test="searchText != null and searchText != ''">
-            AND (
-            u.full_name LIKE CONCAT('%', #{searchText}, '%')
-            OR u.nickname LIKE CONCAT('%', #{searchText}, '%')
-            )
-        </if>
-        order by cm.role_id asC, cm.crew_member_id asC
+            convert_url('${serverHost}', '/image/profile/', u.picture) as picture
+        from
+            crew_member_tb cm
+            left outer join user_tb u on (u.user_id = cm.user_id)
+        where
+            cm.crew_id = #{crewId}
+            <if test="searchText != null and searchText != ''">
+                AND (
+                u.full_name LIKE CONCAT('%', #{searchText}, '%')
+                OR u.nickname LIKE CONCAT('%', #{searchText}, '%')
+                )
+            </if>
+        order by
+            cm.role_id asc,
+            cm.crew_member_id asc
         limit #{startIndex}, #{size}
     </select>
 
     <select id="countMembersBySearchOption"
             parameterType="com.korit.running_back_s2.domain.crew.member.CrewMemberSearchOption"
             resultType="int">
-        select COUNT(*)
-        from s2.crew_member_tb cm
-        left outer join s2.user_tb u on (u.user_id = cm.user_id)
-        where cm.crew_id = #{crewId}
-        <if test="searchText != null and searchText != ''">
-            AND (
-            u.full_name LIKE CONCAT('%', #{searchText}, '%')
-            OR u.nickname LIKE CONCAT('%', #{searchText}, '%')
-            )
-        </if>
-    </select>
-    <select id="findMemberDetail"
-            resultType="com.korit.running_back_s2.dto.crew.CrewMemberDetailRespDto">
         select
-            u.user_id     as userId,
-            u.nickname    as nickname,
-            u.full_name   as fullName,
-            u.profile_img as profileImg,
-            u.gender      as gender,
-            u.birth_date  as birthDate,
-            u.user_total_km as userTotalKm,
-            cm.role_id    as roleId
-        from s2.user_tb u
-        left outer join s2.crew_member_tb cm ON cm.user_id = u.user_id
-        where cm.crew_id = #{crewId} and u.user_id = #{userId}
-        limit 1
+            COUNT(*)
+        from
+            crew_member_tb cm
+            left outer join user_tb u on (u.user_id = cm.user_id)
+        where
+            cm.crew_id = #{crewId}
+            <if test="searchText != null and searchText != ''">
+                AND (
+                u.full_name LIKE CONCAT('%', #{searchText}, '%')
+                OR u.nickname LIKE CONCAT('%', #{searchText}, '%')
+                )
+            </if>
+    </select>
+    <select id="findById" resultMap="CrewMemberMap">
+        select
+            cm.crew_member_id,
+            cm.crew_id,
+            cm.user_id as cm_user_id,
+            cm.role_id,
+            u.user_id,
+            u.nickname,
+            u.full_name,
+            convert_url('${serverHost}', '/image/profile/', u.picture) as picture,
+            u.gender,
+            u.birth_date,
+            u.total_km
+        from
+            crew_member_tb cm
+            left outer join user_tb u ON u.user_id = cm.user_id
+        where
+            cm.crew_member_id = #{memberId}
     </select>
 
-    <update id="updateRoleUp">
+    <update id="updateRole">
         update crew_member_tb
-        set role_id = 3
-        where crew_id = #{crewId}
-        and user_id = #{userId}
-        and role_id = 4
-    </update>
-
-    <update id="updateRoleDown">
-        update crew_member_tb
-        set role_id = 4
-        where crew_id = #{crewId}
-        and user_id = #{userId}
-        and role_id = 3
+        set
+            role_id = #{roleId}
+        where
+            crew_member_id = #{memberId}
     </update>
 
     <delete id="deleteMember">
         delete from crew_member_tb
-        where crew_id = #{crewId}
-        and user_id = #{userId}
-        and role_id != 2
+        where member_id = #{memberId}
     </delete>
 
 

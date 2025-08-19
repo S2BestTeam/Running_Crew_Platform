@@ -5,7 +5,7 @@ import CrewGatheringRegisterModal from "./CrewGatheringRegisterModal/CrewGatheri
 
 
 function CrewGathering({ crewId }) {
-  const [isOpen, setOpen] = useState(true);
+  const [isOpen, setOpen] = useState(false);
   const handleModalClose = () => {
     setOpen(false);
   };

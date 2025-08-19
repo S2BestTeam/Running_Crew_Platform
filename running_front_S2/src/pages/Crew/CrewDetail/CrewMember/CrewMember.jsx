@@ -17,24 +17,26 @@ function CrewMember() {
   const principal = usePrincipalQuery();
   const userId = principal?.data?.data?.body?.user?.userId;
   const { data: crewData, isLoading } = useCrewDetailQuery(crewId);
-  const { data: myDetail } = useUserDetailQuery({ crewId, userId, enabled: !!crewId && !!userId });
-  const isLeader = myDetail?.roleId === 2;
 
   const [searchParams, setSearchParams] = useSearchParams();
   const searchText = searchParams.get("searchText") || "";
   const [searchInput, setSearchInput] = useState(searchText);
 
+  const [isLeader, setLeader] = useState(false);
   const membersQuery = useMembersQuery({ crewId, searchText: searchInput, size: 10 });
 
   const [members, setMembers] = useState([]);
 
-  const [selectedUserId, setSelectedUserId] = useState(null);
+  const [selectedMemberId, setSelectedMemberId] = useState(null);
   const [reportUserId, setReportUserId] = useState(null);
 
   useEffect(() => {
     const pages = membersQuery?.data?.pages || [];
     const merged = pages.flatMap((p) => p?.data?.body?.contents || []);
     setMembers(merged);
+    setLeader(crewData?.body.userId === userId);
+    console.log(crewData)
+    console.log(crewData === userId)
   }, [membersQuery.data]);
 
   const handleSearchOnChange = (e) => setSearchInput(e.target.value);
@@ -74,13 +76,13 @@ function CrewMember() {
   }, [membersQuery.hasNextPage, membersQuery.isFetchingNextPage]);
 
   const crew = crewData?.body || {
-    crewId: Number(crewId), crewProfileImg: "", crewName: "", userId: 0,
+    crewId: Number(crewId), profilePicture: "", crewName: "", userId: 0,
     title: "", content: "", limitedPeople: 0, crewTotalKm: 0,
   };
 
   const handlePickUser = (id) => {
     if (id == null) return;
-    setSelectedUserId(Number(id));
+    setSelectedMemberId(Number(id));
   };
 
   if (isLoading) {
@@ -99,30 +101,29 @@ function CrewMember() {
           <button onClick={handleSearchOnClick}>검색</button>
           <div ref={scrollBoxRef} css={s.scrollBox}>
             {members.map((m) => (
-              <div key={m.crewMemberId} css={s.memberItem} onClick={() => setSelectedUserId(m.userId)}>
+              <div key={m.crewMemberId} css={s.memberItem} onClick={() => setSelectedMemberId(m.crewMemberId)}>
                 <div css={s.memberInfo}>
                   <div css={s.nickname}>
-                    {m.nickname}
+                    {m.user.nickname}
                     {m.roleId === 2 && <span css={s.roleIcon}>👑</span>}
                     {m.roleId === 3 && <span css={s.roleIcon}>⭐</span>}
                   </div>
-                  <div css={s.fullName}>{m.fullName}</div>
+                  <div css={s.fullName}>{m.user.fullName}</div>
                 </div>
               </div>
             ))}
             <div ref={loadMoreRef} style={{ height: 8 }} />
           </div>
 
-          {selectedUserId && (
+          {selectedMemberId && (
             <MemberModal
-              crewId={crewId}
-              userId={selectedUserId}
-              isOpen={!!selectedUserId}
+              memberId={selectedMemberId}
+              isOpen={!!selectedMemberId}
               isLeader={isLeader}
               onChanged={() => membersQuery.refetch()}
-              onClose={() => setSelectedUserId(null)}
+              onClose={() => setSelectedMemberId(null)}
               onReport={(userId) => {
-                setSelectedUserId(null);
+                setSelectedMemberId(null);
                 setReportUserId(userId);
               }}
             />
