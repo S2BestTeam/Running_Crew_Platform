@@ -5,6 +5,7 @@ import { useCrewStore } from '../../../stores/useCrewStroes';
 import useGetCrewWelcomeListQuery from '../../../queries/useGetCrewWelcomeListQuery';
 import * as s from './styles';
 import { useEffect, useState } from 'react';
+import { reqRejectCrewMember } from '../../../api/Crew/welcomeApi';
 
 function Welcome({ isCrewLeader }) {
   const { crewId } = useCrewStore();
@@ -13,30 +14,41 @@ function Welcome({ isCrewLeader }) {
   const [selectedUser, setSelectedUser] = useState(null);
   const userId = selectedUser?.userId;
   const [ reports, setReports ] = useState([]);
+
+  console.log(welcomes);
   
-  useEffect(() => {
-    if (!userId) return;
-    const fetchData = async () => {
-      try {
-        const res = await reqGetReportByUserId(userId);
-        setReports(res.data.body);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchData();
-  },[userId])
+  // useEffect(() => {
+  //   if (!userId) return;
+  //   const fetchData = async () => {
+  //     try {
+  //       const res = await reqGetReportByUserId(userId);
+  //       setReports(res.data.body);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  //   fetchData();
+  // },[userId])
 
   const handleApproveOnClick = async () => {
     const reqRegCrewMember = {
       crewId,
       userId: selectedUser?.userId,
+      status: '승인',
     }
     await reqRegisterCrewMember(reqRegCrewMember);
+    crewWelcomeList.refetch();
     setSelectedUser(null);
   };
 
-  const handleRejectOnClick = () => {
+  const handleRejectOnClick = async () => {
+    const reqRejCrewMember = {
+      crewId,
+      userId: selectedUser?.userId,
+      status: '거절',
+    }
+    await reqRejectCrewMember(reqRejCrewMember);
+    crewWelcomeList.refetch();
     setSelectedUser(null);
   };
 
@@ -78,7 +90,8 @@ function Welcome({ isCrewLeader }) {
             <th>닉네임</th>
             {isCrewLeader && <th>이름</th>}
             {isCrewLeader && <th>나이</th>}
-            <th>자기소개</th>
+            {isCrewLeader && <th>자기소개</th>}
+            <th>요청상태</th>
             <th>등록일</th>
           </tr>
         </thead>
@@ -109,6 +122,7 @@ function Welcome({ isCrewLeader }) {
                   {isCrewLeader && <td>{welcome.fullName}</td>}
                   {isCrewLeader && <td>{age}</td>}
                   <td css={s.contentCell}>{welcome.content}</td>
+                  {isCrewLeader && <td>{welcome.status}</td>}
                   <td>{new Date(welcome.createdAt).toLocaleDateString("ko-KR")}</td>
                 </tr>
               );

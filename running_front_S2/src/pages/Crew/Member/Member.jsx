@@ -1,8 +1,6 @@
 
 /** @jsxImportSource @emotion/react */
 import * as s from "./styles";
-
-
 import MainContainer from "../../../components/MainContainer/MainContainer";
 import { useParams, useSearchParams } from "react-router-dom";
 import usePrincipalQuery from "../../../queries/usePrincipalQuery";
@@ -24,7 +22,6 @@ function Member() {
 
   const [isLeader, setLeader] = useState(false);
   const membersQuery = useMembersQuery({ crewId, searchText: searchInput, size: 10 });
-
   const [members, setMembers] = useState([]);
 
   const [selectedMemberId, setSelectedMemberId] = useState(null);
@@ -35,8 +32,7 @@ function Member() {
     const merged = pages.flatMap((p) => p?.data?.body?.contents || []);
     setMembers(merged);
     setLeader(crewData?.body.userId === userId);
-    console.log(crewData)
-    console.log(crewData === userId)
+    membersQuery.refetch();
   }, [membersQuery.data]);
 
   const handleSearchOnChange = (e) => setSearchInput(e.target.value);

@@ -46,14 +46,11 @@ function LeftBar() {
       <div css={s.layout}>
         <div css={s.leftBox}>
           <div>
-            <div css={s.crewInfoBox}>
+            <div css={s.crewInfoBox} onClick={() => navigate(`/crews/${crewId}`)}>
               <div css={s.crewImgBox}>
                 <img src={crew?.profilePicture} alt="" />
               </div>
-              <div
-                css={s.crewNameBox}
-                onClick={() => navigate(`/crews/${crewId}`)}
-              >
+              <div css={s.crewNameBox}>
                 {crew.crewName}
               </div>
             </div>

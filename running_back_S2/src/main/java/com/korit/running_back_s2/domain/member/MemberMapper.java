@@ -10,7 +10,8 @@ public interface MemberMapper {
     int insert(Member member);
     List<Member> findAllMembersBySearchOption(MemberSearchOption opt);
     Integer countMembersBySearchOption(MemberSearchOption opt);
-    Member findById(Integer memberId);
+    Member findByMemberId(Integer memberId);
+    boolean findByUserId(Integer userId);
     int updateRole(@Param("memberId") Integer memberId, @Param("roleId") Integer roleId);
     int deleteMember(Integer memberId);
     void insertLeaderRole(Integer userId, Integer crewId);

@@ -8,6 +8,8 @@ function useGetCrewWelcomeListQuery(crewId) {
       const res = await reqCrewWelcomes(crewId);
       return res.data;
     },
+    staleTime: 0,
+    gcTime: 0,
     enabled: !!crewId,
   })
 }

@@ -26,8 +26,8 @@ function Mypage(props) {
           </div>
           {/* 버튼 */}
           <div css={s.buttonContainer}>
-            <button>A</button>
-            <button>B</button>
+            <button>크루 신청 내역</button>
+            <button>위시 리스트</button>
             <button>C</button>
             <button>D</button>
           </div>

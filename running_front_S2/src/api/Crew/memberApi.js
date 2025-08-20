@@ -1,5 +1,6 @@
 import api from "../axios";
 
+// Member 승인
 export const reqRegisterCrewMember = (data) => api.post(`/api/members`, data);
 
 export const reqGetCrewMembers = ({ page, size, crewId, searchText }) => {
@@ -7,6 +8,8 @@ export const reqGetCrewMembers = ({ page, size, crewId, searchText }) => {
     params: { page, size, crewId, searchText },
   });
 };
+
+export const reqCrewMember = (userId) => api.get(`/api/members/${userId}/find`);
 
 export const reqGetMemberDetail = (memberId) => api.get(`/api/members/${memberId}`);
 

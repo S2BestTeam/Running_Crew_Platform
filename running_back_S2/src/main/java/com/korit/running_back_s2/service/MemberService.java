@@ -3,6 +3,7 @@ package com.korit.running_back_s2.service;
 import com.korit.running_back_s2.domain.member.Member;
 import com.korit.running_back_s2.domain.member.MemberMapper;
 import com.korit.running_back_s2.domain.member.MemberSearchOption;
+import com.korit.running_back_s2.domain.welcome.WelcomeMapper;
 import com.korit.running_back_s2.dto.member.MemberRoleUpdateReqDto;
 import com.korit.running_back_s2.dto.response.PaginationRespDto;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,11 @@ import java.util.List;
 public class MemberService {
 
     private final MemberMapper memberMapper;
+    private final WelcomeMapper welcomeMapper;
+
+    public boolean getMember (Integer userId) {
+        return memberMapper.findByUserId(userId);
+    }
 
     public PaginationRespDto<Member> getMembers(Integer page, Integer size, Integer crewId, String searchText) {
         MemberSearchOption opt = MemberSearchOption.builder()
@@ -40,7 +46,7 @@ public class MemberService {
     }
 
     public Member getMemberDetail(Integer memberId) {
-        return memberMapper.findById(memberId);
+        return memberMapper.findByMemberId(memberId);
     }
 
     public void updateRole(MemberRoleUpdateReqDto dto) {
@@ -58,6 +64,7 @@ public class MemberService {
     }
 
     public void registerMember(Member member) {
+        welcomeMapper.deleteWelcomeByUserId(member.getCrewId(), member.getUserId());
         memberMapper.insert(member);
     }
 }

@@ -13,5 +13,6 @@ public class Welcome {
     private Integer welcomeId;
     private Integer crewId;
     private Integer userId;
+    private String status;
     private String content;
 }

@@ -4,10 +4,22 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.korit.running_back_s2.domain.welcome.WelcomeMapper">
 
-    <insert id="insert" useGeneratedKeys="true" keyProperty="WelcomeId">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="welcomeId">
         insert into welcome_tb (crew_id, user_id, content)
         values ( #{crewId}, #{userId}, #{content})
     </insert>
+
+    <update id="reject">
+        update welcome_tb
+        set status = #{status}
+        where crew_id = #{crewId} and user_id = #{userId}
+    </update>
+
+    <delete id="deleteWelcomeByUserId">
+        delete from welcome_tb
+        where crew_id = #{crewId}
+        and user_id = #{userId}
+    </delete>
 
     <select id="findAllByCrewId" resultType="com.korit.running_back_s2.dto.welcome.WelcomeResDto">
         SELECT
@@ -15,6 +27,7 @@
             cw.crew_id,
             cw.user_id,
             cw.content,
+            cw.status,
             cw.created_at,
             ut.nickname,
             ut.birth_date,
@@ -25,5 +38,23 @@
             left outer join user_tb ut on (cw.user_id = ut.user_id)
         where
             cw.crew_id = #{crewId}
+    </select>
+
+    <select id="findByCrewIdAndUserId" resultType="com.korit.running_back_s2.dto.welcome.WelcomeResDto">
+        select
+            cw.welcome_id,
+            cw.crew_id,
+            cw.user_id,
+            cw.content,
+            cw.created_at,
+            ut.nickname,
+            ut.birth_date,
+            ut.full_name
+        from
+            welcome_tb cw
+            left outer join user_tb ut on (cw.user_id = ut.user_id)
+        where
+            cw.crew_id = #{crewId}
+            and cw.user_id = #{userId}
     </select>
 </mapper>

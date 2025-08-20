@@ -15,6 +15,12 @@ public class MemberController {
 
     private final MemberService memberService;
 
+
+    @GetMapping("/{userId}/find")
+    public ResponseEntity<ResponseDto<?>> getMembers(@PathVariable Integer userId) {
+        return ResponseEntity.ok(ResponseDto.success(memberService.getMember(userId)));
+    }
+
     @PostMapping
     public ResponseEntity<ResponseDto<?>> registerCrewMember(@RequestBody Member member) {
         System.out.println(member);

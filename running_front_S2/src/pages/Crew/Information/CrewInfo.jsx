@@ -1,12 +1,25 @@
 /** @jsxImportSource @emotion/react */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as s from './styles';
 import { useCrewStore } from '../../../stores/useCrewStroes';
 import WelcomeRegModal from '../Welcome/WelcomeRegModal/WelcomeRegModal';
+import { reqCrewMember } from '../../../api/Crew/memberApi';
 
 function CrewInfo({ userId }) {
   const { crew } = useCrewStore();
   const [isOpen, setIsOpen] = useState(false);
+  const [ roleCheck, setRoleCheck ] = useState(true);
+  
+  useEffect(() => {
+    reqCrewMember(userId)
+    .then((res) => {
+      setRoleCheck(res);
+      console.log("백엔드 응답:", res.data);
+    })
+    .catch((err) => {
+      console.error("API 에러:", err);
+    });
+  }, [userId]);
 
   return (
     <div css={s.mainBox}>
@@ -27,10 +40,10 @@ function CrewInfo({ userId }) {
               <p css={s.gungu}>{crew?.gunguName}</p>
               <p>멤버수 30</p>
               <p>•</p>
-              <p>총 {crew?.crewTotalKm} KM</p>
+              <p>총 {crew?.totalKm} KM</p>
             </div>
           </div>
-          { crew?.userId === userId 
+          { roleCheck === true
             ? <></>
             : <button css={s.Button} onClick={() => setIsOpen(true)}>크루가입</button>
           }

@@ -20,7 +20,16 @@ public class WelcomeService {
     }
 
     public void registerWelcome(Integer crewId, WelcomeReqDto dto) {
+        WelcomeResDto foundWelcome = welComeMapper.findByCrewIdAndUserId(crewId, dto.getUserId());
+        if(foundWelcome != null) {
+            throw new RuntimeException("이미 해당 크루에 신청한 유저입니다.");
+        }
         Welcome welcome = dto.welcome(crewId);
         welComeMapper.insert(welcome);
+    }
+
+    public void reject(WelcomeReqDto dto){
+        Welcome welcome = dto.welcome(dto.getCrewId());
+        welComeMapper.reject(welcome);
     }
 }

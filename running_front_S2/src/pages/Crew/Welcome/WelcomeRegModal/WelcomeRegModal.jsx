@@ -17,12 +17,13 @@ function WelcomeRegModal({setIsOpen, crewId}) {
     const updatedCrewMember = {
         userId: userSimpleInfo.userId,
         content: simpleInfo,
+        status: "승인"
     };
     try {
       await reqJoinCrew(crewId, updatedCrewMember);
       alert("가입 신청이 완료되었습니다.")
     } catch (error) {
-      alert("가입 신청중 오류가 발생했습니다." + error);
+      alert("이미 신청을 하였습니다.");
     }
     setIsOpen(false);
   }
