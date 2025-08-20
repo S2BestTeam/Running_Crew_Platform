@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { reqGetMemberDetail } from "../api/Crew/crewApi";
+import { reqGetMemberDetail } from "../api/Crew/memberApi";
 
 export default function useUserDetailQuery(memberId) {
   return useQuery({

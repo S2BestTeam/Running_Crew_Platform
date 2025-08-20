@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { reqCrewWelcomes } from "../api/Crew/crewApi";
+import { reqCrewWelcomes } from "../api/Crew/welcomeApi";
 
 function useGetCrewWelcomeListQuery(crewId) {
   return useQuery({

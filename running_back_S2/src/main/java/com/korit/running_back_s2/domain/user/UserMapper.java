@@ -1,9 +1,8 @@
 package com.korit.running_back_s2.domain.user;
 
-import com.korit.running_back_s2.dto.response.ReportResDto;
-import com.korit.running_back_s2.dto.response.WelcomeByUserIdResDto;
+import com.korit.running_back_s2.dto.report.ReportReqDto;
+import com.korit.running_back_s2.dto.welcome.WelcomeByUserIdResDto;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -15,6 +14,7 @@ public interface UserMapper {
     User findByNickname(String nickname);
     int updateProfileImgById(Integer userId, String picture);
     List<WelcomeByUserIdResDto> findWelcomeByUserId(Integer userId);
-    List<ReportResDto> findReportsByUserId(Integer userId);
+//    List<ReportReqDto> findReportsByUserId(Integer memberId);
+    int updateUser(User user);
 
 }

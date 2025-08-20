@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { reqGetCrewMembers } from "../api/Crew/crewApi";
+import { reqGetCrewMembers } from "../api/Crew/memberApi";
 
 export default function useMembersQuery({ crewId, searchText = "", size = 20 }) {
   return useInfiniteQuery({

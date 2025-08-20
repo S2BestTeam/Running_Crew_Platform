@@ -23,7 +23,7 @@ public class Crew {
     private String thumbnailPicture;
     private Integer limitedPeople;
     private Integer userId;
-    private double crewTotalKm;
+    private double totalKm;
     private LocalDateTime createdAt;
 
 //    private User user;

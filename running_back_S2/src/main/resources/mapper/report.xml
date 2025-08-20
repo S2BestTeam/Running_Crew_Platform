@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.korit.running_back_s2.domain.report.ReportMapper">
+
+    <select id="getReportList" resultType="com.korit.running_back_s2.dto.report.ReportRespDto">
+        select
+        rt.report_id,
+        rt.crew_id,
+        rpt.user_id as reporter_user_id,
+        rpt.full_name as reporter_user_name,
+        rpd.user_id as reported_user_id,
+        rpd.full_name as reported_user_name,
+        rt.reason
+        from
+        report_tb rt
+        left outer join user_tb rpt on(rt.reporter_id = rpt.user_id)
+        left outer join user_tb rpd on(rt.reported_id = rpd.user_id)
+    </select>
+
+    <insert id="report" parameterType="com.korit.running_back_s2.domain.report.Report">
+        insert into report_tb
+        (crew_id, reporter_id, reported_id, reason)
+        values
+        (#{crewId}, #{reporterId}, #{reportedId}, #{reason});
+    </insert>
+    <!--    <select id="findReportsByUserId" resultType="com.korit.running_back_s2.dto.report.ReportResDto">-->
+    <!--        select-->
+    <!--            reason,-->
+    <!--            created_at-->
+    <!--        from-->
+    <!--            report_tb-->
+    <!--        where-->
+    <!--            reported_id = #{userId}-->
+    <!--        order by created_at desc-->
+    <!--    </select>-->
+
+</mapper>

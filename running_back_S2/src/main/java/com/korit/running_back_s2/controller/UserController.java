@@ -1,6 +1,7 @@
 package com.korit.running_back_s2.controller;
 
 import com.korit.running_back_s2.dto.response.ResponseDto;
+import com.korit.running_back_s2.dto.user.UserMyPageUpdateReqDto;
 import com.korit.running_back_s2.dto.user.UserRegisterReqDto;
 import com.korit.running_back_s2.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -27,10 +28,10 @@ public class UserController {
     }
 
 
-    @GetMapping("/{userId}/reports")
-    public  ResponseEntity<ResponseDto<?>> getReports(@PathVariable Integer userId) {
-        return ResponseEntity.ok(ResponseDto.success(userService.getReport(userId)));
-    }
+//    @GetMapping("/{userId}/reports")
+//    public  ResponseEntity<ResponseDto<?>> getReports(@PathVariable Integer userId) {
+//        return ResponseEntity.ok(ResponseDto.success(userService.getReport(userId)));
+//    }
 
     @GetMapping("/{userId}/mypage/")
     public ResponseEntity<ResponseDto<?>> getUserWelcome(@PathVariable Integer userId) {
@@ -42,6 +43,13 @@ public class UserController {
                                                             @PathVariable Integer userId) {
         userService.updateUserProfileImg(userId, profileFile);
         return ResponseEntity.ok(ResponseDto.success("수정 완료"));
+    }
+
+    @PatchMapping("/user/update")
+    public ResponseEntity<ResponseDto<?>> updateUserInfo(@RequestBody UserMyPageUpdateReqDto dto) {
+        System.out.println(dto);
+        userService.updateUserInfo(dto);
+        return ResponseEntity.ok(ResponseDto.success("유저 정보 수정 완료"));
     }
 
 //    @PutMapping("/users/{userId}")

@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import * as s from './styles';
 import { Route, Routes } from 'react-router-dom';
-import MypageHome from './MypageHome/MypageHome';
 import MainContainer from '../../components/MainContainer/MainContainer';
 import usePrincipalQuery from '../../queries/usePrincipalQuery';
+import MypageModify from './Modify/MypageModify';
 
 function Mypage(props) {
   const principal = usePrincipalQuery();
@@ -37,7 +37,7 @@ function Mypage(props) {
         </div>
         {/* 랜더링 되는 부분 - div => Routes */}
         <Routes>
-          <Route path='/' element={<MypageHome />}/>
+          <Route path='/' element={<MypageModify />}/>
         </Routes>
       </div>
     </MainContainer>

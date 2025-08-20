@@ -5,25 +5,34 @@
 <mapper namespace="com.korit.running_back_s2.domain.user.UserMapper">
 
     <resultMap id="UserMap" type="User" >
-        <id property="userId" column="user_id" />
-        <result property="oauthType" column="oauth_type" />
-        <result property="providerId" column="provider_id" />
-        <result property="email" column="email" />
-        <result property="picture" column="picture" />
-        <result property="fullName" column="full_name" />
-        <result property="nickname" column="nickname" />
-        <result property="phoneNumber" column="phone_number" />
-        <result property="gunguId" column="gungu_id" />
-        <result property="address" column="address" />
-        <result property="birthDate" column="birth_date" />
-        <result property="gender" column="gender" />
-        <result property="totalKM" column="total_km" />
+        <id property="userId"               column="user_id" />
+        <result property="oauthType"        column="oauth_type" />
+        <result property="providerId"       column="provider_id" />
+        <result property="email"            column="email" />
+        <result property="picture"          column="picture" />
+        <result property="fullName"         column="full_name" />
+        <result property="nickname"         column="nickname" />
+        <result property="phoneNumber"      column="phone_number" />
+        <result property="gunguId"          column="gungu_id" />
+        <result property="address"          column="address" />
+        <result property="birthDate"        column="birth_date" />
+        <result property="gender"           column="gender" />
+        <result property="totalKm"          column="total_km" />
     </resultMap>
 
     <update id="updateProfileImgById">
         update user_tb
         set picture = #{picture}
         where user_id = #{userId}
+    </update>
+
+    <update id="updateUser">
+        update user_tb
+        set
+            nickname = #{nickname},
+            phone_number = #{phoneNumber}
+        where
+            user_id = #{userId}
     </update>
 
     <select id="findByEmail" resultMap="UserMap">
@@ -89,7 +98,7 @@
             user_id = #{userId}
     </select>
 
-    <select id="findWelcomeByUserId" resultType="com.korit.running_back_s2.dto.response.WelcomeByUserIdResDto">
+    <select id="findWelcomeByUserId" resultType="com.korit.running_back_s2.dto.welcome.WelcomeByUserIdResDto">
         select
             cwt.crew_id as crewId,
             ct.crew_name as crewName,
@@ -99,22 +108,13 @@
                 else '승인 완료'
             end as status
         from
-            crew_welcome_tb cwt
+            welcome_tb cwt
             join crew_tb ct on (cwt.crew_id = ct.crew_id)
-            left outer join crew_member_tb cmt on (cwt.crew_id = cmt.crew_id and cwt.user_id = cmt.user_id)
+            left outer join member_tb cmt on (cwt.crew_id = cmt.crew_id and cwt.user_id = cmt.user_id)
         where cwt.user_id = #{userId}
     </select>
 
-    <select id="findReportsByUserId" resultType="com.korit.running_back_s2.dto.response.ReportResDto">
-        select
-            reason,
-            created_at
-        from
-            report_tb
-        where
-            reported_id = #{userId}
-        order by created_at desc
-    </select>
+
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="userId">
         INSERT INTO user_tb

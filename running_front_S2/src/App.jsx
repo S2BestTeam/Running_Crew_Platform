@@ -4,10 +4,11 @@ import Footer from "./components/Footer/Footer";
 import Signin from "./pages/Auth/Signin/Signin";
 import Home from "./pages/home/Home";
 import Signup from "./pages/Auth/Signup/Signup";
-import CrewDetail from "./pages/Crew/CrewDetail/CrewDetail";
-import CrewRegister from "./pages/Crew/CrewRegister/CrewRegister";
-import CrewList from "./pages/Crew/CrewList/CrewList";
 import Mypage from "./pages/Mypage/Mypage";
+import List from "./pages/Crew/List/List";
+import LeftBar from "./pages/Crew/LeftBar/LeftBar";
+import CrewRegister from "./pages/Crew/Register/CrewRegister";
+
 
 function App() {
   return (
@@ -18,8 +19,8 @@ function App() {
         <Route path="/auth/oauth2/signin" element={<Signin />} />
         <Route path="/auth/oauth2/signup" element={<Signup />} />
         <Route path="/crew/register" element={<CrewRegister />} />
-        <Route path="/crews" element={<CrewList />} />
-        <Route path="/crews/:crewId/*" element={<CrewDetail />} />
+        <Route path="/crews" element={<List />} />
+        <Route path="/crews/:crewId/*" element={<LeftBar />} />
         <Route path="/mypage/*" element={<Mypage />} />
       </Routes>
       <Footer />
