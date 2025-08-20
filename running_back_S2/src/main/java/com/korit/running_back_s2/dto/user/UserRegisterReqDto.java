@@ -18,7 +18,7 @@ public class UserRegisterReqDto {
     private Integer gender;
     private String address;
     private Integer gunguId;
-    private Double totalKM;
+    private Double totalKm;
 
     public User toEntity() {
         return User.builder()
@@ -32,7 +32,7 @@ public class UserRegisterReqDto {
                 .address(address)
                 .picture(picture)
                 .providerId(providerId)
-                .totalKM(0.0)
+                .totalKm(0.0)
                 .build();
     }
 }
