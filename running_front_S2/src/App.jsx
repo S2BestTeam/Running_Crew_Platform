@@ -8,9 +8,11 @@ import Mypage from "./pages/Mypage/Mypage";
 import List from "./pages/Crew/List/List";
 import LeftBar from "./pages/Crew/LeftBar/LeftBar";
 import CrewRegister from "./pages/Crew/Register/CrewRegister";
+import ReactModal from "react-modal";
 
 
 function App() {
+  ReactModal.setAppElement('#root');
   return (
     <>
       <Header />

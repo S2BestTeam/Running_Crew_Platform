@@ -10,9 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Report {
-    private Integer crewId;
-    private Integer reportId;
-    private Integer reporterId;
-    private Integer reportedId;
+    private Integer reportMemberId;
+    private Integer reportedMemberId;
     private String reason;
 }

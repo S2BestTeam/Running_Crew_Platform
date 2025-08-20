@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class ReportReqDto {
-    private Integer userId;
+    private Integer memberId;
     private String reason;
 }

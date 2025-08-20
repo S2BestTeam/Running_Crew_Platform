@@ -4,26 +4,35 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.korit.running_back_s2.domain.report.ReportMapper">
 
-    <select id="getReportList" resultType="com.korit.running_back_s2.dto.report.ReportRespDto">
-        select
-        rt.report_id,
-        rt.crew_id,
-        rpt.user_id as reporter_user_id,
-        rpt.full_name as reporter_user_name,
-        rpd.user_id as reported_user_id,
-        rpd.full_name as reported_user_name,
-        rt.reason
-        from
-        report_tb rt
-        left outer join user_tb rpt on(rt.reporter_id = rpt.user_id)
-        left outer join user_tb rpd on(rt.reported_id = rpd.user_id)
+<!--    <select id="getReportList" resultType="com.korit.running_back_s2.dto.report.ReportRespDto">-->
+<!--        select-->
+<!--        rt.report_id,-->
+<!--        rt.crew_id,-->
+<!--        rpt.user_id as reporter_user_id,-->
+<!--        rpt.full_name as reporter_user_name,-->
+<!--        rpd.user_id as reported_user_id,-->
+<!--        rpd.full_name as reported_user_name,-->
+<!--        rt.reason-->
+<!--        from-->
+<!--        report_tb rt-->
+<!--        left outer join user_tb rpt on(rt.reporter_id = rpt.user_id)-->
+<!--        left outer join user_tb rpd on(rt.reported_id = rpd.user_id)-->
+<!--    </select>-->
+
+    <select id="findUserIdByMemberId" resultType="java.lang.Integer">
+            select
+                user_id
+            from
+                member_tb
+            where
+                member_id = #{memberId}
     </select>
 
-    <insert id="report" parameterType="com.korit.running_back_s2.domain.report.Report">
+    <insert id="insert">
         insert into report_tb
-        (crew_id, reporter_id, reported_id, reason)
+        (reported_member_id, report_member_id, reason)
         values
-        (#{crewId}, #{reporterId}, #{reportedId}, #{reason});
+        (#{reportedMemberId}, #{reportMemberId}, #{reason})
     </insert>
     <!--    <select id="findReportsByUserId" resultType="com.korit.running_back_s2.dto.report.ReportResDto">-->
     <!--        select-->

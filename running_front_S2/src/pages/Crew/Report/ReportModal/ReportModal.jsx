@@ -3,8 +3,9 @@ import { useMemo, useState } from "react";
 import ReactModal from "react-modal";
 import { reqReportMember } from "../../../../api/Crew/reportApi";
 
-function ReportModal({ isOpen, onClose, userId, nickname, crewId, onSubmit }) {
+function ReportModal({ isOpen, onClose, memberId, nickname, crewId, onSubmit }) {
   const [reason, setReason] = useState("");
+  console.log(memberId)
 
   const modalStyles = useMemo(
     () => ({
@@ -37,7 +38,7 @@ function ReportModal({ isOpen, onClose, userId, nickname, crewId, onSubmit }) {
       return;
     }
     try {
-      await reqReportMember({ crewId, userId, reason });
+      await reqReportMember({ crewId, memberId, reason });
       alert("신고가 접수되었습니다.");
       setReason("");
       onClose();

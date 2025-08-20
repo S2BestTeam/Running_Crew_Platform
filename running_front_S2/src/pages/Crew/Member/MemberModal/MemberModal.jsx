@@ -15,7 +15,8 @@ export default function MemberModal({ memberId, isOpen, onClose, isLeader = fals
 
   const handleUpdateRoleOnClick = async (roleId) => {
     try {
-      await reqUpdateMemberRole({ userId, roleId });
+      await reqUpdateMemberRole({ memberId, roleId });
+      alert("권한이 변경되었습니다.")
       onChanged();
       onClose();
     } catch (e) {
@@ -26,7 +27,8 @@ export default function MemberModal({ memberId, isOpen, onClose, isLeader = fals
   const handleExpelOnClick = async () => {
     if (!confirm("추방할까요?")) return;
     try {
-      await reqExpelMember({ crewId, userId: detail.userId });
+      await reqExpelMember({memberId});
+      alert("추방되었습니다.")
       onChanged();
       onClose();
     } catch (e) {
@@ -37,6 +39,7 @@ export default function MemberModal({ memberId, isOpen, onClose, isLeader = fals
   const handleReportOnClick = () => {
     onClose();
     onReport(memberId);
+    // console.log(memberId)
   };
 
   const modalStyles = useMemo(

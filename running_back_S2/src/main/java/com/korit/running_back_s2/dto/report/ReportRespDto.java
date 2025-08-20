@@ -3,17 +3,14 @@ package com.korit.running_back_s2.dto.report;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 @Builder
 public class ReportRespDto {
     private int reportId;
-    private int crewId;
-
-    private Integer reporterUserId;
-    private String  reporterUserName;
-
+    private Integer reportMemberId;
     private Integer reportedUserId;
-    private String  reportedUserName;
-
     private String  reason;
+    private LocalDate createdAt;
 }

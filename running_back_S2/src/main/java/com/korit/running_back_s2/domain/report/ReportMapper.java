@@ -7,6 +7,9 @@ import java.util.List;
 
 @Mapper
 public interface ReportMapper {
-    int report(Report report);
     List<ReportRespDto> getReportList(Integer crewId);
+
+    Integer findUserIdByMemberId(Integer memberId);
+
+    void insert(Report report);
 }
