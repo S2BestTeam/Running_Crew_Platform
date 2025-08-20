@@ -91,13 +91,12 @@ export const saveButton = css`
 `;
 
 export const field = css`
-  position: relative; // 추가
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
 `;
 
-// 이름과 닉네임을 한 줄에 배치하기 위한 새로운 스타일
 export const nameNicknameRow = css`
   display: flex;
   align-items: end;
