@@ -4,22 +4,26 @@ import * as s from './styles';
 import { useCrewStore } from '../../../stores/useCrewStroes';
 import WelcomeRegModal from '../Welcome/WelcomeRegModal/WelcomeRegModal';
 import { reqCrewMember } from '../../../api/Crew/memberApi';
+import usePrincipalQuery from '../../../queries/usePrincipalQuery';
 
-function CrewInfo({ userId }) {
+function CrewInfo() {
+  const principal = usePrincipalQuery();
+  const userId = principal?.data?.data?.body?.user?.userId;
   const { crew } = useCrewStore();
   const [isOpen, setIsOpen] = useState(false);
   const [ roleCheck, setRoleCheck ] = useState(true);
+  const crewId = crew?.crewId;
   
   useEffect(() => {
-    reqCrewMember(userId)
+    if (!crewId || !userId) return;
+    reqCrewMember({ crewId, userId })
     .then((res) => {
-      setRoleCheck(res);
-      console.log("백엔드 응답:", res.data);
+      setRoleCheck(res.data.body);
     })
     .catch((err) => {
       console.error("API 에러:", err);
     });
-  }, [userId]);
+  }, [crewId, userId]);
 
   return (
     <div css={s.mainBox}>

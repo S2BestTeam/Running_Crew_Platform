@@ -11,6 +11,7 @@ import Gathering from "../Gathering/Gathering";
 import Member from "../Member/Member";
 import Report from "../Report/Report";
 import CrewInfo from "../Information/CrewInfo";
+import Loading from "../../../components/Loading/Loading";
 
 
 function LeftBar() {
@@ -18,8 +19,18 @@ function LeftBar() {
   const principal = usePrincipalQuery();
   const userId = principal?.data?.data?.body?.user?.userId;
   const { crewId } = useParams();
+  const { data: crewData, isLoading, isSuccess } = useCrewDetailQuery(crewId);
+  const { setCrewId, setCrew } = useCrewStore();
 
-  const { data: crewData } = useCrewDetailQuery(crewId);
+  useEffect(() => {
+    setCrewId(crewId);
+    setCrew(crewData?.body);
+  },[crewId, crewData?.body])
+
+  if (isLoading) {
+    return <Loading isLoading={isLoading} />;
+  }
+
   const crew = crewData?.body || {
     crewId: Number(crewId),
     gunguId: 0,
@@ -32,28 +43,22 @@ function LeftBar() {
     crewTotalKm: 0,
   };
   const isCrewLeader = crew.userId === userId;
-  
-
-  const { setCrewId, setCrew } = useCrewStore();
-
-  useEffect(() => {
-    setCrewId(crewId);
-    setCrew(crewData?.body);
-  },[crewId, crewData?.body])
 
   return (
     <MainContainer>
       <div css={s.layout}>
         <div css={s.leftBox}>
           <div>
+            { isSuccess && (
             <div css={s.crewInfoBox} onClick={() => navigate(`/crews/${crewId}`)}>
               <div css={s.crewImgBox}>
-                <img src={crew?.profilePicture} alt="" />
+                <img src={crew?.profilePicture} alt="크루 프로필 이미지" />
               </div>
               <div css={s.crewNameBox}>
                 {crew.crewName}
               </div>
             </div>
+            )}
             <div css={s.buttonContainer}>
               <button onClick={() => navigate(`/crews/${crewId}/members`)}>
                 크루 멤버
@@ -79,7 +84,7 @@ function LeftBar() {
           )}
         </div>
         <Routes>
-          <Route path="/" element={<CrewInfo userId={userId}/>} />
+          <Route path="/" element={<CrewInfo />} />
           <Route path="/welcome" element={<Welcome isCrewLeader={isCrewLeader} />}/>
           {/* <Route path="/report" element={<ReportMember />} */}
           <Route path="/gathering" element={<Gathering crewId={crewId} />}/>

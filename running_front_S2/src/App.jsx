@@ -9,7 +9,6 @@ import List from "./pages/Crew/List/List";
 import LeftBar from "./pages/Crew/LeftBar/LeftBar";
 import CrewRegister from "./pages/Crew/Register/CrewRegister";
 
-
 function App() {
   return (
     <>

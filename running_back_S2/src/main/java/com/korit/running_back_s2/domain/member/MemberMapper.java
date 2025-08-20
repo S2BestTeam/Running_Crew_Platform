@@ -1,5 +1,6 @@
 package com.korit.running_back_s2.domain.member;
 
+import com.korit.running_back_s2.dto.member.MemberCheckReqDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,7 +12,7 @@ public interface MemberMapper {
     List<Member> findAllMembersBySearchOption(MemberSearchOption opt);
     Integer countMembersBySearchOption(MemberSearchOption opt);
     Member findByMemberId(Integer memberId);
-    boolean findByUserId(Integer userId);
+    boolean existsFindByMemberId(MemberCheckReqDto dto);
     int updateRole(@Param("memberId") Integer memberId, @Param("roleId") Integer roleId);
     int deleteMember(Integer memberId);
     void insertLeaderRole(Integer userId, Integer crewId);

@@ -14,8 +14,6 @@ function Welcome({ isCrewLeader }) {
   const [selectedUser, setSelectedUser] = useState(null);
   const userId = selectedUser?.userId;
   const [ reports, setReports ] = useState([]);
-
-  console.log(welcomes);
   
   // useEffect(() => {
   //   if (!userId) return;

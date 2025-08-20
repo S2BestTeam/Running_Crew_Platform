@@ -4,6 +4,7 @@ import com.korit.running_back_s2.domain.member.Member;
 import com.korit.running_back_s2.domain.member.MemberMapper;
 import com.korit.running_back_s2.domain.member.MemberSearchOption;
 import com.korit.running_back_s2.domain.welcome.WelcomeMapper;
+import com.korit.running_back_s2.dto.member.MemberCheckReqDto;
 import com.korit.running_back_s2.dto.member.MemberRoleUpdateReqDto;
 import com.korit.running_back_s2.dto.response.PaginationRespDto;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +19,8 @@ public class MemberService {
     private final MemberMapper memberMapper;
     private final WelcomeMapper welcomeMapper;
 
-    public boolean getMember (Integer userId) {
-        return memberMapper.findByUserId(userId);
+    public boolean isCrewMember (MemberCheckReqDto dto) {
+        return memberMapper.existsFindByMemberId(dto);
     }
 
     public PaginationRespDto<Member> getMembers(Integer page, Integer size, Integer crewId, String searchText) {

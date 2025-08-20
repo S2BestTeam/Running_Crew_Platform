@@ -66,7 +66,6 @@ function GatheringRegModal({ crewId, isOpen, onClose }) {
   }, []);
 
   useEffect(() => {
-    console.log(location);
     if (!!location.lat && !!location.lng) {
       setMap(
         <Map
@@ -122,7 +121,6 @@ function GatheringRegModal({ crewId, isOpen, onClose }) {
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
         const bounds = new kakao.maps.LatLngBounds();
-        console.log(data);
         const handleClick = (item) => {
           setLocation({
             lat: item.y,

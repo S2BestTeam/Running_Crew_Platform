@@ -11,7 +11,6 @@ function Gathering({ crewId }) {
   const gatheringsQuery = useGetGatheringsQuery(crewId);
   const [isOpen, setOpen] = useState(false);
   const gatherings = gatheringsQuery?.data?.data.body || [];
-  console.log(gatherings);
   const handleModalClose = () => {
     setOpen(false);
   };

@@ -1,6 +1,7 @@
 package com.korit.running_back_s2.controller;
 
 import com.korit.running_back_s2.domain.member.Member;
+import com.korit.running_back_s2.dto.member.MemberCheckReqDto;
 import com.korit.running_back_s2.dto.member.MemberRoleUpdateReqDto;
 import com.korit.running_back_s2.dto.response.ResponseDto;
 import com.korit.running_back_s2.service.MemberService;
@@ -16,9 +17,9 @@ public class MemberController {
     private final MemberService memberService;
 
 
-    @GetMapping("/{userId}/find")
-    public ResponseEntity<ResponseDto<?>> getMembers(@PathVariable Integer userId) {
-        return ResponseEntity.ok(ResponseDto.success(memberService.getMember(userId)));
+    @PostMapping("/exists")
+    public ResponseEntity<ResponseDto<?>> getMembers(@RequestBody MemberCheckReqDto dto) {
+        return ResponseEntity.ok(ResponseDto.success(memberService.isCrewMember(dto)));
     }
 
     @PostMapping
