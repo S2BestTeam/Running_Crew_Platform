@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { useState } from 'react';
-import usePrincipalQuery from '../../../queries/usePrincipalQuery';
 import * as s from './styles';
-import { reqJoinCrew } from '../../../api/Crew/crewApi';
 
-function JoinModal({setIsOpen, crewId}) {
+import usePrincipalQuery from '../../../../queries/usePrincipalQuery';
+import { reqJoinCrew } from '../../../../api/Crew/welcomeApi';
+
+function WelcomeRegModal({setIsOpen, crewId}) {
   const principal = usePrincipalQuery();
   const userSimpleInfo = principal?.data?.data?.body?.user;
   const birthYear = new Date(userSimpleInfo.birthDate).getFullYear(); 
@@ -45,4 +46,4 @@ function JoinModal({setIsOpen, crewId}) {
   );
 }
 
-export default JoinModal;
+export default WelcomeRegModal;

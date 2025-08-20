@@ -3,10 +3,9 @@ import api from "../axios";
 export const reqCrewDetail = (crewId) => api.get(`/api/crews/${crewId}`);
 
 export const reqCheckCrewName = (crewName) =>
-    api.get("/api/crews/duplicate/name", {
-    params: { crewName },
-  });
-  // );
+  api.get("/api/crews/duplicate/name", {
+  params: { crewName },
+});
 
 export const reqRegisterCrew = (data) =>
   api.post("/api/crews", data, {
@@ -20,8 +19,3 @@ export const reqGetCrewList = ({ page, size, gunguId, searchText }) => {
     params: { page, size, gunguId, searchText },
   });
 };
-
-
-
-
-

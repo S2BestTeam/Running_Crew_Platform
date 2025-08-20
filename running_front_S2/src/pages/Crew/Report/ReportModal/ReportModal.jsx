@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { useMemo, useState } from "react";
 import ReactModal from "react-modal";
-import { reqReportMember } from "../../../../../api/Crew/crewApi";
+import { reqReportMember } from "../../../../api/Crew/reportApi";
 
 function ReportModal({ isOpen, onClose, userId, nickname, crewId, onSubmit }) {
   const [reason, setReason] = useState("");

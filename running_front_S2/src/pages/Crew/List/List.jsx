@@ -9,7 +9,7 @@ import { FaHeart } from 'react-icons/fa';
 import { FiHeart } from 'react-icons/fi';
 import { motion } from "framer-motion";
 
-function CrewList() {
+function List() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get("page") || "1", 10);
@@ -115,7 +115,7 @@ function CrewList() {
               onClick={() => navigate(`/crews/${crew.crewId}`)}
               >
                 <div css={s.tumbnailBox}>
-                  <img src={`http://localhost:8080/image/crew/thumnail/${crew?.thumbnailPicture}`} alt="" />
+                  <img src={crew?.thumbnailPicture} alt="" />
                   <motion.div
                     css={s.heartIcon}
                     onClick={handleLike}
@@ -141,4 +141,4 @@ function CrewList() {
   );
 }
 
-export default CrewList;
+export default List;

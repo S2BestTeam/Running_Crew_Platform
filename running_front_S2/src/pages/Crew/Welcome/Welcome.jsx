@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import { reqRegisterCrewMember } from '../../../../api/Crew/crewApi';
-import { reqGetReportByUserId } from '../../../../api/User/userApi';
-import useGetCrewWelcomeListQuery from '../../../../queries/useGetCrewWelcomeListQuery';
-import { useCrewStore } from '../../../../stores/useCrewStroes';
+import { reqRegisterCrewMember } from '../../../api/Crew/memberApi';
+import { reqGetReportByUserId } from '../../../api/User/userApi';
+import { useCrewStore } from '../../../stores/useCrewStroes';
+import useGetCrewWelcomeListQuery from '../../../queries/useGetCrewWelcomeListQuery';
 import * as s from './styles';
 import { useEffect, useState } from 'react';
 
-function CrewWelcome({ isCrewLeader }) {
+function Welcome({ isCrewLeader }) {
   const { crewId } = useCrewStore();
   const crewWelcomeList = useGetCrewWelcomeListQuery(crewId);
   const welcomes = crewWelcomeList?.data?.body || [];
@@ -206,4 +206,4 @@ function CrewWelcome({ isCrewLeader }) {
   );
 }
 
-export default CrewWelcome;
+export default Welcome;

@@ -9,7 +9,6 @@ export const layout = css`
 export const leftBox = css`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   border-radius: 0.5rem;
   width: 20rem;
   padding: 1rem;
@@ -23,6 +22,7 @@ export const userSimpleInfo = css`
   gap: 1rem;
   padding-bottom: 1.6rem;
   border-bottom: 0.1rem solid black;
+  margin-bottom: 1rem;
 `;
 
 export const profileImgBox = css`
@@ -53,9 +53,10 @@ export const email = css`
 export const buttonContainer = css`
   display: flex;
   flex-direction: column;
-  padding: 1rem 0;
+  padding-bottom: 1rem;
 
   & > button {
+    height: 4rem;
     text-align: left;
     margin: 0.3rem 0;
     padding: 0.6rem;

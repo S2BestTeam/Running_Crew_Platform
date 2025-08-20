@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import usePrincipalQuery from '../../../../queries/usePrincipalQuery';
+import usePrincipalQuery from '../../../queries/usePrincipalQuery';
 import { useParams } from 'react-router-dom';
-import useGetReportListQuery from '../../../../queries/useGetReportListQuery';
+import useGetReportListQuery from '../../../queries/useGetReportListQuery';
 import MemberModal from '../Member/MemberModal/MemberModal';
 
 
-function CrewReport({ crewId, isCrewLeader, onPickUser }) {
+function Report({ crewId, isCrewLeader, onPickUser }) {
     if (!isCrewLeader) return null;
     const [selectedUserId, setSelectedUserId] = useState(null);
     const { data, isLoading, isError } = useGetReportListQuery({
@@ -51,4 +51,4 @@ function CrewReport({ crewId, isCrewLeader, onPickUser }) {
     );
 }
 
-export default CrewReport;
+export default Report;

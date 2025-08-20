@@ -1,8 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { useMemo } from "react";
 import ReactModal from "react-modal";
-import useUserDetailQuery from "../../../../../queries/useUserDetailQuery";
-import { reqExpelMember, reqUpdateMemberRole } from "../../../../../api/Crew/crewApi";
+
+import { reqExpelMember, reqUpdateMemberRole } from "../../../../api/Crew/memberApi";
+import useUserDetailQuery from "../../../../queries/useUserDetailQuery";
+
 
 export default function MemberModal({ memberId, isOpen, onClose, isLeader = false, onChanged, onReport }) {
   const { data: detail, isLoading, isError } = useUserDetailQuery(memberId);
@@ -13,7 +15,7 @@ export default function MemberModal({ memberId, isOpen, onClose, isLeader = fals
 
   const handleUpdateRoleOnClick = async (roleId) => {
     try {
-      await reqUpdateMemberRole({ memberId, roleId });
+      await reqUpdateMemberRole({ userId, roleId });
       onChanged();
       onClose();
     } catch (e) {
@@ -34,7 +36,7 @@ export default function MemberModal({ memberId, isOpen, onClose, isLeader = fals
 
   const handleReportOnClick = () => {
     onClose();
-    onReport(userId);
+    onReport(memberId);
   };
 
   const modalStyles = useMemo(

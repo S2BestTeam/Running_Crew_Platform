@@ -39,8 +39,7 @@ export const clickableRow = css`
 
   &:hover {
     background-color: #e3f2fd !important;
-  }import { background } from '../../JoinModal/styles';
-
+  }
 `;
 
 export const contentCell = css`

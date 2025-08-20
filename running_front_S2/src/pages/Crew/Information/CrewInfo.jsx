@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { useState } from 'react';
-import JoinModal from '../../JoinModal/JoinModal';
 import * as s from './styles';
-import { useCrewStore } from '../../../../stores/useCrewStroes';
+import { useCrewStore } from '../../../stores/useCrewStroes';
+import WelcomeRegModal from '../Welcome/WelcomeRegModal/WelcomeRegModal';
 
-function CrewHome({ userId }) {
+function CrewInfo({ userId }) {
   const { crew } = useCrewStore();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -36,7 +36,7 @@ function CrewHome({ userId }) {
           }
           {
             isOpen && (
-              <JoinModal setIsOpen={setIsOpen} crewId={crew?.crewId}/>
+              <WelcomeRegModal setIsOpen={setIsOpen} crewId={crew?.crewId}/>
             )
           }
         </div>
@@ -71,4 +71,4 @@ function CrewHome({ userId }) {
   );
 }
 
-export default CrewHome;
+export default CrewInfo;

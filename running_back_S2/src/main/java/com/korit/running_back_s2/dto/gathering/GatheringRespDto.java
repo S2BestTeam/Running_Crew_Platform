@@ -1,11 +1,9 @@
-package com.korit.running_back_s2.dto.crew;
+package com.korit.running_back_s2.dto.gathering;
 
-import com.korit.running_back_s2.domain.crewGathering.CrewGathering;
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 
 @Data
-public class CrewGatheringRespDto {
+public class GatheringRespDto {
     private Integer crewId;
     private String title;
     private String content;

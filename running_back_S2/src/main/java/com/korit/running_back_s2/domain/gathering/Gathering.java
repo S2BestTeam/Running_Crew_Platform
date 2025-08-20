@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Gathering {
-    private Integer crewGatheringId;
+    private Integer gatheringId;
     private Integer crewId;
     private Integer userId;
     private String title;

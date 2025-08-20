@@ -1,18 +1,18 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+
 /** @jsxImportSource @emotion/react */
 import * as s from "./styles";
-import { css } from "@emotion/react";
-import MainContainer from "../../../../components/MainContainer/MainContainer";
-import usePrincipalQuery from "../../../../queries/usePrincipalQuery";
-import useCrewDetailQuery from "../../../../queries/useCrewDetailQuery";
-import useMembersQuery from "../../../../queries/useMembersQuery";
-import MemberModal from "./MemberModal/MemberModal";
-import useUserDetailQuery from "../../../../queries/useUserDetailQuery";
-import ReportModal from "../Report/ReportModal/ReportModal";
-import CrewReport from "../Report/CrewReport";
 
-function CrewMember() {
+
+import MainContainer from "../../../components/MainContainer/MainContainer";
+import { useParams, useSearchParams } from "react-router-dom";
+import usePrincipalQuery from "../../../queries/usePrincipalQuery";
+import useCrewDetailQuery from "../../../queries/useCrewDetailQuery";
+import useMembersQuery from "../../../queries/useMembersQuery";
+import { useEffect, useRef, useState } from "react";
+import MemberModal from "./MemberModal/MemberModal";
+import ReportModal from "../Report/ReportModal/ReportModal";
+
+function Member() {
   const { crewId } = useParams();
   const principal = usePrincipalQuery();
   const userId = principal?.data?.data?.body?.user?.userId;
@@ -143,4 +143,4 @@ function CrewMember() {
   );
 }
 
-export default CrewMember;
+export default Member;

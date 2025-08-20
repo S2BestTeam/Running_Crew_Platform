@@ -2,15 +2,14 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<<<<<<< HEAD:running_back_S2/src/main/resources/mapper/crewGathering.xml
-<mapper namespace="com.korit.running_back_s2.domain.crewGathering.CrewGatheringMapper">
-    <resultMap id="CrewGatheringMap" type="CrewGathering">
-        <id property="crewGatheringId" column="crew_gathering_id" />
+<mapper namespace="com.korit.running_back_s2.domain.gathering.GatheringMapper">
+    <resultMap id="GatheringMap" type="Gathering">
+        <id property="gatheringId" column="gathering_id" />
         <result property="crewId" column="crew_id" />
         <result property="userId" column="cgt_user_id" />
         <result property="title" column="title" />
         <result property="content" column="content" />
-        <result property="crewThumbnailImg" column="crew_thumbnail_img" />
+        <result property="thumbnailPicture" column="thumbnail_picture" />
         <result property="runningDate" column="running_date" />
         <result property="runningTime" column="running_time" />
         <result property="placeName" column="place_name" />
@@ -30,13 +29,10 @@
         <id property="userId" column="user_id" />
         <result property="nickname" column="nickname" />
         <result property="fullName" column="full_name" />
-        <result property="profileImg" column="profile_img" />
+        <result property="picture" column="picture" />
     </resultMap>
-=======
-<mapper namespace="com.korit.running_back_s2.domain.gathering.GatheringMapper">
->>>>>>> 26-강사피드백:running_back_S2/src/main/resources/mapper/gatheringMapper.xml
 
-    <insert id="insert" useGeneratedKeys="true" keyProperty="GatheringId">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="gatheringId">
         INSERT INTO gathering_tb
         VALUES (
             default,
@@ -60,14 +56,14 @@
         );
     </insert>
 
-    <select id="findAllByCrewId" resultMap="CrewGatheringMap">
+    <select id="findAllByCrewId" resultMap="GatheringMap">
         SELECT
-            cgt.crew_gathering_id,
+            cgt.gathering_id,
             cgt.crew_id,
             cgt.user_id as cgt_user_id,
             cgt.title,
             cgt.content,
-            convert_url('${serverHost}', '/image/crew/gathering/', crew_thumbnail_img) as crew_thumbnail_img,
+            convert_url('${serverHost}', '/image/crew/gathering/', thumbnail_picture) as thumbnail_picture,
             cgt.running_date,
             cgt.running_time,
             cgt.place_name,
@@ -80,9 +76,9 @@
             ut.user_id,
             ut.nickname,
             ut.full_name,
-            convert_url('${serverHost}', '/image/profile/', ut.profile_img) as profile_img
+            convert_url('${serverHost}', '/image/profile/', ut.picture) as picture
         FROM
-            crew_gathering_tb cgt
+            gathering_tb cgt
             left outer join user_tb ut on (ut.user_id = cgt.user_id)
         WHERE
             cgt.crew_id = #{crewId}

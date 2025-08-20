@@ -4,15 +4,16 @@ import MainContainer from "../../../components/MainContainer/MainContainer";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import usePrincipalQuery from "../../../queries/usePrincipalQuery";
 import { useEffect } from "react";
-import CrewWelcome from "./CrewWelcome/CrewWelcome";
-import CrewHome from "./CrewHome/CrewHome";
 import { useCrewStore } from "../../../stores/useCrewStroes";
 import useCrewDetailQuery from "../../../queries/useCrewDetailQuery";
-import CrewMember from "./CrewMember/CrewMember";
-import CrewGathering from "./CrewGathering/CrewGathering";
-import CrewReport from "./Report/CrewReport";
+import Welcome from "../Welcome/Welcome";
+import Gathering from "../Gathering/Gathering";
+import Member from "../Member/Member";
+import Report from "../Report/Report";
+import CrewInfo from "../Information/CrewInfo";
 
-function CrewDetail() {
+
+function LeftBar() {
   const navigate = useNavigate();
   const principal = usePrincipalQuery();
   const userId = principal?.data?.data?.body?.user?.userId;
@@ -81,16 +82,16 @@ function CrewDetail() {
           )}
         </div>
         <Routes>
-          <Route path="/" element={<CrewHome userId={userId}/>} />
-          <Route path="/welcome" element={<CrewWelcome isCrewLeader={isCrewLeader} />}/>
-          <Route path="/members" element={<CrewMember />} />
+          <Route path="/" element={<CrewInfo userId={userId}/>} />
+          <Route path="/welcome" element={<Welcome isCrewLeader={isCrewLeader} />}/>
           {/* <Route path="/report" element={<ReportMember />} */}
-          <Route path="/gathering" element={<CrewGathering crewId={crewId} />}/>
-          <Route path="/report" element={<CrewReport crewId={crewId} isCrewLeader={isCrewLeader} />} />
+          <Route path="/gathering" element={<Gathering crewId={crewId} />}/>
+          <Route path="/members" element={<Member />} />
+          <Route path="/report" element={<Report crewId={crewId} isCrewLeader={isCrewLeader} />} />
         </Routes>
       </div>
     </MainContainer>
   );
 }
 
-export default CrewDetail;
+export default LeftBar;

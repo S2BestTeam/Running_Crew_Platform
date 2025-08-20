@@ -20,8 +20,9 @@ public class ReportService {
     public void report(ReportReqDto dto) {
         Integer reporterId = principalUtil.getPrincipalUser().getUser().getUserId();
         Report report = Report.builder()
+                .crewId(3)
                 .reporterId(reporterId)
-                .reportedId(dto.getMemberId())
+                .reportedId(dto.getUserId())
                 .reason(dto.getReason())
                 .build();
         reportMapper.report(report);

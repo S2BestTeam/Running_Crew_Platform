@@ -9,10 +9,11 @@ import {
   MarkerClusterer,
   useKakaoLoader,
 } from "react-kakao-maps-sdk";
-import { reqRegisterGathering } from "../../../../../api/Crew/crewGatheringApi";
 import { useNavigate } from "react-router-dom";
+import { reqRegisterGathering } from "../../../../api/Crew/gatheringApi";
 
-function CrewGatheringRegisterModal({ crewId, isOpen, onClose }) {
+
+function GatheringRegModal({ crewId, isOpen, onClose }) {
   const navigate = useNavigate();
   const mapLoader = useKakaoLoader({
     appkey: import.meta.env.VITE_KAKAO_JAVASCRIPT_KEY,
@@ -298,4 +299,4 @@ function CrewGatheringRegisterModal({ crewId, isOpen, onClose }) {
   );
 }
 
-export default CrewGatheringRegisterModal;
+export default GatheringRegModal;

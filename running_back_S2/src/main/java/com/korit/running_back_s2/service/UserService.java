@@ -4,6 +4,7 @@ import com.korit.running_back_s2.domain.gungu.GunguMapper;
 import com.korit.running_back_s2.domain.user.User;
 import com.korit.running_back_s2.domain.user.UserMapper;
 import com.korit.running_back_s2.dto.report.ReportReqDto;
+import com.korit.running_back_s2.dto.user.UserMyPageUpdateReqDto;
 import com.korit.running_back_s2.dto.welcome.WelcomeByUserIdResDto;
 import com.korit.running_back_s2.dto.user.UserRegisterReqDto;
 import com.korit.running_back_s2.security.jwt.JwtUtil;
@@ -56,9 +57,9 @@ public class UserService {
         return userMapper.findWelcomeByUserId(userId);
     }
 
-    public List<ReportReqDto> getReport(Integer userId) {
-        return userMapper.findReportsByUserId(userId);
-    }
+//    public List<ReportReqDto> getReport(Integer userId) {
+//        return userMapper.findReportsByUserId(userId);
+//    }
 
     @Transactional(rollbackFor = Exception.class)
     public void updateUserProfileImg(Integer userId, MultipartFile file) {
@@ -66,5 +67,9 @@ public class UserService {
         userMapper.updateProfileImgById(userId, fileName);
     }
 
+    public void updateUserInfo(UserMyPageUpdateReqDto dto) {
+        User user = dto.Entity();
+        userMapper.updateUser(user);
+    }
 
 }

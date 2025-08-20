@@ -14,6 +14,7 @@ public interface UserMapper {
     User findByNickname(String nickname);
     int updateProfileImgById(Integer userId, String picture);
     List<WelcomeByUserIdResDto> findWelcomeByUserId(Integer userId);
-    List<ReportReqDto> findReportsByUserId(Integer memberId);
+//    List<ReportReqDto> findReportsByUserId(Integer memberId);
+    int updateUser(User user);
 
 }
