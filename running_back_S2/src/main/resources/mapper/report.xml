@@ -5,26 +5,26 @@
 <mapper namespace="com.korit.running_back_s2.domain.report.ReportMapper">
 
     <resultMap id="ReportMap" type="com.korit.running_back_s2.domain.report.Report">
-        <id     property="reportId"        column="report_id"/>
-        <result property="crewId"          column="crew_id"/>
-        <result property="reportMemberId"  column="report_member_id"/>
+        <id     property="reportId"         column="report_id"/>
+        <result property="crewId"           column="crew_id"/>
+        <result property="reportMemberId"   column="report_member_id"/>
         <result property="reportedMemberId" column="reported_member_id"/>
-        <result property="reason"          column="reason"/>
-        <result property="createdAt"       column="created_at"/>
+        <result property="reason"           column="reason"/>
+        <result property="createdAt"        column="created_at"/>
 
         <association property="reporterUser"  resultMap="ReporterUserMap"/>
         <association property="reportedUser"  resultMap="ReportedUserMap"/>
     </resultMap>
 
     <resultMap id="ReporterUserMap" type="User">
-        <id property="userId"     column="reporter_user_id"/>
+        <id property="userId"           column="reporter_user_id"/>
         <result property="picture"      column="reporter_picture"/>
         <result property="fullName"     column="reporter_full_name"/>
         <result property="nickname"     column="reporter_nickname"/>
     </resultMap>
 
     <resultMap id="ReportedUserMap" type="User">
-        <id property="userId"     column="reported_user_id"/>
+        <id property="userId"           column="reported_user_id"/>
         <result property="picture"      column="reported_picture"/>
         <result property="fullName"     column="reported_full_name"/>
         <result property="nickname"     column="reported_nickname"/>
