@@ -3,14 +3,9 @@ package com.korit.running_back_s2.service;
 import com.korit.running_back_s2.domain.crew.Crew;
 import com.korit.running_back_s2.domain.crew.CrewMapper;
 import com.korit.running_back_s2.domain.crew.CrewSearchOption;
-import com.korit.running_back_s2.domain.crew.member.*;
-import com.korit.running_back_s2.domain.crew.welcome.CrewWelComeMapper;
-import com.korit.running_back_s2.domain.crew.welcome.CrewWelcome;
+import com.korit.running_back_s2.domain.member.MemberMapper;
 import com.korit.running_back_s2.dto.crew.*;
-import com.korit.running_back_s2.domain.user.UserMapper;
-import com.korit.running_back_s2.dto.response.CrewWelcomeResDto;
 import com.korit.running_back_s2.dto.response.PaginationRespDto;
-import com.korit.running_back_s2.security.model.PrincipalUser;
 import com.korit.running_back_s2.security.model.PrincipalUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,14 +21,18 @@ public class CrewService {
 
     private final PrincipalUtil principalUtil;
     private final CrewMapper crewMapper;
-    private final UserMapper userMapper;
     private final FileService fileService;
-    private final CrewMemberMapper crewMemberMapper;
-    private final CrewWelComeMapper crewWelComeMapper;
+    private final MemberMapper memberMapper;
 
     @Transactional(rollbackFor = Exception.class)
     public void register(CrewRegisterReqDto dto) throws Exception {
         Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
+        int registeredCrew = crewMapper.checkCrew(userId);
+
+        if (registeredCrew != 0) {
+            // 409 CONFLICT와 함께 메시지 전달
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "이미 등록한 크루가 있습니다.");
+        }
         String picture = fileService.uploadFile(dto.getProfilePicture(), "/crew/profile");
         String thumbnailImg = fileService.uploadFile(dto.getThumbnailPicture(), "/crew/thumbnail");
 
@@ -48,7 +47,7 @@ public class CrewService {
                 .thumbnailPicture(thumbnailImg)
                 .build();
         crewMapper.insert(crew);
-        crewMemberMapper.insertLeaderRole(userId, crew.getCrewId());
+        memberMapper.insertLeaderRole(userId, crew.getCrewId());
     }
 
     public String checkCrewNames(String crewName) {
@@ -91,75 +90,6 @@ public class CrewService {
                 .size(size)
                 .isLast(isLast)
                 .build();
-    }
-
-    public PaginationRespDto<CrewMember> getMembers( Integer page,Integer size, Integer crewId, String searchText) {
-        CrewMemberSearchOption opt = CrewMemberSearchOption.builder()
-                .crewId(crewId)
-                .startIndex((page - 1) * size)
-                .size(size)
-                .searchText((searchText != null && !searchText.isBlank()) ? searchText : null)
-                .build();
-
-        List<CrewMember> contents = crewMemberMapper.findAllMembersBySearchOption(opt);
-        Integer totalElements = crewMemberMapper.countMembersBySearchOption(opt);
-        Integer totalPages = (int) Math.ceil(totalElements.doubleValue() / size.doubleValue());
-        boolean isLast = page >= Math.max(totalPages, 1);
-
-        return PaginationRespDto.<CrewMember>builder()
-                .contents(contents)
-                .totalElements(totalElements)
-                .totalPages(totalPages)
-                .page(page)
-                .size(size)
-                .isLast(isLast)
-                .build();
-    }
-
-    public CrewMember getMemberDetail(Integer memberId) {
-        return crewMemberMapper.findById(memberId);
-    }
-
-    public void updateRole(CrewMemberRoleUpdateReqDto dto) {
-        int updated = crewMemberMapper.updateRole(dto.getMemberId(), dto.getRoleId());
-        if (updated == 0) {
-            throw new IllegalStateException("권한 변경 중 오류");
-        }
-    }
-
-    public void expel(Integer memberId) {
-        int deleted = crewMemberMapper.deleteMember(memberId);
-        if (deleted == 0) {
-            throw new IllegalStateException("리더는 추방할 수 없거나 대상이 존재하지 않습니다.");
-        }
-    }
-
-
-
-    public void registerCrewMember(CrewMember member) {
-        crewMemberMapper.insert(member);
-    }
-
-    public List<CrewWelcomeResDto> getCrewWelcomes(Integer crewId) {
-        return crewWelComeMapper.findAllByCrewId(crewId);
-    }
-
-    public void registerCrewWelcome(Integer crewId, CrewWelcomeReqDto dto) {
-        CrewWelcome welcome = dto.welcome(crewId);
-        crewWelComeMapper.insert(welcome);
-    }
-    public void report(CrewReportReqDto dto) {
-        Integer reporterId = principalUtil.getPrincipalUser().getUser().getUserId();
-        Report report = Report.builder()
-                .reporterId(reporterId)
-                .reportedId(dto.getMemberId())
-                .reason(dto.getReason())
-                .build();
-        crewMemberMapper.report(report);
-    }
-
-    public List<CrewReportRespDto> getReportList(Integer crewId) {
-        return crewMapper.getReportList(crewId);
     }
 }
 

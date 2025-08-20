@@ -5,23 +5,23 @@
 <mapper namespace="com.korit.running_back_s2.domain.crew.CrewMapper">
 
     <resultMap id="CrewMap" type="com.korit.running_back_s2.domain.crew.Crew">
-        <id property="crewId" column="crew_id"/>
-        <result property="gunguId" column="gungu_id"/>
-        <result property="crewName" column="crew_name"/>
-        <result property="title" column="title"/>
-        <result property="content" column="content"/>
-        <result property="limitedPeople" column="limited_people"/>
-        <result property="profilePicture" column="profile_picture"/>
-        <result property="thumbnailPicture" column="thumbnail_picture"/>
-        <result property="userId" column="user_id"/>
-        <result property="createdAt" column="created_at"/>
-        <result property="crewTotalKm" column="crew_total_km"/>
-        <result property="gunguName" column="gungu_name"/>
+        <id property="crewId"                   column="crew_id"/>
+        <result property="gunguId"              column="gungu_id"/>
+        <result property="crewName"             column="crew_name"/>
+        <result property="title"                column="title"/>
+        <result property="content"              column="content"/>
+        <result property="limitedPeople"        column="limited_people"/>
+        <result property="profilePicture"       column="profile_picture"/>
+        <result property="thumbnailPicture"     column="thumbnail_picture"/>
+        <result property="userId"               column="user_id"/>
+        <result property="createdAt"            column="created_at"/>
+        <result property="totalKm"          column="total_km"/>
+        <result property="gunguName"            column="gungu_name"/>
     </resultMap>
 
     <resultMap id="GungguMap" type="com.korit.running_back_s2.domain.gungu.Gungu">
-        <id property="gunguId" column="gungu_id"/>
-        <result property="gunguName" column="gungu_name"/>
+        <id property="gunguId"                  column="gungu_id"/>
+        <result property="gunguName"            column="gungu_name"/>
     </resultMap>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="crewId">
@@ -43,7 +43,7 @@
             content,
             limited_people,
             created_at,
-            crew_total_km
+            total_km
         from
             crew_tb
         where
@@ -63,7 +63,7 @@
             ct.limited_people as limited_people,
             ct.user_id AS user_id,
             ct.created_at AS created_at,
-            ct.crew_total_km AS crew_total_km
+            ct.total_km AS total_km
         FROM
             crew_tb ct
             left outer join gungu_tb gt on(ct.gungu_id = gt.gungu_id)
@@ -118,24 +118,8 @@
         select
             count(*)
         from
-            crew_member_tb
+            member_tb
         where
-            user_id = #{userId} and role_id = 2
+            user_id = #{userId} and role_id = 1
     </select>
-
-    <select id="getReportList" resultType="com.korit.running_back_s2.dto.crew.CrewReportRespDto">
-        select
-            rt.report_id,
-            rt.crew_id,
-            rpt.user_id as reporter_user_id,
-            rpt.full_name as reporter_user_name,
-            rpd.user_id as reported_user_id,
-            rpd.full_name as reported_user_name,
-            rt.reason
-        from
-            report_tb rt
-            left outer join user_tb rpt on(rt.reporter_id = rpt.user_id)
-            left outer join user_tb rpd on(rt.reported_id = rpd.user_id)
-    </select>
-
 </mapper>

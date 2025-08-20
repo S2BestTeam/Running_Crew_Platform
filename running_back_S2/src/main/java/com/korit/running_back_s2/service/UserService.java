@@ -3,11 +3,10 @@ package com.korit.running_back_s2.service;
 import com.korit.running_back_s2.domain.gungu.GunguMapper;
 import com.korit.running_back_s2.domain.user.User;
 import com.korit.running_back_s2.domain.user.UserMapper;
-import com.korit.running_back_s2.dto.response.ReportResDto;
-import com.korit.running_back_s2.dto.response.WelcomeByUserIdResDto;
+import com.korit.running_back_s2.dto.report.ReportReqDto;
+import com.korit.running_back_s2.dto.welcome.WelcomeByUserIdResDto;
 import com.korit.running_back_s2.dto.user.UserRegisterReqDto;
 import com.korit.running_back_s2.security.jwt.JwtUtil;
-import com.korit.running_back_s2.security.model.PrincipalUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,9 +46,9 @@ public class UserService {
     public String checkNickname(String nickname) {
         User user = userMapper.findByNickname(nickname);
         if (user == null) {
-            return "false";  // 사용 가능한 닉네임
+            return "false";
         } else {
-            return "true";   // 중복된 닉네임
+            return "true";
         }
     }
 
@@ -57,15 +56,10 @@ public class UserService {
         return userMapper.findWelcomeByUserId(userId);
     }
 
-    public List<ReportResDto> getReport(Integer userId) {
+    public List<ReportReqDto> getReport(Integer userId) {
         return userMapper.findReportsByUserId(userId);
     }
 
-//    public User getMyPage(Integer userId) {
-//        User user = userMapper.findById(userId);
-//        return user;
-//    }
-//
     @Transactional(rollbackFor = Exception.class)
     public void updateUserProfileImg(Integer userId, MultipartFile file) {
         String fileName = fileService.uploadFile(file, "/profile");
