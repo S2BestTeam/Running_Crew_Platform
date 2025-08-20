@@ -14,4 +14,6 @@ public interface CrewMapper {
     List<Crew> findAllBySearchOption(CrewSearchOption crewSearchOption);
 
     int countBySearchOption(CrewSearchOption crewSearchOption);
+
+    int checkCrew(Integer userId);
 }

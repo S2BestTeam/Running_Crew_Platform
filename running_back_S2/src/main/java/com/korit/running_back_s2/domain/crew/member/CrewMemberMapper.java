@@ -12,11 +12,13 @@ public interface CrewMemberMapper {
     List<CrewMember> findAllMembersBySearchOption(CrewMemberSearchOption opt);
     Integer countMembersBySearchOption(CrewMemberSearchOption opt);
     CrewMemberDetailRespDto findMemberDetail(@Param("crewId") Integer crewId, @Param("userId") Integer userId);
-    int updateRole(@Param("crewId") Integer crewId,
+    int updateRoleUp(@Param("crewId") Integer crewId,
                              @Param("userId") Integer userId);
 
     int deleteMember(@Param("crewId") Integer crewId,
                               @Param("userId") Integer userId);
 
     int report(Report report);
+
+    int updateRoleDown(Integer crewId, Integer userId);
 }

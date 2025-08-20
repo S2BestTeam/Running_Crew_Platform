@@ -95,10 +95,14 @@ function CrewRegister(props) {
 
     try {
       const res = await reqRegisterCrew(formData);
-      console.log("등록 성공!", res);
+      alert("크루가 등록되었습니다.");
       navigate("/");
     } catch (err) {
-      console.error("등록 실패", err);
+      if (err?.response?.status === 409) {
+        alert("이미 가입된 크루가 있습니다.");
+      } else {
+        alert("등록에 실패했습니다.");
+      }
     }
   };
 

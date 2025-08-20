@@ -10,8 +10,10 @@ import {
   useKakaoLoader,
 } from "react-kakao-maps-sdk";
 import { reqRegisterGathering } from "../../../../../api/Crew/crewGatheringApi";
+import { useNavigate } from "react-router-dom";
 
 function CrewGatheringRegisterModal({ crewId, isOpen, onClose }) {
+  const navigate = useNavigate();
   const mapLoader = useKakaoLoader({
     appkey: import.meta.env.VITE_KAKAO_JAVASCRIPT_KEY,
     libraries: ["clusterer", "drawing", "services"],
@@ -160,31 +162,16 @@ function CrewGatheringRegisterModal({ crewId, isOpen, onClose }) {
     }));
   };
 
-  // const handleRegisterOnClick = () => {
-  //   const formData = new FormData();
-  //   Object.entries(gatheringData).forEach(([key, value]) => {
-  //     formData.append(key, value);
-  //   });
-  //   formData.append("crewId", crewId);
-  //   reqRegisterGathering(crewId, formData);
-  // };
-
   const handleRegisterOnClick = async () => {
-  try {
     const formData = new FormData();
     Object.entries(gatheringData).forEach(([key, value]) => {
       formData.append(key, value);
     });
     formData.append("crewId", crewId);
-
     await reqRegisterGathering(crewId, formData);
 
     onClose();
-  } catch (error) {
-    console.error("등록 실패:", error);
-    alert("등록 중 오류가 발생했습니다.");
-  }
-}
+  };
 
   return (
     <ReactModal

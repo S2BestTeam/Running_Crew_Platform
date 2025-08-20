@@ -39,7 +39,8 @@ export const clickableRow = css`
 
   &:hover {
     background-color: #e3f2fd !important;
-  }
+  }import { background } from '../../JoinModal/styles';
+
 `;
 
 export const contentCell = css`
@@ -268,4 +269,32 @@ export const closeBtn = css`
   &:hover {
     background: #f0f0f0;
   }
+`;
+
+export const gatheringContainer = css`
+  display: grid;
+
+`;
+
+export const thumbnailImg = css`
+  width: 10rem;
+  height: 15rem;
+  background-color: #000;
+  border-radius: 1rem;
+`;
+
+export const gatheringInfoContainer = css`
+  width: 10rem;
+  height: 15rem;
+
+  & > div {
+    display: flex;
+  }
+`;
+
+export const profileImg = css`
+  width: 2rem;
+  height: 2rem;
+  background-color: #000;
+  border-radius: 5rem;
 `;

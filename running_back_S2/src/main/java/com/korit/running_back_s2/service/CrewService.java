@@ -15,8 +15,10 @@ import com.korit.running_back_s2.dto.response.PaginationRespDto;
 import com.korit.running_back_s2.security.model.PrincipalUser;
 import com.korit.running_back_s2.security.model.PrincipalUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -34,6 +36,13 @@ public class CrewService {
     @Transactional(rollbackFor = Exception.class)
     public void register(CrewRegisterReqDto dto) {
         Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
+
+        int joinedCrew = crewMapper.checkCrew(userId);
+
+        if (joinedCrew != 0) {
+            // 409 CONFLICT와 함께 메시지 전달
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "이미 가입된 크루가 있습니다.");
+        }
         String profileImg = fileService.uploadFile(dto.getCrewProfileImg(), "/crew");
         String thumbnailImg = fileService.uploadFile(dto.getCrewProfileImg(), "/crew");
 
@@ -48,7 +57,7 @@ public class CrewService {
                 .crewThumbnailImg(thumbnailImg)
                 .build();
         crewMapper.insert(crew);
-        userMapper.updateRoleId(userId, 2);
+        userMapper.insertLeaderRole(userId, crew.getCrewId());
     }
 
     public String checkCrewNames(String crewName) {
@@ -121,9 +130,16 @@ public class CrewService {
     }
 
     public void grant(Integer crewId, Integer userId) {
-        int updated = crewMemberMapper.updateRole(crewId, userId);
+        int updated = crewMemberMapper.updateRoleUp(crewId, userId);
         if (updated == 0) {
             throw new IllegalStateException("변경 대상이 아니거나 이미 운영진/리더입니다.");
+        }
+    }
+
+    public void down(Integer crewId, Integer userId) {
+        int updated = crewMemberMapper.updateRoleDown(crewId, userId);
+        if (updated == 0) {
+            throw new IllegalStateException("변경 대상이 아니거나 이미 User입니다.");
         }
     }
 

@@ -74,6 +74,7 @@
         ct.created_at as created_at
         from
         crew_tb ct
+
         left outer join gungu_tb gt on(ct.gungu_id = gt.gungu_id)
         <where>
             <if test="gunguId != null">
@@ -106,6 +107,15 @@
                 )
             </if>
         </where>
+    </select>
+
+    <select id="checkCrew" resultType="java.lang.Integer">
+        select
+            count(*)
+        from
+            crew_member_tb
+        where
+            user_id = #{userId}
     </select>
 
 

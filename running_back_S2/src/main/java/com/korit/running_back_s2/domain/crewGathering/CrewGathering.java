@@ -1,5 +1,6 @@
 package com.korit.running_back_s2.domain.crewGathering;
 
+import com.korit.running_back_s2.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,4 +32,6 @@ public class CrewGathering {
     private Integer maxParticipants;
     private Integer status;
     private LocalDateTime createdAt;
+
+    private User user;
 }

@@ -13,8 +13,9 @@ public interface UserMapper {
     User findByEmail(String email);
     User findById(Integer userId);
     User findByNickname(String nickname);
-    int updateRoleId(@Param("userId") Integer userId, @Param("roleId") Integer roleId);
 //    int updateProfileImgById(Integer userId, String profileImg);
     List<WelcomeByUserIdResDto> findWelcomeByUserId(Integer userId);
     List<ReportResDto> findReportsByUserId(Integer userId);
+
+    void insertLeaderRole(Integer userId, Integer crewId);
 }

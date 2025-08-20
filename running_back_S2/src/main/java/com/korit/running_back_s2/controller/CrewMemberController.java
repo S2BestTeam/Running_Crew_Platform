@@ -35,12 +35,21 @@ public class CrewMemberController {
         return ResponseEntity.ok(ResponseDto.success(crewService.getMemberDetail(crewId, userId)));
     }
 
-    @PostMapping("/{crewId}/members/{userId}/grant")
+    @PutMapping("/{crewId}/members/{userId}/grant")
     public ResponseEntity<?> grant(@PathVariable Integer crewId,
                                            @PathVariable Integer userId) {
         crewService.grant(crewId, userId);
         return ResponseEntity.ok(ResponseDto.success("운영진으로 올렸습니다"));
     }
+
+    @PutMapping("/{crewId}/members/{userId}/down")
+    public ResponseEntity<?> down(@PathVariable Integer crewId,
+                                   @PathVariable Integer userId) {
+        crewService.down(crewId, userId);
+        return ResponseEntity.ok(ResponseDto.success("운영진에서 박탈되었습니다."));
+    }
+
+
 
     @DeleteMapping("/{crewId}/members/{userId}/expel")
     public ResponseEntity<?> expel(@PathVariable Integer crewId,

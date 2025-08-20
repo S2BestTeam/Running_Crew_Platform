@@ -40,11 +40,11 @@ export const reqGetCrewMembers = ({ page, size, crewId, searchText }) => {
     params: { page, size, crewId, searchText },
   });
 };
-
 export const reqGetMemberDetail = ({ crewId, userId }) => api.get(`/api/crews/${crewId}/members/${userId}`);
 
-export const reqGrantMember = ({ crewId, userId }) => api.post(`/api/crews/${crewId}/members/${userId}/grant`);
-
+export const reqGrantMember = ({ crewId, userId }) => api.put(`/api/crews/${crewId}/members/${userId}/grant`);
+export const reqDownMember = ({ crewId, userId }) => api.put(`/api/crews/${crewId}/members/${userId}/down`);
 export const reqExpelMember = ({ crewId, userId }) => api.delete(`/api/crews/${crewId}/members/${userId}/expel`);
 
 export const reqReportMember = ({ crewId, userId, reason }) => api.post(`/api/crews/${crewId}/members/${userId}/report`, { reason });
+export const reqGetReportList = ({crewId}) => api.get(`/api/crews/${crewId}/report`);

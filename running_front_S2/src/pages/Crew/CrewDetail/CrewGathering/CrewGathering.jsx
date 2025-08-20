@@ -1,16 +1,20 @@
 /** @jsxImportSource @emotion/react */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as s from "./styles";
 import CrewGatheringRegisterModal from "./CrewGatheringRegisterModal/CrewGatheringRegisterModal";
 import { MdAccessTimeFilled } from "react-icons/md";
 import { FaMapMarkerAlt, FaWonSign } from "react-icons/fa";
-
+import { useGetGatheringsQuery } from "../../../../queries/useGetGatheringsQuery";
 
 function CrewGathering({ crewId }) {
+  const gatheringsQuery = useGetGatheringsQuery(crewId);
   const [isOpen, setOpen] = useState(false);
+  const gatherings = gatheringsQuery?.data?.data.body || [];
+  console.log(gatherings);
   const handleModalClose = () => {
     setOpen(false);
   };
+
   return (
     <>
       <div css={s.mainBox}>
@@ -19,34 +23,45 @@ function CrewGathering({ crewId }) {
           <button onClick={() => setOpen(true)}>일정 등록</button>
         </header>
         <main>
-          <div>
-            <div>
-              <img src="" alt="" />
-            </div>
-            <div>
-              <div>
-                <div>정모이름</div>
+          {gatherings.map((g, idx) => (
+            <div css={s.gatheringContainer} key={idx}>
+              <div css={s.thumbnailImg}>
+                <img src={g.crewThumbnailImg} alt={g.title} />
+              </div>
+              <div css={s.gatheringInfoContainer}>
+                <div>{g.title}</div>
                 <div>
-                  <span><MdAccessTimeFilled /></span>
-                  <span>오늘 오후 7시</span>
+                  <div>
+                    <MdAccessTimeFilled />
+                  </div>
+                  <div>
+                    {g.runningDate} {g.runningTime}
+                  </div>
                 </div>
                 <div>
-                  <span><FaMapMarkerAlt /></span>
-                  <span>만덕역</span>
+                  <div>
+                    <FaMapMarkerAlt />
+                  </div>
+                  <div>{g.placeName}</div>
                 </div>
                 <div>
-                  <span><FaWonSign /></span>
-                  <span>10000</span>
+                  <div>
+                    <FaWonSign />
+                  </div>
+                  <div>{g.cost}</div>
                 </div>
                 <div>
-                  <span><img src="" alt="" /></span>
-                  <span>1/10</span>
+                  <div css={s.profileImg}>
+                    <img src={g.user.profileImg} alt="" />
+                  </div>
+                  <div>{g.maxParticipants}</div>
                 </div>
               </div>
             </div>
-          </div>
+          ))}
         </main>
       </div>
+
       <CrewGatheringRegisterModal
         crewId={crewId}
         isOpen={isOpen}
