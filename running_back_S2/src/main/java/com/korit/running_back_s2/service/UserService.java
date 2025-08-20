@@ -57,10 +57,6 @@ public class UserService {
         return userMapper.findWelcomeByUserId(userId);
     }
 
-//    public List<ReportReqDto> getReport(Integer userId) {
-//        return userMapper.findReportsByUserId(userId);
-//    }
-
     @Transactional(rollbackFor = Exception.class)
     public void updateUserProfileImg(Integer userId, MultipartFile file) {
         String fileName = fileService.uploadFile(file, "/profile");
