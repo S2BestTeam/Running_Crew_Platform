@@ -14,14 +14,16 @@ public class ReportController {
 
     private final ReportService reportService;
 
-    @PostMapping("/{crewId}")
+    @PostMapping("/crews/{crewId}")
     public ResponseEntity<?> report(@PathVariable Integer crewId, @RequestBody ReportReqDto dto) {
-        reportService.report(crewId,dto);
+        reportService.report(crewId, dto);
+        System.out.println(dto);
         return ResponseEntity.ok(ResponseDto.success("신고가 접수되었습니다."));
     }
-
     @GetMapping("/crews/{crewId}")
-    public ResponseEntity<?> getReportList(@PathVariable Integer crewId) {
-        return ResponseEntity.ok(ResponseDto.success(reportService.getReportList(crewId)));
+    public ResponseEntity<?> getReports(@PathVariable Integer crewId) {
+        return ResponseEntity.ok(ResponseDto.success(reportService.getReportsByCrew(crewId)));
     }
+
+
 }

@@ -1,7 +1,5 @@
-
 /** @jsxImportSource @emotion/react */
 import * as s from "./styles";
-
 
 import MainContainer from "../../../components/MainContainer/MainContainer";
 import { useParams, useSearchParams } from "react-router-dom";
@@ -28,15 +26,13 @@ function Member() {
   const [members, setMembers] = useState([]);
 
   const [selectedMemberId, setSelectedMemberId] = useState(null);
-  const [reportUserId, setReportUserId] = useState(null);
+  const [reportMemberId, setReportMemberId] = useState(null);
 
   useEffect(() => {
     const pages = membersQuery?.data?.pages || [];
     const merged = pages.flatMap((p) => p?.data?.body?.contents || []);
     setMembers(merged);
     setLeader(crewData?.body.userId === userId);
-    console.log(crewData)
-    console.log(crewData === userId)
   }, [membersQuery.data]);
 
   const handleSearchOnChange = (e) => setSearchInput(e.target.value);
@@ -48,7 +44,9 @@ function Member() {
       return p;
     });
   };
-  const handleSearchOnKeyDown = (e) => { if (e.key === "Enter") handleSearchOnClick(); };
+  const handleSearchOnKeyDown = (e) => {
+    if (e.key === "Enter") handleSearchOnClick();
+  };
 
   const scrollBoxRef = useRef(null);
   const loadMoreRef = useRef(null);
@@ -76,8 +74,14 @@ function Member() {
   }, [membersQuery.hasNextPage, membersQuery.isFetchingNextPage]);
 
   const crew = crewData?.body || {
-    crewId: Number(crewId), profilePicture: "", crewName: "", userId: 0,
-    title: "", content: "", limitedPeople: 0, crewTotalKm: 0,
+    crewId: Number(crewId),
+    profilePicture: "",
+    crewName: "",
+    userId: 0,
+    title: "",
+    content: "",
+    limitedPeople: 0,
+    crewTotalKm: 0,
   };
 
   const handlePickUser = (id) => {
@@ -95,7 +99,6 @@ function Member() {
   return (
     <div css={s.layout}>
       <div css={s.rightPane}>
-
         <div css={s.searchBar}>
           <input value={searchInput} onChange={handleSearchOnChange} onKeyDown={handleSearchOnKeyDown} placeholder="닉네임/실명 검색" />
           <button onClick={handleSearchOnClick}>검색</button>
@@ -114,7 +117,6 @@ function Member() {
             ))}
             <div ref={loadMoreRef} style={{ height: 8 }} />
           </div>
-
           {selectedMemberId && (
             <MemberModal
               memberId={selectedMemberId}
@@ -122,19 +124,20 @@ function Member() {
               isLeader={isLeader}
               onChanged={() => membersQuery.refetch()}
               onClose={() => setSelectedMemberId(null)}
-              onReport={(userId) => {
+              onReport={(memberId) => {
                 setSelectedMemberId(null);
-                setReportUserId(userId);
+                setReportMemberId(memberId);
               }}
             />
           )}
-          {reportUserId && (
+          +
+          {reportMemberId && (
             <ReportModal
               crewId={crewId}
-              userId={reportUserId}
-              nickname={members.find((m) => m.userId === reportUserId)?.nickname}
-              isOpen={!!reportUserId}
-              onClose={() => setReportUserId(null)}
+              memberId={reportMemberId}
+              nickname={members.find(m => m.memberId === reportMemberId)?.nickname}
+              isOpen={!!reportMemberId}
+              onClose={() => setReportMemberId(null)}
             />
           )}
         </div>

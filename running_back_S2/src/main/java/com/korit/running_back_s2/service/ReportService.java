@@ -17,19 +17,16 @@ public class ReportService {
 
     private final PrincipalUtil principalUtil;
     private final ReportMapper reportMapper;
-    private final MemberMapper memberMapper;
 
     public void report(Integer crewId, ReportReqDto dto) {
-        Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
-        Integer reporterMemberId = memberMapper.findMemberIdByUserId(crewId, userId);
-        Report report = Report.builder()
-                .reportedMemberId(dto.getMemberId())
-                .reportMemberId(reporterMemberId)
-                .reason(dto.getReason())
-                .build();
-        reportMapper.insert(report);
+        Integer reporterUserId = principalUtil.getPrincipalUser().getUser().getUserId();
+        Integer reportedMemberId = dto.getMemberId();
+        Integer reporterMemberId = reportMapper.findMemberIdByCrewAndUser(crewId, reporterUserId);
+        reportMapper.insertReport(crewId, reporterMemberId, reportedMemberId, dto.getReason());
     }
-    public List<ReportRespDto> getReportList(Integer crewId) {
-        return reportMapper.getReportList(crewId);
+
+    public List<Report> getReportsByCrew(int crewId) {
+        return reportMapper.findReportsByCrew(crewId);
     }
 }
+

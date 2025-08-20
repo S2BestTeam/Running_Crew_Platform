@@ -3,9 +3,9 @@ import { useMemo, useState } from "react";
 import ReactModal from "react-modal";
 import { reqReportMember } from "../../../../api/Crew/reportApi";
 
-function ReportModal({ isOpen, onClose, memberId, nickname, crewId, onSubmit }) {
+function ReportModal({ isOpen, onClose, memberId, nickname, crewId }) {
   const [reason, setReason] = useState("");
-  console.log(memberId)
+  console.log(memberId);
 
   const modalStyles = useMemo(
     () => ({
@@ -32,12 +32,23 @@ function ReportModal({ isOpen, onClose, memberId, nickname, crewId, onSubmit }) 
     []
   );
 
-  const submitOnClick = async () => {
+  const [submitting, setSubmitting] = useState(false);
+
+  const ReportOnClick = async () => {
+    if (submitting) return;
+    if (!memberId) {
+      alert("신고 대상이 없습니다.");
+      return;
+    }
     if (!reason.trim()) {
       alert("신고 사유를 입력해주세요.");
       return;
     }
+
     try {
+      console.log("memberId:", memberId);
+      console.log("crewId:", crewId);
+      setSubmitting(true);
       await reqReportMember({ crewId, memberId, reason });
       alert("신고가 접수되었습니다.");
       setReason("");
@@ -70,7 +81,7 @@ function ReportModal({ isOpen, onClose, memberId, nickname, crewId, onSubmit }) 
         />
         <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, marginTop: 12 }}>
           <button onClick={onClose}>취소</button>
-          <button onClick={submitOnClick}>제출</button>
+          <button onClick={ReportOnClick}>제출</button>
         </div>
       </div>
     </ReactModal>

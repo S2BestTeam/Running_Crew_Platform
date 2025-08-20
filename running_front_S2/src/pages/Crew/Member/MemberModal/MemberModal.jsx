@@ -38,6 +38,7 @@ export default function MemberModal({ memberId, isOpen, onClose, isLeader = fals
 
   const handleReportOnClick = () => {
     onClose();
+    console.log(memberId)
     onReport(memberId);
     // console.log(memberId)
   };

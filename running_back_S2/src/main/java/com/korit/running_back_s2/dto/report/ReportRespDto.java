@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @Builder
 public class ReportRespDto {
     private int reportId;
+    private Integer crewId;
     private Integer reportMemberId;
     private Integer reportedUserId;
     private String  reason;

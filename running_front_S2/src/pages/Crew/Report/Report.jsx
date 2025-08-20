@@ -1,56 +1,72 @@
-import React, { useEffect, useState } from 'react';
-import usePrincipalQuery from '../../../queries/usePrincipalQuery';
-import { useParams } from 'react-router-dom';
-import useGetReportListQuery from '../../../queries/useGetReportListQuery';
-import MemberModal from '../Member/MemberModal/MemberModal';
-import useUserDetailQuery from '../../../queries/useUserDetailQuery';
+import { useState } from "react";
+import useGetReportListQuery from "../../../queries/useGetReportListQuery";
+/** @jsxImportSource @emotion/react */
+import * as s from "./styles";
+import MemberModal from "../Member/MemberModal/MemberModal";
 
-function Report({ crewId, isCrewLeader, onPickUser }) {
-    if (!isCrewLeader) return null;
+function Report({ crewId, isCrewLeader }) {
+  const isEnabled = !!crewId && !!isCrewLeader;
+  const { data } = useGetReportListQuery({
+    crewId,
+    enabled: isEnabled,
+  });
+  const [selectedMemberId, setSelectedMemberId] = useState(null);
 
-    // 모든 hooks를 컴포넌트 최상단에 위치
-    const [selectedUserId, setSelectedUserId] = useState(null);
-    const { data, isLoading, isError } = useGetReportListQuery({
-        crewId,
-        enabled: isCrewLeader,
-    });
-    const userId = selectedUserId;
+  if (!isCrewLeader) return null;
 
-    // 핸들러 함수도 hooks 다음에 위치
-    const handleClickUser = (userId) => {
-        setSelectedUserId(userId);
-        console.log(userId);
-    };
+  const reportList = data?.body ?? [];
 
-    // early return은 hooks 이후에
-    if (isLoading || isError) return null;
+  const handlePickMember = (memberId) => {
+    if (!memberId) return;
+    setSelectedMemberId(memberId);
+  };
 
-    const reportList = data?.body ?? [];
+  return (
+    <>
+      <table css={s.table}>
+        <thead>
+          <tr>
+            <th css={s.th}>신고자</th>
+            <th css={s.th}>피신고자</th>
+            <th css={s.th}>사유</th>
+            <th css={s.th}>신고 시각</th>
+          </tr>
+        </thead>
+        <tbody>
+          {reportList.length === 0 ? (
+            <tr>
+              <td>신고 내역이 없습니다.</td>
+            </tr>
+          ) : (
+            reportList.map((r) => (
+              <tr key={r.reportId}>
+                <td css={s.td} onClick={() => handlePickMember(r.reportMemberId)} title="신고자 정보 보기">
+                  {r.reporterUser.fullName}
+                </td>
+                <td css={s.td} onClick={() => handlePickMember(r.reportedMemberId)} title="피신고자 정보 보기">
+                  {r.reportedUser?.fullName}
+                </td>
+                <td css={s.td}>{r.reason}</td>
+                <td css={s.td}>{r.createdAt ? new Date(r.createdAt).toLocaleString() : "-"}</td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
 
-    // 나머지 렌더링 로직...
-    return (
-        <div>
-            {reportList.map((r) => (
-                <div key={r.reportId}>
-                    <div onClick={() => handleClickUser(r.reportedUserId)}>
-                        {r.reportedUserName}
-                    </div>
-                    <div onClick={() => handleClickUser(r.reporterUserId)}>
-                        {r.reporterUserName}
-                    </div>
-                    <div>{r.reason}</div>
-                </div>
-            ))}
-
-            {selectedUserId && (
-                <MemberModal
-                    userId={selectedUserId}
-                    isOpen={!!selectedUserId}
-                    iseader={isCrewLeader}
-                    onClose={() => setSelectedUserId(null)}
-                />
-            )}
-        </div>
-    );
+      {selectedMemberId && (
+        <MemberModal
+          memberId={selectedMemberId}
+          isOpen={!!selectedMemberId}
+          isLeader={isCrewLeader}
+          onClose={() => setSelectedMemberId(null)}
+          onChanged={() => {
+            setSelectedMemberId(null);
+          }}
+          onReport={() => {}}
+        />
+      )}
+    </>
+  );
 }
 export default Report;
