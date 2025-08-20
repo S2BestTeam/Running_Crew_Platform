@@ -162,15 +162,15 @@ function CrewGatheringRegisterModal({ crewId, isOpen, onClose }) {
     }));
   };
 
-  const handleRegisterOnClick = () => {
+  const handleRegisterOnClick = async () => {
     const formData = new FormData();
     Object.entries(gatheringData).forEach(([key, value]) => {
       formData.append(key, value);
     });
     formData.append("crewId", crewId);
-    reqRegisterGathering(crewId, formData);
+    await reqRegisterGathering(crewId, formData);
+
     onClose();
-    navigate(`/crews/${crewId}/gathering`);
   };
 
   return (

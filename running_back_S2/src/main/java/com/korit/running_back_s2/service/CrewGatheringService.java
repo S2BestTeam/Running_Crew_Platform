@@ -7,6 +7,7 @@ import com.korit.running_back_s2.domain.crewGathering.CrewGathering;
 import com.korit.running_back_s2.domain.crewGathering.CrewGatheringMapper;
 import com.korit.running_back_s2.domain.user.UserMapper;
 import com.korit.running_back_s2.dto.crew.CrewGatheringRegisterReqDto;
+import com.korit.running_back_s2.dto.crew.CrewGatheringRespDto;
 import com.korit.running_back_s2.dto.crew.CrewRegisterReqDto;
 import com.korit.running_back_s2.dto.response.PaginationRespDto;
 import com.korit.running_back_s2.security.model.PrincipalUtil;
@@ -23,6 +24,10 @@ public class CrewGatheringService {
     private final PrincipalUtil principalUtil;
     private final FileService fileService;
     private final CrewGatheringMapper crewGatheringMapper;
+
+    public List<CrewGatheringRespDto> getGatherings(Integer crewId) {
+        return crewGatheringMapper.findAllByCrewId(crewId);
+    }
 
     @Transactional(rollbackFor = Exception.class)
     public void register(CrewGatheringRegisterReqDto dto) {
