@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { useState } from 'react';
 import * as s from './styles';
-
 import usePrincipalQuery from '../../../../queries/usePrincipalQuery';
 import { reqJoinCrew } from '../../../../api/Crew/welcomeApi';
 

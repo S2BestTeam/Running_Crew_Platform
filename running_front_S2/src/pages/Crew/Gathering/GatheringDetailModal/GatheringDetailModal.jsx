@@ -7,8 +7,6 @@ import { FaMapMarkerAlt, FaWonSign } from "react-icons/fa";
 function GatheringDetailModal({ isOpen, onClose, gathering }) {
 
   if (!gathering) return null;
-
-  console.log(gathering);
   
 
   return (
@@ -59,7 +57,7 @@ function GatheringDetailModal({ isOpen, onClose, gathering }) {
             </p>
             <p>최대인원: {gathering.maxParticipants}</p>
             <div css={s.profile}>
-              <img src={gathering.user?.picture} alt="작성자" />
+              <img src={gathering?.user.picture} alt="작성자" />
               <span>{gathering?.user.fullName || "알 수 없음"}</span>
             </div>
           </div>

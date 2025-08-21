@@ -11,21 +11,19 @@ function CrewInfo() {
   const userId = principal?.data?.data?.body?.user?.userId;
   const { crew } = useCrewStore();
   const [isOpen, setIsOpen] = useState(false);
-  const [ roleCheck, setRoleCheck ] = useState(true);
+  const [ memberCheck, setMemberCheck ] = useState(true);
   const crewId = crew?.crewId;
-  
-  console.log(crew);
   
   useEffect(() => {
     if (!crewId || !userId) return;
     reqCrewMember({ crewId, userId })
     .then((res) => {
-      setRoleCheck(res.data.body);
+      setMemberCheck(res.data.body);
     })
     .catch((err) => {
       console.error("API 에러:", err);
     });
-  }, [crewId, userId]);
+  }, [crewId, userId, memberCheck]);
 
   return (
     <div css={s.mainBox}>
@@ -49,7 +47,7 @@ function CrewInfo() {
               <p>총 {crew?.totalKm} KM</p>
             </div>
           </div>
-          { roleCheck === true
+          { memberCheck === false
             ? <></>
             : <button css={s.Button} onClick={() => setIsOpen(true)}>크루가입</button>
           }

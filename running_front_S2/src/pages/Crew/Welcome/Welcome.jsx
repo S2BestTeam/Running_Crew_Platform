@@ -25,6 +25,7 @@ function Welcome({ isCrewLeader }) {
       }
     }
     fetchData();
+    crewWelcomeList.refetch();
   },[userId])
 
   const handleApproveOnClick = async () => {

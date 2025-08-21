@@ -21,6 +21,10 @@ public class WelcomeService {
 
     public void registerWelcome(Integer crewId, WelcomeReqDto dto) {
         Welcome welcome = dto.welcome(crewId);
+        Welcome foundWelcome = welComeMapper.findByUserId(welcome);
+        if (foundWelcome != null) {
+            return;
+        }
         welComeMapper.insert(welcome);
     }
 }
