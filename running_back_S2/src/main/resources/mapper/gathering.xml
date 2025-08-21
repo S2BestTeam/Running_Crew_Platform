@@ -69,6 +69,8 @@
             cgt.place_name,
             cgt.address,
             cgt.road_address,
+            cgt.latitude,
+            cgt.longitude,
             cgt.km,
             cgt.cost,
             cgt.max_participants,

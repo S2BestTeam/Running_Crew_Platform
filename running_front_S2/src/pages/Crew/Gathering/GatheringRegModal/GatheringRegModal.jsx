@@ -203,7 +203,7 @@ function GatheringRegModal({ crewId, isOpen, onClose }) {
             {/* 썸네일 업로드 */}
             <div>
               <div>
-                <img src={preview.thumbnailPicture} alt="" />
+                <img src={preview.thumbnailPicture} />
               </div>
               <div
                 css={s.plus}

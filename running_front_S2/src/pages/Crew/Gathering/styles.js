@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css } from "@emotion/react";
 
 export const mainBox = css`
   flex: 1;
@@ -17,7 +17,8 @@ export const table = css`
   border-collapse: collapse;
   margin-top: 1rem;
 
-  th, td {
+  th,
+  td {
     border: 0.1rem solid #ddd;
     padding: 1.2rem 0.8rem;
     text-align: left;
@@ -192,13 +193,13 @@ export const reportStatus = css`
   border-radius: 0.4rem;
   text-align: center;
   font-weight: 500;
-  
-  &:contains('처리완료') {
+
+  &:contains("처리완료") {
     background: #d4edda;
     color: #155724;
   }
-  
-  &:contains('검토중') {
+
+  &:contains("검토중") {
     background: #fff3cd;
     color: #856404;
   }
@@ -271,19 +272,26 @@ export const closeBtn = css`
 `;
 
 export const gatheringContainer = css`
-  display: grid;
-
+  display: flex;
+  width: 30rem;
 `;
 
 export const thumbnailImg = css`
+  margin-right: 1.5rem;
   width: 10rem;
   height: 15rem;
   background-color: #000;
   border-radius: 1rem;
+  overflow: hidden;
+
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 
 export const gatheringInfoContainer = css`
-  width: 10rem;
   height: 15rem;
 
   & > div {
@@ -296,4 +304,11 @@ export const profileImg = css`
   height: 2rem;
   background-color: #000;
   border-radius: 5rem;
+  overflow: hidden;
+
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;

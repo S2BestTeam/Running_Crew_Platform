@@ -1,19 +1,28 @@
 /** @jsxImportSource @emotion/react */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as s from "./styles";
 import { MdAccessTimeFilled } from "react-icons/md";
 import { FaMapMarkerAlt, FaWonSign } from "react-icons/fa";
 import { useGetGatheringsQuery } from "../../../queries/useGetGatheringsQuery";
 import GatheringRegModal from "./GatheringRegModal/GatheringRegModal";
-
+import GatheringDetailModal from "./GatheringDetailModal/GatheringDetailModal";
 
 function Gathering({ crewId }) {
   const gatheringsQuery = useGetGatheringsQuery(crewId);
-  const [isOpen, setOpen] = useState(false);
+  const [isRegOpen, setRegOpen] = useState(false);
+  const [isDetailOpen, setDetailOpen] = useState(false);
+  const [selectedGathering, setSelectedGathering] = useState(null);
   const gatherings = gatheringsQuery?.data?.data.body || [];
   console.log(gatherings);
+
   const handleModalClose = () => {
-    setOpen(false);
+    setRegOpen(false);
+    setDetailOpen(false);
+  };
+
+  const handleOpenDetailModal = (gathering) => {
+    setSelectedGathering(gathering);
+    setDetailOpen(true);
   };
 
   return (
@@ -21,11 +30,15 @@ function Gathering({ crewId }) {
       <div css={s.mainBox}>
         <header>
           <h2>정모 일정</h2>
-          <button onClick={() => setOpen(true)}>일정 등록</button>
+          <button onClick={() => setRegOpen(true)}>일정 등록</button>
         </header>
         <main>
           {gatherings.map((g, idx) => (
-            <div css={s.gatheringContainer} key={idx}>
+            <div
+              css={s.gatheringContainer}
+              key={idx}
+              onClick={() => handleOpenDetailModal(g)}
+            >
               <div css={s.thumbnailImg}>
                 <img src={g.thumbnailPicture} alt={g.title} />
               </div>
@@ -53,9 +66,9 @@ function Gathering({ crewId }) {
                 </div>
                 <div>
                   <div css={s.profileImg}>
-                    <img src={g.user.picture} alt="" />
+                    <img src={g.user.picture} />
                   </div>
-                  <div>{g.maxParticipants}</div>
+                  <div> 1 / {g.maxParticipants}</div>
                 </div>
               </div>
             </div>
@@ -65,8 +78,14 @@ function Gathering({ crewId }) {
 
       <GatheringRegModal
         crewId={crewId}
-        isOpen={isOpen}
+        isOpen={isRegOpen}
         onClose={handleModalClose}
+      />
+      <GatheringDetailModal
+        crewId={crewId}
+        isOpen={isDetailOpen}
+        onClose={handleModalClose}
+        gathering={selectedGathering}
       />
     </>
   );
