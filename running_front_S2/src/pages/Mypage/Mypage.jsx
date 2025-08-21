@@ -1,46 +1,45 @@
 /** @jsxImportSource @emotion/react */
 import * as s from './styles';
 import { Route, Routes } from 'react-router-dom';
-import MainContainer from '../../components/MainContainer/MainContainer';
 import usePrincipalQuery from '../../queries/usePrincipalQuery';
 import MypageModify from './Modify/MypageModify';
+import LiftSideBarLayout from '../../components/LiftSideBarLayout/LiftSideBarLayout';
+import { useEffect } from 'react';
 
 function Mypage(props) {
   const principal = usePrincipalQuery();
   const user = principal?.data?.data?.body?.user;
 
-  return (
-    <MainContainer>
-      <div css={s.layout}>
-        {/* 좌측 버튼 박스 */}
-        <div css={s.leftBox}>
-          {/* user */}
-          <div css={s.userSimpleInfo}>
-            <div css={s.profileImgBox}>
-              <img src={user?.profilePicture} alt="프로필 이미지" />
-            </div>
-            <div css={s.userText}>
-              <div css={s.nick}>{user?.nickname}</div>
-              <div css={s.email}>{user?.email}</div>
-            </div>
-          </div>
-          {/* 버튼 */}
-          <div css={s.buttonContainer}>
-            <button>A</button>
-            <button>B</button>
-            <button>C</button>
-            <button>D</button>
-          </div>
-          <div>
+  const profileSection = (
+    <div css={s.userSimpleInfo}>
+      <div css={s.profileImgBox}>
+        <img src={user?.picture} alt="프로필 이미지" />
+      </div>
+      <div css={s.userText}>
+        <div css={s.nick}>{user?.nickname}</div>
+        <div css={s.email}>{user?.email}</div>
+      </div>
+    </div>
+  );
 
-          </div>
-        </div>
-        {/* 랜더링 되는 부분 - div => Routes */}
+  const navigationButtons = (
+    <>
+      <button>크루 신청 내역</button>
+      <button>위시 리스트</button>
+      <button>C</button>
+      <button>D</button>
+    </>
+  );
+
+  return (
+    <LiftSideBarLayout
+      profileSection={profileSection}
+      navigationButtons={navigationButtons}
+    >
         <Routes>
           <Route path='/' element={<MypageModify />}/>
         </Routes>
-      </div>
-    </MainContainer>
+    </LiftSideBarLayout>
   );
 }
 

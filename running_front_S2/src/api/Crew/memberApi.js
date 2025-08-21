@@ -8,6 +8,8 @@ export const reqGetCrewMembers = ({ page, size, crewId, searchText }) => {
   });
 };
 
+export const reqCrewMember = (data) => api.post('/api/members/exists', data);
+
 export const reqGetMemberDetail = (memberId) => api.get(`/api/members/${memberId}`);
 
 export const reqUpdateMemberRole = ({ memberId, roleId }) => api.put(`/api/members/${memberId}/role`, {memberId, roleId});

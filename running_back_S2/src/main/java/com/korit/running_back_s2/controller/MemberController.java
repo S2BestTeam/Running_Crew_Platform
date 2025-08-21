@@ -1,6 +1,7 @@
 package com.korit.running_back_s2.controller;
 
 import com.korit.running_back_s2.domain.member.Member;
+import com.korit.running_back_s2.dto.member.MemberCheckReqDto;
 import com.korit.running_back_s2.dto.member.MemberRoleUpdateReqDto;
 import com.korit.running_back_s2.dto.response.ResponseDto;
 import com.korit.running_back_s2.service.MemberService;
@@ -14,6 +15,11 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberService memberService;
+
+    @PostMapping("/exists")
+    public ResponseEntity<ResponseDto<?>> existsMember(@RequestBody MemberCheckReqDto dto) {
+        return ResponseEntity.ok(ResponseDto.success(memberService.isCrewMember(dto)));
+    }
 
     @PostMapping
     public ResponseEntity<ResponseDto<?>> registerCrewMember(@RequestBody Member member) {

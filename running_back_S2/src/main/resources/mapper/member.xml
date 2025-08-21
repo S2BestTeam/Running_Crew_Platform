@@ -96,6 +96,18 @@
             cm.member_id = #{memberId}
     </select>
 
+    <select id="existsFindByMemberId" resultType="java.lang.Boolean">
+        select exists (
+                select
+                    1
+                from
+                    member_tb
+                where
+                    crew_id = #{crewId}
+                    and user_id = #{userId}
+                )
+    </select>
+
     <update id="updateRole">
         update member_tb
         set

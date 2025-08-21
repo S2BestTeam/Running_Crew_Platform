@@ -3,6 +3,7 @@ package com.korit.running_back_s2.service;
 import com.korit.running_back_s2.domain.member.Member;
 import com.korit.running_back_s2.domain.member.MemberMapper;
 import com.korit.running_back_s2.domain.member.MemberSearchOption;
+import com.korit.running_back_s2.dto.member.MemberCheckReqDto;
 import com.korit.running_back_s2.dto.member.MemberRoleUpdateReqDto;
 import com.korit.running_back_s2.dto.response.PaginationRespDto;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,10 @@ import java.util.List;
 public class MemberService {
 
     private final MemberMapper memberMapper;
+
+    public boolean isCrewMember (MemberCheckReqDto dto) {
+        return memberMapper.existsFindByMemberId(dto);
+    }
 
     public PaginationRespDto<Member> getMembers(Integer page, Integer size, Integer crewId, String searchText) {
         MemberSearchOption opt = MemberSearchOption.builder()
