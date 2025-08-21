@@ -52,6 +52,9 @@ public class SecurityConfig {
             auth.requestMatchers("/api/users/**").permitAll();
             auth.requestMatchers("/api/mypage/**").permitAll();
             auth.requestMatchers("/api/crews/**").permitAll();
+            auth.requestMatchers("/api/reports/**").permitAll();
+            auth.requestMatchers("/api/members/**").permitAll();
+            auth.requestMatchers("/api/welcomes/**").permitAll();
             auth.requestMatchers("/oauth2/**").permitAll();
             auth.requestMatchers("/image/**").permitAll();
 

@@ -14,4 +14,4 @@ export const reqGetMemberDetail = (memberId) => api.get(`/api/members/${memberId
 
 export const reqUpdateMemberRole = ({ memberId, roleId }) => api.put(`/api/members/${memberId}/role`, {memberId, roleId});
 
-export const reqExpelMember = (memberId) => api.delete(`/api/members/${memberId}`);
+export const reqExpelMember = ({memberId}) => api.delete(`/api/members/${memberId}`);

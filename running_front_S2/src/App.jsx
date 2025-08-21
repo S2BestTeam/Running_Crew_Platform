@@ -6,11 +6,16 @@ import Home from "./pages/home/Home";
 import Signup from "./pages/Auth/Signup/Signup";
 import List from "./pages/Crew/List/List";
 import CrewRegister from "./pages/Crew/Register/CrewRegister";
+<<<<<<< HEAD
 import CCategory from "./pages/Crew/CCategory/CCategory";
 import MCategory from "./pages/Mypage/MCategory/MCategory";
+=======
+import ReactModal from "react-modal";
+>>>>>>> origin/33-report-part-modify
 
 
 function App() {
+  ReactModal.setAppElement('#root');
   return (
     <>
       <Header />

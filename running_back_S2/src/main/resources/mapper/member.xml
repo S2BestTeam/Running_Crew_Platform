@@ -95,6 +95,15 @@
         where
             cm.member_id = #{memberId}
     </select>
+    <select id="findMemberIdByUserId" resultType="java.lang.Integer">
+        select
+            member_id
+        from
+            member_tb
+        where
+            crew_id = #{crewId} and user_id = #{userId}
+    </select>
+
 
     <select id="existsFindByMemberId" resultType="java.lang.Boolean">
         select exists (

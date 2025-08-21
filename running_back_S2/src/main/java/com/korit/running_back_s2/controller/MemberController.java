@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/members")
 @RequiredArgsConstructor
@@ -37,12 +39,14 @@ public class MemberController {
 
     @GetMapping("/{memberId}")
     public ResponseEntity<?> getMemberDetail(@PathVariable Integer memberId) {
+
         return ResponseEntity.ok(ResponseDto.success(memberService.getMemberDetail(memberId)));
     }
 
     @PutMapping("/{memberId}/role")
     public ResponseEntity<?> updateRole(@PathVariable Integer memberId,
                                            @RequestBody MemberRoleUpdateReqDto dto) {
+        System.out.println(dto);
         memberService.updateRole(dto);
         return ResponseEntity.ok(ResponseDto.success("권한 변경 완료."));
     }
