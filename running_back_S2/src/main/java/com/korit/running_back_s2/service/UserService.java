@@ -67,6 +67,7 @@ public class UserService {
         userMapper.updateProfileImgById(userId, fileName);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public void updateUserInfo(UserMyPageUpdateReqDto dto) {
         User user = dto.Entity();
         userMapper.updateUser(user);

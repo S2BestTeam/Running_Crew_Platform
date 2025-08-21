@@ -41,7 +41,7 @@
             cm.role_id,
             u.full_name,
             u.nickname,
-            convert_url('${serverHost}', '/image/profile/', u.picture) as picture
+            u.picture as picture
         from
             member_tb cm
             left outer join user_tb u on (u.user_id = cm.user_id)
@@ -85,7 +85,7 @@
             u.user_id,
             u.nickname,
             u.full_name,
-            convert_url('${serverHost}', '/image/profile/', u.picture) as picture,
+            u.picture as picture,
             u.gender,
             u.birth_date,
             u.total_km

@@ -2,7 +2,7 @@
 import * as s from './styles';
 import MainContainer from "../MainContainer/MainContainer";
 
-function LiftSideBarLayout({ profileSection, navigationButtons, bottomSection, children }) {
+function LeftSideBarLayout({ profileSection, navigationButtons, bottomSection, children }) {
   return (
     <MainContainer>
       <div css={s.layout}>
@@ -23,4 +23,4 @@ function LiftSideBarLayout({ profileSection, navigationButtons, bottomSection, c
   );
 }
 
-export default LiftSideBarLayout;
+export default LeftSideBarLayout;

@@ -3,8 +3,8 @@ import * as s from './styles';
 import { Route, Routes } from 'react-router-dom';
 import usePrincipalQuery from '../../queries/usePrincipalQuery';
 import MypageModify from './Modify/MypageModify';
-import LiftSideBarLayout from '../../components/LiftSideBarLayout/LiftSideBarLayout';
 import { useEffect } from 'react';
+import LeftSideBarLayout from '../../components/LeftSideBarLayout/LeftSideBarLayout';
 
 function Mypage(props) {
   const principal = usePrincipalQuery();
@@ -32,14 +32,14 @@ function Mypage(props) {
   );
 
   return (
-    <LiftSideBarLayout
+    <LeftSideBarLayout
       profileSection={profileSection}
       navigationButtons={navigationButtons}
     >
         <Routes>
           <Route path='/' element={<MypageModify />}/>
         </Routes>
-    </LiftSideBarLayout>
+    </LeftSideBarLayout>
   );
 }
 

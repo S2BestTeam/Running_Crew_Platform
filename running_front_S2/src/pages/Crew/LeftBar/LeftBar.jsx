@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./styles";
-import MainContainer from "../../../components/MainContainer/MainContainer";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import usePrincipalQuery from "../../../queries/usePrincipalQuery";
 import { useEffect } from "react";
@@ -12,7 +11,7 @@ import Member from "../Member/Member";
 import Report from "../Report/Report";
 import CrewInfo from "../Information/CrewInfo";
 import Loading from "../../../components/Loading/Loading";
-import LiftSideBarLayout from "../../../components/LiftSideBarLayout/LiftSideBarLayout";
+import LeftSideBarLayout from "../../../components/LeftSideBarLayout/LeftSideBarLayout";
 
 
 function LeftBar() {
@@ -92,7 +91,7 @@ function LeftBar() {
   );
 
   return (
-    <LiftSideBarLayout
+    <LeftSideBarLayout
       profileSection={profileSection}
       navigationButtons={navigationButtons}
       bottomSection={bottomSection}
@@ -105,7 +104,7 @@ function LeftBar() {
           <Route path="/members" element={<Member />} />
           <Route path="/report" element={<Report crewId={crewId} isCrewLeader={isCrewLeader} />} />
         </Routes>
-    </LiftSideBarLayout>
+    </LeftSideBarLayout>
   );
 }
 
