@@ -8,7 +8,7 @@ public class GatheringRespDto {
     private Integer crewId;
     private String title;
     private String content;
-    private MultipartFile thumbnailPicture;
+    private String thumbnailPicture;
     private String runningDate;
     private String runningTime;
     private String placeName;

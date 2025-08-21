@@ -37,7 +37,7 @@ public class CrewService {
             // 409 CONFLICT와 함께 메시지 전달
             throw new ResponseStatusException(HttpStatus.CONFLICT, "이미 등록한 크루가 있습니다.");
         }
-        String picture = fileService.uploadFile(dto.getProfilePicture(), "crewProfile");
+        String profileImg = fileService.uploadFile(dto.getProfilePicture(), "crewProfile");
         String thumbnailImg = fileService.uploadFile(dto.getThumbnailPicture(), "crewThumbnail");
 
         Crew crew = Crew.builder()
@@ -47,7 +47,7 @@ public class CrewService {
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .limitedPeople(dto.getLimitedPeople())
-                .profilePicture(picture)
+                .profilePicture(profileImg)
                 .thumbnailPicture(thumbnailImg)
                 .build();
         crewMapper.insert(crew);

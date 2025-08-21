@@ -32,14 +32,14 @@ function WelcomeRegModal({setIsOpen, crewId}) {
       <div css={s.modalBox} onClick={(e) => e.stopPropagation()}>
         <h2>크루 가입</h2>
         <p>닉네임</p>
-        <input type="text" value={userSimpleInfo.nickname} disabled/>
+        <input css={s.input} type="text" value={userSimpleInfo.nickname} disabled/>
         <p>나이</p>
-        <input type="text" value={age} disabled/>
+        <input css={s.input} type="text" value={age} disabled/>
         <p>자기소개</p>
-        <input type="text" placeholder='편하게 작성해주세요!' value={simpleInfo} onChange={(e) => setSimpleInfo(e.target.value)}/>
+        <input css={s.input} type="text" placeholder='편하게 작성해주세요!' value={simpleInfo} onChange={(e) => setSimpleInfo(e.target.value)}/>
         <div css={s.buttons}>
-          <button onClick={() => setIsOpen(false)}>닫기</button>
-          <button onClick={handleJoinCrewOnClick}>확인</button>
+          <button css={s.cancelButton} onClick={() => setIsOpen(false)}>닫기</button>
+          <button css={s.confirmButton} onClick={handleJoinCrewOnClick}>확인</button>
         </div>
       </div>
     </div>

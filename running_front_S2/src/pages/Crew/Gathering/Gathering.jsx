@@ -33,13 +33,14 @@ function Gathering({ crewId }) {
           <button onClick={() => setRegOpen(true)}>일정 등록</button>
         </header>
         <main css={s.gatheringMain}>
-          {gatherings.map((g) => (
+          {gatherings.map((g, index) => (
             <div
+              key={index}
               css={s.gatheringContainer}
               onClick={() => handleOpenDetailModal(g)}
             >
               <div css={s.thumbnailImg}>
-                <img src={g.thumbnailPicture} alt={g.title} />
+                <img src={g?.thumbnailPicture} alt={g.title} />
               </div>
               <div css={s.gatheringInfoContainer}>
                 <div css={s.gatheringTitle}>{g.title}</div>
@@ -69,7 +70,7 @@ function Gathering({ crewId }) {
                 </div>
                 <div>
                   <div css={s.profileImg}>
-                    <img src={g.user.picture} alt="프로필 사진" />
+                    <img src={g?.user?.picture} alt="프로필 사진" />
                   </div>
                   <div> 1 / {g.maxParticipants}</div>
                 </div>
