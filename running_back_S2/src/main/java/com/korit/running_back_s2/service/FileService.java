@@ -53,11 +53,19 @@ public class FileService {
         }
     }
 
-    public boolean deleteFile(String path) {
-        if (path.substring(path.lastIndexOf("/")).contains("default")) {
+    public boolean deleteFile(String imageConfigName, String oldFileName) {
+        if (oldFileName == null || oldFileName.isBlank()) {
             return true;
         }
-        File file = new File(path);
+
+        if (oldFileName.startsWith("http://") || oldFileName.startsWith("https://")) {
+            return true;
+        }
+
+        String dirPath = appProperties.getImageConfigs().get(imageConfigName).getDirPath();
+        Path filePath = Paths.get(dirPath, oldFileName);
+
+        File file = filePath.toFile();
         if (!file.exists()) {
             return false;
         }

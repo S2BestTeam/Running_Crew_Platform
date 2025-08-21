@@ -63,8 +63,13 @@ public class UserService {
 
     @Transactional(rollbackFor = Exception.class)
     public void updateUserProfileImg(Integer userId, MultipartFile file) {
-        String fileName = fileService.uploadFile(file, "/profile");
-        userMapper.updateProfileImgById(userId, fileName);
+        String oldFileName = userMapper.findPictureById(userId);
+        String newFileName = fileService.uploadFile(file, "profile");
+        userMapper.updateProfileImgById(userId, newFileName);
+
+        if (oldFileName != null && !oldFileName.isBlank()) {
+            fileService.deleteFile("profile", oldFileName);
+        }
     }
 
     @Transactional(rollbackFor = Exception.class)

@@ -15,7 +15,7 @@ public class ImageUrlUtil {
             return null;
         }
 
-        if (appProperties.getImageConfigs().containsKey(imageConfigName)) {
+        if (!appProperties.getImageConfigs().containsKey(imageConfigName)) {
             return null;
         }
 

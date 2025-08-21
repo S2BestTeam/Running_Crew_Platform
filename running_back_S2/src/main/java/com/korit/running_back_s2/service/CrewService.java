@@ -68,6 +68,9 @@ public class CrewService {
         if (crew == null) {
             throw new RuntimeException("크루를 찾을 수 없습니다. CREWID: " + crewId);
         }
+
+        crew.setProfilePicture(imageUrlUtil.buildImageUrl(crew.getProfilePicture(), "crewProfile"));
+        crew.setThumbnailPicture(imageUrlUtil.buildImageUrl(crew.getThumbnailPicture(), "crewThumbnail"));
         return crew;
     }
 

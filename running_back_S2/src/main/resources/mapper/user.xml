@@ -20,6 +20,15 @@
         <result property="totalKm"          column="total_km" />
     </resultMap>
 
+    <select id="findPictureById" resultType="string" parameterType="int">
+        select
+            picture
+        from
+            user_tb
+        where
+            user_id = #{userId}
+    </select>
+
     <update id="updateProfileImgById">
         update user_tb
         set picture = #{picture}

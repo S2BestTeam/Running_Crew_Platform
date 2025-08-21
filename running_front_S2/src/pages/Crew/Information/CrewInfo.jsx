@@ -14,6 +14,8 @@ function CrewInfo() {
   const [ roleCheck, setRoleCheck ] = useState(true);
   const crewId = crew?.crewId;
   
+  console.log(crew);
+  
   useEffect(() => {
     if (!crewId || !userId) return;
     reqCrewMember({ crewId, userId })
