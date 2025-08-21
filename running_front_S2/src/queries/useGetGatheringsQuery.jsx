@@ -3,6 +3,8 @@ import { reqCrewGatherings } from "../api/Crew/gatheringApi";
 
 export const useGetGatheringsQuery = (crewId) =>
   useQuery({
-    queryKey: ["gatherings"],
+    queryKey: ["gatherings", crewId],
     queryFn: async () => await reqCrewGatherings(crewId),
   });
+
+  
