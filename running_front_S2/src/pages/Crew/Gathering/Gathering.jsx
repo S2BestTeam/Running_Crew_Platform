@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { useState } from "react";
 import * as s from "./styles";
-import { MdAccessTimeFilled } from "react-icons/md";
-import { FaMapMarkerAlt, FaWonSign } from "react-icons/fa";
+import { MdAccessTimeFilled, MdDateRange } from "react-icons/md";
+import { FaCalendar, FaMapMarkerAlt, FaWonSign } from "react-icons/fa";
 import { useGetGatheringsQuery } from "../../../queries/useGetGatheringsQuery";
 import GatheringRegModal from "./GatheringRegModal/GatheringRegModal";
 import GatheringDetailModal from "./GatheringDetailModal/GatheringDetailModal";
@@ -32,25 +32,28 @@ function Gathering({ crewId }) {
           <h2>정모 일정</h2>
           <button onClick={() => setRegOpen(true)}>일정 등록</button>
         </header>
-        <main>
-          {gatherings.map((g, idx) => (
+        <main css={s.gatheringMain}>
+          {gatherings.map((g) => (
             <div
               css={s.gatheringContainer}
-              key={idx}
               onClick={() => handleOpenDetailModal(g)}
             >
               <div css={s.thumbnailImg}>
                 <img src={g.thumbnailPicture} alt={g.title} />
               </div>
               <div css={s.gatheringInfoContainer}>
-                <div>{g.title}</div>
+                <div css={s.gatheringTitle}>{g.title}</div>
+                <div>
+                  <div>
+                    <FaCalendar />
+                  </div>
+                  <div>{g.runningDate}</div>
+                </div>
                 <div>
                   <div>
                     <MdAccessTimeFilled />
                   </div>
-                  <div>
-                    {g.runningDate} {g.runningTime}
-                  </div>
+                  <div>{g.runningTime}</div>
                 </div>
                 <div>
                   <div>
@@ -66,7 +69,7 @@ function Gathering({ crewId }) {
                 </div>
                 <div>
                   <div css={s.profileImg}>
-                    <img src={g.user.picture} />
+                    <img src={g.user.picture} alt="프로필 사진" />
                   </div>
                   <div> 1 / {g.maxParticipants}</div>
                 </div>
