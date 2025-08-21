@@ -14,7 +14,7 @@ import Loading from "../../../components/Loading/Loading";
 import LeftSideBarLayout from "../../../components/LeftSideBarLayout/LeftSideBarLayout";
 
 
-function LeftBar() {
+function CCategory() {
   const navigate = useNavigate();
   const principal = usePrincipalQuery();
   const userId = principal?.data?.data?.body?.user?.userId;
@@ -108,4 +108,4 @@ function LeftBar() {
   );
 }
 
-export default LeftBar;
+export default CCategory;

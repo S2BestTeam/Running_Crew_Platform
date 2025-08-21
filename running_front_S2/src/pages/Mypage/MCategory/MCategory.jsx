@@ -1,12 +1,11 @@
 /** @jsxImportSource @emotion/react */
+import LeftSideBarLayout from '../../../components/LeftSideBarLayout/LeftSideBarLayout';
+import usePrincipalQuery from '../../../queries/usePrincipalQuery';
+import MypageModify from '../Modify/MypageModify';
 import * as s from './styles';
 import { Route, Routes } from 'react-router-dom';
-import usePrincipalQuery from '../../queries/usePrincipalQuery';
-import MypageModify from './Modify/MypageModify';
-import { useEffect } from 'react';
-import LeftSideBarLayout from '../../components/LeftSideBarLayout/LeftSideBarLayout';
 
-function Mypage(props) {
+function MCategory(props) {
   const principal = usePrincipalQuery();
   const user = principal?.data?.data?.body?.user;
 
@@ -43,4 +42,4 @@ function Mypage(props) {
   );
 }
 
-export default Mypage;
+export default MCategory;
