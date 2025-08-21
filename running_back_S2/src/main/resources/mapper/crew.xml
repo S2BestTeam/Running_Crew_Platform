@@ -25,18 +25,17 @@
     </resultMap>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="crewId">
-        INSERT INTO crew_tb ( user_id, gungu_id, crew_name, title, content, limited_people, profile_picture ,
-        thumbnail_picture)
-        VALUES ( #{userId}, #{gunguId}, #{crewName}, #{title}, #{content}, #{limitedPeople}, #{profilePicture},
-        #{thumbnailPicture} )
+        INSERT INTO crew_tb
+                ( user_id, gungu_id, crew_name, title, content, limited_people, profile_picture, thumbnail_picture)
+        VALUES ( #{userId}, #{gunguId}, #{crewName}, #{title}, #{content}, #{limitedPeople}, #{profilePicture}, #{thumbnailPicture} )
     </insert>
 
     <select id="findByCrewName" resultType="com.korit.running_back_s2.domain.crew.Crew">
         select
             crew_id,
             gungu_id,
-            convert_url('${serverHost}', '/image/crew/profile/', profile_picture) as profile_picture,
-            convert_url('${serverHost}', '/image/crew/thumbnail/', thumbnail_picture) as thumbnail_picture,
+            profile_picture,
+            thumbnail_picture,
             crew_name,
             user_id,
             title,
@@ -58,8 +57,8 @@
             ct.crew_name as crew_name,
             ct.title as title,
             ct.content as content,
-            convert_url('${serverHost}', '/image/crew/profile/', ct.profile_picture) as profile_picture,
-            convert_url('${serverHost}', '/image/crew/thumbnail/', ct.thumbnail_picture) as thumbnail_picture,
+            ct.profile_picture as profile_picture,
+            ct.thumbnail_picture as thumbnail_picture,
             ct.limited_people as limited_people,
             ct.user_id AS user_id,
             ct.created_at AS created_at,
@@ -75,8 +74,8 @@
             ct.crew_id as crew_id,
             ct.gungu_id as gungu_id ,
             gt.gungu_name as gungu_name,
-            convert_url('${serverHost}', '/image/crew/profile/', ct.profile_picture) as profile_picture,
-            convert_url('${serverHost}', '/image/crew/thumbnail/', ct.thumbnail_picture) as thumbnail_picture,
+            ct.profile_picture as profile_picture,
+            ct.thumbnail_picture as thumbnail_picture,
             ct.crew_name as crew_name,
             ct.user_id as user_id,
             ct.title as title,

@@ -27,12 +27,6 @@ public class UserController {
         return ResponseEntity.ok(ResponseDto.success(userService.checkNickname(nickname)));
     }
 
-
-//    @GetMapping("/{userId}/reports")
-//    public  ResponseEntity<ResponseDto<?>> getReports(@PathVariable Integer userId) {
-//        return ResponseEntity.ok(ResponseDto.success(userService.getReport(userId)));
-//    }
-
     @GetMapping("/{userId}/mypage/")
     public ResponseEntity<ResponseDto<?>> getUserWelcome(@PathVariable Integer userId) {
         return ResponseEntity.ok(ResponseDto.success(userService.getWelcomeByUserId(userId)));
@@ -51,11 +45,4 @@ public class UserController {
         userService.updateUserInfo(dto);
         return ResponseEntity.ok(ResponseDto.success("유저 정보 수정 완료"));
     }
-
-//    @PutMapping("/users/{userId}")
-//    public ResponseEntity<ResponseDto<?>> updateUserInfo(@RequestBody UserMyPageUpdateReqDto dto) {
-//        userService.updateMyPage(dto);
-//        System.out.println(dto);
-//        return ResponseEntity.ok(ResponseDto.success("수정 완료"));
-//    }
 }

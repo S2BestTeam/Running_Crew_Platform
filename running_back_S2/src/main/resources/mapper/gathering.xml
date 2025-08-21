@@ -63,7 +63,7 @@
             cgt.user_id as cgt_user_id,
             cgt.title,
             cgt.content,
-            convert_url('${serverHost}', '/image/crew/gathering/', thumbnail_picture) as thumbnail_picture,
+            thumbnail_picture as thumbnail_picture,
             cgt.running_date,
             cgt.running_time,
             cgt.place_name,
@@ -76,7 +76,7 @@
             ut.user_id,
             ut.nickname,
             ut.full_name,
-            convert_url('${serverHost}', '/image/profile/', ut.picture) as picture
+            ut.picture as picture
         FROM
             gathering_tb cgt
             left outer join user_tb ut on (ut.user_id = cgt.user_id)

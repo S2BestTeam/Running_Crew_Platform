@@ -13,6 +13,7 @@ public interface UserMapper {
     User findById(Integer userId);
     User findByNickname(String nickname);
     int updateProfileImgById(Integer userId, String picture);
+    String findPictureById(Integer userId);
     List<WelcomeByUserIdResDto> findWelcomeByUserId(Integer userId);
 //    List<ReportReqDto> findReportsByUserId(Integer memberId);
     int updateUser(User user);

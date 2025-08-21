@@ -4,6 +4,7 @@ import com.korit.running_back_s2.domain.user.User;
 import com.korit.running_back_s2.domain.user.UserMapper;
 import com.korit.running_back_s2.security.jwt.JwtUtil;
 import com.korit.running_back_s2.security.model.PrincipalUser;
+import com.korit.running_back_s2.util.AppProperties;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,8 +22,7 @@ public class JwtFilter implements Filter {
 
     private final JwtUtil jwtUtil;
     private final UserMapper userMapper;
-    @Value("${server.domain}")
-    private String domain;
+    private final AppProperties appProperties;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -62,8 +62,8 @@ public class JwtFilter implements Filter {
         }
 
         if (!foundUser.getPicture().startsWith("http")) {
-            String newProfileImg = domain + "/image/profile/" + foundUser.getPicture();
-            System.out.println(newProfileImg);
+            String prefix = appProperties.getImageConfigs().get("profile").getPrefix();
+            String newProfileImg = prefix + "/" + foundUser.getPicture();
             foundUser.setPicture(newProfileImg);
         }
 

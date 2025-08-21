@@ -10,9 +10,26 @@ spring:
   config:
     activate:
       on-profile: local-server
-server:
-  domain: http://localhost:8080
 
+app:
+  server-host: "http://localhost:8080"
+  image-configs:
+    profile :
+      prefix: "${app.server-host}/image/profile"
+      dir-path: "${user.dir}/upload/profile"
+      default-img: "default.jpg"
+    crewProfile :
+      prefix: "${app.server-host}/image/crew/profile"
+      dir-path: "${user.dir}/upload/crew/profile"
+      default-img: "default.jpg"
+    crewThumbnail :
+      prefix: "${app.server-host}/image/crew/thumbnail"
+      dir-path: "${user.dir}/upload/crew/thumbnail"
+      default-img: "default.jpg"
+    crewGathering :
+      prefix: "${app.server-host}/image/crew/gathering"
+      dir-path: "${user.dir}/upload/crew/gathering"
+      default-img: "default.jpg"
 ---
 
 spring:
@@ -28,5 +45,3 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
   type-aliases-package: com.korit.running_back_s2.domain
-  configuration-properties:
-    serverHost: "${server.domain}"

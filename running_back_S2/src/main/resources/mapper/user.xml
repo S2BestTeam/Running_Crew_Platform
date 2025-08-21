@@ -20,6 +20,15 @@
         <result property="totalKm"          column="total_km" />
     </resultMap>
 
+    <select id="findPictureById" resultType="string" parameterType="int">
+        select
+            picture
+        from
+            user_tb
+        where
+            user_id = #{userId}
+    </select>
+
     <update id="updateProfileImgById">
         update user_tb
         set picture = #{picture}
@@ -41,7 +50,7 @@
             oauth_type,
             provider_id,
             email,
-            convert_url('${serverHost}', '/image/profile/', picture) as picture,
+            picture
             full_name,
             nickname,
             phone_number,
@@ -62,7 +71,7 @@
             oauth_type,
             provider_id,
             email,
-            convert_url('${serverHost}', '/image/profile/', picture) as picture,
+            picture,
             full_name,
             nickname,
             phone_number,
@@ -83,7 +92,7 @@
             oauth_type,
             provider_id,
             email,
-            convert_url('${serverHost}', '/image/profile/', picture) as picture,
+            picture,
             full_name,
             nickname,
             phone_number,

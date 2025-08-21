@@ -2,10 +2,8 @@
 import * as s from "./styles";
 import { useEffect, useState } from "react";
 import usePrincipalQuery from "../../../queries/usePrincipalQuery";
-import { reqCheckNickname, reqUserInfoUpdate, reqUserProfileUpdate } from "../../../api/User/userApi";
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
 import { SIGNUP_REGEX, SIGNUP_REGEX_ERROR_MESSAGE } from "../../../constants/signupRegex";
+import { reqCheckNickname, reqUserInfoUpdate, reqUserProfileUpdate } from "../../../api/User/userApi";
 
 function MypageModify() {
   const principalQuery = usePrincipalQuery();
