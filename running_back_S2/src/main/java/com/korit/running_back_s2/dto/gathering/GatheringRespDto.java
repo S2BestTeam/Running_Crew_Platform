@@ -1,5 +1,6 @@
 package com.korit.running_back_s2.dto.gathering;
 
+import com.korit.running_back_s2.domain.user.User;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,4 +20,6 @@ public class GatheringRespDto {
     private Integer km;
     private Integer cost;
     private Integer maxParticipants;
+
+    private User user;
 }

@@ -56,7 +56,7 @@
         );
     </insert>
 
-    <select id="findAllByCrewId" resultType="com.korit.running_back_s2.dto.gathering.GatheringRespDto">
+    <select id="findAllByCrewId" resultMap="GatheringMap">
         SELECT
             cgt.gathering_id,
             cgt.crew_id,

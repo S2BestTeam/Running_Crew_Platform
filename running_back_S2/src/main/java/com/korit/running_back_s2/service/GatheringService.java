@@ -33,9 +33,11 @@ public class GatheringService {
         gatheringMapper.insert(gathering);
     }
 
-    public List<GatheringRespDto> getGatherings(Integer crewId) {
-        List<GatheringRespDto> gatherings = gatheringMapper.findAllByCrewId(crewId);
+    public List<Gathering> getGatherings(Integer crewId) {
+        // Mapper에서 Gathering 엔티티 리스트 조회
+        List<Gathering> gatherings = gatheringMapper.findAllByCrewId(crewId);
 
+        // 썸네일 URL 변환
         gatherings.forEach(g -> {
             if (g.getThumbnailPicture() != null) {
                 g.setThumbnailPicture(imageUrlUtil.buildImageUrl(g.getThumbnailPicture(), "crewGathering"));
