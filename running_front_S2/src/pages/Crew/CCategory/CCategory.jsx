@@ -12,14 +12,10 @@ import FreeBoard from "../FreeBoard/FreeBoard";
 import CrewInfo from "../Information/CrewInfo";
 import Loading from "../../../components/Loading/Loading";
 import LeftSideBarLayout from "../../../components/LeftSideBarLayout/LeftSideBarLayout";
-<<<<<<< HEAD
 import MainContainer from "../../../components/MainContainer/MainContainer";
 import ContentLayout from "../../../components/ContentLayout/ContentLayout";
-
-=======
 import Gathering from "../Gathering/Gathering";
-import BoardList from "../Board/BoardList/BoardList";
->>>>>>> origin/정모-일정-등록-수정중
+
 
 function CCategory() {
   const navigate = useNavigate();
@@ -72,13 +68,7 @@ function CCategory() {
       <button onClick={() => navigate(`/crews/${crewId}/welcome`)}>
         가입 인사
       </button>
-<<<<<<< HEAD
       <button onClick={() => navigate(`/crews/${crewId}/freeBoards`)}>자유게시판</button>
-=======
-      <button onClick={() => navigate(`/crews/${crewId}/board`)}>
-        자유게시판
-      </button>
->>>>>>> origin/정모-일정-등록-수정중
       <button>사진첩</button>
       <button>공지사항</button>
       <button>문의사항</button>
@@ -107,7 +97,6 @@ function CCategory() {
       profileSection={profileSection}
       navigationButtons={navigationButtons}
       bottomSection={bottomSection}
-<<<<<<< HEAD
       >
         <ContentLayout>
           <Routes>
@@ -121,25 +110,6 @@ function CCategory() {
         </ContentLayout>
       </LeftSideBarLayout>
     </MainContainer>
-=======
-    >
-      <Routes>
-        <Route path="/" element={<CrewInfo />} />
-        <Route
-          path="/welcome"
-          element={<Welcome isCrewLeader={isCrewLeader} />}
-        />
-        <Route path="/board" element={<BoardList />} />
-        <Route path="/report" element={<Report />} />
-        <Route path="/gathering" element={<Gathering crewId={crewId} />} />
-        <Route path="/members" element={<Member />} />
-        <Route
-          path="/report"
-          element={<Report crewId={crewId} isCrewLeader={isCrewLeader} />}
-        />
-      </Routes>
-    </LeftSideBarLayout>
->>>>>>> origin/정모-일정-등록-수정중
   );
 }
 

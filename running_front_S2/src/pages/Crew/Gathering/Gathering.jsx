@@ -13,9 +13,6 @@ function Gathering({ crewId }) {
   const [isRegOpen, setRegOpen] = useState(false);
   const [isDetailOpen, setDetailOpen] = useState(false);
   const [selectedGathering, setSelectedGathering] = useState(null);
-<<<<<<< HEAD
-  const gatherings = gatheringsQuery?.data?.data.body || [];
-=======
   const [gatherings, setGatherings] = useState([]);
 
   useEffect(() => {
@@ -23,7 +20,6 @@ function Gathering({ crewId }) {
       setGatherings(gatheringsQuery.data.data.body);
     }
   }, [gatheringsQuery?.data]);
->>>>>>> origin/정모-일정-등록-수정중
 
   const handleModalClose = () => {
     setRegOpen(false);

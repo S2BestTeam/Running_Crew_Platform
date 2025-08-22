@@ -80,13 +80,8 @@ function GatheringDetailModal({ isOpen, onClose, gathering, onUpdateParticipants
             <div>최대인원: {gathering.maxParticipants}</div>
             <div>현재참석자: {gathering.currentParticipants || 0}</div>
             <div css={s.profile}>
-<<<<<<< HEAD
               <img src={gathering?.user.picture} alt="작성자" />
               <span>{gathering?.user.fullName || "알 수 없음"}</span>
-=======
-              <img src={gathering.user?.picture} alt="작성자" />
-              <span>{gathering.user?.fullName || "알 수 없음"}</span>
->>>>>>> origin/정모-일정-등록-수정중
             </div>
           </div>
           <button onClick={onClose}>닫기</button>

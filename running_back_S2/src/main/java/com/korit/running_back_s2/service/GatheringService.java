@@ -37,12 +37,8 @@ public class GatheringService {
     }
 
     public List<Gathering> getGatherings(Integer crewId) {
-<<<<<<< HEAD
-        List<Gathering> gatherings = gatheringMapper.findAllByCrewId(crewId);
-=======
         Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
         List<Gathering> gatherings = gatheringMapper.findAllByCrewId(crewId, userId);
->>>>>>> origin/정모-일정-등록-수정중
 
         gatherings.forEach(g -> {
             if (g.getThumbnailPicture() != null) {

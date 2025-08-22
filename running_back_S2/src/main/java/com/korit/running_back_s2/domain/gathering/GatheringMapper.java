@@ -9,9 +9,5 @@ import java.util.List;
 @Mapper
 public interface GatheringMapper {
     int insert(Gathering gathering);
-<<<<<<< HEAD
-    List<Gathering> findAllByCrewId(Integer crewId);
-=======
     List<Gathering> findAllByCrewId(@Param("crewId") Integer crewId, @Param("userId") Integer userId);
->>>>>>> origin/정모-일정-등록-수정중
 }

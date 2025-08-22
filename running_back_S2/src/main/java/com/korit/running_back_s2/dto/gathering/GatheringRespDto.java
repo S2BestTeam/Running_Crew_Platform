@@ -21,8 +21,6 @@ public class GatheringRespDto {
     private Integer cost;
     private Integer maxParticipants;
 
-<<<<<<< HEAD
     private User user;
-=======
->>>>>>> origin/정모-일정-등록-수정중
+
 }
