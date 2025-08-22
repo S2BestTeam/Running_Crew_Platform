@@ -12,6 +12,8 @@ import Report from "../Report/Report";
 import CrewInfo from "../Information/CrewInfo";
 import Loading from "../../../components/Loading/Loading";
 import LeftSideBarLayout from "../../../components/LeftSideBarLayout/LeftSideBarLayout";
+import MainContainer from "../../../components/MainContainer/MainContainer";
+import ContentLayout from "../../../components/ContentLayout/ContentLayout";
 
 
 function CCategory() {
@@ -91,19 +93,24 @@ function CCategory() {
   );
 
   return (
-    <LeftSideBarLayout
+    <MainContainer>
+      <LeftSideBarLayout
       profileSection={profileSection}
       navigationButtons={navigationButtons}
       bottomSection={bottomSection}
-    >
-        <Routes>
-          <Route path="/" element={<CrewInfo />} />
-          <Route path="/welcome" element={<Welcome isCrewLeader={isCrewLeader} />}/>
-          <Route path="/gathering" element={<Gathering crewId={crewId} />}/>
-          <Route path="/members" element={<Member />} />
-          <Route path="/report" element={<Report crewId={crewId} isCrewLeader={isCrewLeader} />} />
-        </Routes>
-    </LeftSideBarLayout>
+      >
+        <ContentLayout>
+
+          <Routes>
+            <Route path="/" element={<CrewInfo />} />
+            <Route path="/welcome" element={<Welcome isCrewLeader={isCrewLeader} />}/>
+            <Route path="/gathering" element={<Gathering crewId={crewId} />}/>
+            <Route path="/members" element={<Member />} />
+            <Route path="/report" element={<Report crewId={crewId} isCrewLeader={isCrewLeader} />} />
+          </Routes>
+        </ContentLayout>
+      </LeftSideBarLayout>
+    </MainContainer>
   );
 }
 

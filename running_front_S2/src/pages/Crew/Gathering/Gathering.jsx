@@ -6,6 +6,7 @@ import { FaCalendar, FaMapMarkerAlt, FaWonSign } from "react-icons/fa";
 import { useGetGatheringsQuery } from "../../../queries/useGetGatheringsQuery";
 import GatheringRegModal from "./GatheringRegModal/GatheringRegModal";
 import GatheringDetailModal from "./GatheringDetailModal/GatheringDetailModal";
+import ContentLayout from "../../../components/ContentLayout/ContentLayout";
 
 function Gathering({ crewId }) {
   const gatheringsQuery = useGetGatheringsQuery(crewId);
@@ -26,8 +27,8 @@ function Gathering({ crewId }) {
   };
 
   return (
-    <>
-      <div css={s.mainBox}>
+    <ContentLayout>
+      <div css={s.layout}>
         <header>
           <h2>정모 일정</h2>
           <button onClick={() => setRegOpen(true)}>일정 등록</button>
@@ -91,7 +92,7 @@ function Gathering({ crewId }) {
         onClose={handleModalClose}
         gathering={selectedGathering}
       />
-    </>
+    </ContentLayout>
   );
 }
 

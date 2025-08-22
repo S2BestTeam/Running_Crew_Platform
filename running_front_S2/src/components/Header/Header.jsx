@@ -91,25 +91,25 @@ function Header(props) {
             <div css={s.menuDetail}>
               <div>크루정보</div>
               <div onClick={() => navigate("/crew/register")}>크루등록</div>
-              <a href="#" onClick={() => navigate("/crews")}>지역별 크루</a>
+              <a href="" onClick={() => navigate("/crews")}>지역별 크루</a>
             </div>
             <div css={s.menuDetail}>
               <div>랭킹정보</div>
-              <a href="#">크루랭킹</a>
-              <a href="#">개인랭킹</a>
+              <a href="">크루랭킹</a>
+              <a href="">개인랭킹</a>
             </div>
             <div css={s.menuDetail}>
               <div>커뮤니티</div>
-              <a href="#">자유게시판</a>
+              <a href="">자유게시판</a>
             </div>
             <div css={s.menuDetail}>
               <div>대회정보</div>
-              <a href="#">대회일정</a>
-              <a href="#">캘린더</a>
+              <a href="">대회일정</a>
+              <a href="">캘린더</a>
             </div>
             <div css={s.menuDetail}>
               <div>고객센터</div>
-              <a href="#">공지사항</a>
+              <a href="">공지사항</a>
               <div onClick={() => navigate("/inquiry")}>러너의 소리</div>
             </div>
           </div>

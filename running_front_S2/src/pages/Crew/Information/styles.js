@@ -1,8 +1,7 @@
 import { css } from "@emotion/react";
 
 export const mainBox = css`
-  flex: 1;
-  padding-left: 2rem;
+  width: 96%;
 `;
 
 export const mainLine = css`

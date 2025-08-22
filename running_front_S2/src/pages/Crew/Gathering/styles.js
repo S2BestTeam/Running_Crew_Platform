@@ -1,8 +1,7 @@
 import { css } from "@emotion/react";
 
-export const mainBox = css`
-  flex: 1;
-  padding: 2rem;
+export const layout = css`
+  width: 100%;
 `;
 
 export const instruction = css`
@@ -40,8 +39,7 @@ export const clickableRow = css`
 
   &:hover {
     background-color: #e3f2fd !important;
-  }import { icons } from '../../../components/Header/styles';
-
+  }
 `;
 
 export const contentCell = css`
@@ -274,6 +272,7 @@ export const closeBtn = css`
 
 export const gatheringMain = css`
   display: grid;
+  width: 100%;
   grid-template-columns: repeat(3, 1fr);
   gap: 3rem 1rem;
 `;

@@ -8,20 +8,70 @@ import MainContainer from "../../../components/MainContainer/MainContainer";
 import { FaHeart } from 'react-icons/fa';
 import { FiHeart } from 'react-icons/fi';
 import { motion } from "framer-motion";
+import { addWishlist, getUserWishlist, removeWishlist } from '../../../api/Crew/wishlist';
+import usePrincipalQuery from '../../../queries/usePrincipalQuery';
 
 function List() {
   const navigate = useNavigate();
+  const principal = usePrincipalQuery();
+  const userId = principal?.data?.data?.body?.user?.userId;
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get("page") || "1", 10);
   const searchText = searchParams.get("searchText") || "";
   const selectedGunguId = searchParams.get("gunguId") || "";
-  const [liked, setLiked] = useState(false);
+  const [wishlist, setWishlist] = useState([]);
   const [searchInput, setSearchInput] = useState(searchText);
+  
+  useEffect(() => {
+    const loadUserWishlist  = async () => {
+      if (userId) {
+        try {
+          const response = await getUserWishlist(userId);
+          const crewIds = response.data.body.map(wish => wish.crewId);
+          setWishlist(crewIds);
+        } catch (error) {
+          console.error('위시리스트 불러오기 실패:', error);
+        }
+      }
+    };
+    
+    loadUserWishlist();
+  }, [userId]);
 
-  const handleLike = (e) => {
+  const handleLike = async (e, crewId) => {
     e.stopPropagation();
-    setLiked(!liked);
+    const isCurrentlyLiked = wishlist.includes(crewId);
+
+    const mywish = {
+    crewId: crewId,
+    userId: userId
   };
+    
+    setWishlist(prev => {
+      if (prev.includes(crewId)) {
+        return prev.filter(id => id !== crewId);
+      } else {
+        return [...prev, crewId];
+      }
+    });
+    
+    try {
+      if (isCurrentlyLiked) {
+        await removeWishlist(mywish);
+      } else {
+        await addWishlist(mywish);
+      }
+    } catch (error) {
+      setWishlist(prev => {
+        if (isCurrentlyLiked) {
+          return [...prev, crewId];
+        } else {
+          return prev.filter(id => id !== crewId);
+        }
+      });
+    };
+  }
+  
 
   const crewListQuery = useGetCrewListQuery({
     page,
@@ -29,6 +79,7 @@ function List() {
     searchText,
     gunguId: selectedGunguId,
   });
+
   const gunguQuery = useGetGunguListQuery();
   const gunguList = gunguQuery?.data?.data?.body || [];
 
@@ -105,33 +156,37 @@ function List() {
         </div>
 
         <div css={s.gridBox}>
-          {crewList.length === 0 ? (
+            {crewList.length === 0 ? (
             <p>크루가 없습니다.</p>
           ) : (
-            crewList.map((crew) => (
-              <div
-              key={crew.crewId}
-              css={s.cards}
-              onClick={() => navigate(`/crews/${crew.crewId}`)}
-              >
-                <div css={s.tumbnailBox}>
-                  <img src={crew?.thumbnailPicture} alt="" />
-                  <motion.div
-                    css={s.heartIcon}
-                    onClick={handleLike}
-                    animate={{ scale: liked ? [1, 1.4, 1] : [1, 0.8, 1] }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {liked ? <FaHeart color="red" /> : <FiHeart color="black" />}
-                  </motion.div>
+            crewList.map((crew) => {
+              const isLiked = wishlist.includes(crew.crewId);
+              
+              return (
+                <div
+                  key={crew.crewId}
+                  css={s.cards}
+                  onClick={() => navigate(`/crews/${crew.crewId}`)}
+                >
+                  <div css={s.tumbnailBox}>
+                    <img src={crew?.thumbnailPicture} alt="" />
+                    <motion.div
+                      css={s.heartIcon}
+                      onClick={(e) => handleLike(e, crew.crewId)}
+                      animate={{ scale: isLiked ? [1, 1.4, 1] : [1, 0.8, 1] }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {isLiked ? <FaHeart color="red" /> : <FiHeart color="black" />}
+                    </motion.div>
+                  </div>
+                  <div css={s.textBox}>
+                    <div css={s.gungu}>{crew.gunguName}</div>
+                    <div css={s.crewName}>[{crew.crewName}]</div>
+                    <div css={s.crewTitle}>{crew.title}</div>
+                  </div>
                 </div>
-                <div css={s.textBox}>
-                  <div css={s.gungu}>{crew.gunguName}</div>
-                  <div css={s.crewName}>[{crew.crewName}]</div>
-                  <div css={s.crewTitle}>{crew.title}</div>
-                </div>
-              </div>
-            ))
+              );
+            })
           )}
         </div>
 
