@@ -1,7 +1,7 @@
 package com.korit.running_back_s2.controller;
 
 import com.korit.running_back_s2.domain.member.Member;
-import com.korit.running_back_s2.dto.member.MemberCheckReqDto;
+import com.korit.running_back_s2.dto.member.ExistsCheckReqDto;
 import com.korit.running_back_s2.dto.member.MemberRoleUpdateReqDto;
 import com.korit.running_back_s2.dto.response.ResponseDto;
 import com.korit.running_back_s2.service.MemberService;
@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/members")
@@ -18,14 +17,19 @@ public class MemberController {
 
     private final MemberService memberService;
 
+
+    @GetMapping("/{crewId}/count")
+    public ResponseEntity<ResponseDto<?>> getCrewMemberCount(@PathVariable Integer crewId) {
+        return ResponseEntity.ok(ResponseDto.success(memberService.countMember(crewId)));
+    }
+
     @PostMapping("/exists")
-    public ResponseEntity<ResponseDto<?>> existsMember(@RequestBody MemberCheckReqDto dto) {
-        return ResponseEntity.ok(ResponseDto.success(memberService.isCrewMember(dto)));
+    public ResponseEntity<ResponseDto<?>> existsMember(@RequestBody ExistsCheckReqDto dto) {
+        return ResponseEntity.ok(ResponseDto.success(memberService.isExists(dto)));
     }
 
     @PostMapping
     public ResponseEntity<ResponseDto<?>> registerCrewMember(@RequestBody Member member) {
-        System.out.println(member);
         memberService.registerMember(member);
         return ResponseEntity.ok(ResponseDto.success("크루 멤버 등록 성공"));
     }

@@ -7,7 +7,7 @@ import { reqCheckNickname, reqUserInfoUpdate, reqUserProfileUpdate } from "../..
 
 function MypageModify() {
   const principalQuery = usePrincipalQuery();
-  const userInfo = principalQuery.data?.data?.body.user;
+  const userInfo = principalQuery.data?.data?.body?.user;
   const userId = userInfo?.userId;
 
   const [updateUser, setUpdateUser] = useState({

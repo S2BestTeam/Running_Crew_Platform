@@ -9,10 +9,15 @@ import CrewRegister from "./pages/Crew/Register/CrewRegister";
 import CCategory from "./pages/Crew/CCategory/CCategory";
 import MCategory from "./pages/Mypage/MCategory/MCategory";
 import ReactModal from "react-modal";
-
+import { useKakaoLoader } from "react-kakao-maps-sdk";
 
 function App() {
-  ReactModal.setAppElement('#root');
+  console.log("!!");
+  const mapLoader = useKakaoLoader({
+    appkey: import.meta.env.VITE_KAKAO_JAVASCRIPT_KEY,
+    libraries: ["clusterer", "drawing", "services"],
+  });
+  ReactModal.setAppElement("#root");
   return (
     <>
       <Header />

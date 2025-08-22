@@ -2,23 +2,12 @@
 import { css } from "@emotion/react";
 
 export const layout = css`
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-  padding-left: 10rem;
+  width: 96%;
 `;
 
-export const rightPane = css`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-`;
-
-/* ⬇️ (input | button) 한 줄 + 아래로 리스트가 전폭 차지 */
 export const searchBar = css`
   display: grid;
-  grid-template-columns: 1fr auto;  /* input(늘어남) | button(작게) */
+  grid-template-columns: 1fr auto;
   grid-auto-rows: min-content;
   gap: 8px;
   width: 100%;
@@ -56,8 +45,7 @@ export const searchBar = css`
 
 /* ⬇️ 멤버 리스트 박스 (스크롤) */
 export const scrollBox = css`
-  width: 100%;
-  height: 70vh;
+  width: 98%;
   overflow-y: auto;
   padding: 12px;
   border: 1px solid #eee;

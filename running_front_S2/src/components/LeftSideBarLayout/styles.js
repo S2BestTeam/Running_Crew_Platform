@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 export const layout = css`
   display: flex;
   flex-direction: row;
-  padding-top: 2rem;
+  padding-left: 1.6rem;
 `;
 
 export const leftBox = css`
@@ -16,12 +16,12 @@ export const leftBox = css`
   padding: 1rem;
   background-color: #ffffff;
   top: 0;
-`;
 
+  height: 100%;
+`;
 
 export const rightContent = css`
   flex: 1;
-  padding: 20px;
   background-color: white;
 `;
 

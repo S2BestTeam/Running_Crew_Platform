@@ -19,3 +19,4 @@ export const reqGetCrewList = ({ page, size, gunguId, searchText }) => {
     params: { page, size, gunguId, searchText },
   });
 };
+

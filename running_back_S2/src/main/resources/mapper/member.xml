@@ -105,7 +105,7 @@
     </select>
 
 
-    <select id="existsFindByMemberId" resultType="java.lang.Boolean">
+    <select id="existsFind" resultType="java.lang.Boolean">
         select exists (
                 select
                     1
@@ -114,7 +114,16 @@
                 where
                     crew_id = #{crewId}
                     and user_id = #{userId}
-                )
+                )  as exist
+    </select>
+
+    <select id="countMember" resultType="java.lang.Integer">
+        select
+            count(*)
+        from
+            member_tb
+        where
+            crew_id = #{crewId}
     </select>
 
     <update id="updateRole">

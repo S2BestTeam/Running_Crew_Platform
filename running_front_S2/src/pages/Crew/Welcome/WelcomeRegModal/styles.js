@@ -25,48 +25,12 @@ export const input = css`
   width: 100%;
   margin: 0.5rem 0 1rem;
   padding: 0.5rem;
-  height: 5rem;
   border: 1px solid #ccc;
   border-radius: 0.5rem;
-  box-sizing: border-box;
 `;
 
 export const buttons = css`
   display: flex;
+  justify-content: flex-end;
   gap: 0.5rem;
-  margin-top: 1.5rem;
-`;
-
-export const cancelButton = css`
-  flex: 1;
-  padding: 0.75rem 1rem;
-  background: #fff;
-  color: #000;
-  border: 2px solid #000;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  
-  &:hover {
-    background: #000;
-    color: #fff;
-  }
-`;
-
-export const confirmButton = css`
-  flex: 1;
-  padding: 0.75rem 1rem;
-  background: #000;
-  color: #fff;
-  border: 2px solid #000;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  
-  &:hover {
-    background: #333;
-    border-color: #333;
-  }
 `;

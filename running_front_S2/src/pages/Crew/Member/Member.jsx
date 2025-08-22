@@ -9,6 +9,7 @@ import useMembersQuery from "../../../queries/useMembersQuery";
 import { useEffect, useRef, useState } from "react";
 import MemberModal from "./MemberModal/MemberModal";
 import ReportModal from "../Report/ReportModal/ReportModal";
+import ContentLayout from "../../../components/ContentLayout/ContentLayout";
 
 function Member() {
   const { crewId } = useParams();
@@ -97,28 +98,31 @@ function Member() {
     );
   }
   return (
-    <div css={s.layout}>
-      <div css={s.rightPane}>
-        <div css={s.searchBar}>
-          <input value={searchInput} onChange={handleSearchOnChange} onKeyDown={handleSearchOnKeyDown} placeholder="닉네임/실명 검색" />
-          <button onClick={handleSearchOnClick}>검색</button>
-          <div ref={scrollBoxRef} css={s.scrollBox}>
-            {members.map((m) => (
-              <div key={m.memberId} css={s.memberItem} onClick={() => setSelectedMemberId(m.memberId)}>
-                <div css={s.memberInfo}>
-                  <div css={s.nickname}>
-                    {m.user.nickname}
-                    {m.roleId === 1 && <span css={s.roleIcon}>👑</span>}
-                    {m.roleId === 2 && <span css={s.roleIcon}>⭐</span>}
+    <ContentLayout>
+
+      <div css={s.layout}>
+        <h2>크루 멤버</h2>
+        <div>
+          <div css={s.searchBar}>
+            <input value={searchInput} onChange={handleSearchOnChange} onKeyDown={handleSearchOnKeyDown} placeholder="닉네임/실명 검색" />
+            <button onClick={handleSearchOnClick}>검색</button>
+            <div ref={scrollBoxRef} css={s.scrollBox}>
+              {members.map((m) => (
+                <div key={m.memberId} css={s.memberItem} onClick={() => setSelectedMemberId(m.memberId)}>
+                  <div css={s.memberInfo}>
+                    <div css={s.nickname}>
+                      {m.user.nickname}
+                      {m.roleId === 1 && <span css={s.roleIcon}>👑</span>}
+                      {m.roleId === 2 && <span css={s.roleIcon}>⭐</span>}
+                    </div>
+                    <div css={s.fullName}>{m.user.fullName}</div>
                   </div>
-                  <div css={s.fullName}>{m.user.fullName}</div>
                 </div>
-              </div>
-            ))}
-            <div ref={loadMoreRef} style={{ height: 8 }} />
-          </div>
-          {selectedMemberId && (
-            <MemberModal
+              ))}
+              <div ref={loadMoreRef} style={{ height: 8 }} />
+            </div>
+            {selectedMemberId && (
+              <MemberModal
               memberId={selectedMemberId}
               isOpen={!!selectedMemberId}
               isLeader={isLeader}
@@ -128,21 +132,21 @@ function Member() {
                 setSelectedMemberId(null);
                 setReportMemberId(memberId);
               }}
-            />
-          )}
-          +
-          {reportMemberId && (
-            <ReportModal
+              />
+            )}
+            {reportMemberId && (
+              <ReportModal
               crewId={crewId}
               memberId={reportMemberId}
               nickname={members.find(m => m.memberId === reportMemberId)?.nickname}
               isOpen={!!reportMemberId}
               onClose={() => setReportMemberId(null)}
-            />
-          )}
+              />
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </ContentLayout>
   );
 }
 

@@ -3,6 +3,7 @@ import useGetReportListQuery from "../../../queries/useGetReportListQuery";
 /** @jsxImportSource @emotion/react */
 import * as s from "./styles";
 import MemberModal from "../Member/MemberModal/MemberModal";
+import ContentLayout from "../../../components/ContentLayout/ContentLayout";
 
 function Report({ crewId, isCrewLeader }) {
   const isEnabled = !!crewId && !!isCrewLeader;
@@ -11,6 +12,7 @@ function Report({ crewId, isCrewLeader }) {
     enabled: isEnabled,
   });
   const [selectedMemberId, setSelectedMemberId] = useState(null);
+  console.log(data)
 
   if (!isCrewLeader) return null;
 
@@ -22,7 +24,7 @@ function Report({ crewId, isCrewLeader }) {
   };
 
   return (
-    <>
+    <ContentLayout>
       <table css={s.table}>
         <thead>
           <tr>
@@ -66,7 +68,7 @@ function Report({ crewId, isCrewLeader }) {
           onReport={() => {}}
         />
       )}
-    </>
+    </ContentLayout>
   );
 }
 export default Report;

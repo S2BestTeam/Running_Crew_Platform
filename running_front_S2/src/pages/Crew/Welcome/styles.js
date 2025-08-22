@@ -1,8 +1,7 @@
 import { css } from '@emotion/react';
 
 export const mainBox = css`
-  flex: 1;
-  padding: 2rem;
+  width: 96%;
 `;
 
 export const instruction = css`
@@ -43,6 +42,13 @@ export const clickableRow = css`
 `;
 
 export const contentCell = css`
+  max-width: 20rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+export const statusCell = css`
   max-width: 20rem;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -250,4 +256,12 @@ export const closeBtn = css`
   &:hover {
     background: #f0f0f0;
   }
+`;
+
+export const approvedText = css`
+  font-size: 1.2rem;
+`;
+
+export const rejectedText = css`
+
 `;
