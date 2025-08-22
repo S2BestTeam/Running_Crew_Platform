@@ -3,6 +3,7 @@ import * as s from "./styles";
 import ReactModal from "react-modal";
 import { MdAccessTimeFilled } from "react-icons/md";
 import { FaMapMarkerAlt, FaWonSign } from "react-icons/fa";
+import { fullName } from '../../Member/styles';
 
 function GatheringDetailModal({ isOpen, onClose, gathering }) {
 
@@ -57,7 +58,7 @@ function GatheringDetailModal({ isOpen, onClose, gathering }) {
             <p>최대인원: {gathering.maxParticipants}</p>
             <div css={s.profile}>
               <img src={gathering.user?.picture} alt="작성자" />
-              <span>{gathering.user?.name || "알 수 없음"}</span>
+              <span>{gathering.user?.fullName || "알 수 없음"}</span>
             </div>
           </div>
 

@@ -12,7 +12,6 @@ import {
 import { useNavigate } from "react-router-dom";
 import { reqRegisterGathering } from "../../../../api/Crew/gatheringApi";
 
-
 function GatheringRegModal({ crewId, isOpen, onClose }) {
   const navigate = useNavigate();
   const mapLoader = useKakaoLoader({
@@ -199,19 +198,24 @@ function GatheringRegModal({ crewId, isOpen, onClose }) {
           <h2>정모 일정 등록</h2>
         </header>
         <main css={s.main}>
-          <div>
-            {/* 썸네일 업로드 */}
-            <div>
-              <div>
-                <img src={preview.thumbnailPicture} />
-              </div>
-              <div
-                css={s.plus}
-                onClick={(e) => handleImgAddOnClick(e, "thumbnailPicture")}
-              >
-                <FiPlus />
-              </div>
-              <div>썸네일 이미지</div>
+          <div css={s.wrapper}>
+            {/* 썸네일 박스 */}
+            <div
+              css={s.thumbnailContainer}
+              onClick={(e) => handleImgAddOnClick(e, "thumbnailPicture")}
+            >
+              {preview?.thumbnailPicture ? (
+                <img
+                  src={preview.thumbnailPicture}
+                  alt="썸네일 미리보기"
+                  css={s.thumbnailImg}
+                />
+              ) : (
+                <>
+                  <div>이미지를 등록하세요</div>
+                  <FiPlus size={40} />
+                </>
+              )}
             </div>
           </div>
           <div>

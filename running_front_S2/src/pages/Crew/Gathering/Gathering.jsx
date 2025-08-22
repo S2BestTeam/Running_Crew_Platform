@@ -40,7 +40,7 @@ function Gathering({ crewId }) {
               onClick={() => handleOpenDetailModal(g)}
             >
               <div css={s.thumbnailImg}>
-                <img src={g?.thumbnailPicture} alt={g.title} />
+                <img src={g?.thumbnailPicture} alt="썸네일 이미지" />
               </div>
               <div css={s.gatheringInfoContainer}>
                 <div css={s.gatheringTitle}>{g.title}</div>

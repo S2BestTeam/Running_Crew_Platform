@@ -33,8 +33,8 @@ public class GatheringService {
         gatheringMapper.insert(gathering);
     }
 
-    public List<GatheringRespDto> getGatherings(Integer crewId) {
-        List<GatheringRespDto> gatherings = gatheringMapper.findAllByCrewId(crewId);
+    public List<Gathering> getGatherings(Integer crewId) {
+        List<Gathering> gatherings = gatheringMapper.findAllByCrewId(crewId);
 
         gatherings.forEach(g -> {
             if (g.getThumbnailPicture() != null) {

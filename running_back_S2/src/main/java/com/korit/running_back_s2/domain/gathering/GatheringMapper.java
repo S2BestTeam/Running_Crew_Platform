@@ -8,5 +8,5 @@ import java.util.List;
 @Mapper
 public interface GatheringMapper {
     int insert(Gathering gathering);
-    List<GatheringRespDto> findAllByCrewId(Integer crewId);
+    List<Gathering> findAllByCrewId(Integer crewId);
 }

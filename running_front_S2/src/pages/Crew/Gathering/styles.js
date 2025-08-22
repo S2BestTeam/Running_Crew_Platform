@@ -281,8 +281,6 @@ export const gatheringMain = css`
 export const gatheringContainer = css`
   display: flex;
   width: 30rem;
-  border: 0.1rem solid #ebebeb;
-  border-radius: 0.5rem;
   padding: 1rem;
 `;
 
@@ -290,7 +288,7 @@ export const thumbnailImg = css`
   margin-right: 1.5rem;
   width: 11rem;
   height: 15rem;
-  background-color: #000;
+  background-color: #ebebeb;
   border-radius: 1rem;
   overflow: hidden;
 
@@ -326,6 +324,7 @@ export const gatheringInfoContainer = css`
 export const profileImg = css`
   width: 2rem;
   height: 2rem;
+  margin-right: 0.5rem;
   background-color: #000;
   border-radius: 5rem;
   overflow: hidden;

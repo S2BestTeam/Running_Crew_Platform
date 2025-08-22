@@ -6,13 +6,13 @@ import { useEffect } from "react";
 import { useCrewStore } from "../../../stores/useCrewStroes";
 import useCrewDetailQuery from "../../../queries/useCrewDetailQuery";
 import Welcome from "../Welcome/Welcome";
-import Gathering from "../Gathering/Gathering";
 import Member from "../Member/Member";
 import Report from "../Report/Report";
 import CrewInfo from "../Information/CrewInfo";
 import Loading from "../../../components/Loading/Loading";
 import LeftSideBarLayout from "../../../components/LeftSideBarLayout/LeftSideBarLayout";
-
+import Gathering from "../Gathering/Gathering";
+import BoardList from "../Board/BoardList/BoardList";
 
 function CCategory() {
   const navigate = useNavigate();
@@ -50,9 +50,7 @@ function CCategory() {
       <div css={s.crewImgBox}>
         <img src={crew?.profilePicture} alt="크루 프로필 이미지" />
       </div>
-      <div css={s.crewNameBox}>
-        {crew.crewName}
-      </div>
+      <div css={s.crewNameBox}>{crew.crewName}</div>
     </div>
   );
 
@@ -67,7 +65,9 @@ function CCategory() {
       <button onClick={() => navigate(`/crews/${crewId}/welcome`)}>
         가입 인사
       </button>
-      <button>자유게시판</button>
+      <button onClick={() => navigate(`/crews/${crewId}/board`)}>
+        자유게시판
+      </button>
       <button>사진첩</button>
       <button>공지사항</button>
       <button>문의사항</button>
@@ -96,14 +96,21 @@ function CCategory() {
       navigationButtons={navigationButtons}
       bottomSection={bottomSection}
     >
-        <Routes>
-          <Route path="/" element={<CrewInfo />} />
-          <Route path="/welcome" element={<Welcome isCrewLeader={isCrewLeader} />}/>
-          <Route path="/report" element={<Report />} />
-          <Route path="/gathering" element={<Gathering crewId={crewId} />}/>
-          <Route path="/members" element={<Member />} />
-          <Route path="/report" element={<Report crewId={crewId} isCrewLeader={isCrewLeader} />} />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<CrewInfo />} />
+        <Route
+          path="/welcome"
+          element={<Welcome isCrewLeader={isCrewLeader} />}
+        />
+        <Route path="/board" element={<BoardList />} />
+        <Route path="/report" element={<Report />} />
+        <Route path="/gathering" element={<Gathering crewId={crewId} />} />
+        <Route path="/members" element={<Member />} />
+        <Route
+          path="/report"
+          element={<Report crewId={crewId} isCrewLeader={isCrewLeader} />}
+        />
+      </Routes>
     </LeftSideBarLayout>
   );
 }
