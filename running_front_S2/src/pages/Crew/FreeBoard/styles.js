@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 
 export const container = css`
-  padding: 5rem 0;
+  width: 96%;
 `;
 
 export const tabActive = css`
@@ -48,7 +48,7 @@ export const searchButton = css`
 
 export const registerButton = css`
   width: 12rem;
-  padding: 0.8rem 1.2rem;
+  padding: 0.6rem 1.2rem;
   background: #000;
   color: white;
   border-radius: 0.6rem;

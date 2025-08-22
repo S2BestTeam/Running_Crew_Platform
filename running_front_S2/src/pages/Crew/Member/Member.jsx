@@ -132,17 +132,10 @@ function Member() {
                 setSelectedMemberId(null);
                 setReportMemberId(memberId);
               }}
-<<<<<<< HEAD
               />
             )}
             {reportMemberId && (
               <ReportModal
-=======
-            />
-          )}
-          {reportMemberId && (
-            <ReportModal
->>>>>>> origin/42-크루-자유게시판-목록-가져오기
               crewId={crewId}
               memberId={reportMemberId}
               nickname={members.find(m => m.memberId === reportMemberId)?.nickname}
