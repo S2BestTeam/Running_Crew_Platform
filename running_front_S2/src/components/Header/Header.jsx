@@ -2,6 +2,7 @@
 import { useState } from "react";
 import * as s from "./styles";
 import { FiHeart, FiUser } from "react-icons/fi";
+import { TbLogout } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import usePrincipalQuery from "../../queries/usePrincipalQuery";
 import { useQueryClient } from "@tanstack/react-query";
@@ -117,7 +118,8 @@ function Header(props) {
       </nav>
       <div css={s.icons}>
         <div css={s.icon} onClick={handleLogout}>
-          <FiHeart />
+          {/* <FiHeart /> */}
+          <TbLogout />
         </div>
         {/* 로그인시 프로필 이미지로 바뀜*/}
         <div css={s.icon} onClick={handleProfileClick}>

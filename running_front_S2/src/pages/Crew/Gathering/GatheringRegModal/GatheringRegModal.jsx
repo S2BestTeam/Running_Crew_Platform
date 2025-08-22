@@ -174,6 +174,11 @@ function GatheringRegModal({ crewId, isOpen, onClose }) {
     onClose();
   };
 
+  if (!window.kakao || !window.kakao.maps) {
+  console.warn("Kakao SDK not ready");
+  return;
+}
+
   return (
     <ReactModal
       style={{

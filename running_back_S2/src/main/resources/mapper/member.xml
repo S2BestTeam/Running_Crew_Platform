@@ -5,7 +5,7 @@
 <mapper namespace="com.korit.running_back_s2.domain.member.MemberMapper">
 
     <resultMap id="MemberMap" type="com.korit.running_back_s2.domain.member.Member">
-        <id     property="memberId"             column="member_id"/>
+        <id     property="memberId"                 column="member_id"/>
         <result property="userId"                   column="cm_user_id"/>
         <result property="roleId"                   column="role_id"/>
         <association property="user" resultMap="UserMap" />

@@ -106,6 +106,7 @@ function CCategory() {
           <Route path="/gathering" element={<Gathering crewId={crewId} />}/>
           <Route path="/members" element={<Member />} />
           <Route path="/freeBoards" element={<FreeBoard crewId={crewId}/>} />
+          <Route path="/freeBoards/register" element={<FeedReg/>} />
           {/* <Route path="/feed" element={<FeedReg/>} /> */}
           {/* <Route path="/feed/detail" element={<FeedDetail/>} /> */}
           <Route path="/report" element={<Report crewId={crewId} isCrewLeader={isCrewLeader} />} />

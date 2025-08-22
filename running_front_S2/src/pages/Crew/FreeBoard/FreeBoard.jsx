@@ -1,5 +1,5 @@
 import { useMemo, useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import useGetCrewFreeBoardQuery from "../../../queries/useGetCrewFreeBoardQuery";
 import { IoSearch } from "react-icons/io5";
 /** @jsxImportSource @emotion/react */
@@ -8,6 +8,7 @@ import { BiSolidChevronRightSquare,BiSolidChevronLeftSquare } from "react-icons/
 
 
 function FreeBoard({ crewId }) {
+    const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
     const page = parseInt(searchParams.get("page") || "1", 10);
     const searchText = searchParams.get("searchText") || "";
@@ -57,7 +58,7 @@ function FreeBoard({ crewId }) {
                         <IoSearch />
                     </button>
                     {/* <button css={s.registerButton} onClick={() => navigate(`/community/${params.category}/register`)}> */}
-                    <button css={s.registerButton}>
+                    <button css={s.registerButton} onClick={() => navigate("./register")}>
                         게시글 등록
                     </button>
                 </div>

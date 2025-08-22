@@ -15,7 +15,7 @@
         <result property="thumbnailPicture"     column="thumbnail_picture"/>
         <result property="userId"               column="user_id"/>
         <result property="createdAt"            column="created_at"/>
-        <result property="totalKm"          column="total_km"/>
+        <result property="totalKm"              column="total_km"/>
         <result property="gunguName"            column="gungu_name"/>
     </resultMap>
 
