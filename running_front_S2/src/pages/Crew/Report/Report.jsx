@@ -12,6 +12,7 @@ function Report({ crewId, isCrewLeader }) {
     enabled: isEnabled,
   });
   const [selectedMemberId, setSelectedMemberId] = useState(null);
+  console.log(data)
 
   if (!isCrewLeader) return null;
 

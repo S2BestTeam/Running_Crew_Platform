@@ -55,8 +55,10 @@ public class SecurityConfig {
             auth.requestMatchers("/api/reports/**").permitAll();
             auth.requestMatchers("/api/members/**").permitAll();
             auth.requestMatchers("/api/welcomes/**").permitAll();
+            auth.requestMatchers("/api/freeBoards/**").permitAll();
             auth.requestMatchers("/oauth2/**").permitAll();
             auth.requestMatchers("/image/**").permitAll();
+
 
             auth.anyRequest().authenticated();
         });

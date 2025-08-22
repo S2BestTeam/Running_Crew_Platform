@@ -8,12 +8,19 @@ import useCrewDetailQuery from "../../../queries/useCrewDetailQuery";
 import Welcome from "../Welcome/Welcome";
 import Gathering from "../Gathering/Gathering";
 import Member from "../Member/Member";
-import Report from "../Report/Report";
+
 import CrewInfo from "../Information/CrewInfo";
 import Loading from "../../../components/Loading/Loading";
 import LeftSideBarLayout from "../../../components/LeftSideBarLayout/LeftSideBarLayout";
+<<<<<<< HEAD
 import MainContainer from "../../../components/MainContainer/MainContainer";
 import ContentLayout from "../../../components/ContentLayout/ContentLayout";
+=======
+import Report from "../Report/Report";
+import FreeBoard from "../FreeBoard/FreeBoard";
+import FeedReg from "../FreeBoard/FeedReg/FeedReg";
+
+>>>>>>> origin/42-크루-자유게시판-목록-가져오기
 
 
 function CCategory() {
@@ -69,7 +76,7 @@ function CCategory() {
       <button onClick={() => navigate(`/crews/${crewId}/welcome`)}>
         가입 인사
       </button>
-      <button>자유게시판</button>
+      <button onClick={() => navigate(`/crews/${crewId}/freeBoards`)}>자유게시판</button>
       <button>사진첩</button>
       <button>공지사항</button>
       <button>문의사항</button>
@@ -98,6 +105,7 @@ function CCategory() {
       profileSection={profileSection}
       navigationButtons={navigationButtons}
       bottomSection={bottomSection}
+<<<<<<< HEAD
       >
         <ContentLayout>
 
@@ -111,6 +119,20 @@ function CCategory() {
         </ContentLayout>
       </LeftSideBarLayout>
     </MainContainer>
+=======
+    >
+        <Routes>
+          <Route path="/" element={<CrewInfo />} />
+          <Route path="/welcome" element={<Welcome isCrewLeader={isCrewLeader} />}/>
+          <Route path="/gathering" element={<Gathering crewId={crewId} />}/>
+          <Route path="/members" element={<Member />} />
+          <Route path="/freeBoards" element={<FreeBoard crewId={crewId}/>} />
+          {/* <Route path="/feed" element={<FeedReg/>} /> */}
+          {/* <Route path="/feed/detail" element={<FeedDetail/>} /> */}
+          <Route path="/report" element={<Report crewId={crewId} isCrewLeader={isCrewLeader} />} />
+        </Routes>
+    </LeftSideBarLayout>
+>>>>>>> origin/42-크루-자유게시판-목록-가져오기
   );
 }
 
