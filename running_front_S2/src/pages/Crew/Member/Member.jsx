@@ -130,7 +130,6 @@ function Member() {
               }}
             />
           )}
-          +
           {reportMemberId && (
             <ReportModal
               crewId={crewId}
