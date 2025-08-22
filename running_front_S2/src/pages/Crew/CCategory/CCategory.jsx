@@ -99,7 +99,6 @@ function CCategory() {
         <Routes>
           <Route path="/" element={<CrewInfo />} />
           <Route path="/welcome" element={<Welcome isCrewLeader={isCrewLeader} />}/>
-          <Route path="/report" element={<Report />} />
           <Route path="/gathering" element={<Gathering crewId={crewId} />}/>
           <Route path="/members" element={<Member />} />
           <Route path="/report" element={<Report crewId={crewId} isCrewLeader={isCrewLeader} />} />
