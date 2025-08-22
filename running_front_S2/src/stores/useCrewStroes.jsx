@@ -7,5 +7,14 @@ export const useCrewStore = create((set) => ({
   crew: null,
   setCrew: (crewData) => set({ crew: crewData }),
 
-  resetCrew: () => set({ crewId: null, crew: null }),
+  isMember: false,
+  
+  setIsMember: (value) => set({ isMember: value }),
+
+  resetCrew: () =>
+    set({
+      crewId: null,
+      crew: null,
+      isMember: false,
+    }),
 }));

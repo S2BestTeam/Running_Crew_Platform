@@ -117,6 +117,15 @@
                 )  as exist
     </select>
 
+    <select id="countMember" resultType="java.lang.Integer">
+        select
+            count(*)
+        from
+            member_tb
+        where
+            crew_id = #{crewId}
+    </select>
+
     <update id="updateRole">
         update member_tb
         set

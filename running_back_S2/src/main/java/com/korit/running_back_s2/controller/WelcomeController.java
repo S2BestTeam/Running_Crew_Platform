@@ -24,4 +24,11 @@ public class WelcomeController {
         welcomeService.registerWelcome(crewId, dto);
         return ResponseEntity.ok(ResponseDto.success("등록성공"));
     }
+
+    @PatchMapping("/{welcomeId}")
+    public ResponseEntity<ResponseDto<?>> reJectWelcome(@PathVariable Integer welcomeId) {
+        welcomeService.reject(welcomeId);
+        return ResponseEntity.ok(ResponseDto.success("승인 거절 성공"));
+    }
+
 }

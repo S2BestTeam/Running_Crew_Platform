@@ -4,7 +4,7 @@ import * as s from './styles';
 import usePrincipalQuery from '../../../../queries/usePrincipalQuery';
 import { reqJoinCrew } from '../../../../api/Crew/welcomeApi';
 
-function WelcomeRegModal({setIsOpen, crewId}) {
+function WelcomeRegModal({setIsOpen, crewId, onSuccess, isMember }) {
   const principal = usePrincipalQuery();
   const userSimpleInfo = principal?.data?.data?.body?.user;
   const birthYear = new Date(userSimpleInfo.birthDate).getFullYear(); 
@@ -20,10 +20,11 @@ function WelcomeRegModal({setIsOpen, crewId}) {
     try {
       await reqJoinCrew(crewId, updatedCrewMember);
       alert("가입 신청이 완료되었습니다.")
+      if (onSuccess) onSuccess();
+      setIsOpen(false);
     } catch (error) {
       alert("가입 신청중 오류가 발생했습니다." + error);
     }
-    setIsOpen(false);
   }
   
   return (

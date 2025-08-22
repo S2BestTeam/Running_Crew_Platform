@@ -16,6 +16,7 @@ public interface MemberMapper {
     int updateRole(@Param("memberId") Integer memberId, @Param("roleId") Integer roleId);
     int deleteMember(Integer memberId);
     void insertLeaderRole(Integer userId, Integer crewId);
+    int countMember(Integer crewId);
 
     Integer findMemberIdByUserId(Integer crewId, Integer userId);
 }

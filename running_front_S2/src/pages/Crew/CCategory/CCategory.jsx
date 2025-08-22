@@ -43,7 +43,7 @@ function CCategory() {
     crewTotalKm: 0,
   };
 
-  const isCrewLeader = crew.userId === userId;
+  const isCrewLeader = crew?.userId === userId;
 
   const profileSection = isSuccess && (
     <div css={s.crewInfoBox} onClick={() => navigate(`/crews/${crewId}`)}>

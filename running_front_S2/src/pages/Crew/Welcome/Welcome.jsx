@@ -5,6 +5,7 @@ import { useCrewStore } from '../../../stores/useCrewStroes';
 import useGetCrewWelcomeListQuery from '../../../queries/useGetCrewWelcomeListQuery';
 import * as s from './styles';
 import { useEffect, useState } from 'react';
+import { reqRejectWelcome } from '../../../api/Crew/welcomeApi';
 
 function Welcome({ isCrewLeader }) {
   const { crewId } = useCrewStore();
@@ -13,6 +14,8 @@ function Welcome({ isCrewLeader }) {
   const [selectedUser, setSelectedUser] = useState(null);
   const userId = selectedUser?.userId;
   const [ reports, setReports ] = useState([]);
+  console.log(welcomes);
+  
   
   useEffect(() => {
     if (!userId) return;
@@ -34,10 +37,13 @@ function Welcome({ isCrewLeader }) {
       userId: selectedUser?.userId,
     }
     await reqRegisterCrewMember(reqRegCrewMember);
+    await crewWelcomeList.refetch();
     setSelectedUser(null);
   };
 
-  const handleRejectOnClick = () => {
+  const handleRejectOnClick = async (welcomeId) => {
+    await reqRejectWelcome(welcomeId);
+    await crewWelcomeList.refetch();
     setSelectedUser(null);
   };
 
@@ -80,6 +86,7 @@ function Welcome({ isCrewLeader }) {
             {isCrewLeader && <th>이름</th>}
             {isCrewLeader && <th>나이</th>}
             <th>자기소개</th>
+            <th>신청 상태</th>
             <th>등록일</th>
           </tr>
         </thead>
@@ -110,6 +117,7 @@ function Welcome({ isCrewLeader }) {
                   {isCrewLeader && <td>{welcome.fullName}</td>}
                   {isCrewLeader && <td>{age}</td>}
                   <td css={s.contentCell}>{welcome.content}</td>
+                  <td css={s.statusCell}>{welcome.status}</td>
                   <td>{new Date(welcome.createdAt).toLocaleDateString("ko-KR")}</td>
                 </tr>
               );
@@ -191,14 +199,29 @@ function Welcome({ isCrewLeader }) {
                 </div>
               </div>
             </div>
-
+            
             <div css={s.modalActions}>
-              <button css={s.approveBtn} onClick={handleApproveOnClick}>
-                승인
-              </button>
-              <button css={s.rejectBtn} onClick={() => handleRejectOnClick(selectedUser.welcomeId)}>
-                거절
-              </button>
+              {selectedUser.status === "대기중" && (
+                <>
+                  <button css={s.approveBtn} onClick={handleApproveOnClick}>
+                    승인
+                  </button>
+                  <button
+                    css={s.rejectBtn}
+                    onClick={() => handleRejectOnClick(selectedUser.welcomeId)}
+                  >
+                    거절
+                  </button>
+                </>
+              )}
+
+              {selectedUser.status === "승인" && (
+                <span css={s.approvedText}>✅ 이미 승인된 멤버입니다.</span>
+              )}
+
+              {selectedUser.status === "거절" && (
+                <span css={s.rejectedText}>❌ 거절된 신청입니다.</span>
+              )}
             </div>
           </div>
         </div>

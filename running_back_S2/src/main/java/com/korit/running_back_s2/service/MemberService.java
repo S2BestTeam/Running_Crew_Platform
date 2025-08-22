@@ -7,6 +7,7 @@ import com.korit.running_back_s2.domain.welcome.WelcomeMapper;
 import com.korit.running_back_s2.dto.member.ExistsCheckReqDto;
 import com.korit.running_back_s2.dto.member.MemberRoleUpdateReqDto;
 import com.korit.running_back_s2.dto.response.PaginationRespDto;
+import com.korit.running_back_s2.dto.welcome.WelcomeReqDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -67,6 +68,11 @@ public class MemberService {
     }
 
     public void registerMember(Member member) {
+        welcomeMapper.update(member);
         memberMapper.insert(member);
+    }
+
+    public Integer countMember(Integer crewId) {
+        return memberMapper.countMember(crewId);
     }
 }

@@ -8,6 +8,8 @@ export const reqGetCrewMembers = ({ page, size, crewId, searchText }) => {
   });
 };
 
+export const reqGetMemberCount = (crewId) => api.get(`/api/members/${crewId}/count`);
+
 export const reqCrewMember = (data) => api.post('/api/members/exists', data);
 
 export const reqGetMemberDetail = (memberId) => api.get(`/api/members/${memberId}`);

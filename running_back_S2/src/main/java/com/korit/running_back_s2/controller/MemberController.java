@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/members")
@@ -17,6 +16,12 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
+
+
+    @GetMapping("/{crewId}/count")
+    public ResponseEntity<ResponseDto<?>> getCrewMemberCount(@PathVariable Integer crewId) {
+        return ResponseEntity.ok(ResponseDto.success(memberService.countMember(crewId)));
+    }
 
     @PostMapping("/exists")
     public ResponseEntity<ResponseDto<?>> existsMember(@RequestBody ExistsCheckReqDto dto) {

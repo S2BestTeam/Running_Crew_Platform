@@ -27,4 +27,9 @@ public class WelcomeService {
         }
         welComeMapper.insert(welcome);
     }
+
+    public void reject(Integer welcomeId) {
+        welComeMapper.deleteRejectedAfter7Days();
+        welComeMapper.statusReject(welcomeId);
+    }
 }
