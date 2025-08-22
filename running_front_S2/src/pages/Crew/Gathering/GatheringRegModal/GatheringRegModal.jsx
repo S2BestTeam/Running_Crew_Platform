@@ -2,7 +2,7 @@
 import * as s from "./styles";
 import { useEffect, useState } from "react";
 import ReactModal from "react-modal";
-import { FiPlus } from "react-icons/fi";
+import { CiImageOn } from "react-icons/ci";
 import {
   Map,
   MapMarker,
@@ -14,10 +14,6 @@ import { reqRegisterGathering } from "../../../../api/Crew/gatheringApi";
 
 function GatheringRegModal({ crewId, isOpen, onClose }) {
   const navigate = useNavigate();
-  const mapLoader = useKakaoLoader({
-    appkey: import.meta.env.VITE_KAKAO_JAVASCRIPT_KEY,
-    libraries: ["clusterer", "drawing", "services"],
-  });
   const [location, setLocation] = useState({ lat: null, lng: null });
   const [map, setMap] = useState(<></>);
   const [preview, setPreview] = useState({
@@ -212,8 +208,8 @@ function GatheringRegModal({ crewId, isOpen, onClose }) {
                 />
               ) : (
                 <>
-                  <div>이미지를 등록하세요</div>
-                  <FiPlus size={40} />
+                  <CiImageOn />
+                  <div>정모사진을 등록해주세요.</div>
                 </>
               )}
             </div>
@@ -298,7 +294,7 @@ function GatheringRegModal({ crewId, isOpen, onClose }) {
             <button onClick={handleRegisterOnClick}>등록하기</button>
           </div>
         </main>
-      </div>
+      </div>ㅁ
     </ReactModal>
   );
 }

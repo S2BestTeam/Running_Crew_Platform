@@ -33,17 +33,24 @@ export const wrapper = css`
 `;
 
 export const thumbnailContainer = css`
-  width: 15rem;
-  height: 15rem;
-  border: 2px solid #ebebeb;
+font-size: 1.2rem;
+  width: 50rem;
+  height: 30rem;
+  border: 0.1rem solid #dbdbdb;
   border-radius: 0.5rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
 
+  & svg {
+    font-size: 8rem;
+    color: #dbdbdb;
+  }
+
   &:hover {
-    border-color: #999;
+    border-color: #000;
   }
 `;
 

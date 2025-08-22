@@ -19,4 +19,5 @@ public class GatheringRespDto {
     private Integer km;
     private Integer cost;
     private Integer maxParticipants;
+
 }

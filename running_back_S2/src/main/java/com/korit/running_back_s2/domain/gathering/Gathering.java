@@ -32,5 +32,7 @@ public class Gathering {
     private Integer status;
     private LocalDateTime createdAt;
 
+    private Integer currentParticipants;
+    private Boolean isAttending;
     private User user;
 }
