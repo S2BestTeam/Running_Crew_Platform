@@ -2,7 +2,7 @@
 import * as s from "./styles";
 import { useEffect, useState } from "react";
 import ReactModal from "react-modal";
-import { FiPlus } from "react-icons/fi";
+import { CiImageOn } from "react-icons/ci";
 import {
   Map,
   MapMarker,
@@ -12,13 +12,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import { reqRegisterGathering } from "../../../../api/Crew/gatheringApi";
 
-
 function GatheringRegModal({ crewId, isOpen, onClose }) {
   const navigate = useNavigate();
-  const mapLoader = useKakaoLoader({
-    appkey: import.meta.env.VITE_KAKAO_JAVASCRIPT_KEY,
-    libraries: ["clusterer", "drawing", "services"],
-  });
   const [location, setLocation] = useState({ lat: null, lng: null });
   const [map, setMap] = useState(<></>);
   const [preview, setPreview] = useState({
@@ -199,19 +194,24 @@ function GatheringRegModal({ crewId, isOpen, onClose }) {
           <h2>정모 일정 등록</h2>
         </header>
         <main css={s.main}>
-          <div>
-            {/* 썸네일 업로드 */}
-            <div>
-              <div>
-                <img src={preview.thumbnailPicture} />
-              </div>
-              <div
-                css={s.plus}
-                onClick={(e) => handleImgAddOnClick(e, "thumbnailPicture")}
-              >
-                <FiPlus />
-              </div>
-              <div>썸네일 이미지</div>
+          <div css={s.wrapper}>
+            {/* 썸네일 박스 */}
+            <div
+              css={s.thumbnailContainer}
+              onClick={(e) => handleImgAddOnClick(e, "thumbnailPicture")}
+            >
+              {preview?.thumbnailPicture ? (
+                <img
+                  src={preview.thumbnailPicture}
+                  alt="썸네일 미리보기"
+                  css={s.thumbnailImg}
+                />
+              ) : (
+                <>
+                  <CiImageOn />
+                  <div>정모사진을 등록해주세요.</div>
+                </>
+              )}
             </div>
           </div>
           <div>
@@ -294,7 +294,7 @@ function GatheringRegModal({ crewId, isOpen, onClose }) {
             <button onClick={handleRegisterOnClick}>등록하기</button>
           </div>
         </main>
-      </div>
+      </div>ㅁ
     </ReactModal>
   );
 }

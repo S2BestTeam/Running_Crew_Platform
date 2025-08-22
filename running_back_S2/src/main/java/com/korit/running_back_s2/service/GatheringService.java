@@ -2,6 +2,7 @@ package com.korit.running_back_s2.service;
 
 import com.korit.running_back_s2.domain.gathering.Gathering;
 import com.korit.running_back_s2.domain.gathering.GatheringMapper;
+import com.korit.running_back_s2.domain.gathering.ParticipantMapper;
 import com.korit.running_back_s2.dto.gathering.GatheringRegisterReqDto;
 import com.korit.running_back_s2.dto.gathering.GatheringRespDto;
 import com.korit.running_back_s2.security.model.PrincipalUtil;
@@ -21,6 +22,7 @@ public class GatheringService {
     private final FileService fileService;
     private final GatheringMapper gatheringMapper;
     private final ImageUrlUtil imageUrlUtil;
+    private final ParticipantMapper participantMapper;
 
     @Transactional(rollbackFor = Exception.class)
     public void register(GatheringRegisterReqDto dto) {
@@ -31,10 +33,16 @@ public class GatheringService {
         gathering.setThumbnailPicture(thumbnailImg);
 
         gatheringMapper.insert(gathering);
+        participantMapper.insert(gathering.getGatheringId(), userId);
     }
 
     public List<Gathering> getGatherings(Integer crewId) {
+<<<<<<< HEAD
         List<Gathering> gatherings = gatheringMapper.findAllByCrewId(crewId);
+=======
+        Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
+        List<Gathering> gatherings = gatheringMapper.findAllByCrewId(crewId, userId);
+>>>>>>> origin/정모-일정-등록-수정중
 
         gatherings.forEach(g -> {
             if (g.getThumbnailPicture() != null) {

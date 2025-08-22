@@ -9,3 +9,9 @@ export const reqRegisterGathering = (crewId, data) =>
       "Content-Type": "multipart/form-data",
     },
   });
+
+export const reqAttendGathering = (crewId, gatheringId) =>
+  api.post(`/api/crews/${crewId}/gatherings/${gatheringId}/attend`);
+
+export const reqCancelAttendGathering = (crewId, gatheringId) =>
+  api.delete(`/api/crews/${crewId}/gatherings/${gatheringId}/attend`);

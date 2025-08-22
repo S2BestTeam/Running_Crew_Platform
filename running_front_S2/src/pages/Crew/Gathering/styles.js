@@ -39,7 +39,13 @@ export const clickableRow = css`
 
   &:hover {
     background-color: #e3f2fd !important;
+<<<<<<< HEAD
   }
+=======
+  }import { icons } from '../../../components/Header/styles';
+import { background } from '../Welcome/WelcomeRegModal/styles';
+
+>>>>>>> origin/정모-일정-등록-수정중
 `;
 
 export const contentCell = css`
@@ -272,26 +278,29 @@ export const closeBtn = css`
 
 export const gatheringMain = css`
   display: grid;
+<<<<<<< HEAD
   width: 100%;
   grid-template-columns: repeat(3, 1fr);
   gap: 3rem 1rem;
+=======
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem 2rem;
+>>>>>>> origin/정모-일정-등록-수정중
 `;
 
 export const gatheringContainer = css`
-  display: flex;
-  width: 30rem;
-  border: 0.1rem solid #ebebeb;
+  width: 25rem;
+  border: 0.1rem solid #dbdbdb;
   border-radius: 0.5rem;
-  padding: 1rem;
 `;
 
 export const thumbnailImg = css`
-  margin-right: 1.5rem;
-  width: 11rem;
+  width: 25rem;
   height: 15rem;
-  background-color: #000;
-  border-radius: 1rem;
+  background-color: #ebebeb;
+  border-radius: 0.4rem 0.4rem 0 0;
   overflow: hidden;
+  border-bottom: 0.1rem solid #dbdbdb;
 
   & img {
     width: 100%;
@@ -301,30 +310,36 @@ export const thumbnailImg = css`
 `;
 
 export const gatheringInfoContainer = css`
-  height: 15rem;
+  padding: 2rem;
+  height: 17rem;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 
   & > div {
     display: flex;
   }
 
+  & > div > div {
+    align-items: center;
+  }
+
   & svg {
     color: #aaa;
-    margin-right: 0.5rem;
+    margin-right: 1rem;
   }
 
   & > div:nth-of-type(1) {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     font-weight: 700;
   }
 `;
 
 export const profileImg = css`
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-right: 1rem;
   background-color: #000;
   border-radius: 5rem;
   overflow: hidden;
@@ -334,4 +349,23 @@ export const profileImg = css`
     height: 100%;
     object-fit: cover;
   }
+`;
+
+export const statusContainer = css`
+  justify-content: space-between;
+
+  & div:nth-of-type(1) {
+    display: flex;
+  }
+`;
+
+export const status = css`
+  width: 5rem;
+  height: 2.5rem;
+  background-color: green;
+  color: #fff;
+  border-radius: 0.2rem;
+  display: flex;
+  justify-content: center;
+  font-weight: 500;
 `;

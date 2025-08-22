@@ -1,5 +1,4 @@
 import { css } from "@emotion/react";
-// import { backdrop } from "../../../JoinModal/styles";
 
 export const layout = css`
   width: 80rem;
@@ -25,6 +24,41 @@ export const main = css`
   padding: 1rem 2rem;
   height: 53.4rem;
   overflow-y: scroll;
+`;
+
+export const wrapper = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const thumbnailContainer = css`
+font-size: 1.2rem;
+  width: 50rem;
+  height: 30rem;
+  border: 0.1rem solid #dbdbdb;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  & svg {
+    font-size: 8rem;
+    color: #dbdbdb;
+  }
+
+  &:hover {
+    border-color: #000;
+  }
+`;
+
+export const thumbnailImg = css`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.5rem;
 `;
 
 export const mapContainer = css`
