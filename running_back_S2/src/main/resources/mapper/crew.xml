@@ -121,4 +121,20 @@
         where
             user_id = #{userId} and role_id = 1
     </select>
+    <select id="getCrewRankingTop10ByTotalKm" resultType="com.korit.running_back_s2.dto.ranking.CrewRankingRespDto">
+        select
+            ct.crew_id,
+            ct.gungu_id,
+            ct.crew_name,
+            ct.profile_picture,
+            ct.thumbnail_picture,
+            ct.total_km,
+            gt.gungu_name
+        from
+            crew_tb ct
+            left outer join gungu_tb gt on (ct.gungu_id = gt.gungu_id)
+        order by
+            ct.total_km DESC
+        limit 10
+    </select>
 </mapper>

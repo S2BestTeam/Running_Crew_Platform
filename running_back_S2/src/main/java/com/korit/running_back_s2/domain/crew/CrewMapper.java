@@ -1,5 +1,6 @@
 package com.korit.running_back_s2.domain.crew;
 
+import com.korit.running_back_s2.dto.ranking.CrewRankingRespDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface CrewMapper {
     int countBySearchOption(CrewSearchOption crewSearchOption);
 
     int checkCrew(Integer userId);
+
+    List<CrewRankingRespDto> getCrewRankingTop10ByTotalKm();
 }

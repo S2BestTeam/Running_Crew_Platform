@@ -60,7 +60,7 @@ export const menuDetail = css`
   display: flex;
   flex-direction: column;
 
-  a {
+  div {
     color: #a6a6a6;
     padding: 8px 16px;
     text-decoration: none;
