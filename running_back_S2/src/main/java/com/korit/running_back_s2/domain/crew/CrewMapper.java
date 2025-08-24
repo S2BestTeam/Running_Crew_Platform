@@ -18,5 +18,9 @@ public interface CrewMapper {
 
     int checkCrew(Integer userId);
 
-    List<CrewRankingRespDto> getCrewRankingTop10ByTotalKm();
+    List<CrewRankingRespDto> selectTop10CrewRankingByTotalKm();
+
+    List<CrewRankingRespDto> selectTop10CrewRankingByMemberCount();
+
+    List<CrewRankingRespDto> selectTop10CrewRankingByCreatedDate();
 }
