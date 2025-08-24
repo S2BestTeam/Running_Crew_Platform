@@ -119,39 +119,23 @@ function FeedReg({ crewId }) {
     ----- 왜 “단독 줄” 보정이 필요해?
 
     줄 중간에 이미지를 넣으면, 텍스트와 이미지가 한 줄에 섞여 들어갈 수 있어 보기/편집이 난감.
-
     블로그 에디터처럼 쓰려면 이미지는 항상 하나의 블록(줄)로 존재하게 만드는 게 UX가 좋아.
-
     그래서 앞에 \n(줄바꿈) 강제 → 이미지를 넣고 → 뒤에 \n 추가로 “이미지만 있는 줄”을 만들어 줌.
-
     index + 2 인 이유
-
     Quill에서 이미지 embed는 1글자 크기로 취급.
-
     그 뒤에 우리가 \n도 1글자 삽입.
-
     따라서 이미지 시작 index + 2가 “이미지 바로 다음 줄의 시작점”.
 
     ----- 요약: 한 줄에 한 기능
-
     getEditor(): ReactQuill → 진짜 Quill 인스턴스 꺼내오기
-
     getSelection(): 현재 커서/선택영역 {index, length} 받기
-
     focus(): 에디터에 포커스 강제 (선택영역이 null로 떨어지는 이슈 방지)
-
     getText(i, 1): i번째 위치의 한 글자 확인 (이전 글자가 \n인지 체크)
-
     insertText(i, "\n"): 줄바꿈 추가 (이미지 단독 줄 만들기)
-
     insertEmbed(i, "image", url): 이미지 삽입
-
     setSelection(i, 0): 커서를 이동 (이미지 아래 줄로)
-
     getBounds(i, l): 커서의 화면 좌표 얻기
-
     requestAnimationFrame: “다음 프레임”에서 실행 → 레이아웃 반영된 뒤 정확한 좌표
-
     root / parentElement: .ql-editor / .ql-container (스크롤 컨테이너)
 
     scrollTop / clientHeight: 현재 스크롤 위치 / 보이는 높이

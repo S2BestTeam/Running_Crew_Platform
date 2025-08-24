@@ -11,6 +11,13 @@ spring:
     activate:
       on-profile: local-server
 
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-exception: true
+    include-stacktrace: on_param
+
 app:
   server-host: "http://localhost:8080"
   image-configs:
