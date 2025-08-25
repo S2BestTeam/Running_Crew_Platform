@@ -122,7 +122,7 @@ function CrewRegister(props) {
                 <div>
                   <div css={s.imgContainer}>
                     <div>
-                      <img src={preview.thumbnailPicture} alt="" />
+                      <img src={preview.thumbnailPicture} alt="크루썸네일" />
                     </div>
                     <div
                       css={s.plus}
@@ -137,7 +137,7 @@ function CrewRegister(props) {
                 <div>
                   <div css={s.imgContainer}>
                     <div>
-                      <img src={preview.profilePicture} alt="" />
+                      <img src={preview.profilePicture} alt="크루프로필" />
                     </div>
                     <div
                       css={s.plus}

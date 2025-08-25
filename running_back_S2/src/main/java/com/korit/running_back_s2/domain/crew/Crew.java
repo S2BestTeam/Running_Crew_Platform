@@ -26,6 +26,5 @@ public class Crew {
     private double totalKm;
     private LocalDateTime createdAt;
 
-//    private User user;
     private String gunguName;
 }

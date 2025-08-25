@@ -126,7 +126,7 @@ function Welcome({ isCrewLeader }) {
               })
             ) : (
               <tr>
-                <td colSpan={isCrewLeader ? 6 : 5}>등록된 가입 인사가 없습니다.</td>
+                <td colSpan={isCrewLeader ? 7 : 5}>등록된 가입 인사가 없습니다.</td>
               </tr>
             )}
           </tbody>
