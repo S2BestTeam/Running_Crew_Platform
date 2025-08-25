@@ -8,8 +8,8 @@ function useGetCrewRankingQuery() {
       const res = await reqCrewRankings();
       return res.data.body;
     },
-    staleTime: 1000 * 60 * 60 * 24,
-    gcTime: 1000 * 60 * 60 * 24 * 2,
+    staleTime: 1000 * 60 * 60 * 12,
+    gcTime: 1000 * 60 * 60 * 13,
     retry: 3,
     refetchOnWindowFocus: false,
   })

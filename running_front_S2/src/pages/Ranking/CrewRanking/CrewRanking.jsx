@@ -14,14 +14,14 @@ function CrewRanking() {
   
   const { data: rankings, isLoading, isError, error } = useGetCrewRankingQuery();
 
+  console.log(rankings);
+  
+
   return (
     <MainContainer>
       <div css={s.headerlayout}>
         <div css={s.notice}>
-          <h1>⭐ 랭킹은 매주 월요일 마다 자동 갱신됩니다. ⭐</h1>
-        </div>
-        <div>
-          <button css={s.moreButton}>더보기</button>
+          <h1>⭐ 랭킹은 매일 자정 마다 자동 갱신됩니다. ⭐</h1>
         </div>
       </div>
       <div css={s.layout}>

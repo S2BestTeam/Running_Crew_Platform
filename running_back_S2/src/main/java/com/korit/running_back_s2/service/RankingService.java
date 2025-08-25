@@ -27,7 +27,7 @@ public class RankingService {
 
 
     @PostConstruct
-    @Scheduled(cron = "0 0 0 * * MON")
+    @Scheduled(cron = "0 0 0 * * *")
     public void updateCrewRankings () {
         CrewRankingGroupRespDto newCrewRankings = calculateRankingsFromDB();
 
@@ -56,8 +56,5 @@ public class RankingService {
 
         return new CrewRankingGroupRespDto(totalKmRanking, memberRanking, newRanking);
     }
-//    public List<> UserRanking () {
-//        return userMapper
-//    }
 
 }

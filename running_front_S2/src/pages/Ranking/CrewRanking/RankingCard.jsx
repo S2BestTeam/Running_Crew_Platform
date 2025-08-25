@@ -17,6 +17,8 @@ function RankingCard({ crew, rank, type }) {
         return `${crew.memberCount}명`;
       case 'new':
         return new Date(crew.createdAt).toLocaleDateString();
+      case 'region':
+        return crew.title || crew.description || '';
       default:
         return '';
     }
