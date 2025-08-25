@@ -5,6 +5,7 @@ import { IoSearch } from "react-icons/io5";
 /** @jsxImportSource @emotion/react */
 import * as s from "./styles";
 import { BiSolidChevronRightSquare, BiSolidChevronLeftSquare } from "react-icons/bi";
+import usePrincipalQuery from "../../../queries/usePrincipalQuery";
 
 function FreeBoard({ crewId }) {
   const navigate = useNavigate();
@@ -13,6 +14,18 @@ function FreeBoard({ crewId }) {
   const searchText = searchParams.get("searchText") || "";
   const [searchInput, setSearchInput] = useState(searchText);
   const size = 10;
+  const { data: principalData } = usePrincipalQuery();
+
+  useEffect(() => {
+    if (!isLoading) { // 로딩이 끝난 후 체크
+      const userId = principalData?.data?.body?.user?.userId;
+
+      if (!userId) {
+        alert("로그인 후 이용 부탁드립니다.");
+        navigate("/auth/oauth2/signin");
+      }
+    }
+  }, [principalData, navigate]);
 
   const { data, isLoading, isError } = useGetCrewFreeBoardQuery({ crewId, page, size, searchText });
 

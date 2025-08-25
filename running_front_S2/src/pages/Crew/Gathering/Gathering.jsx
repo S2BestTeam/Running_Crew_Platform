@@ -7,6 +7,8 @@ import { useGetGatheringsQuery } from "../../../queries/useGetGatheringsQuery";
 import GatheringRegModal from "./GatheringRegModal/GatheringRegModal";
 import GatheringDetailModal from "./GatheringDetailModal/GatheringDetailModal";
 import ContentLayout from "../../../components/ContentLayout/ContentLayout";
+import { useNavigate } from "react-router-dom";
+import usePrincipalQuery from "../../../queries/usePrincipalQuery";
 
 function Gathering({ crewId }) {
   const gatheringsQuery = useGetGatheringsQuery(crewId);

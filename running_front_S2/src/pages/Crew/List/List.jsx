@@ -176,7 +176,7 @@ function List() {
                       animate={{ scale: isLiked ? [1, 1.4, 1] : [1, 0.8, 1] }}
                       transition={{ duration: 0.3 }}
                     >
-                      {isLiked ? <FaHeart color="red" /> : <FiHeart color="black" />}
+                      {isLiked ? <FaHeart color="#ff4d6d" /> : <FiHeart color="black" />}
                     </motion.div>
                   </div>
                   <div css={s.textBox}>

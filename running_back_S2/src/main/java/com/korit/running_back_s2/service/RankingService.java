@@ -4,6 +4,8 @@ import com.korit.running_back_s2.domain.crew.CrewMapper;
 import com.korit.running_back_s2.domain.user.UserMapper;
 import com.korit.running_back_s2.dto.ranking.CrewRankingGroupRespDto;
 import com.korit.running_back_s2.dto.ranking.CrewRankingRespDto;
+import com.korit.running_back_s2.dto.ranking.UserRankingGroupRespDto;
+import com.korit.running_back_s2.dto.ranking.UserRankingRespDto;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -11,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -22,39 +23,63 @@ public class RankingService {
     private final UserMapper userMapper;
 
     private CrewRankingGroupRespDto cachedCrewRankings;
-    private LocalDateTime lastUpdated;
-    private static final Duration CACHE_DURATION = Duration.ofDays(7);
+    private LocalDateTime lastUpdatedCrew;
+    private static final Duration CREW_CACHE_DURATION = Duration.ofDays(1);
+
+    private UserRankingGroupRespDto cachedUserRankings;
+    private LocalDateTime lastUpdatedUser;
+    private static final Duration USER_CACHE_DURATION = Duration.ofDays(1); // 하루 단위
 
 
     @PostConstruct
     @Scheduled(cron = "0 0 0 * * *")
-    public void updateCrewRankings () {
-        CrewRankingGroupRespDto newCrewRankings = calculateRankingsFromDB();
-
-        cachedCrewRankings = newCrewRankings;
-        lastUpdated = LocalDateTime.now();
+    public void updateCrewRankings() {
+        cachedCrewRankings = calculateCrewRankingsFromDB();
+        lastUpdatedCrew = LocalDateTime.now();
     }
 
-    public CrewRankingGroupRespDto getAllCrewRankings () {
-        if (isCacheExpired()) {
+    public CrewRankingGroupRespDto getAllCrewRankings() {
+        if (isCrewCacheExpired()) {
             updateCrewRankings();
-        } else {
-            lastUpdated.format(DateTimeFormatter.ofPattern("MM-dd HH:mm:ss"));
         }
-
         return cachedCrewRankings;
     }
 
-    private boolean isCacheExpired() {
-        return cachedCrewRankings == null || lastUpdated == null || Duration.between(lastUpdated, LocalDateTime.now()).compareTo(CACHE_DURATION) > 0;
+    private boolean isCrewCacheExpired() {
+        return cachedCrewRankings == null || lastUpdatedCrew == null ||
+                Duration.between(lastUpdatedCrew, LocalDateTime.now()).compareTo(CREW_CACHE_DURATION) > 0;
     }
 
-    private CrewRankingGroupRespDto calculateRankingsFromDB() {
+    private CrewRankingGroupRespDto calculateCrewRankingsFromDB() {
         List<CrewRankingRespDto> totalKmRanking = crewMapper.selectTop10CrewRankingByTotalKm();
         List<CrewRankingRespDto> memberRanking = crewMapper.selectTop10CrewRankingByMemberCount();
         List<CrewRankingRespDto> newRanking = crewMapper.selectTop10CrewRankingByCreatedDate();
-
         return new CrewRankingGroupRespDto(totalKmRanking, memberRanking, newRanking);
+    }
+
+    @PostConstruct
+    @Scheduled(cron = "0 0 0 * * *")
+    public void updateUserRankings() {
+        cachedUserRankings = calculateUserRankingsFromDB();
+        lastUpdatedUser = LocalDateTime.now();
+    }
+
+    public UserRankingGroupRespDto getAllUserRankings() {
+        if (isUserCacheExpired()) {
+            updateUserRankings();
+        }
+        return cachedUserRankings;
+    }
+
+    private boolean isUserCacheExpired() {
+        return cachedUserRankings == null || lastUpdatedUser == null ||
+                Duration.between(lastUpdatedUser, LocalDateTime.now()).compareTo(USER_CACHE_DURATION) > 0;
+    }
+
+    private UserRankingGroupRespDto calculateUserRankingsFromDB() {
+        List<UserRankingRespDto> totalKmRanking = userMapper.selectUserRankingByTotalKm();
+        List<UserRankingRespDto> gatheringCount = userMapper.selectUserRankingByGatheringCount();
+        return new UserRankingGroupRespDto(totalKmRanking, gatheringCount);
     }
 
 }

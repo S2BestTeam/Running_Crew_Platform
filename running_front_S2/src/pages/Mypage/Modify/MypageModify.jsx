@@ -4,11 +4,16 @@ import { useEffect, useState } from "react";
 import usePrincipalQuery from "../../../queries/usePrincipalQuery";
 import { SIGNUP_REGEX, SIGNUP_REGEX_ERROR_MESSAGE } from "../../../constants/signupRegex";
 import { reqCheckNickname, reqUserInfoUpdate, reqUserProfileUpdate } from "../../../api/User/userApi";
+import useGetUserRankingQuery from "../../../queries/useGetUserRankingQuery";
 
 function MypageModify() {
+  const { data: rankings } = useGetUserRankingQuery();
   const principalQuery = usePrincipalQuery();
   const userInfo = principalQuery.data?.data?.body?.user;
   const userId = userInfo?.userId;
+  const myTotalKmRank = rankings?.totalKmRanking?.findIndex(user => user.userId === userId);
+  const myGatheringRank = rankings?.gatheringCount?.findIndex(user => user.userId === userId);
+
 
   const [updateUser, setUpdateUser] = useState({
     userId: userId,
@@ -46,6 +51,7 @@ function MypageModify() {
         const formData = new FormData();
         formData.append("profileFile", file);
         await reqUserProfileUpdate(userId, formData);
+        alert("프로필 사진 변경이 저장되었습니다.");
         principalQuery.refetch();
       } catch (error) {
         alert("프로필 사진 변경에 실패했습니다.");
@@ -183,19 +189,16 @@ function MypageModify() {
               {ispatch ? "저장 중..." : "저장"}
             </button>
             <div css={s.title}>내 정보 관리</div>
-
             <div css={s.profileSection}>
               <div css={s.profileImgBox} onClick={handleProfileImgUpdateClick}>
                 <img src={userInfo?.picture} alt="profile" />
               </div>
             </div>
-
             <div css={s.nameNicknameRow}>
               <div css={s.nameField}>
                 <label css={s.label}>이름</label>
                 <div css={s.value}>{userInfo?.fullName}</div>
               </div>
-
               <div css={s.nicknameField}>
                 <label css={s.label}>닉네임</label>
                 <div css={s.inputRow}>
@@ -209,7 +212,6 @@ function MypageModify() {
                 </div>
                 {errors.nickname && <p css={s.nicknameErrMsg}>{errors.nickname}</p>}
               </div>
-
               <div css={s.checkButtonWrapper}>
                 <button
                   onClick={handleNicknameCheck}
@@ -220,25 +222,21 @@ function MypageModify() {
                 </button>
               </div>
             </div>
-
             <div css={s.field}>
               <label css={s.label}>이메일</label>
               <div css={s.value}>{userInfo?.email}</div>
               <div css={s.subText}>{userInfo?.oauthType} 아이디로 가입한 유저</div>
             </div>
-
             <div css={s.field}>
               <label css={s.label}>생년월일</label>
               <div css={s.value}>{userInfo?.birthDate}</div>
             </div>
-
             <div css={s.field}>
               <label css={s.label}>성별</label>
               <div css={s.value}>
                 {userInfo?.gender === 1 ? "남성" : "여성"}
               </div>
             </div>
-
             <div css={s.field}>
               <label css={s.label}>연락처</label>
               <input
@@ -249,7 +247,6 @@ function MypageModify() {
               />
               {errors.phoneNumber && <p css={s.errMsg}>{errors.phoneNumber}</p>}
             </div>
-
             <div css={s.field}>
               <label css={s.label}>도시</label>
               <div css={s.value}>{userInfo?.address}</div>

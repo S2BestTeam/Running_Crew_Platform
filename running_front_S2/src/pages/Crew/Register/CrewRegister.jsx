@@ -1,19 +1,30 @@
 /** @jsxImportSource @emotion/react */
-import { useEffect, useState } from "react";
 import * as s from "./styles";
+import { useEffect, useState } from "react";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
-import { FiPlus, FiX } from "react-icons/fi";
+import { FiPlus} from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import usePrincipalQuery from "../../../queries/usePrincipalQuery";
 import MainContainer from "../../../components/MainContainer/MainContainer";
 import { reqCheckCrewName, reqRegisterCrew } from "../../../api/Crew/crewApi";
-import { reqGunguList } from "../../../api/Gungu/gungu";
 import useGetGunguListQuery from "../../../queries/useGetGunguListQuery";
 
 function CrewRegister(props) {
   const navigate = useNavigate();
+  const { data: principalData, isLoading } = usePrincipalQuery();
 
+  useEffect(() => {
+    if (!isLoading) { // 로딩이 끝난 후 체크
+      const userId = principalData?.data?.body?.user?.userId;
+
+      if (!userId) {
+        alert("로그인 후 이용 부탁드립니다.");
+        navigate("/auth/oauth2/signin");
+      }
+    }
+  }, [principalData, isLoading, navigate]);
+  
   const gunguQuery = useGetGunguListQuery();
   const gunguList = gunguQuery?.data?.data.body || [];
   const [preview, setPreview] = useState({

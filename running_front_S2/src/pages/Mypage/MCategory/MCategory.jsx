@@ -4,6 +4,7 @@ import LeftSideBarLayout from '../../../components/LeftSideBarLayout/LeftSideBar
 import MainContainer from '../../../components/MainContainer/MainContainer';
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
 import MypageModify from '../Modify/MypageModify';
+import Welcome from '../Welcome/Welcome';
 import Wishlist from '../Wishlist/Wishlist';
 import * as s from './styles';
 import { Route, Routes, useNavigate } from 'react-router-dom';
@@ -14,7 +15,7 @@ function MCategory(props) {
   const user = principal?.data?.data?.body?.user;
 
   const profileSection = (
-    <div css={s.userSimpleInfo}>
+    <div css={s.userSimpleInfo}  onClick={() => navigate(`/mypage`)}>
       <div css={s.profileImgBox}>
         <img src={user?.picture} alt="프로필 이미지" />
       </div>
@@ -27,10 +28,10 @@ function MCategory(props) {
 
   const navigationButtons = (
     <>
-      <button>크루 신청 내역</button>
-      <button onClick={() => navigate("/mypage/wish")}>위시 리스트</button>
-      <button>C</button>
-      <button>D</button>
+      <button onClick={() => navigate("/mypage/welcome")}>크루 신청 내역</button>
+      <button onClick={() => navigate("/mypage/wish")}>나의 크루 리스트</button>
+      <button>내가 쓴 글</button>
+      <button>나의 정모일정</button>
     </>
   );
 
@@ -44,6 +45,7 @@ function MCategory(props) {
         <Routes>
           <Route path='/' element={<MypageModify />}/>
           <Route path='/wish' element={<Wishlist />}/>
+          <Route path='/welcome' element={<Welcome />} />
         </Routes>
       </ContentLayout>
       </LeftSideBarLayout>

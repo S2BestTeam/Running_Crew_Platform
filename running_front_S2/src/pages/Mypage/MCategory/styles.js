@@ -23,6 +23,7 @@ export const userSimpleInfo = css`
   padding-bottom: 1.6rem;
   border-bottom: 0.1rem solid black;
   margin-bottom: 1rem;
+  cursor: pointer;
 `;
 
 export const profileImgBox = css`
