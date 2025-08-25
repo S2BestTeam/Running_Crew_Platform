@@ -61,7 +61,6 @@ function GatheringRegModal({ crewId, isOpen, onClose }) {
   }, []);
 
   useEffect(() => {
-    console.log(location);
     if (!!location.lat && !!location.lng) {
       setMap(
         <Map

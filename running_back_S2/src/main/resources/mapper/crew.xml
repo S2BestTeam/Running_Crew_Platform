@@ -121,4 +121,87 @@
         where
             user_id = #{userId} and role_id = 1
     </select>
+
+    <select id="selectTop10CrewRankingByTotalKm" resultType="com.korit.running_back_s2.dto.ranking.CrewRankingRespDto">
+        select
+            ct.crew_id,
+            ct.crew_name,
+            ct.gungu_id,
+            gt.gungu_name,
+            ct.profile_picture,
+            ct.thumbnail_picture,
+            ct.total_km,
+            coalesce(mt.member_count, 0) as memberCount,
+            ct.created_at
+        from
+            crew_tb ct
+            left outer join gungu_tb gt on (ct.gungu_id = gt.gungu_id)
+            left outer join (
+                        select
+                            crew_id,
+                            count(*) as member_count
+                        from
+                            member_tb
+                        group by
+                            crew_id
+                        ) mt on (ct.crew_id = mt.crew_id)
+        order by
+            ct.total_km desc
+        limit 10
+    </select>
+
+    <select id="selectTop10CrewRankingByMemberCount" resultType="com.korit.running_back_s2.dto.ranking.CrewRankingRespDto">
+        select
+            ct.crew_id,
+            ct.crew_name,
+            ct.gungu_id,
+            gt.gungu_name,
+            ct.profile_picture,
+            ct.thumbnail_picture,
+            ct.total_km,
+            coalesce(mt.member_count, 0) as memberCount,
+            ct.created_at
+        from
+            crew_tb ct
+            left outer join gungu_tb gt on (ct.gungu_id = gt.gungu_id)
+            left outer join (
+                        select
+                            crew_id,
+                            count(*) as member_count
+                        from
+                            member_tb
+                        group by
+                            crew_id
+                        ) mt on (ct.crew_id = mt.crew_id)
+        order by
+            mt.member_count desc
+        limit 10
+    </select>
+
+    <select id="selectTop10CrewRankingByCreatedDate" resultType="com.korit.running_back_s2.dto.ranking.CrewRankingRespDto">
+        select
+            ct.crew_id,
+            ct.crew_name,
+            ct.gungu_id,
+            gt.gungu_name,
+            ct.profile_picture,
+            ct.thumbnail_picture,
+            ct.total_km,
+            coalesce(mt.member_count, 0) as memberCount,
+            ct.created_at
+        from
+            crew_tb ct
+            left outer join gungu_tb gt on (ct.gungu_id = gt.gungu_id)
+            left outer join (
+                        select
+                            crew_id,
+                            count(*) as member_count
+                        from
+                            member_tb
+                        group by
+                            crew_id
+                        ) mt on (ct.crew_id = mt.crew_id)
+        order by ct.created_at desc
+        limit 10
+    </select>
 </mapper>
