@@ -65,7 +65,7 @@ function FreeBoard({ crewId }) {
           {freeLists.map((board) => (
             <tr key={board.freeId}>
               <td css={s.td}>{board.freeId}</td>
-              <td css={s.tdTitle}>{board.title}</td>
+              <td css={s.tdTitle} onClick={() => navigate(`./${board.freeId}`)}>{board.title}</td>
               <td css={s.td}>{board?.user?.nickname}</td>
               <td css={s.td}>{board.createdAt}</td>
             </tr>

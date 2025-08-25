@@ -1,6 +1,6 @@
 package com.korit.running_back_s2.domain.crewFreeComment;
 
-import com.korit.running_back_s2.domain.crewFree.CrewFree;
+import com.korit.running_back_s2.domain.crewFreeBoard.CrewFree;
 import com.korit.running_back_s2.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,11 +16,10 @@ import java.time.LocalDate;
 public class CrewFreeComment {
     private Integer freeCommentId;
     private Integer freeId;
-    private Integer userId;
     private String content;
+    private Integer userId;
     private LocalDate createdAt;
 
     private User user;
-    private CrewFree crewFree;
 }
 

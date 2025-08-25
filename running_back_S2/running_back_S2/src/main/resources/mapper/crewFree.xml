@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.korit.running_back_s2.domain.crewFree.CrewFreeMapper">
+
+    <resultMap id="CrewFreeMap" type="com.korit.running_back_s2.domain.crewFreeBoard.CrewFree">
+        <id     property="freeId"                   column="free_id"/>
+        <result property="crewId"                   column="crew_id"/>
+        <result property="userId"                   column="f_user_id"/>
+        <result property="title"                    column="title"/>
+        <result property="content"                  column="content"/>
+        <result property="createdAt"                column="created_at" />
+
+        <association property="user" resultMap="UserMap" />
+    </resultMap>
+
+    <resultMap id="UserMap" type="User" >
+        <id property="userId"                       column="user_id" />
+        <result property="oauthType"                column="oauth_type" />
+        <result property="providerId"               column="provider_id" />
+        <result property="email"                    column="email" />
+        <result property="picture"                  column="picture" />
+        <result property="fullName"                 column="full_name" />
+        <result property="nickname"                 column="nickname" />
+        <result property="phoneNumber"              column="phone_number" />
+        <result property="gunguId"                  column="gungu_id" />
+        <result property="address"                  column="address" />
+        <result property="birthDate"                column="birth_date" />
+        <result property="gender"                   column="gender" />
+        <result property="totalKm"                  column="total_km" />
+    </resultMap>
+
+    <select id="findAllFreeListBySearchOption"
+            parameterType="com.korit.running_back_s2.domain.crewFreeBoard.CrewFreeSearchOption"
+            resultMap="CrewFreeMap">
+        select
+            f.free_id,
+            f.crew_id,
+            f.user_id as f_user_id,
+            u.nickname,
+            f.title,
+            f.content,
+            f.created_at
+        from
+            crew_free_tb f
+            left outer join user_tb u on(f.user_id = u.user_id)
+        where
+            f.crew_id = #{crewId}
+            <if test="searchText != null and searchText != ''">
+            AND (
+            f.title LIKE CONCAT('%', #{searchText}, '%') or u.nickname LIKE CONCAT('%', #{searchText}, '%') )
+            </if>
+        order by
+            f.free_id desc
+        limit #{startIndex}, #{size}
+    </select>
+
+    <select id="countFreeListsBySearchOption"
+            parameterType="com.korit.running_back_s2.domain.crewFreeBoard.CrewFreeSearchOption"
+            resultType="int">
+        select
+            COUNT(*)
+        from
+        crew_free_tb f
+        left outer join user_tb u on (u.user_id = f.user_id)
+        where
+            f.crew_id = #{crewId}
+            <if test="searchText != null and searchText != ''">
+                AND (
+                f.title LIKE CONCAT('%', #{searchText}, '%') or u.nickname LIKE CONCAT('%', #{searchText}, '%') )
+            </if>
+    </select>
+    <select id="findByFreeId" resultMap="CrewFreeMap">
+        select
+        f.free_id,
+        f.crew_id,
+        f.user_id as f_user_id,
+        u.nickname,
+        f.title,
+        f.content,
+        f.created_at
+
+        fi.img_id
+        fi.img_path
+        fi.seq int
+
+
+
+    </select>
+
+
+</mapper>

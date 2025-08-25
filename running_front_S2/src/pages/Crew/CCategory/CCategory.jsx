@@ -16,6 +16,7 @@ import MainContainer from "../../../components/MainContainer/MainContainer";
 import ContentLayout from "../../../components/ContentLayout/ContentLayout";
 import Gathering from "../Gathering/Gathering";
 import FeedReg from "../FreeBoard/FeedReg/FeedReg";
+import FeedDetail from "../FreeBoard/FeedDetail/FeedDetail";
 
 
 function CCategory() {
@@ -107,6 +108,7 @@ function CCategory() {
             <Route path="/members" element={<Member />} />
             <Route path="/freeBoards" element={<FreeBoard crewId={crewId}/>} />
             <Route path="freeBoards/register" element={<FeedReg crewId={crewId} />} />
+            <Route path="freeBoards/:freeId" element={<FeedDetail crewId={crewId} />} />
             <Route path="/report" element={<Report crewId={crewId} isCrewLeader={isCrewLeader} />} />
           </Routes>
         </ContentLayout>
