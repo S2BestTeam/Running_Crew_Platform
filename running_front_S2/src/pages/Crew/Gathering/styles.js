@@ -39,13 +39,7 @@ export const clickableRow = css`
 
   &:hover {
     background-color: #e3f2fd !important;
-<<<<<<< HEAD
   }
-=======
-  }import { icons } from '../../../components/Header/styles';
-import { background } from '../Welcome/WelcomeRegModal/styles';
-
->>>>>>> origin/정모-일정-등록-수정중
 `;
 
 export const contentCell = css`
@@ -162,61 +156,6 @@ export const introContent = css`
   white-space: pre-wrap;
 `;
 
-export const reportHistory = css`
-  border: 0.1rem solid #e9ecef;
-  border-radius: 0.4rem;
-  overflow: hidden;
-`;
-
-export const reportItem = css`
-  display: grid;
-  grid-template-columns: 10rem 1fr 8rem;
-  gap: 1.2rem;
-  padding: 1.2rem 1.6rem;
-  border-bottom: 0.1rem solid #f0f0f0;
-  align-items: center;
-
-  &:last-child {
-    border-bottom: none;
-  }
-`;
-
-export const reportDate = css`
-  font-size: 1.4rem;
-  color: #666;
-  font-weight: 500;
-`;
-
-export const reportType = css`
-  font-size: 1.4rem;
-  color: #333;
-`;
-
-export const reportStatus = css`
-  font-size: 1.2rem;
-  padding: 0.4rem 0.8rem;
-  border-radius: 0.4rem;
-  text-align: center;
-  font-weight: 500;
-
-  &:contains("처리완료") {
-    background: #d4edda;
-    color: #155724;
-  }
-
-  &:contains("검토중") {
-    background: #fff3cd;
-    color: #856404;
-  }
-`;
-
-export const noReports = css`
-  padding: 2rem;
-  text-align: center;
-  color: #666;
-  font-style: italic;
-`;
-
 export const modalActions = css`
   display: flex;
   gap: 1.2rem;
@@ -278,14 +217,8 @@ export const closeBtn = css`
 
 export const gatheringMain = css`
   display: grid;
-<<<<<<< HEAD
-  width: 100%;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3rem 1rem;
-=======
   grid-template-columns: repeat(4, 1fr);
   gap: 3rem 2rem;
->>>>>>> origin/정모-일정-등록-수정중
 `;
 
 export const gatheringContainer = css`
@@ -360,12 +293,23 @@ export const statusContainer = css`
 `;
 
 export const status = css`
-  width: 5rem;
-  height: 2.5rem;
-  background-color: green;
-  color: #fff;
-  border-radius: 0.2rem;
-  display: flex;
-  justify-content: center;
-  font-weight: 500;
+  & > div {
+    width: 5rem;
+    height: 2.5rem;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 0.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+  }
+`;
+
+export const recruiting = css`
+  background-color: #28a745;
+`;
+
+export const closed = css`
+  background-color: #dc3545;
 `;
