@@ -31,6 +31,7 @@ export const title = css`
 export const profileSection = css`
   display: flex;
   align-items: center;
+  flex-direction: row;
   gap: 2rem;
 `;
 
@@ -67,6 +68,49 @@ export const profileImgBox = css`
     width: 100%;
     height: 100%;
   }
+`;
+
+export const myRank = css`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+`;
+
+
+export const myRankCard = css`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1 1 20rem;
+  padding: 1rem;
+  border-radius: 1.2rem;
+  box-shadow: 0 0.6rem 1rem rgba(0,0,0,0.2);
+  background-color: #fff;
+  text-align: center;
+`;
+
+export const rankingInfo = css`
+  
+`;
+
+export const myRankTitle = css`
+  font-size: 1.4rem;
+  color: #555;
+  margin-bottom: 1rem;
+`;
+
+export const myRankNumber = css`
+  font-size: 2rem;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 0.5rem;
+`;
+
+export const myRankSub = css`
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
 `;
 
 export const saveButton = css`

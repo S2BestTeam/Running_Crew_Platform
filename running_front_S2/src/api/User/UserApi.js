@@ -10,22 +10,22 @@ export const reqCheckNickname = (nickname) =>
   });
 
   
-  export const reqRegisterUser = async (data) => await api.post("/api/users", data);
-  
-  export const reqUpdateUser = (data) => api.post("/api/mypage", data, {
-    headers: {
-      "Content-Type": "multipart/form-data"
-    }
-  });
-  
-  export const reqGetUserWelcome = (userId) => api.get(`/api/${userId}/mypage`);
-  
-  export const reqGetReportByUserId = (userId) => api.get(`/api/${userId}/reports`);
-  
-  export const reqUserProfileUpdate = (userId, formData) => api.post(`/api/${userId}/picture`, formData, {
-    headers: {
-      "Content-Type": "mutipart/form-data",
-    },
-  });
-  
-  export const reqUserInfoUpdate = (data) => api.patch(`/api/user/update`, data);
+export const reqRegisterUser = async (data) => await api.post("/api/users", data);
+
+export const reqUpdateUser = (data) => api.post("/api/mypage", data, {
+  headers: {
+    "Content-Type": "multipart/form-data"
+  }
+});
+
+export const reqGetUserWelcome = (userId) => api.get(`/api/${userId}/mypage`);
+
+export const reqGetReportByUserId = (userId) => api.get(`/api/${userId}/reports`);
+
+export const reqUserProfileUpdate = (userId, formData) => api.post(`/api/${userId}/picture`, formData, {
+  headers: {
+    "Content-Type": "mutipart/form-data",
+  },
+});
+
+export const reqUserInfoUpdate = (data) => api.patch(`/api/user/update`, data);

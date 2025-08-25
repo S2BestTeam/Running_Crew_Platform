@@ -123,6 +123,42 @@
         where cwt.user_id = #{userId}
     </select>
 
+    <select id="selectUserRankingByTotalKm"
+            resultType="com.korit.running_back_s2.dto.ranking.UserRankingRespDto">
+        select
+            user_id,
+            full_name,
+            picture,
+            nickname,
+            total_km
+        from
+            user_tb
+        order by
+            total_km desc
+    </select>
+
+    <select id="selectUserRankingByGatheringCount"
+            resultType="com.korit.running_back_s2.dto.ranking.UserRankingRespDto">
+        select
+            ut.user_id,
+            ut.full_name,
+            ut.picture,
+            ut.nickname,
+            coalesce( gpt.gathering_count , 0) as gatheringCount
+        from
+            user_tb ut
+            left outer join (
+                            select
+                                user_id,
+                                count(*) as gathering_count
+                            from
+                                gathering_participant_tb
+                            group by
+                                user_id
+                            ) gpt on ( gpt.user_id = ut.user_id)
+        order by
+            gpt.gathering_count desc
+    </select>
 
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="userId">

@@ -2,6 +2,7 @@ package com.korit.running_back_s2.service;
 
 import com.korit.running_back_s2.domain.welcome.WelcomeMapper;
 import com.korit.running_back_s2.domain.welcome.Welcome;
+import com.korit.running_back_s2.dto.welcome.MyWelcomesResDto;
 import com.korit.running_back_s2.dto.welcome.WelcomeReqDto;
 import com.korit.running_back_s2.dto.welcome.WelcomeResDto;
 import lombok.RequiredArgsConstructor;
@@ -31,5 +32,9 @@ public class WelcomeService {
     public void reject(Integer welcomeId) {
         welComeMapper.deleteRejectedAfter7Days();
         welComeMapper.statusReject(welcomeId);
+    }
+
+    public List<MyWelcomesResDto> getMyWelcomes(Integer userId) {
+        return welComeMapper.findAllByUserId(userId);
     }
 }

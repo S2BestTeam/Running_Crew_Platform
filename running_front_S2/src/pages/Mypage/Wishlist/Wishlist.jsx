@@ -63,7 +63,7 @@ function Wishlist(props) {
   return (
     <div css={s.container}>
       <div css={s.headerBox}>
-        <h2>나의 위시리스트</h2>
+        <h2>나의 크루 리스트</h2>
       </div>
       
       {wishlistData.length === 0 ? (

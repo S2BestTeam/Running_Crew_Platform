@@ -2,6 +2,8 @@ package com.korit.running_back_s2.domain.welcome;
 
 import com.korit.running_back_s2.domain.member.Member;
 import com.korit.running_back_s2.dto.member.ExistsCheckReqDto;
+import com.korit.running_back_s2.dto.welcome.MyWelcomesResDto;
+import com.korit.running_back_s2.dto.welcome.UpdateMyWelcomeReqDto;
 import com.korit.running_back_s2.dto.welcome.WelcomeResDto;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -16,4 +18,8 @@ public interface WelcomeMapper {
     int update(Member member);
     int statusReject(Integer welcomeId);
     int deleteRejectedAfter7Days();
+
+    List<MyWelcomesResDto> findAllByUserId(Integer userId);
+    int updateMyWelcome(UpdateMyWelcomeReqDto dto);
+    int deleteMyWelcome(Integer welcomeId);
 }

@@ -53,33 +53,33 @@ function Header(props) {
             onMouseEnter={() => setShowDropdown(true)}
             onMouseLeave={() => setShowDropdown(false)}
           >
-            <a href="#" >크루정보</a>
+            <a>크루정보</a>
           </li>
 
           <li
             onMouseEnter={() => setShowDropdown(true)}
             onMouseLeave={() => setShowDropdown(false)}
           >
-            <a href="#">랭킹정보</a>
+            <a>랭킹정보</a>
           </li>
 
           <li
             onMouseEnter={() => setShowDropdown(true)}
             onMouseLeave={() => setShowDropdown(false)}
           >
-            <a href="#">커뮤니티</a>
+            <a>커뮤니티</a>
           </li>
           <li
             onMouseEnter={() => setShowDropdown(true)}
             onMouseLeave={() => setShowDropdown(false)}
           >
-            <a href="#">대회일정</a>
+            <a>대회일정</a>
           </li>
           <li
             onMouseEnter={() => setShowDropdown(true)}
             onMouseLeave={() => setShowDropdown(false)}
           >
-            <a href="#">고객센터</a>
+            <a>고객센터</a>
           </li>
         </ul>
 
