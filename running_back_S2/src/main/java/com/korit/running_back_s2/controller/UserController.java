@@ -3,7 +3,9 @@ package com.korit.running_back_s2.controller;
 import com.korit.running_back_s2.dto.response.ResponseDto;
 import com.korit.running_back_s2.dto.user.UserMyPageUpdateReqDto;
 import com.korit.running_back_s2.dto.user.UserRegisterReqDto;
+import com.korit.running_back_s2.dto.welcome.UpdateMyWelcomeReqDto;
 import com.korit.running_back_s2.service.UserService;
+import com.korit.running_back_s2.service.WelcomeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,5 +46,17 @@ public class UserController {
         System.out.println(dto);
         userService.updateUserInfo(dto);
         return ResponseEntity.ok(ResponseDto.success("유저 정보 수정 완료"));
+    }
+
+    @PatchMapping("/mypage")
+    public ResponseEntity<ResponseDto<?>> updateMyWelcome(@RequestBody UpdateMyWelcomeReqDto dto) {
+        userService.updateMyWelcome(dto);
+        return ResponseEntity.ok(ResponseDto.success("user 가입 인사 수정 완료"));
+    }
+
+    @DeleteMapping("/mypage/{welcomeId}")
+    public ResponseEntity<ResponseDto<?>> deleteMyWelcome(@PathVariable Integer welcomeId) {
+        userService.deleteMyWelcome(welcomeId);
+        return ResponseEntity.ok(ResponseDto.success("삭제 완료"));
     }
 }

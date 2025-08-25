@@ -73,7 +73,7 @@ function FeedReg({ crewId }) {
 
         quill.insertEmbed(range.index, "image", url);
         quill.insertText(range.index + 1, "\n");
-        quill.setSelection(range.index + 2, 0); 
+        quill.setSelection(range.index + 2, 0);
         quill.focus();
         requestAnimationFrame(() => {
           const sel = quill.getSelection();
@@ -88,7 +88,7 @@ function FeedReg({ crewId }) {
         });
 
         scrollCursorIntoView();
-      } catch (_) {}
+      } catch (_) { }
     };
   }, [scrollCursorIntoView]);
 

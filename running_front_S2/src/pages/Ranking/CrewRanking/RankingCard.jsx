@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./styles";
 
-function RankingCard({ crew, rank, type }) {
+function RankingCard({ data, rank, type, mode }) {
+  // rank 아이콘
   const getRankIcon = (rank) => {
     if (rank === 1) return <h2>🥇</h2>;
     if (rank === 2) return <h3>🥈</h3>;
@@ -9,18 +10,30 @@ function RankingCard({ crew, rank, type }) {
     return `${rank}위`;
   };
 
+  // 메인 값
   const getMainValue = () => {
-    switch (type) {
-      case 'distance':
-        return `${crew.totalKm}km`;
-      case 'member':
-        return `${crew.memberCount}명`;
-      case 'new':
-        return new Date(crew.createdAt).toLocaleDateString();
-      case 'region':
-        return crew.title || crew.description || '';
-      default:
-        return '';
+    if (mode === "crew") {
+      switch (type) {
+        case "distance":
+          return `${data.totalKm}km`;
+        case "member":
+          return `${data.memberCount}명`;
+        case "new":
+          return new Date(data.createdAt).toLocaleDateString();
+        case "region":
+          return data.title || data.description || "";
+        default:
+          return "";
+      }
+    } else if (mode === "user") {
+      switch (type) {
+        case "distance":
+          return `${data.totalKm}km`;
+        case "gathering":
+          return `${data.gatheringCount}회 참여`;
+        default:
+          return "";
+      }
     }
   };
 
@@ -28,16 +41,38 @@ function RankingCard({ crew, rank, type }) {
     <div css={s.card(rank)}>
       <div css={s.rankBadge}>{getRankIcon(rank)}</div>
       <div css={s.crewInfo}>
-        <img src={crew.profilePicture} alt={crew.crewName}css={s.avatar}/>
-        <div>
-          <h3 css={s.crewName}>{crew.crewName}</h3>
-          <p css={s.crewLocation}>{crew.gunguName}</p>
-        </div>
+        {mode === "crew" ? (
+          <>
+            <img
+              src={data.profilePicture}
+              alt={data.crewName}
+              css={s.avatar}
+            />
+            <div>
+              <h3 css={s.crewName}>{data.crewName}</h3>
+              <p css={s.crewLocation}>{data.gunguName}</p>
+            </div>
+          </>
+        ) : (
+          <>
+            <img
+              src={data.picture}
+              alt={data.nickname}
+              css={s.avatar}
+            />
+            <div>
+              <h3 css={s.crewName}>{data.nickname || data.fullName}</h3>
+              <p css={s.crewLocation}>
+                {data.gender === 1 ? "남성" : data.gender === 2 ? "여성" : ""}
+              </p>
+            </div>
+          </>
+        )}
       </div>
       <div css={s.crewStats}>
         <div css={s.mainStat}>{getMainValue()}</div>
-        {type !== 'member' && (
-          <div css={s.subStat}>멤버 {crew.memberCount}명</div>
+        {mode === "crew" && type !== "member" && (
+          <div css={s.subStat}>멤버 {data.memberCount}명</div>
         )}
       </div>
     </div>

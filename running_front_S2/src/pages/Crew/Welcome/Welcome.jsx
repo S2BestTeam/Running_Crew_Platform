@@ -7,6 +7,8 @@ import * as s from './styles';
 import { useEffect, useState } from 'react';
 import { reqRejectWelcome } from '../../../api/Crew/welcomeApi';
 import ContentLayout from '../../../components/ContentLayout/ContentLayout';
+import { useNavigate } from 'react-router-dom';
+import usePrincipalQuery from '../../../queries/usePrincipalQuery';
 
 function Welcome({ isCrewLeader }) {
   const { crewId } = useCrewStore();
@@ -15,7 +17,19 @@ function Welcome({ isCrewLeader }) {
   const [selectedUser, setSelectedUser] = useState(null);
   const userId = selectedUser?.userId;
   const [ reports, setReports ] = useState([]);
-  console.log(welcomes);
+  const navigate = useNavigate();
+  const { data: principalData, isLoading } = usePrincipalQuery();
+
+  useEffect(() => {
+    if (!isLoading) {
+      const userId = principalData?.data?.body?.user?.userId;
+
+      if (!userId) {
+        alert("로그인 후 이용 부탁드립니다.");
+        navigate("/auth/oauth2/signin");
+      }
+    }
+  }, [principalData, isLoading, navigate]);
   
   
   useEffect(() => {

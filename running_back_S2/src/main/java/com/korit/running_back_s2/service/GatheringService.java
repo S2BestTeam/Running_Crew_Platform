@@ -34,6 +34,7 @@ public class GatheringService {
 
         gatheringMapper.insert(gathering);
         participantMapper.insert(gathering.getGatheringId(), userId);
+
     }
 
     public List<Gathering> getGatherings(Integer crewId) {

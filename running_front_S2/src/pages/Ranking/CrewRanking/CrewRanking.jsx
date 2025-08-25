@@ -4,7 +4,6 @@ import MainContainer from "../../../components/MainContainer/MainContainer";
 import useGetCrewRankingQuery from "../../../queries/useGetCrewRankingQuery";
 import RankingCard from "./RankingCard";
 import { useNavigate } from 'react-router-dom';
-import { div } from 'framer-motion/client';
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
 
 function CrewRanking() {
@@ -32,9 +31,10 @@ function CrewRanking() {
               <div key={crew.crewId} onClick={() => navigate(`/crews/${crew.crewId}`)}>
                 <RankingCard 
                   key={crew.crewId} 
-                  crew={crew} 
+                  data={crew} 
                   rank={index + 1}
                   type="distance"
+                  mode="crew"
                   />
               </div>
             ))}
@@ -48,9 +48,10 @@ function CrewRanking() {
               <div key={crew.crewId} onClick={() => navigate(`/crews/${crew.crewId}`)}>
                 <RankingCard 
                   key={crew.crewId} 
-                  crew={crew} 
+                  data={crew} 
                   rank={index + 1}
                   type="member"
+                  mode="crew"
                 />
               </div>
             ))}
@@ -64,9 +65,10 @@ function CrewRanking() {
               <div key={crew.crewId} onClick={() => navigate(`/crews/${crew.crewId}`)}>
                 <RankingCard 
                   key={crew.crewId} 
-                  crew={crew} 
+                  data={crew} 
                   rank={index + 1}
                   type="new"
+                  mode="crew"
                 />
               </div>
             ))}

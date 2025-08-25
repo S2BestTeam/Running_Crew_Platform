@@ -1,14 +1,29 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as s from "./styles";
 import { IoSearch } from "react-icons/io5";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import { useNavigate } from "react-router-dom";
+import usePrincipalQuery from "../../../../queries/usePrincipalQuery";
 
 const BoardList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [ dropDown, setDropDown ] = React.useState('');
+  const navigate = useNavigate();
+  const { data: principalData, isLoading } = usePrincipalQuery();
+
+  useEffect(() => {
+    if (!isLoading) { // 로딩이 끝난 후 체크
+      const userId = principalData?.data?.body?.user?.userId;
+
+      if (!userId) {
+        alert("로그인 후 이용 부탁드립니다.");
+        navigate("/auth/oauth2/signin");
+      }
+    }
+  }, [principalData, isLoading, navigate]);
 
   const handleChange = (event) => {
     setDropDown(event.target.value);

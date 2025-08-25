@@ -15,13 +15,13 @@ public class RankingController {
 
     private final RankingService rankingService;
 
-    @GetMapping("/crew")
+    @GetMapping("/crews")
     public ResponseEntity<ResponseDto<?>> getCrewRankings () {
         return ResponseEntity.ok(ResponseDto.success(rankingService.getAllCrewRankings()));
     }
 
-    @GetMapping("/user")
+    @GetMapping("/users")
     public ResponseEntity<ResponseDto<?>> getUserRanking () {
-        return ResponseEntity.ok(ResponseDto.success(null));
+        return ResponseEntity.ok(ResponseDto.success(rankingService.getAllUserRankings()));
     }
 }

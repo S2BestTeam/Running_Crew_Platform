@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.korit.running_back_s2.domain.crewFree.CrewFreeMapper">
+<mapper namespace="com.korit.running_back_s2.domain.crewFreeBoard.CrewFreeMapper">
 
-    <resultMap id="CrewFreeMap" type="com.korit.running_back_s2.domain.crewFree.CrewFree">
+    <resultMap id="CrewFreeMap" type="com.korit.running_back_s2.domain.crewFreeBoard.CrewFree">
         <id     property="freeId"                   column="free_id"/>
         <result property="crewId"                   column="crew_id"/>
         <result property="userId"                   column="f_user_id"/>
@@ -32,7 +32,7 @@
     </resultMap>
 
     <select id="findAllFreeListBySearchOption"
-            parameterType="com.korit.running_back_s2.domain.crewFree.CrewFreeSearchOption"
+            parameterType="com.korit.running_back_s2.domain.crewFreeBoard.CrewFreeSearchOption"
             resultMap="CrewFreeMap">
         select
             f.free_id,
@@ -57,7 +57,7 @@
     </select>
 
     <select id="countFreeListsBySearchOption"
-            parameterType="com.korit.running_back_s2.domain.crewFree.CrewFreeSearchOption"
+            parameterType="com.korit.running_back_s2.domain.crewFreeBoard.CrewFreeSearchOption"
             resultType="int">
         select
             COUNT(*)
@@ -71,22 +71,29 @@
                 f.title LIKE CONCAT('%', #{searchText}, '%') or u.nickname LIKE CONCAT('%', #{searchText}, '%') )
             </if>
     </select>
-    <select id="findByFreeId" resultMap="CrewFreeMap">
+
+
+    <insert id="insert" keyProperty="freeId" useGeneratedKeys="true">
+        insert into crew_free_tb
+        (crew_id, user_id, title, content)
+        values (#{crewId}, #{userId}, #{title}, #{content})
+    </insert>
+
+    <select id="findDetailById" resultMap="CrewFreeMap">
         select
-        f.free_id,
-        f.crew_id,
-        f.user_id as f_user_id,
-        u.nickname,
-        f.title,
-        f.content,
-        f.created_at
-
-        fi.img_id
-        fi.img_path
-        fi.seq int
-
-
-
+        c.free_id,
+        c.crew_id,
+        c.user_id,
+        c.title,
+        c.content,
+        c.created_at,
+        u.nickname
+        from
+        crew_free_tb c
+        left outer join user_tb u on(u.user_id = c.user_id)
+        where
+        free_id = #{freeId} and
+        crew_id = #{crewId}
     </select>
 
 

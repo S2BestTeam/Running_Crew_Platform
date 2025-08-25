@@ -1,6 +1,7 @@
 package com.korit.running_back_s2.controller;
 
 import com.korit.running_back_s2.dto.response.ResponseDto;
+import com.korit.running_back_s2.dto.welcome.UpdateMyWelcomeReqDto;
 import com.korit.running_back_s2.dto.welcome.WelcomeReqDto;
 import com.korit.running_back_s2.service.WelcomeService;
 import lombok.RequiredArgsConstructor;
@@ -31,4 +32,8 @@ public class WelcomeController {
         return ResponseEntity.ok(ResponseDto.success("승인 거절 성공"));
     }
 
+    @GetMapping("/mypage/{userId}")
+    public ResponseEntity<ResponseDto<?>> getMyWelcomes(@PathVariable Integer userId) {
+        return ResponseEntity.ok(ResponseDto.success(welcomeService.getMyWelcomes(userId)));
+    }
 }

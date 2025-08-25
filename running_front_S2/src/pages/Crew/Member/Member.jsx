@@ -2,7 +2,7 @@
 import * as s from "./styles";
 
 import MainContainer from "../../../components/MainContainer/MainContainer";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import usePrincipalQuery from "../../../queries/usePrincipalQuery";
 import useCrewDetailQuery from "../../../queries/useCrewDetailQuery";
 import useMembersQuery from "../../../queries/useMembersQuery";
@@ -25,6 +25,8 @@ function Member() {
   const membersQuery = useMembersQuery({ crewId, searchText: searchInput, size: 10 });
 
   const [members, setMembers] = useState([]);
+  console.log(members);
+  
 
   const [selectedMemberId, setSelectedMemberId] = useState(null);
   const [reportMemberId, setReportMemberId] = useState(null);
@@ -121,27 +123,36 @@ function Member() {
               ))}
               <div ref={loadMoreRef} style={{ height: 8 }} />
             </div>
-            {selectedMemberId && (
-              <MemberModal
-              memberId={selectedMemberId}
-              isOpen={!!selectedMemberId}
-              isLeader={isLeader}
-              onChanged={() => membersQuery.refetch()}
-              onClose={() => setSelectedMemberId(null)}
-              onReport={(memberId) => {
-                setSelectedMemberId(null);
-                setReportMemberId(memberId);
-              }}
-              />
-            )}
-            {reportMemberId && (
-              <ReportModal
-              crewId={crewId}
-              memberId={reportMemberId}
-              nickname={members.find(m => m.memberId === reportMemberId)?.nickname}
-              isOpen={!!reportMemberId}
-              onClose={() => setReportMemberId(null)}
-              />
+            {members.some(member => member.userId === userId) ? (
+              <>
+                {selectedMemberId && (
+                  <MemberModal
+                    memberId={selectedMemberId}
+                    isOpen={!!selectedMemberId}
+                    isLeader={isLeader}
+                    onChanged={() => membersQuery.refetch()}
+                    onClose={() => setSelectedMemberId(null)}
+                    onReport={(memberId) => {
+                      setSelectedMemberId(null);
+                      setReportMemberId(memberId);
+                    }}
+                  />
+                )}
+                {reportMemberId && (
+                  <ReportModal
+                    crewId={crewId}
+                    memberId={reportMemberId}
+                    nickname={members.find(m => m.memberId === reportMemberId)?.nickname}
+                    isOpen={!!reportMemberId}
+                    onClose={() => setReportMemberId(null)}
+                  />
+                )}
+              </>
+            ) : (
+              <div style={{ pointerEvents: "none", opacity: 0.5 }}>
+                {/* 클릭 불가 UI 표시 (선택적으로) */}
+                멤버가 아니어서 접근할 수 없습니다.
+              </div>
             )}
           </div>
         </div>

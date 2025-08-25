@@ -41,4 +41,5 @@ public class GatheringController {
         participantService.cancelAttendance(gatheringId);
         return ResponseEntity.ok(ResponseDto.success("불참완료"));
     }
+
 }
