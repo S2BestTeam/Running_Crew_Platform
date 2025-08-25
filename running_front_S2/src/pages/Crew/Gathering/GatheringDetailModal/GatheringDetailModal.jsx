@@ -49,7 +49,6 @@ function GatheringDetailModal({ isOpen, onClose, gathering, onUpdateParticipants
   };
 
   if (!gathering) return null;
-  
 
   const dateObj = new Date(`${gathering.runningDate}T${gathering.runningTime}`);
   let hours = dateObj.getHours();
@@ -79,9 +78,10 @@ function GatheringDetailModal({ isOpen, onClose, gathering, onUpdateParticipants
             <div><FaWonSign /> {gathering.cost}원</div>
             <div>최대인원: {gathering.maxParticipants}</div>
             <div>현재참석자: {gathering.currentParticipants || 0}</div>
+            <div>km: {gathering.km}</div>
             <div css={s.profile}>
-              <img src={gathering?.user.picture} alt="작성자" />
-              <span>{gathering?.user.fullName || "알 수 없음"}</span>
+              <img src={gathering.user?.picture} alt="작성자" />
+              <span>{gathering.user?.fullName || "알 수 없음"}</span>
             </div>
           </div>
           <button onClick={onClose}>닫기</button>

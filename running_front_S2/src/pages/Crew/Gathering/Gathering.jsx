@@ -2,7 +2,12 @@
 import { useState, useEffect } from "react";
 import * as s from "./styles";
 import { MdAccessTimeFilled } from "react-icons/md";
-import { FaCalendar, FaMapMarkerAlt, FaWonSign } from "react-icons/fa";
+import {
+  FaCalendar,
+  FaMapMarkerAlt,
+  FaRunning,
+  FaWonSign,
+} from "react-icons/fa";
 import { useGetGatheringsQuery } from "../../../queries/useGetGatheringsQuery";
 import GatheringRegModal from "./GatheringRegModal/GatheringRegModal";
 import GatheringDetailModal from "./GatheringDetailModal/GatheringDetailModal";
@@ -90,6 +95,9 @@ function Gathering({ crewId }) {
                   <div>
                     <FaWonSign /> {g.cost}
                   </div>
+                  <div>
+                    <FaRunning /> {g.km} km
+                  </div>
                   <div css={s.statusContainer}>
                     <div>
                       <div css={s.profileImg}>
@@ -100,7 +108,11 @@ function Gathering({ crewId }) {
                       </div>
                     </div>
                     <div css={s.status}>
-                      <div>모집중</div>
+                      {g.status === 1 ? (
+                        <div css={s.recruiting}>모집중</div>
+                      ) : (
+                        <div css={s.closed}>마감</div>
+                      )}
                     </div>
                   </div>
                 </div>

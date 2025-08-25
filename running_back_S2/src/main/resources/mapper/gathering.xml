@@ -76,7 +76,7 @@
         cgt.km,
         cgt.cost,
         cgt.max_participants,
-        cgt.status,
+        if((COUNT(gpt.participant_id) &lt; cgt.max_participants) and TIMESTAMP(cgt.running_date, cgt.running_time) &gt; now(), 1, 2) as status,
         cgt.created_at,
 
         ut.user_id,
@@ -99,6 +99,5 @@
         ORDER BY
         cgt.running_date DESC, cgt.running_time DESC
     </select>
-
 
 </mapper>
