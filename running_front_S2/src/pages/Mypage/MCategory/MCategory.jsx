@@ -4,11 +4,8 @@ import LeftSideBarLayout from '../../../components/LeftSideBarLayout/LeftSideBar
 import MainContainer from '../../../components/MainContainer/MainContainer';
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
 import MypageModify from '../Modify/MypageModify';
-<<<<<<< HEAD
 import Post from '../Post/Post';
-=======
 import Welcome from '../Welcome/Welcome';
->>>>>>> origin/51-userranking
 import Wishlist from '../Wishlist/Wishlist';
 import * as s from './styles';
 import { Route, Routes, useNavigate } from 'react-router-dom';
@@ -32,17 +29,10 @@ function MCategory(props) {
 
   const navigationButtons = (
     <>
-<<<<<<< HEAD
-      <button>크루 신청 내역</button>
-      <button onClick={() => navigate("/mypage/wish")}>위시 리스트</button>
-      <button>내가 쓴 글</button>
-      <button>D</button>
-=======
       <button onClick={() => navigate("/mypage/welcome")}>크루 신청 내역</button>
       <button onClick={() => navigate("/mypage/wish")}>나의 크루 리스트</button>
       <button>내가 쓴 글</button>
       <button>나의 정모일정</button>
->>>>>>> origin/51-userranking
     </>
   );
 
@@ -56,11 +46,8 @@ function MCategory(props) {
         <Routes>
           <Route path='/' element={<MypageModify />}/>
           <Route path='/wish' element={<Wishlist />}/>
-<<<<<<< HEAD
           {/* <Route path='/post' element={<Post />}/> */}
-=======
           <Route path='/welcome' element={<Welcome />} />
->>>>>>> origin/51-userranking
         </Routes>
       </ContentLayout>
       </LeftSideBarLayout>
