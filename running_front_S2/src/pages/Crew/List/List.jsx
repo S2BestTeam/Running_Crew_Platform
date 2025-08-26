@@ -8,9 +8,9 @@ import MainContainer from "../../../components/MainContainer/MainContainer";
 import { FaHeart } from 'react-icons/fa';
 import { FiHeart } from 'react-icons/fi';
 import { motion } from "framer-motion";
-import { addWishlist, getUserWishlist, removeWishlist } from '../../../api/Crew/wishlist';
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
 import { useCrewStore } from '../../../stores/useCrewStroes';
+import { addWishlist, getUserWishlist, removeWishlist } from '../../../api/Crew/wishlistApi';
 
 function List() {
   const navigate = useNavigate();

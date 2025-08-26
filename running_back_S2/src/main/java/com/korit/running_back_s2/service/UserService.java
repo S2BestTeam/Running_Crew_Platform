@@ -1,6 +1,7 @@
 package com.korit.running_back_s2.service;
 
 import com.korit.running_back_s2.domain.gungu.GunguMapper;
+import com.korit.running_back_s2.domain.user.DeletedUser;
 import com.korit.running_back_s2.domain.user.User;
 import com.korit.running_back_s2.domain.user.UserMapper;
 import com.korit.running_back_s2.domain.welcome.WelcomeMapper;
@@ -10,6 +11,7 @@ import com.korit.running_back_s2.dto.welcome.UpdateMyWelcomeReqDto;
 import com.korit.running_back_s2.dto.welcome.WelcomeByUserIdResDto;
 import com.korit.running_back_s2.dto.user.UserRegisterReqDto;
 import com.korit.running_back_s2.security.jwt.JwtUtil;
+import com.korit.running_back_s2.security.model.PrincipalUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +30,7 @@ public class UserService {
     private final GunguMapper gunguMapper;
     private final FileService fileService;
     private final WelcomeMapper welcomeMapper;
+    private final PrincipalUtil principalUtil;
 
     public Map<String, String> register(UserRegisterReqDto dto) {
         User user = dto.toEntity();
@@ -44,6 +47,29 @@ public class UserService {
         Map<String, String> result = new HashMap<>();
         result.put("accessToken", accessToken);
         return result;
+    }
+
+    public void deleteUser (Integer userId) {
+        User user = principalUtil.getPrincipalUser().getUser();
+
+        DeletedUser deletedUser = DeletedUser.builder()
+                .userId(user.getUserId())
+                .oauthType(user.getOauthType())
+                .providerId(user.getProviderId())
+                .email(user.getEmail())
+                .picture(user.getPicture())
+                .fullName(user.getFullName())
+                .nickname(user.getNickname())
+                .gunguId(user.getGunguId())
+                .address(user.getAddress())
+                .phoneNumber(user.getPhoneNumber())
+                .birthDate(user.getBirthDate())
+                .gender(user.getGender())
+                .totalKm(user.getTotalKm())
+                .build();
+
+        userMapper.insertDeleteTb(deletedUser);
+        userMapper.deleteUser(userId);
     }
 
 

@@ -30,4 +30,4 @@ export const reqUserProfileUpdate = (userId, formData) => api.post(`/api/${userI
 
 export const reqUserInfoUpdate = (data) => api.patch(`/api/user/update`, data);
 
-export const reqDeleteUser = (userId) => api.delete(`/api/users/${userId}`);
+export const reqDeleteUser = (userId) => api.delete(`/api/${userId}/delete`);

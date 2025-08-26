@@ -3,7 +3,9 @@ import { reqDeleteUser } from '../../../api/User/userApi';
 import ContentLayout from '../../../components/ContentLayout/ContentLayout';
 import LeftSideBarLayout from '../../../components/LeftSideBarLayout/LeftSideBarLayout';
 import MainContainer from '../../../components/MainContainer/MainContainer';
+import useGetCrewRoleQuery from '../../../queries/useGetCrewRoleQuery';
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
+import { useCrewStore } from '../../../stores/useCrewStroes';
 import MypageModify from '../Modify/MypageModify';
 import Post from '../Post/Post';
 import Welcome from '../Welcome/Welcome';
@@ -13,19 +15,36 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 
 function MCategory(props) {
   const navigate = useNavigate();
+  const { crewId } = useCrewStore();
   const principal = usePrincipalQuery();
   const user = principal?.data?.data?.body?.user;
   const userId = principal?.data?.data?.body?.user?.userId;
+  const CrewRoleQuery = useGetCrewRoleQuery(userId);
+
+  // 현재 사용자가 어떤 크루에서든 leader인지 확인
+  const isUserLeader = CrewRoleQuery?.data?.some(
+    (role) => role.userId === userId && role.roleName === 'leader'
+  );
+
+  console.log('userId:', userId, 'isUserLeader:', isUserLeader);
+
+  // leader가 아닌 경우에만 탈퇴 버튼 표시
+  const showDeleteButton = !isUserLeader;
 
   const handleDeleteUserOnClick = async () => {
     if (window.confirm('정말 탈퇴하시겠습니까?')) {
       try {
         await reqDeleteUser(userId);
+        const accessToken = localStorage.getItem("AccessToken");
+        if (accessToken) {
+          localStorage.removeItem("AccessToken");
+          queryClient.clear();
+        }
         alert('탈퇴가 완료되었습니다. 그동안 이용해 주셔서 감사합니다.');
         navigate('/');
       } catch (error) {
         alert('탈퇴 처리 중 오류가 발생했습니다.');
-        console.error(error);
+        // console.error(error);
       }
     }
   }
@@ -53,7 +72,9 @@ function MCategory(props) {
 
   const bottomSection = (
     <div css={s.getout}>
-      <button onClick={handleDeleteUserOnClick}>탈퇴하기</button>
+      {
+        showDeleteButton && (<button onClick={handleDeleteUserOnClick}>탈퇴하기</button>)
+      }
     </div>
   );
 
@@ -77,4 +98,4 @@ function MCategory(props) {
   );
 }
 
-export default MCategory;
+export default MCategory

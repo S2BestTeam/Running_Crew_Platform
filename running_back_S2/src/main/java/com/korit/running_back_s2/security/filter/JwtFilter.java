@@ -61,10 +61,16 @@ public class JwtFilter implements Filter {
             return;
         }
 
-        if (!foundUser.getPicture().startsWith("http")) {
+        // picture가 null일 수 있으므로 기본값 설정
+        String picture = foundUser.getPicture() != null ? foundUser.getPicture() : "";
+
+        // picture가 http로 시작하지 않으면 prefix 추가
+        if (!picture.startsWith("http")) {
             String prefix = appProperties.getImageConfigs().get("profile").getPrefix();
-            String newProfileImg = prefix + "/" + foundUser.getPicture();
+            String newProfileImg = prefix + "/" + picture;
             foundUser.setPicture(newProfileImg);
+        } else {
+            foundUser.setPicture(picture); // http로 시작하면 그대로 사용
         }
 
         // PrincipalUser 생성
@@ -73,7 +79,8 @@ public class JwtFilter implements Filter {
                 .build();
 
         // Spring Security Context에 인증 정보 설정
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(principalUser, "", principalUser.getAuthorities());
+        UsernamePasswordAuthenticationToken authentication =
+                new UsernamePasswordAuthenticationToken(principalUser, "", principalUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }

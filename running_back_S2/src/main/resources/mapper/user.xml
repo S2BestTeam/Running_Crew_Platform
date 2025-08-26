@@ -164,6 +164,33 @@
     <insert id="insert" useGeneratedKeys="true" keyProperty="userId">
         INSERT INTO user_tb
         (oauth_type, provider_id, email, picture, full_name, nickname, phone_number, gungu_id, address, birth_date, gender, total_km  )
-        VALUES (#{oauthType}, #{providerId}, #{email}, #{picture}, #{fullName}, #{nickname}, #{phoneNumber}, #{gunguId}, #{address}, #{birthDate}, #{gender}, #{totalKM} )
+        VALUES (#{oauthType}, #{providerId}, #{email}, #{picture}, #{fullName}, #{nickname}, #{phoneNumber}, #{gunguId}, #{address}, #{birthDate}, #{gender}, #{totalKm} )
     </insert>
+
+    <update id="deleteUser">
+        UPDATE user_tb
+        SET
+            email = NULL,
+            picture = NULL,
+            full_name = CONCAT('탈퇴회원_', '***'),
+            nickname = CONCAT('탈퇴회원_', user_id),
+            phone_number = NULL,
+            gungu_id = NULL,
+            address = NULL,
+            birth_date = NULL,
+            gender = NULL,
+            role = NULL,
+            oauth_type = NULL,
+            provider_id = NULL,
+            total_km = NULL
+        WHERE
+            user_id = #{userId};
+    </update>
+
+    <insert id="insertDeleteTb" useGeneratedKeys="true" keyProperty="deletedId">
+        INSERT INTO deleted_user_tb
+        (deleted_id, user_id, oauth_type, provider_id, email, picture, full_name, nickname, phone_number, gungu_id, address, birth_date, gender, total_km  )
+        VALUES (default ,#{userId}, #{oauthType}, #{providerId}, #{email}, #{picture}, #{fullName}, #{nickname}, #{phoneNumber}, #{gunguId}, #{address}, #{birthDate}, #{gender}, #{totalKm} )
+    </insert>
+
 </mapper>

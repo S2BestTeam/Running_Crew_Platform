@@ -20,8 +20,13 @@ public class UserController {
 
     @PostMapping("/users")
     public ResponseEntity<ResponseDto<?>> register(@RequestBody UserRegisterReqDto dto) {
-        System.out.println(dto);
         return ResponseEntity.ok(ResponseDto.success(userService.register(dto)));
+    }
+
+    @DeleteMapping("/{userId}/delete")
+    public ResponseEntity<ResponseDto<?>> deleteUser(@PathVariable Integer userId) {
+        userService.deleteUser(userId);
+        return ResponseEntity.ok(ResponseDto.success("회원 탈퇴가 완료 되었습니다."));
     }
 
     @GetMapping("/users/nickname/check")
@@ -43,7 +48,6 @@ public class UserController {
 
     @PatchMapping("/user/update")
     public ResponseEntity<ResponseDto<?>> updateUserInfo(@RequestBody UserMyPageUpdateReqDto dto) {
-        System.out.println(dto);
         userService.updateUserInfo(dto);
         return ResponseEntity.ok(ResponseDto.success("유저 정보 수정 완료"));
     }
