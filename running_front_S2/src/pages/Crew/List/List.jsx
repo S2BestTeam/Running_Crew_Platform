@@ -10,6 +10,7 @@ import { FiHeart } from 'react-icons/fi';
 import { motion } from "framer-motion";
 import { addWishlist, getUserWishlist, removeWishlist } from '../../../api/Crew/wishlist';
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
+import { useCrewStore } from '../../../stores/useCrewStroes';
 
 function List() {
   const navigate = useNavigate();
@@ -21,6 +22,8 @@ function List() {
   const selectedGunguId = searchParams.get("gunguId") || "";
   const [wishlist, setWishlist] = useState([]);
   const [searchInput, setSearchInput] = useState(searchText);
+
+  const { resetCrew } = useCrewStore();
   
   useEffect(() => {
     const loadUserWishlist  = async () => {
@@ -37,6 +40,12 @@ function List() {
     
     loadUserWishlist();
   }, [userId]);
+
+  useEffect(() => {
+    return () => {
+      resetCrew();
+    };
+  }, [resetCrew]);
 
   const handleLike = async (e, crewId) => {
     e.stopPropagation();

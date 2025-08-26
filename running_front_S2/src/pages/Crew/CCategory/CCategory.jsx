@@ -25,8 +25,8 @@ function CCategory() {
   const userId = principal?.data?.data?.body?.user?.userId;
   const { crewId } = useParams();
   const { data: crewData, isLoading, isSuccess } = useCrewDetailQuery(crewId);
-  const { setCrewId, setCrew } = useCrewStore();
-
+  const { setCrewId, setCrew, setCrewLeader } = useCrewStore();
+  
   useEffect(() => {
     setCrewId(crewId);
     setCrew(crewData?.body);
@@ -104,7 +104,7 @@ function CCategory() {
           <Routes>
             <Route path="/" element={<CrewInfo />} />
             <Route path="/welcome" element={<Welcome isCrewLeader={isCrewLeader} />}/>
-            <Route path="/gathering" element={<Gathering crewId={crewId} />}/>
+            <Route path="/gathering" element={<Gathering />}/>
             <Route path="/members" element={<Member />} />
             <Route path="/freeBoards" element={<FreeBoard crewId={crewId}/>} />
             <Route path="freeBoards/register" element={<FeedReg crewId={crewId} />} />

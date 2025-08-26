@@ -204,4 +204,17 @@
         order by ct.created_at desc
         limit 10
     </select>
+
+    <select id="findRoleByUserId" resultType="com.korit.running_back_s2.dto.crew.CrewRoleReqDto">
+        select
+            ct.crew_id,
+            mt.user_id,
+            rt.role_name
+        from
+            crew_tb ct
+            left join member_tb mt on mt.crew_id = ct.crew_id
+            left join member_role_tb rt on rt.role_id = mt.role_id
+        where
+            mt.user_id = #{userId};
+    </select>
 </mapper>

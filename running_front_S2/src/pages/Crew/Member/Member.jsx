@@ -25,9 +25,6 @@ function Member() {
   const membersQuery = useMembersQuery({ crewId, searchText: searchInput, size: 10 });
 
   const [members, setMembers] = useState([]);
-  console.log(members);
-  
-
   const [selectedMemberId, setSelectedMemberId] = useState(null);
   const [reportMemberId, setReportMemberId] = useState(null);
 
@@ -37,6 +34,7 @@ function Member() {
     setMembers(merged);
     setLeader(crewData?.body.userId === userId);
   }, [membersQuery.data]);
+  
 
   const handleSearchOnChange = (e) => setSearchInput(e.target.value);
   const handleSearchOnClick = () => {
@@ -123,7 +121,7 @@ function Member() {
               ))}
               <div ref={loadMoreRef} style={{ height: 8 }} />
             </div>
-            {members.some(member => member.userId === userId) ? (
+            {members.filter(member => member.userId === userId).length > 0 ? (
               <>
                 {selectedMemberId && (
                   <MemberModal

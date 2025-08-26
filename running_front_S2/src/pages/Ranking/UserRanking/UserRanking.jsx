@@ -21,7 +21,7 @@ function UserRanking(props) {
       const userId = principalQuery?.data?.body?.user?.userId;
 
       if (!userId) {
-        alert("로그인 후 이용 부탁드립니다.");
+        alert("로그인 후 이용 가능합니다.");
         navigate("/auth/oauth2/signin");
       }
     }

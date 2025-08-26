@@ -10,7 +10,7 @@ export const useCrewStore = create((set) => ({
   isMember: false,
   
   setIsMember: (value) => set({ isMember: value }),
-
+  
   resetCrew: () =>
     set({
       crewId: null,

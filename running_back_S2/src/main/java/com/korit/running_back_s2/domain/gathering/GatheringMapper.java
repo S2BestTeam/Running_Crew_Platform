@@ -10,9 +10,4 @@ import java.util.List;
 public interface GatheringMapper {
     int insert(Gathering gathering);
     List<Gathering> findAllByCrewId(@Param("crewId") Integer crewId, @Param("userId") Integer userId);
-
-    Gathering findById(@Param("gatheringId") Integer gatheringId);
-
-    void updateStatus(@Param("gatheringId") Integer gatheringId,
-                      @Param("status") int status);
 }

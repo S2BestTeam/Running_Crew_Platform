@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { reqDeleteUser } from '../../../api/User/userApi';
 import ContentLayout from '../../../components/ContentLayout/ContentLayout';
 import LeftSideBarLayout from '../../../components/LeftSideBarLayout/LeftSideBarLayout';
 import MainContainer from '../../../components/MainContainer/MainContainer';
@@ -14,9 +15,23 @@ function MCategory(props) {
   const navigate = useNavigate();
   const principal = usePrincipalQuery();
   const user = principal?.data?.data?.body?.user;
+  const userId = principal?.data?.data?.body?.user?.userId;
+
+  const handleDeleteUserOnClick = async () => {
+    if (window.confirm('정말 탈퇴하시겠습니까?')) {
+      try {
+        await reqDeleteUser(userId);
+        alert('탈퇴가 완료되었습니다. 그동안 이용해 주셔서 감사합니다.');
+        navigate('/');
+      } catch (error) {
+        alert('탈퇴 처리 중 오류가 발생했습니다.');
+        console.error(error);
+      }
+    }
+  }
 
   const profileSection = (
-    <div css={s.userSimpleInfo}  onClick={() => navigate(`/mypage`)}>
+    <div css={s.userSimpleInfo} onClick={() => navigate(`/mypage`)}>
       <div css={s.profileImgBox}>
         <img src={user?.picture} alt="프로필 이미지" />
       </div>
@@ -36,20 +51,27 @@ function MCategory(props) {
     </>
   );
 
+  const bottomSection = (
+    <div css={s.getout}>
+      <button onClick={handleDeleteUserOnClick}>탈퇴하기</button>
+    </div>
+  );
+
   return (
     <MainContainer>
       <LeftSideBarLayout
         profileSection={profileSection}
         navigationButtons={navigationButtons}
-        >
-      <ContentLayout>
-        <Routes>
-          <Route path='/' element={<MypageModify />}/>
-          <Route path='/wish' element={<Wishlist />}/>
-          {/* <Route path='/post' element={<Post />}/> */}
-          <Route path='/welcome' element={<Welcome />} />
-        </Routes>
-      </ContentLayout>
+        bottomSection={bottomSection}
+      >
+        <ContentLayout>
+          <Routes>
+            <Route path='/' element={<MypageModify />}/>
+            <Route path='/wish' element={<Wishlist />}/>
+            {/* <Route path='/post' element={<Post />}/> */}
+            <Route path='/welcome' element={<Welcome />} />
+          </Routes>
+        </ContentLayout>
       </LeftSideBarLayout>
     </MainContainer>
   );
