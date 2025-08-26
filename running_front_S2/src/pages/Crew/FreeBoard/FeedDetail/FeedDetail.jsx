@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import * as s from './styles';
 import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import useGetCrewFreeBoardDetailQuery from '../../../../queries/useGetCrewFreeBoardDetailQuery';
 import sanitizeHtml from "sanitize-html";
 import { div } from 'framer-motion/client';
@@ -67,8 +67,7 @@ export default function FeedDetail() {
         <input type="text" placeholder="댓글을 입력하세요" value={comment} onChange={(e) => setComment(e.target.value)} />
         <button onClick={handleCommentOnClick}>등록하기</button>
       </div>
-      <div>
-      </div>
+      <button onClick={() => navigate(`./comments`)}>댓글 더 보기</button>
     </div>
 
   );

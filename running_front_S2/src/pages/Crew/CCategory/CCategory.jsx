@@ -17,6 +17,8 @@ import ContentLayout from "../../../components/ContentLayout/ContentLayout";
 import Gathering from "../Gathering/Gathering";
 import FeedReg from "../FreeBoard/FeedReg/FeedReg";
 import FeedDetail from "../FreeBoard/FeedDetail/FeedDetail";
+import CommentDetail from "../FreeBoard/Comment/CommentDetail";
+import Notice from "../Notice/Notice";
 
 
 function CCategory() {
@@ -72,7 +74,7 @@ function CCategory() {
       </button>
       <button onClick={() => navigate(`/crews/${crewId}/freeBoards`)}>자유게시판</button>
       <button>사진첩</button>
-      <button>공지사항</button>
+      <button onClick={() => navigate(`/crews/${crewId}/notices`)}>공지사항</button>
       <button>문의사항</button>
       {isCrewLeader && (
         <>
@@ -109,6 +111,8 @@ function CCategory() {
             <Route path="/freeBoards" element={<FreeBoard crewId={crewId}/>} />
             <Route path="freeBoards/register" element={<FeedReg crewId={crewId} />} />
             <Route path="freeBoards/:freeId" element={<FeedDetail crewId={crewId} />} />
+            <Route path="freeBoards/:freeId/comments" element={<CommentDetail crewId={crewId}/>} />
+            <Route path="/notices" element={<Notice crewId={crewId}/>} />
             <Route path="/report" element={<Report crewId={crewId} isCrewLeader={isCrewLeader} />} />
           </Routes>
         </ContentLayout>
