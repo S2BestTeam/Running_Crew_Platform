@@ -13,6 +13,7 @@
         <result property="createdAt"                column="created_at" />
 
         <association property="user" resultMap="UserMap" />
+        <association property="member" resultMap="MemberMap" />
     </resultMap>
 
     <resultMap id="UserMap" type="User" >
@@ -31,28 +32,35 @@
         <result property="totalKm"                  column="total_km" />
     </resultMap>
 
+    <resultMap id="MemberMap" type="com.korit.running_back_s2.domain.member.Member">
+        <id     property="memberId"                 column="member_id"/>
+        <result property="userId"                   column="cm_user_id"/>
+        <result property="roleId"                   column="role_id"/>
+        <association property="user" resultMap="UserMap" />
+    </resultMap>
+
     <select id="findAllNoticeListBySearchOption"
             parameterType="com.korit.running_back_s2.domain.notice.CrewNoticeSearchOption"
             resultMap="CrewNoticeMap">
         select
-            f.notice_id,
-            f.crew_id,
-            f.user_id as f_user_id,
+            n.notice_id,
+            n.crew_id,
+            n.user_id as f_user_id,
             u.nickname,
-            f.title,
-            f.content,
-            f.created_at
+            n.title,
+            n.content,
+            n.created_at
         from
-            crew_notice_tb f
-            left outer join user_tb u on(f.user_id = u.user_id)
+            crew_notice_tb n
+            left outer join user_tb u on(n.user_id = u.user_id)
         where
-            f.crew_id = #{crewId}
+            n.crew_id = #{crewId}
             <if test="searchText != null and searchText != ''">
             AND (
-            f.title LIKE CONCAT('%', #{searchText}, '%') or u.nickname LIKE CONCAT('%', #{searchText}, '%') )
+            n.title LIKE CONCAT('%', #{searchText}, '%') or u.nickname LIKE CONCAT('%', #{searchText}, '%') )
             </if>
         order by
-            f.notice_id desc
+            n.notice_id desc
         limit #{startIndex}, #{size}
     </select>
 
@@ -62,13 +70,13 @@
         select
             COUNT(*)
         from
-        crew_notice_tb f
-        left outer join user_tb u on (u.user_id = f.user_id)
+        crew_notice_tb n
+        left outer join user_tb u on (u.user_id = n.user_id)
         where
-            f.crew_id = #{crewId}
+            n.crew_id = #{crewId}
             <if test="searchText != null and searchText != ''">
                 AND (
-                f.title LIKE CONCAT('%', #{searchText}, '%'))
+                n.title LIKE CONCAT('%', #{searchText}, '%'))
             </if>
     </select>
 
@@ -91,7 +99,7 @@
             crew_notice_tb c
             left outer join user_tb u on(u.user_id = c.user_id)
         where
-            notice_id = #{noticeId} and crew_id = #{crewId}
+            c.notice_id = #{noticeId} and c.crew_id = #{crewId}
     </select>
 
 

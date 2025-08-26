@@ -56,8 +56,8 @@ public class NoticeService {
         crewNoticeMapper.insert(crewNotice);
     }
 
-    public List<CrewNotice> getNoticeDetail(Integer crewId, Integer NoticeId) {
-        return crewNoticeMapper.findDetailById(crewId, NoticeId);
+    public List<CrewNotice> getNoticeDetail(Integer crewId, Integer noticeId) {
+        return crewNoticeMapper.findDetailById(crewId, noticeId);
     }
 }
 

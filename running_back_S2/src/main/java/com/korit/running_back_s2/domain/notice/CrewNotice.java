@@ -1,5 +1,6 @@
 package com.korit.running_back_s2.domain.notice;
 
+import com.korit.running_back_s2.domain.member.Member;
 import com.korit.running_back_s2.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,4 +22,5 @@ public class CrewNotice {
     private LocalDate createdAt;
 
     private User user;
+    private Member member;
 }

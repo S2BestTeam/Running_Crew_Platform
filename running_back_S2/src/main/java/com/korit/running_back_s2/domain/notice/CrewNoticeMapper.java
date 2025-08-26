@@ -14,7 +14,5 @@ public interface CrewNoticeMapper {
 
     Integer countNoticeListsBySearchOption(CrewNoticeSearchOption opt);
 
-    CrewNotice findByNoticeId (Integer NoticeId);
-
-    List<CrewNotice> findDetailById(@Param("crewId") int crewId, @Param("NoticeId") int NoticeId);
+    List<CrewNotice> findDetailById(@Param("crewId") int crewId, @Param("noticeId") int noticeId);
 }
