@@ -34,17 +34,6 @@ function Notice() {
     searchText,
   });
 
-<<<<<<< HEAD
-=======
-  // useEffect(() => {
-  //   if (roleRes) {
-  //     console.log("role raw:", roleRes?.data?.body, typeof roleRes?.data?.body);
-  //     console.log("parsed roleId:", roleId, "canRegister:", canRegister);
-  //   }
-  // }, [roleRes, roleId, canRegister]);
-
-
->>>>>>> origin/main
   useEffect(() => {
     if (isPrincipalReady && !userId) {
       alert("로그인 후 이용 부탁드립니다.");

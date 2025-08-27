@@ -31,9 +31,6 @@ export const reqRegisterComment = (comment, crewId, freeId) =>
     content: comment,
   });
 
-<<<<<<< HEAD
-export const reqGetFreeCommentList = (crewId,freeId) => api.get(`/api/freeBoards/${crewId}/detail/${freeId}/comments`);
-=======
 export const reqGetFreeCommentList = (crewId, freeId) => api.get(`/api/freeBoards/${crewId}/detail/${freeId}/comments`)
 export const reqUpdateFreeComment = (crewId, freeId, freeCommentId, content) => {
   const cid = Number(crewId);
@@ -52,4 +49,3 @@ export const reqDeleteComment = (crewId, freeId, freeCommentId) => {
   const ccid = Number(freeCommentId);
   return api.delete(`/api/freeBoards/${cid}/detail/${fid}/comments/${ccid}`);
 };
->>>>>>> origin/main

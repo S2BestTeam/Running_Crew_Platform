@@ -62,131 +62,73 @@ function FreeBoard() {
   };
 
   const handleRegisterOnClick = () => {
-<<<<<<< HEAD
     if (!isCrewMember) {
       alert('크루 멤버만 접근 가능합니다. 크루에 가입해주세요.');
       navigate(`/crews/${crewId}`);
       return;
     }
-=======
-    // if (!isCrewMember) {
-    //   alert('크루 멤버만 접근 가능합니다. 크루에 가입해주세요.');
-    //   navigate(`/crews/${crewId}`);
-    //   return;
-    // }
->>>>>>> origin/main
     navigate(`./register`);
   }
 
   const handlePostOnClick = (freeId) => {
-<<<<<<< HEAD
     if (!isCrewMember) {
       alert('크루 멤버만 접근 가능합니다. 크루에 가입해주세요.');
       navigate(`/crews/${crewId}`);
       return;
     }
-=======
-    // if (!isCrewMember) {
-    //   alert('크루 멤버만 접근 가능합니다. 크루에 가입해주세요.');
-    //   navigate(`/crews/${crewId}`);
-    //   return;
-    // }
->>>>>>> origin/main
     if (!freeId) return;
     navigate(`./${freeId}`);
   };
 
-<<<<<<< HEAD
-
-return (
-  <div css={s.container}>
-    <h2>자유게시판</h2>
-    <div css={s.searchBox}>
-      <div css={s.inputGroup}>
-        <input type="text" placeholder="검색어를 입력하세요." value={searchInput} onChange={(e) => setSearchInput(e.target.value)} css={s.searchInput} />
-        <button css={s.searchButton} onClick={handleSearchOnClick}>
-          <IoSearch />
-=======
 
   return (
     <div css={s.container}>
-      <h2>자유게시판</h2>
-      <div css={s.searchBox}>
-        <div css={s.inputGroup}>
-          <input type="text" placeholder="검색어를 입력하세요." value={searchInput} onChange={(e) => setSearchInput(e.target.value)} css={s.searchInput} />
-          <button css={s.searchButton} onClick={handleSearchOnClick}>
-            <IoSearch />
-          </button>
-          <button css={s.registerButton} onClick={handleRegisterOnClick}>
-            게시글 등록
-          </button>
+        <h2>자유게시판</h2>
+        <div css={s.searchBox}>
+          <div css={s.inputGroup}>
+            <input type="text" placeholder="검색어를 입력하세요." value={searchInput} onChange={(e) => setSearchInput(e.target.value)} css={s.searchInput} />
+            <button css={s.searchButton} onClick={handleSearchOnClick}>
+              <IoSearch />
+            </button>
+            <button css={s.registerButton} onClick={handleRegisterOnClick}>
+              게시글 등록
+            </button>
+          </div>
         </div>
-      </div>
 
-      <table css={s.table}>
-        <thead>
-          <tr>
-            <th css={s.th}>번호</th>
-            <th css={s.th}>제목</th>
-            <th css={s.th}>작성자</th>
-            <th css={s.th}>등록일</th>
-          </tr>
-        </thead>
-        <tbody>
-          {freeLists.map((board) => (
-            <tr key={board.freeId} css={s.tr} onClick={() => handlePostOnClick(board.freeId)}>
-              <td css={s.td}>{board.freeId}</td>
-              <td css={s.tdTitle}>{board.title}</td>
-              <td css={s.td}>{board?.user?.nickname}</td>
-              <td css={s.td}>{board.createdAt}</td>
+        <table css={s.table}>
+          <thead>
+            <tr>
+              <th css={s.th}>번호</th>
+              <th css={s.th}>제목</th>
+              <th css={s.th}>작성자</th>
+              <th css={s.th}>등록일</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <div style={{ display: "flex", justifyContent: "center", gap: 12, alignItems: "center", marginTop: 16 }}>
-        <button onClick={() => goPage(page - 1)} disabled={page <= 1}>
-          <BiSolidChevronLeftSquare />
->>>>>>> origin/main
+          </thead>
+          <tbody>
+            {freeLists.map((board) => (
+              <tr key={board.freeId} css={s.tr} onClick={() => handlePostOnClick(board.freeId)}>
+                <td css={s.td}>{board.freeId}</td>
+                <td css={s.tdTitle}>{board.title}</td>
+                <td css={s.td}>{board?.user?.nickname}</td>
+                <td css={s.td}>{board.createdAt}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div style={{ display: "flex", justifyContent: "center", gap: 12, alignItems: "center", marginTop: 16 }}>
+          <button onClick={() => goPage(page - 1)} disabled={page <= 1}>
+            <BiSolidChevronLeftSquare />
         </button>
-        <button css={s.registerButton} onClick={handleRegisterOnClick}>
-          게시글 등록
+        <span>
+          {page} / {totalPages}
+        </span>
+        <button onClick={() => goPage(page + 1)} disabled={page >= totalPages}>
+          <BiSolidChevronRightSquare />
         </button>
       </div>
     </div>
-
-    <table css={s.table}>
-      <thead>
-        <tr>
-          <th css={s.th}>번호</th>
-          <th css={s.th}>제목</th>
-          <th css={s.th}>작성자</th>
-          <th css={s.th}>등록일</th>
-        </tr>
-      </thead>
-      <tbody>
-        {freeLists.map((board) => (
-          <tr key={board.freeId} css={s.tr} onClick={() => handlePostOnClick(board.freeId)}>
-            <td css={s.td}>{board.freeId}</td>
-            <td css={s.tdTitle}>{board.title}</td>
-            <td css={s.td}>{board?.user?.nickname}</td>
-            <td css={s.td}>{board.createdAt}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-    <div style={{ display: "flex", justifyContent: "center", gap: 12, alignItems: "center", marginTop: 16 }}>
-      <button onClick={() => goPage(page - 1)} disabled={page <= 1}>
-        <BiSolidChevronLeftSquare />
-      </button>
-      <span>
-        {page} / {totalPages}
-      </span>
-      <button onClick={() => goPage(page + 1)} disabled={page >= totalPages}>
-        <BiSolidChevronRightSquare />
-      </button>
-    </div>
-  </div>
-);
+  );
 }
 
 export default FreeBoard;
