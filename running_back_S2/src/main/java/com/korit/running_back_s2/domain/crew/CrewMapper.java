@@ -1,6 +1,7 @@
 package com.korit.running_back_s2.domain.crew;
 
 import com.korit.running_back_s2.dto.crew.CrewRoleReqDto;
+import com.korit.running_back_s2.dto.crew.CrewUpdateReqDto;
 import com.korit.running_back_s2.dto.ranking.CrewRankingRespDto;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -24,4 +25,14 @@ public interface CrewMapper {
     List<CrewRankingRespDto> selectTop10CrewRankingByCreatedDate();
 
     List<CrewRoleReqDto> findRoleByUserId(Integer userId);
+
+    String findThumbnailById(Integer crewId);
+    int updateCrewThumbnailPicture(Integer crewId, String thumbnailPicture);
+
+    String findProfileById(Integer crewId);
+    int updateCrewProfilePicture(Integer crewId, String profilePicture);
+
+    int updateCrew(CrewUpdateReqDto dto);
+
+    int withDrawCrew(Integer crewId, Integer userId);
 }

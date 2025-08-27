@@ -7,19 +7,31 @@ import useGetCrewNotoiceQuery from "../../../queries/useGetCrewNoticeQuery";
 import { IoSearch } from "react-icons/io5";
 import { BiSolidChevronLeftSquare, BiSolidChevronRightSquare } from "react-icons/bi";
 import useGetCrewRoleId from "../../../queries/useGetCrewRoleIdQuery";
+import useGetCrewRoleQuery from "../../../queries/useGetCrewRoleQuery";
+import { useCrewStore } from "../../../stores/useCrewStroes";
 
-function Notice({ crewId }) {
+function Notice() {
   const navigate = useNavigate();
+  const { crewId } = useCrewStore();
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get("page") || "1", 10);
   const searchText = searchParams.get("searchText") || "";
   const [searchInput, setSearchInput] = useState(searchText);
   const size = 10;
-
+  
   const { data: principalData, isSuccess: isPrincipalReady } = usePrincipalQuery();
   const userId = principalData?.data?.body?.user?.userId;
+  const CrewRoleQuery = useGetCrewRoleQuery(userId);
 
   const numericCrewId = Number(crewId);
+  const crewRole = CrewRoleQuery?.data?.find(
+    (role) => String(role.crewId) === String(crewId)
+  );
+
+  const isCrewMember = !!crewRole;
+
+  console.log(isCrewMember);
+  
 
   const {
     data: roleRes,
@@ -37,15 +49,6 @@ function Notice({ crewId }) {
     searchText,
   });
 
-  // 참고용 로그
-  useEffect(() => {
-    if (roleRes) {
-      console.log("role raw:", roleRes?.data?.body, typeof roleRes?.data?.body);
-      console.log("parsed roleId:", roleId, "canRegister:", canRegister);
-    }
-  }, [roleRes, roleId, canRegister]);
-
-  // 로그인 가드
   useEffect(() => {
     if (isPrincipalReady && !userId) {
       alert("로그인 후 이용 부탁드립니다.");
@@ -111,11 +114,12 @@ function Notice({ crewId }) {
         </thead>
         <tbody>
           {noticeList.map((notice) => (
-            <tr key={notice.noticeId}>
+            <tr key={notice.noticeId}
+              onClick={isCrewMember ? () => navigate(`./${notice.noticeId}`) : undefined}
+              css={s.tr(isCrewMember)}
+            >
               <td css={s.td}>{notice.noticeId}</td>
-              <td css={s.tdTitle} onClick={() => navigate(`./${notice.noticeId}`)}>
-                {notice.title}
-              </td>
+              <td css={s.tdTitle}>{notice.title}</td>
               <td css={s.td}>{notice?.user?.nickname}</td>
               <td css={s.td}>{notice.createdAt}</td>
             </tr>

@@ -3,8 +3,10 @@ import { useState } from "react";
 import { useGetGatheringsQuery } from "../../../queries/useGetGatheringsQuery";
 import * as s from "./styles";
 import ContentLayout from "../../../components/ContentLayout/ContentLayout";
+import { useCrewStore } from "../../../stores/useCrewStroes";
 
-function GatheringManagement({ crewId }) {
+function GatheringManagement() {
+  const { crewId } = useCrewStore();
   const gatheringsQuery = useGetGatheringsQuery(crewId);
   const [gatherings, setGatherings] = useState([]);
   const [participants, setParticipants] = useState([]);

@@ -29,9 +29,11 @@ function Gathering() {
   const userId = principalData?.data?.body?.user?.userId;
   const CrewRoleQuery = useGetCrewRoleQuery(userId);
 
-  const isCrewMember = CrewRoleQuery?.data?.some(
-    (role) => role.crewId === crewId
+  const crewRole = CrewRoleQuery?.data?.find(
+    (role) => String(role.crewId) === String(crewId)
   );
+  const isCrewMember = !!crewRole;
+  const userRoleName = crewRole?.roleName;
 
   useEffect(() => {
     if (!isLoading) {
@@ -56,11 +58,11 @@ function Gathering() {
   };
 
   const handleOpenDetailModal = (gathering) => {
-    // if (!isCrewMember) {
-    //   alert('크루 멤버만 접근 가능합니다. 크루에 가입해주세요.');
-    //   navigate(`/crews/${crewId}`);
-    //   return;
-    // }
+    if (!isCrewMember) {
+      alert('크루 멤버만 접근 가능합니다. 크루에 가입해주세요.');
+      navigate(`/crews/${crewId}`);
+      return;
+    }
     setSelectedGathering(gathering);
     setDetailOpen(true);
   };

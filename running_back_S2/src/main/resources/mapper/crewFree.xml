@@ -81,19 +81,19 @@
 
     <select id="findDetailById" resultMap="CrewFreeMap">
         select
-        c.free_id,
-        c.crew_id,
-        c.user_id,
-        c.title,
-        c.content,
-        c.created_at,
-        u.nickname
+            c.free_id,
+            c.crew_id,
+            c.user_id,
+            c.title,
+            c.content,
+            c.created_at,
+            u.nickname
         from
-        crew_free_tb c
-        left outer join user_tb u on(u.user_id = c.user_id)
+            crew_free_tb c
+            left outer join user_tb u on(u.user_id = c.user_id)
         where
-        free_id = #{freeId} and
-        crew_id = #{crewId}
+            free_id = #{freeId}
+            and crew_id = #{crewId}
     </select>
 
 

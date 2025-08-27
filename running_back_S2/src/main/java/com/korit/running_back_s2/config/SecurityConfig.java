@@ -6,6 +6,7 @@ import com.korit.running_back_s2.service.OAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -47,6 +48,9 @@ public class SecurityConfig {
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         http.authorizeHttpRequests(auth -> {
+            auth.requestMatchers("/image/**").permitAll();
+            auth.requestMatchers("/uploads/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/image/**").permitAll();
             auth.requestMatchers("/api/**").permitAll();
             auth.requestMatchers("/api/regions/**").permitAll();
             auth.requestMatchers("/api/users/**").permitAll();
@@ -57,7 +61,6 @@ public class SecurityConfig {
             auth.requestMatchers("/api/welcomes/**").permitAll();
             auth.requestMatchers("/api/freeBoards/**").permitAll();
             auth.requestMatchers("/oauth2/**").permitAll();
-            auth.requestMatchers("/image/**").permitAll();
 
 
             auth.anyRequest().authenticated();

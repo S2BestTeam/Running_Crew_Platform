@@ -4,8 +4,10 @@ import useGetReportListQuery from "../../../queries/useGetReportListQuery";
 import * as s from "./styles";
 import MemberModal from "../Member/MemberModal/MemberModal";
 import ContentLayout from "../../../components/ContentLayout/ContentLayout";
+import { useCrewStore } from "../../../stores/useCrewStroes";
 
-function Report({ crewId, isCrewLeader }) {
+function Report({ isCrewLeader }) {
+  const { crewId } = useCrewStore();
   const isEnabled = !!crewId && !!isCrewLeader;
   const { data } = useGetReportListQuery({
     crewId,

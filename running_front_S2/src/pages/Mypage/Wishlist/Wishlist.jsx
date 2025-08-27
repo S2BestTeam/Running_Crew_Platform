@@ -6,13 +6,19 @@ import usePrincipalQuery from '../../../queries/usePrincipalQuery';
 import { FaHeart } from 'react-icons/fa';
 import { motion } from "framer-motion";
 import { getUserWishlist, removeWishlist } from '../../../api/Crew/wishlistApi';
+import useGetMyCrewsQuery from '../../../queries/useGetMyCrewsQuery';
 
 function Wishlist(props) {
   const navigate = useNavigate();
   const principal = usePrincipalQuery();
   const userId = principal?.data?.data?.body?.user?.userId;
+  const myCrewsQuery = useGetMyCrewsQuery(userId);
+  const myCrews = myCrewsQuery?.data?.body || [];
   const [wishlistData, setWishlistData] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  console.log(myCrews);
+  
 
   useEffect(() => {
     const loadWishlist = async () => {
@@ -60,10 +66,16 @@ function Wishlist(props) {
     );
   }
 
+  const getRoleIcon = (roleName) => {
+    if (roleName === "leader") return "👑";
+    if (roleName === "support") return "⭐";
+    return ""; // 일반유저는 아이콘 없음
+  };
+
   return (
     <div css={s.container}>
       <div css={s.headerBox}>
-        <h2>나의 크루 리스트</h2>
+        <h2>위시 리스트</h2>
       </div>
       
       {wishlistData.length === 0 ? (
@@ -91,6 +103,45 @@ function Wishlist(props) {
                   whileTap={{ scale: 0.9 }}
                 >
                   <FaHeart />
+                </motion.div>
+              </div>
+              <div css={s.textBox}>
+                <div css={s.gungu}>{item?.gunguName}</div>
+                <div css={s.crewName}>[{item?.crewName}]</div>
+                <div css={s.crewTitle}>{item?.title}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div css={s.headerBox}>
+        <h2>나의 크루 리스트</h2>
+      </div>
+      
+      {myCrews.length === 0 ? (
+        <div css={s.textBox}>
+          <p>아직 가입된 크루가 없습니다.</p>
+        </div>
+      ) : (
+        <div css={s.gridBox}>
+          {myCrews.map((item) => (
+            <div
+              key={item.crewId}
+              css={s.card}
+              onClick={() => handleNavigateToCrewDetail(item.crewId)}
+            >
+              <div css={s.thumbnailBox}>
+                <img 
+                  src={item?.thumbnailPicture || '/default-crew-image.jpg'} 
+                  alt={item?.crewName || '크루 이미지'}
+                />
+                <motion.div
+                  css={s.heartIcon}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  {getRoleIcon(item?.roleName)}
                 </motion.div>
               </div>
               <div css={s.textBox}>

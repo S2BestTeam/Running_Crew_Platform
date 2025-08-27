@@ -7,8 +7,10 @@ import * as s from "./styles";
 import { BiSolidChevronRightSquare, BiSolidChevronLeftSquare } from "react-icons/bi";
 import usePrincipalQuery from "../../../queries/usePrincipalQuery";
 import useGetCrewRoleQuery from "../../../queries/useGetCrewRoleQuery";
+import { useCrewStore } from "../../../stores/useCrewStroes";
 
-function FreeBoard({ crewId }) {
+function FreeBoard() {
+  const { crewId } = useCrewStore();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get("page") || "1", 10);
@@ -19,9 +21,11 @@ function FreeBoard({ crewId }) {
   const userId = principalData?.data?.body?.user?.userId;
   const CrewRoleQuery = useGetCrewRoleQuery(userId);
 
-  const isCrewMember = CrewRoleQuery?.data?.some(
-    (role) => role.crewId === crewId
+  const crewRole = CrewRoleQuery?.data?.find(
+    (role) => String(role.crewId) === String(crewId)
   );
+  
+  const isCrewMember = !!crewRole;
 
   useEffect(() => {
     if (!isPLoading) {
@@ -56,7 +60,7 @@ function FreeBoard({ crewId }) {
     setSearchParams({ page: nextPage, searchText });
   };
 
-  const handleRegisterOnClick  = () => {
+  const handleRegisterOnClick = () => {
     if (!isCrewMember) {
       alert('크루 멤버만 접근 가능합니다. 크루에 가입해주세요.');
       navigate(`/crews/${crewId}`);
@@ -71,57 +75,59 @@ function FreeBoard({ crewId }) {
       navigate(`/crews/${crewId}`);
       return;
     }
+    if (!freeId) return;
     navigate(`./${freeId}`);
   };
 
-  return (
-    <div css={s.container}>
-      <h2>자유게시판</h2>
-      <div css={s.searchBox}>
-        <div css={s.inputGroup}>
-          <input type="text" placeholder="검색어를 입력하세요." value={searchInput} onChange={(e) => setSearchInput(e.target.value)} css={s.searchInput} />
-          <button css={s.searchButton} onClick={handleSearchOnClick}>
-            <IoSearch />
-          </button>
-          <button css={s.registerButton} onClick={handleRegisterOnClick}>
-            게시글 등록
-          </button>
-        </div>
-      </div>
 
-      <table css={s.table}>
-        <thead>
-          <tr>
-            <th css={s.th}>번호</th>
-            <th css={s.th}>제목</th>
-            <th css={s.th}>작성자</th>
-            <th css={s.th}>등록일</th>
-          </tr>
-        </thead>
-        <tbody>
-          {freeLists.map((board) => (
-            <tr key={board.freeId} css={s.tr} onClick={handlePostOnClick}>
-              <td css={s.td}>{board.freeId}</td>
-              <td css={s.tdTitle}>{board.title}</td>
-              <td css={s.td}>{board?.user?.nickname}</td>
-              <td css={s.td}>{board.createdAt}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <div style={{ display: "flex", justifyContent: "center", gap: 12, alignItems: "center", marginTop: 16 }}>
-        <button onClick={() => goPage(page - 1)} disabled={page <= 1}>
-          <BiSolidChevronLeftSquare />
+return (
+  <div css={s.container}>
+    <h2>자유게시판</h2>
+    <div css={s.searchBox}>
+      <div css={s.inputGroup}>
+        <input type="text" placeholder="검색어를 입력하세요." value={searchInput} onChange={(e) => setSearchInput(e.target.value)} css={s.searchInput} />
+        <button css={s.searchButton} onClick={handleSearchOnClick}>
+          <IoSearch />
         </button>
-        <span>
-          {page} / {totalPages}
-        </span>
-        <button onClick={() => goPage(page + 1)} disabled={page >= totalPages}>
-          <BiSolidChevronRightSquare />
+        <button css={s.registerButton} onClick={handleRegisterOnClick}>
+          게시글 등록
         </button>
       </div>
     </div>
-  );
+
+    <table css={s.table}>
+      <thead>
+        <tr>
+          <th css={s.th}>번호</th>
+          <th css={s.th}>제목</th>
+          <th css={s.th}>작성자</th>
+          <th css={s.th}>등록일</th>
+        </tr>
+      </thead>
+      <tbody>
+        {freeLists.map((board) => (
+          <tr key={board.freeId} css={s.tr} onClick={() => handlePostOnClick(board.freeId)}>
+            <td css={s.td}>{board.freeId}</td>
+            <td css={s.tdTitle}>{board.title}</td>
+            <td css={s.td}>{board?.user?.nickname}</td>
+            <td css={s.td}>{board.createdAt}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <div style={{ display: "flex", justifyContent: "center", gap: 12, alignItems: "center", marginTop: 16 }}>
+      <button onClick={() => goPage(page - 1)} disabled={page <= 1}>
+        <BiSolidChevronLeftSquare />
+      </button>
+      <span>
+        {page} / {totalPages}
+      </span>
+      <button onClick={() => goPage(page + 1)} disabled={page >= totalPages}>
+        <BiSolidChevronRightSquare />
+      </button>
+    </div>
+  </div>
+);
 }
 
 export default FreeBoard;

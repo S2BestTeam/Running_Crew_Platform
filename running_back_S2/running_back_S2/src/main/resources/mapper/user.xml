@@ -123,8 +123,6 @@
         where cwt.user_id = #{userId}
     </select>
 
-
-
     <insert id="insert" useGeneratedKeys="true" keyProperty="userId">
         INSERT INTO user_tb
         (oauth_type, provider_id, email, picture, full_name, nickname, phone_number, gungu_id, address, birth_date, gender, total_km  )

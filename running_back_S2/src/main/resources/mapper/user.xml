@@ -109,9 +109,9 @@
 
     <select id="findWelcomeByUserId" resultType="com.korit.running_back_s2.dto.welcome.WelcomeByUserIdResDto">
         select
-            cwt.crew_id as crewId,
-            ct.crew_name as crewName,
-            ct.profile_picture as profilePicture,
+            cwt.crew_id,
+            ct.crew_name,
+            ct.profile_picture,
             case
                 when cmt.crew_member_id is null then '대기중'
                 else '승인 완료'

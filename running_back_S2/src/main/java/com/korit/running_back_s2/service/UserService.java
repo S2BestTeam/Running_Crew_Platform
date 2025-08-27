@@ -1,10 +1,12 @@
 package com.korit.running_back_s2.service;
 
 import com.korit.running_back_s2.domain.gungu.GunguMapper;
+import com.korit.running_back_s2.domain.member.MemberMapper;
 import com.korit.running_back_s2.domain.user.DeletedUser;
 import com.korit.running_back_s2.domain.user.User;
 import com.korit.running_back_s2.domain.user.UserMapper;
 import com.korit.running_back_s2.domain.welcome.WelcomeMapper;
+import com.korit.running_back_s2.dto.crew.CrewsByUserIdResDto;
 import com.korit.running_back_s2.dto.report.ReportReqDto;
 import com.korit.running_back_s2.dto.user.UserMyPageUpdateReqDto;
 import com.korit.running_back_s2.dto.welcome.UpdateMyWelcomeReqDto;
@@ -31,6 +33,7 @@ public class UserService {
     private final FileService fileService;
     private final WelcomeMapper welcomeMapper;
     private final PrincipalUtil principalUtil;
+    private final MemberMapper memberMapper;
 
     public Map<String, String> register(UserRegisterReqDto dto) {
         User user = dto.toEntity();
@@ -109,6 +112,10 @@ public class UserService {
 
     public void deleteMyWelcome(Integer welcomeId) {
         welcomeMapper.deleteMyWelcome(welcomeId);
+    }
+
+    public List<CrewsByUserIdResDto> getMyCrews (Integer userId) {
+        return memberMapper.findCrewsByUserId(userId);
     }
 
 }

@@ -134,10 +134,14 @@
             member_id = #{memberId}
     </update>
 
-    <delete id="deleteMember">
-        delete from member_tb
-        where member_id = #{memberId}
-    </delete>
+    <update id="deleteMember">
+        update member_tb
+        set
+            status = 0,
+            joined_at = now()
+        where
+            member_id = #{memberId}
+    </update>
 
     <insert id="insertLeaderRole">
         insert into member_tb (crew_id, user_id, role_id)

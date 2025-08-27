@@ -1,5 +1,6 @@
 package com.korit.running_back_s2.domain.member;
 
+import com.korit.running_back_s2.dto.crew.CrewsByUserIdResDto;
 import com.korit.running_back_s2.dto.member.ExistsCheckReqDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -22,4 +23,8 @@ public interface MemberMapper {
 
     Integer getRoleId(@Param("crewId") Integer crewId,
                       @Param("userId") Integer userId);
+
+    List<CrewsByUserIdResDto> findCrewsByUserId(Integer userId);
+
+    int withDrawCrew(Integer crewId, Integer userId);
 }

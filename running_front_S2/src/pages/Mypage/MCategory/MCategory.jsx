@@ -21,14 +21,13 @@ function MCategory(props) {
   const userId = principal?.data?.data?.body?.user?.userId;
   const CrewRoleQuery = useGetCrewRoleQuery(userId);
 
-  // 현재 사용자가 어떤 크루에서든 leader인지 확인
   const isUserLeader = CrewRoleQuery?.data?.some(
     (role) => role.userId === userId && role.roleName === 'leader'
   );
 
-  console.log('userId:', userId, 'isUserLeader:', isUserLeader);
+  console.log(CrewRoleQuery?.data);
+  
 
-  // leader가 아닌 경우에만 탈퇴 버튼 표시
   const showDeleteButton = !isUserLeader;
 
   const handleDeleteUserOnClick = async () => {
@@ -64,7 +63,7 @@ function MCategory(props) {
   const navigationButtons = (
     <>
       <button onClick={() => navigate("/mypage/welcome")}>크루 신청 내역</button>
-      <button onClick={() => navigate("/mypage/wish")}>나의 크루 리스트</button>
+      <button onClick={() => navigate("/mypage/wish")}>나의 크루</button>
       <button>내가 쓴 글</button>
       <button>나의 정모일정</button>
     </>

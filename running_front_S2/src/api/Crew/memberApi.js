@@ -28,3 +28,6 @@ export const reqGetRoleId = ({ crewId, userId }) => {
   }
   return api.get(`/api/members/${cId}/${uId}`);
 };
+
+
+export const reqGetMemberId = (userId) => api.get(`/api/members/${userId}`); 
