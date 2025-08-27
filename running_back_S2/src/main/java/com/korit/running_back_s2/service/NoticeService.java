@@ -1,10 +1,12 @@
 package com.korit.running_back_s2.service;
 
 
+import com.korit.running_back_s2.domain.crewFreeBoard.CrewFree;
 import com.korit.running_back_s2.domain.notice.CrewNotice;
 import com.korit.running_back_s2.domain.notice.CrewNoticeMapper;
 
 import com.korit.running_back_s2.domain.notice.CrewNoticeSearchOption;
+import com.korit.running_back_s2.dto.board.FreeBoardReqDto;
 import com.korit.running_back_s2.dto.notice.NoticeReqDto;
 import com.korit.running_back_s2.dto.response.PaginationRespDto;
 import com.korit.running_back_s2.security.model.PrincipalUtil;
@@ -58,6 +60,22 @@ public class NoticeService {
 
     public List<CrewNotice> getNoticeDetail(Integer crewId, Integer noticeId) {
         return crewNoticeMapper.findDetailById(crewId, noticeId);
+    }
+
+    public void updateContent(Integer crewId, Integer noticeId, NoticeReqDto dto) {
+        Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
+        CrewNotice newcrewNotice = CrewNotice.builder()
+                .noticeId(noticeId)
+                .crewId(crewId)
+                .userId(userId)
+                .title(dto.getTitle())
+                .content(dto.getContent())
+                .build();
+        crewNoticeMapper.updateContent(newcrewNotice);
+    }
+
+    public void deleteFeed(Integer crewId, Integer noticeId) {
+        crewNoticeMapper.deleteFeed(crewId, noticeId);
     }
 }
 

@@ -16,4 +16,8 @@ public interface CrewFreeMapper {
     void insert(CrewFree crewFree);
 
     List<CrewFree> findDetailById(@Param("crewId") int crewId, @Param("freeId") int freeId);
+
+    void updateContent(CrewFree newcrewFree);
+
+    void deleteFeed(Integer crewId, Integer freeId);
 }

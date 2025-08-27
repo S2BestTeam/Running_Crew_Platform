@@ -31,6 +31,20 @@
         <result property="totalKm"                  column="total_km" />
     </resultMap>
 
+    <update id="updateContent">
+        UPDATE
+            crew_free_tb
+        SET
+            title = #{title},
+            content = #{content}
+        WHERE free_id = #{freeId}
+    </update>
+
+    <delete id="deleteFeed">
+        delete from crew_free_tb
+        where free_id = #{freeId} and crew_id = #{crewId}
+    </delete>
+
     <select id="findAllFreeListBySearchOption"
             parameterType="com.korit.running_back_s2.domain.crewFreeBoard.CrewFreeSearchOption"
             resultMap="CrewFreeMap">

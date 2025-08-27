@@ -83,9 +83,9 @@ function Gathering() {
       <div css={s.layout}>
         <header>
           <h2>정모 일정</h2>
-          {isCrewMember && (
+          {/* {isCrewMember && ( */}
             <button onClick={() => setRegOpen(true)}>일정 등록</button>
-          )}
+          {/* )} */}
         </header>
         <main css={s.gatheringMain}>
           {gatherings.map((g, index) => {

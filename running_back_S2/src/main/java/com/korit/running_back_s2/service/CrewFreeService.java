@@ -62,5 +62,21 @@ public class CrewFreeService {
     public List<CrewFree> getFreeBoardDetail(Integer crewId, Integer freeId) {
         return crewFreeMapper.findDetailById(crewId, freeId);
     }
+
+    public void updateContent(Integer crewId, Integer freeId, FreeBoardReqDto dto) {
+        Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
+        CrewFree newcrewFree = CrewFree.builder()
+                .freeId(freeId)
+                .crewId(crewId)
+                .userId(userId)
+                .title(dto.getTitle())
+                .content(dto.getContent())
+                .build();
+        crewFreeMapper.updateContent(newcrewFree);
+    }
+
+    public void deleteFeed(Integer crewId, Integer freeId) {
+        crewFreeMapper.deleteFeed(crewId, freeId);
+    }
 }
 

@@ -37,6 +37,7 @@ function GatheringRegModal({ crewId, isOpen, onClose }) {
     km: "",
   });
 
+
   useEffect(() => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
