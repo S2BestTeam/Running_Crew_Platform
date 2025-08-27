@@ -16,4 +16,5 @@ public class Participant {
     private Integer gatheringId;
     private Integer userId;
     private LocalDateTime createdAt;
+    private Integer attendanceStatus;
 }

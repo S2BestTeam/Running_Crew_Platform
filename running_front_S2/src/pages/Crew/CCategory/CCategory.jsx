@@ -22,6 +22,8 @@ import Notice from "../Notice/Notice";
 import NoticeReg from "../Notice/NoticeReg/NoticeReg";
 import NoticeDetail from "../Notice/NoticeDetail/NoticeDetail";
 import GatheringManagement from "../GatheringManagement/GatheringManagement";
+import GatheringRegister from "../Gathering/GatheringRegister/GatheringRegister";
+import GatheringModify from "../GatheringManagement/GatheringModify/GatheringModify";
 
 
 function CCategory() {
@@ -117,8 +119,10 @@ function CCategory() {
               path="/welcome"
               element={<Welcome isCrewLeader={isCrewLeader} />}
             />
-            <Route path="/gathering" element={<Gathering crewId={crewId} />} />
+            <Route path="/gathering/*" element={<Gathering crewId={crewId} />} />
+            <Route path="/gathering/register" element={<GatheringRegister/>} />
             <Route path="/gathering-management" element={<GatheringManagement crewId={crewId} />} />
+            <Route path="/gathering-management/:gatheringId" element={<GatheringModify crewId={crewId} />} />
             <Route path="/members" element={<Member />} />
             <Route path="/freeBoards" element={<FreeBoard crewId={crewId}/>} />
             <Route path="freeBoards/register" element={<FeedReg crewId={crewId} />} />

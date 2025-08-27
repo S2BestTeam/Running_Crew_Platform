@@ -2,7 +2,7 @@
 import * as s from "./styles";
 import ReactModal from "react-modal";
 import { MdAccessTimeFilled } from "react-icons/md";
-import { FaCalendar, FaMapMarkerAlt, FaWonSign } from "react-icons/fa";
+import { FaCalendar, FaMapMarkerAlt, FaRunning, FaWonSign } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import {
   reqAttendGathering,
@@ -33,12 +33,11 @@ function GatheringDetailModal({
         gathering.gatheringId
       );
       setParticipants(data.data);
-      console.log(participants)
+      console.log(participants);
     } catch (err) {
       console.error("참석자 불러오기 실패:", err);
     }
   };
-
 
   const handleAttendToggle = async () => {
     if (!gathering) return;
@@ -131,25 +130,20 @@ function GatheringDetailModal({
             <div>
               <FaWonSign /> {gathering.cost}원
             </div>
-            <div>최대인원: {gathering.maxParticipants}</div>
-            <div>현재참석자: {gathering.currentParticipants || 0}</div>
+            <div><FaRunning /> {gathering.km} km</div>
+
             <div>
-              <h4>참석자 명단 ({participants.length}명)</h4>
-              <ul>
-                {participants.map((p) => (
-                  <li key={p.userId}>
-                    <img
-                      src={p.picture}
-                      alt=""
-                      width={30}
-                      height={30}
-                    />
-                    <span>{p.fullName}</span>
-                  </li>
-                ))}
-              </ul>
+              참석자 명단 ({participants.length} / {gathering.maxParticipants})
             </div>
-            <div>km: {gathering.km}</div>
+            <div>
+              {participants.map((p) => (
+                <div key={p.userId}>
+                  <img src={p.picture} alt="" width={30} height={30} />
+                  <span>{p.fullName}</span>
+                </div>
+              ))}
+            </div>
+
             <div css={s.profile}>
               <img src={gathering.user?.picture} alt="작성자" />
               <span>{gathering.user?.fullName || "알 수 없음"}</span>
