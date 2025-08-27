@@ -6,9 +6,11 @@ import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { useNavigate, useParams } from "react-router-dom";
 import { reqCrewGatherings, reqUpdateGathering } from "../../../../api/Crew/gatheringApi";
 import ContentLayout from "../../../../components/ContentLayout/ContentLayout";
+import { useCrewStore } from "../../../../stores/useCrewStroes";
 
 function GatheringModify() {
-  const { crewId, gatheringId } = useParams();
+  const { crewId } = useCrewStore();
+  const { gatheringId } = useParams();
   const navigate = useNavigate();
 
   const [location, setLocation] = useState({ lat: null, lng: null });

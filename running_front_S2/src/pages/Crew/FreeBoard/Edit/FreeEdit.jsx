@@ -6,10 +6,12 @@ import useGetCrewFreeBoardDetailQuery from "../../../../queries/useGetCrewFreeBo
 import { useEffect, useMemo, useState } from "react";
 import ReactQuill from "react-quill-new";
 import { reqUpdateFreeBoard } from "../../../../api/Crew/freeboardApi";
+import { useCrewStore } from "../../../../stores/useCrewStroes";
 
 
 export default function FreeEdit() {
-    const { crewId, freeId } = useParams();
+    const { crewId } = useCrewStore();
+    const { freeId } = useParams();
     const navigate = useNavigate();
 
     const principalQuery = usePrincipalQuery();

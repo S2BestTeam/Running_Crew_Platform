@@ -28,22 +28,15 @@ function Gathering() {
   const userId = principalData?.data?.body?.user?.userId;
   const CrewRoleQuery = useGetCrewRoleQuery(userId);
 
-<<<<<<< HEAD
   const crewRole = CrewRoleQuery?.data?.some((role) => role.crewId === Number(crewId));
-  console.log(crewRole);
   
   const isCrewMember = !!crewRole;
 
+  console.log(isCrewMember);
+  
+
   useEffect(() => {
     if (!isLoading) {
-=======
-  const isCrewMember = CrewRoleQuery?.data?.some(
-    (role) => role.crewId === crewId
-  );
-  useEffect(() => {
-    if (!isLoading) {
-      const userId = principalData?.data?.body?.user?.userId;
->>>>>>> origin/61-정모-관리-기능-구현
       if (!userId) {
         alert("로그인 후 이용 부탁드립니다.");
         navigate("/auth/oauth2/signin");
@@ -98,15 +91,9 @@ function Gathering() {
       <div css={s.layout}>
         <header>
           <h2>정모 일정</h2>
-<<<<<<< HEAD
-          {/* {isCrewMember && ( */}
+          {isCrewMember && (
             <button onClick={() => setRegOpen(true)}>일정 등록</button>
-          {/* )} */}
-=======
-          <button onClick={() => navigate(`/crews/${crewId}/gathering/register`)}>
-    일정 등록
-  </button>
->>>>>>> origin/61-정모-관리-기능-구현
+          )}
         </header>
         <main css={s.gatheringMain}>
           {gatherings.map((g, index) => {

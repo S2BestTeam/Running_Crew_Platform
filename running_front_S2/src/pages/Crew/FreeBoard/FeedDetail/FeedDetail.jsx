@@ -12,9 +12,11 @@ import {
   reqUpdateFreeComment,
 } from "../../../../api/Crew/freeboardApi";
 import usePrincipalQuery from "../../../../queries/usePrincipalQuery";
+import { useCrewStore } from "../../../../stores/useCrewStroes";
 
 export default function FeedDetail() {
-  const { crewId, freeId } = useParams();
+  const { crewId } = useCrewStore();
+  const { freeId } = useParams();
   const navigate = useNavigate();
 
   const principalQuery = usePrincipalQuery();

@@ -6,8 +6,10 @@ import { useNavigate } from "react-router-dom";
 import api from "../../../../api/axios";
 import { reqRegisterFreeBoard } from "../../../../api/Crew/freeboardApi";
 import * as s from "./styles";
+import { useCrewStore } from "../../../../stores/useCrewStroes";
 
-function FeedReg({ crewId }) {
+function FeedReg() {
+  const { crewId } = useCrewStore();
   const navigate = useNavigate();
   const quillRef = useRef(null);
   const [title, setTitle] = useState("");

@@ -6,8 +6,10 @@ import { useNavigate } from "react-router-dom";
 import api from "../../../../api/axios";
 import { reqRegisterNotice} from "../../../../api/Crew/noticeApi";
 import * as s from "./styles";
+import { useCrewStore } from "../../../../stores/useCrewStroes";
 
-function NoticeReg({ crewId }) {
+function NoticeReg() {
+  const { crewId } = useCrewStore();
   const navigate = useNavigate();
   const quillRef = useRef(null);
   const [title, setTitle] = useState("");

@@ -21,15 +21,11 @@ import Notice from "../Notice/Notice";
 import NoticeReg from "../Notice/NoticeReg/NoticeReg";
 import NoticeDetail from "../Notice/NoticeDetail/NoticeDetail";
 import GatheringManagement from "../GatheringManagement/GatheringManagement";
-<<<<<<< HEAD
 import Setting from "../Setting/Setting";
 import FreeEdit from "../FreeBoard/Edit/FreeEdit";
 import NoticeEdit from "../Notice/Edit/NoticeEdit";
-=======
 import GatheringRegister from "../Gathering/GatheringRegister/GatheringRegister";
 import GatheringModify from "../GatheringManagement/GatheringModify/GatheringModify";
-
->>>>>>> origin/61-정모-관리-기능-구현
 
 function CCategory() {
   const navigate = useNavigate();
@@ -127,33 +123,22 @@ function CCategory() {
         <ContentLayout>
           <Routes>
             <Route path="/" element={<CrewInfo />} />
-<<<<<<< HEAD
             <Route path="/welcome" element={<Welcome isCrewLeader={isCrewLeader} />} />
-            <Route path="/gathering" element={<Gathering />} />
-            <Route path="/gathering-management" element={<GatheringManagement />} />
-=======
-            <Route
-              path="/welcome"
-              element={<Welcome isCrewLeader={isCrewLeader} />}
-            />
-            <Route path="/gathering/*" element={<Gathering crewId={crewId} />} />
+            <Route path="/gathering/*" element={<Gathering />} />
             <Route path="/gathering/register" element={<GatheringRegister/>} />
-            <Route path="/gathering-management" element={<GatheringManagement crewId={crewId} />} />
-            <Route path="/gathering-management/:gatheringId" element={<GatheringModify crewId={crewId} />} />
->>>>>>> origin/61-정모-관리-기능-구현
+            <Route path="/gathering-management" element={<GatheringManagement />} />
+            <Route path="/gathering-management/:gatheringId" element={<GatheringModify />} />
             <Route path="/members" element={<Member />} />
             <Route path="/freeBoards" element={<FreeBoard />} />
-            <Route path="freeBoards/register" element={<FeedReg crewId={crewId} />} />
-            <Route path="freeBoards/:freeId" element={<FeedDetail crewId={crewId} />} />
-            <Route path="freeBoards/:freeId/edit" element={<FreeEdit  crewId={crewId} />} />
-
-
+            <Route path="freeBoards/register" element={<FeedReg />} />
+            <Route path="freeBoards/:freeId" element={<FeedDetail />} />
+            <Route path="freeBoards/:freeId/edit" element={<FreeEdit />} />
             <Route path="/notices" element={<Notice />} />
-            <Route path="notices/register" element={<NoticeReg crewId={crewId} />} />
-            <Route path="notices/:noticeId" element={<NoticeDetail crewId={crewId} />} />
+            <Route path="notices/register" element={<NoticeReg />} />
+            <Route path="notices/:noticeId" element={<NoticeDetail />} />
+            <Route path="notices/:noticeId/edit" element={<NoticeEdit />} />
             <Route path="/report" element={<Report isCrewLeader={isCrewLeader} />} />
             <Route path="/setting" element={<Setting />} />
-            <Route path="notices/:noticeId/edit" element={<NoticeEdit crewId={crewId} />} />
           </Routes>
         </ContentLayout>
       </LeftSideBarLayout>

@@ -2,22 +2,17 @@
 import { useState, useEffect } from "react";
 import * as s from "./styles";
 import ContentLayout from "../../../components/ContentLayout/ContentLayout";
-<<<<<<< HEAD
-import { useCrewStore } from "../../../stores/useCrewStroes";
-
-function GatheringManagement() {
-  const { crewId } = useCrewStore();
-=======
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 import { useGetGatheringsQuery } from "../../../queries/useGetGatheringsQuery";
 import { reqGatheringParticipants } from "../../../api/Crew/gatheringApi";
 import GatheringManagementModal from "./GatheringManagementModal/GatheringManagementModal";
 import { useNavigate } from "react-router-dom";
+import { useCrewStore } from "../../../stores/useCrewStroes";
 
-function GatheringManagement({ crewId }) {
+function GatheringManagement() {
+  const { crewId } = useCrewStore();
   const navigate = useNavigate();
->>>>>>> origin/61-정모-관리-기능-구현
   const gatheringsQuery = useGetGatheringsQuery(crewId);
   const [gatherings, setGatherings] = useState([]);
   const [selectedGathering, setSelectedGathering] = useState(null);
