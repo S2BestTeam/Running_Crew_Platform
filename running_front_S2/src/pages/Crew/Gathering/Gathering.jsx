@@ -56,11 +56,11 @@ function Gathering() {
   };
 
   const handleOpenDetailModal = (gathering) => {
-    if (!isCrewMember) {
-      alert('크루 멤버만 접근 가능합니다. 크루에 가입해주세요.');
-      navigate(`/crews/${crewId}`);
-      return;
-    }
+    // if (!isCrewMember) {
+    //   alert('크루 멤버만 접근 가능합니다. 크루에 가입해주세요.');
+    //   navigate(`/crews/${crewId}`);
+    //   return;
+    // }
     setSelectedGathering(gathering);
     setDetailOpen(true);
   };
