@@ -135,9 +135,9 @@ public class CrewService {
         crewMapper.updateCrew(dto);
     }
 
-    public void CrewWithDraw (Integer crewId) {
-        Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
-        crewMapper.withDraw(crewId, userId);
-    }
+//    public void CrewWithDraw (Integer crewId) {
+//        Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
+//        crewMapper.withDraw(crewId, userId);
+//    }
 }
 

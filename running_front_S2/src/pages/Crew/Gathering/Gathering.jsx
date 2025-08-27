@@ -29,16 +29,13 @@ function Gathering() {
   const userId = principalData?.data?.body?.user?.userId;
   const CrewRoleQuery = useGetCrewRoleQuery(userId);
 
-  const crewRole = CrewRoleQuery?.data?.find(
-    (role) => String(role.crewId) === String(crewId)
-  );
+  const crewRole = CrewRoleQuery?.data?.some((role) => role.crewId === Number(crewId));
+  console.log(crewRole);
+  
   const isCrewMember = !!crewRole;
-  const userRoleName = crewRole?.roleName;
 
   useEffect(() => {
     if (!isLoading) {
-      const userId = principalData?.data?.body?.user?.userId;
-
       if (!userId) {
         alert("로그인 후 이용 부탁드립니다.");
         navigate("/auth/oauth2/signin");

@@ -17,7 +17,7 @@ function CrewRegister(props) {
   const { data: principalData, isLoading } = usePrincipalQuery();
   const userId = principalData?.data?.body?.user?.userId;
   const CrewRoleQuery = useGetCrewRoleQuery(userId);
-
+  
   useEffect(() => {
     if (isLoading || CrewRoleQuery.isLoading) return;
 
@@ -29,7 +29,7 @@ function CrewRegister(props) {
     }
 
     const roles = CrewRoleQuery?.data || [];
-    const isLeader = roles.some(role => role.roleName === "leader");
+    const isLeader = roles.some(role => role.roleId === '1');
 
     if (isLeader) {
       alert("이미 크루장입니다.");

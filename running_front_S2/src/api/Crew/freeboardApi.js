@@ -19,6 +19,4 @@ export const reqRegisterComment = (comment, crewId, freeId) =>
     content: comment,
   });
 
-export const reqGetFreeCommentList = (crewId,freeId) => api.get(`/api/freeBoards/${crewId}/detail/${freeId}/comments`)
-
- 
+export const reqGetFreeCommentList = (crewId,freeId) => api.get(`/api/freeBoards/${crewId}/detail/${freeId}/comments`);

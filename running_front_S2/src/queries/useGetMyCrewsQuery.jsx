@@ -7,7 +7,8 @@ function useGetMyCrewsQuery(userId) {
     queryFn: async () => {
       const res = await reqMyCrews(userId);
       return res.data;
-    }
+    },
+    enabled: !!userId,
   })
 }
 

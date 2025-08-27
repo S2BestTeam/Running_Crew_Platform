@@ -120,7 +120,8 @@
             welcome_tb cwt
             join crew_tb ct on (cwt.crew_id = ct.crew_id)
             left outer join member_tb cmt on (cwt.crew_id = cmt.crew_id and cwt.user_id = cmt.user_id)
-        where cwt.user_id = #{userId}
+        where
+            cwt.user_id = #{userId}
     </select>
 
     <select id="selectUserRankingByTotalKm"

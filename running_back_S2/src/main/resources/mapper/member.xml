@@ -156,15 +156,6 @@
         values (#{crewId}, #{userId}, 1)
     </insert>
 
-    <select id="getRoleId" parameterType="int">
-        select
-            role_id
-        from
-            member_tb
-        where
-            crew_id = #{crewId} and user_id = #{userId}
-    </select>
-
     <select id="findCrewsByUserId" resultType="com.korit.running_back_s2.dto.crew.CrewsByUserIdResDto">
         select
             ct.crew_id,

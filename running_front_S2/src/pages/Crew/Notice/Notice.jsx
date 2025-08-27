@@ -1,14 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./styles";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import usePrincipalQuery from "../../../queries/usePrincipalQuery";
-import useGetCrewNotoiceQuery from "../../../queries/useGetCrewNoticeQuery";
 import { IoSearch } from "react-icons/io5";
 import { BiSolidChevronLeftSquare, BiSolidChevronRightSquare } from "react-icons/bi";
-import useGetCrewRoleId from "../../../queries/useGetCrewRoleIdQuery";
 import useGetCrewRoleQuery from "../../../queries/useGetCrewRoleQuery";
 import { useCrewStore } from "../../../stores/useCrewStroes";
+import useGetCrewNoticeDetailQuery from "../../../queries/useGetCrewNoticeDetailQuery";
 
 function Notice() {
   const navigate = useNavigate();
@@ -18,32 +17,18 @@ function Notice() {
   const searchText = searchParams.get("searchText") || "";
   const [searchInput, setSearchInput] = useState(searchText);
   const size = 10;
-  
+
   const { data: principalData, isSuccess: isPrincipalReady } = usePrincipalQuery();
   const userId = principalData?.data?.body?.user?.userId;
-  const CrewRoleQuery = useGetCrewRoleQuery(userId);
 
-  const numericCrewId = Number(crewId);
-  const crewRole = CrewRoleQuery?.data?.find(
-    (role) => String(role.crewId) === String(crewId)
-  );
+  const CrewRoleQuery = useGetCrewRoleQuery(userId);
+  const crewRole = CrewRoleQuery?.data?.find((role) => role.crewId === Number(crewId));
 
   const isCrewMember = !!crewRole;
+  const canRegister = crewRole && ["1", "2"].includes(crewRole.roleId);
 
-  console.log(isCrewMember);
-  
-
-  const {
-    data: roleRes,
-    isLoading: isRoleLoading,
-    isError: isRoleError,
-  } = useGetCrewRoleId(numericCrewId);
-
-  const roleId = Number(roleRes?.data?.body);
-  const canRegister = !isRoleLoading && [1, 2].includes(roleId);
-
-  const { data, isLoading, isError } = useGetCrewNotoiceQuery({
-    crewId: numericCrewId,
+  const { data, isLoading, isError } = useGetCrewNoticeDetailQuery({
+    crewId: Number(crewId),
     page,
     size,
     searchText,
@@ -94,7 +79,6 @@ function Notice() {
             <IoSearch />
           </button>
 
-          {/* ✅ roleId가 1 또는 2일 때만 버튼 노출 */}
           {canRegister && (
             <button css={s.registerButton} onClick={() => navigate(`./register`)}>
               공지글 등록
@@ -114,7 +98,8 @@ function Notice() {
         </thead>
         <tbody>
           {noticeList.map((notice) => (
-            <tr key={notice.noticeId}
+            <tr
+              key={notice.noticeId}
               onClick={isCrewMember ? () => navigate(`./${notice.noticeId}`) : undefined}
               css={s.tr(isCrewMember)}
             >
@@ -127,7 +112,15 @@ function Notice() {
         </tbody>
       </table>
 
-      <div style={{ display: "flex", justifyContent: "center", gap: 12, alignItems: "center", marginTop: 16 }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: 12,
+          alignItems: "center",
+          marginTop: 16,
+        }}
+      >
         <button onClick={() => goPage(page - 1)} disabled={page <= 1}>
           <BiSolidChevronLeftSquare />
         </button>

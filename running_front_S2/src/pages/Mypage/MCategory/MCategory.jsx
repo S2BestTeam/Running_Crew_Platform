@@ -21,14 +21,8 @@ function MCategory(props) {
   const userId = principal?.data?.data?.body?.user?.userId;
   const CrewRoleQuery = useGetCrewRoleQuery(userId);
 
-  const isUserLeader = CrewRoleQuery?.data?.some(
-    (role) => role.userId === userId && role.roleName === 'leader'
-  );
-
-  console.log(CrewRoleQuery?.data);
-  
-
-  const showDeleteButton = !isUserLeader;
+  const isUserLeader = CrewRoleQuery?.data?.some((role) => role.userId === userId && role.roleId === '1');
+  const showDeleteButton = !!isUserLeader;
 
   const handleDeleteUserOnClick = async () => {
     if (window.confirm('정말 탈퇴하시겠습니까?')) {
@@ -72,7 +66,10 @@ function MCategory(props) {
   const bottomSection = (
     <div css={s.getout}>
       {
-        showDeleteButton && (<button onClick={handleDeleteUserOnClick}>탈퇴하기</button>)
+        showDeleteButton ?
+        (<div style={{fontSize : '1.2rem', color : 'gray'}}>크루장님은 크루를 해체한 후 탈퇴할 수 있습니다.</div>)
+        :
+        (<button onClick={handleDeleteUserOnClick}>탈퇴하기</button>)
       }
     </div>
   );

@@ -75,8 +75,4 @@ public class MemberService {
     public Integer countMember(Integer crewId) {
         return memberMapper.countMember(crewId);
     }
-
-    public Integer getRoleId(Integer crewId, Integer userId){
-        return memberMapper.getRoleId(crewId, userId);
-    }
 }

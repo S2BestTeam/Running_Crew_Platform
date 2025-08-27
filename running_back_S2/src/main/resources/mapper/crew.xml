@@ -229,11 +229,10 @@
         select
             ct.crew_id,
             mt.user_id,
-            rt.role_name
+            mt.role_id
         from
             crew_tb ct
             left join member_tb mt on mt.crew_id = ct.crew_id
-            left join member_role_tb rt on rt.role_id = mt.role_id
         where
             mt.user_id = #{userId};
     </select>

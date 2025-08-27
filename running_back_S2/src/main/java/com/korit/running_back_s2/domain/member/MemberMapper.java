@@ -21,10 +21,7 @@ public interface MemberMapper {
 
     Integer findMemberIdByUserId(Integer crewId, Integer userId);
 
-    Integer getRoleId(@Param("crewId") Integer crewId,
-                      @Param("userId") Integer userId);
-
     List<CrewsByUserIdResDto> findCrewsByUserId(Integer userId);
 
-    int withDrawCrew(Integer crewId, Integer userId);
+//    int withDrawCrew(Integer crewId, Integer userId);
 }

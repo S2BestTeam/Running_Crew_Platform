@@ -34,5 +34,5 @@ public interface CrewMapper {
 
     int updateCrew(CrewUpdateReqDto dto);
 
-    int withDrawCrew(Integer crewId, Integer userId);
+//    int withDrawCrew(Integer crewId, Integer userId);
 }

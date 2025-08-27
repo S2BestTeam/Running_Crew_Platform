@@ -17,9 +17,6 @@ function Wishlist(props) {
   const [wishlistData, setWishlistData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  console.log(myCrews);
-  
-
   useEffect(() => {
     const loadWishlist = async () => {
       if (userId) {

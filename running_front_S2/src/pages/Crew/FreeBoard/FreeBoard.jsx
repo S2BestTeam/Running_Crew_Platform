@@ -20,10 +20,11 @@ function FreeBoard() {
   const { data: principalData, isPLoading } = usePrincipalQuery();
   const userId = principalData?.data?.body?.user?.userId;
   const CrewRoleQuery = useGetCrewRoleQuery(userId);
-
-  const crewRole = CrewRoleQuery?.data?.find(
-    (role) => String(role.crewId) === String(crewId)
-  );
+  
+  const crewRole = CrewRoleQuery?.data?.some((role) => role.crewId === Number(crewId));
+  
+  console.log(crewRole);
+  
   
   const isCrewMember = !!crewRole;
 
