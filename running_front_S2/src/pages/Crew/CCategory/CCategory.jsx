@@ -21,9 +21,15 @@ import Notice from "../Notice/Notice";
 import NoticeReg from "../Notice/NoticeReg/NoticeReg";
 import NoticeDetail from "../Notice/NoticeDetail/NoticeDetail";
 import GatheringManagement from "../GatheringManagement/GatheringManagement";
+<<<<<<< HEAD
 import Setting from "../Setting/Setting";
 import FreeEdit from "../FreeBoard/Edit/FreeEdit";
 import NoticeEdit from "../Notice/Edit/NoticeEdit";
+=======
+import GatheringRegister from "../Gathering/GatheringRegister/GatheringRegister";
+import GatheringModify from "../GatheringManagement/GatheringModify/GatheringModify";
+
+>>>>>>> origin/61-정모-관리-기능-구현
 
 function CCategory() {
   const navigate = useNavigate();
@@ -121,9 +127,20 @@ function CCategory() {
         <ContentLayout>
           <Routes>
             <Route path="/" element={<CrewInfo />} />
+<<<<<<< HEAD
             <Route path="/welcome" element={<Welcome isCrewLeader={isCrewLeader} />} />
             <Route path="/gathering" element={<Gathering />} />
             <Route path="/gathering-management" element={<GatheringManagement />} />
+=======
+            <Route
+              path="/welcome"
+              element={<Welcome isCrewLeader={isCrewLeader} />}
+            />
+            <Route path="/gathering/*" element={<Gathering crewId={crewId} />} />
+            <Route path="/gathering/register" element={<GatheringRegister/>} />
+            <Route path="/gathering-management" element={<GatheringManagement crewId={crewId} />} />
+            <Route path="/gathering-management/:gatheringId" element={<GatheringModify crewId={crewId} />} />
+>>>>>>> origin/61-정모-관리-기능-구현
             <Route path="/members" element={<Member />} />
             <Route path="/freeBoards" element={<FreeBoard />} />
             <Route path="freeBoards/register" element={<FeedReg crewId={crewId} />} />
