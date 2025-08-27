@@ -12,7 +12,6 @@ public interface CrewFreeMapper {
 
     Integer countFreeListsBySearchOption(CrewFreeSearchOption opt);
 
-    CrewFree findByFreeId(Integer freeId);
 
     void insert(CrewFree crewFree);
 

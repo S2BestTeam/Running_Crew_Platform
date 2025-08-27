@@ -60,4 +60,10 @@ public class MemberController {
         memberService.expel(memberId);
         return ResponseEntity.ok(ResponseDto.success("멤버가 추방되었습니다."));
     }
+
+    @GetMapping("/{crewId}/{userId}")
+    public ResponseEntity<?> getRoleId(@PathVariable Integer crewId, @PathVariable Integer userId) {
+        return ResponseEntity.ok(ResponseDto.success(memberService.getRoleId(crewId, userId)));
+    }
+
 }

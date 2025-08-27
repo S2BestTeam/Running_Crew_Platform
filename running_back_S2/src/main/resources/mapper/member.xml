@@ -143,4 +143,13 @@
         insert into member_tb (crew_id, user_id, role_id)
         values (#{crewId}, #{userId}, 1)
     </insert>
+
+    <select id="getRoleId" parameterType="int">
+        select
+            role_id
+        from
+            member_tb
+        where
+            crew_id = #{crewId} and user_id = #{userId}
+    </select>
 </mapper>

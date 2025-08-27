@@ -12,8 +12,6 @@ export const reqRegisterFreeBoard = ({ crewId, title, content }) =>
     headers: { "Content-Type": "application/json" },
   });
 
-// export const reqGetAllFeedList = (userId) => api.get(`/api/`)
-
 export const reqRegisterComment = (comment, crewId, freeId) =>
   api.post(`/api/freeBoards/${crewId}/detail/${freeId}`, {
     crewId,

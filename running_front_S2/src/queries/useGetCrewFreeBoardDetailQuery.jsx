@@ -1,4 +1,3 @@
-// src/queries/useGetCrewFreeBoardDetailQuery.jsx
 import { useQuery } from '@tanstack/react-query';
 import { reqGetFreeFeedDetail } from '../api/Crew/freeboardApi';
 
