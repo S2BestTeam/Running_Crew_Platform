@@ -12,10 +12,13 @@ import { useGetGatheringsQuery } from "../../../queries/useGetGatheringsQuery";
 import GatheringRegModal from "./GatheringRegModal/GatheringRegModal";
 import GatheringDetailModal from "./GatheringDetailModal/GatheringDetailModal";
 import ContentLayout from "../../../components/ContentLayout/ContentLayout";
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
 import usePrincipalQuery from "../../../queries/usePrincipalQuery";
 import useGetCrewRoleQuery from "../../../queries/useGetCrewRoleQuery";
 import { useCrewStore } from "../../../stores/useCrewStroes";
+=======
+>>>>>>> 56-멤버-참석-여부-기능-구현
 
 function Gathering() {
   const { crewId } = useCrewStore();
