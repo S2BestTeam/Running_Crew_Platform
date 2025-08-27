@@ -61,9 +61,9 @@ public class MemberController {
         return ResponseEntity.ok(ResponseDto.success("멤버가 추방되었습니다."));
     }
 
-    @GetMapping("/{crewId}/{userId}")
-    public ResponseEntity<?> getRoleId(@PathVariable Integer crewId, @PathVariable Integer userId) {
-        return ResponseEntity.ok(ResponseDto.success(memberService.getRoleId(crewId, userId)));
+    @GetMapping("/{userId}")
+    public ResponseEntity<ResponseDto<?>> getMemberId(@PathVariable Integer userId) {
+        return ResponseEntity.ok(ResponseDto.success(null));
     }
 
 }

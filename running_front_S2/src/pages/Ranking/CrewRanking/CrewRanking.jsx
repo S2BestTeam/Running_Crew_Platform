@@ -8,12 +8,7 @@ import usePrincipalQuery from '../../../queries/usePrincipalQuery';
 
 function CrewRanking() {
   const navigate = useNavigate();
-  const principalQuery = usePrincipalQuery();
-  const userId = principalQuery?.data?.data?.body?.user?.userId;
-  
-  const { data: rankings, isLoading, isError, error } = useGetCrewRankingQuery();
-
-  console.log(rankings);
+  const { data: rankings } = useGetCrewRankingQuery();
   
 
   return (
@@ -27,8 +22,8 @@ function CrewRanking() {
         <section css={s.section}>
           <h2 css={s.sectionTitle}>🏃‍♂️ 총 거리 랭킹</h2>
           <div css={s.rankingList}>
-            {rankings?.totalKmRanking?.map((crew, index) => (
-              <div key={crew.crewId} onClick={() => navigate(`/crews/${crew.crewId}`)}>
+            {rankings?.totalKmRanking?.slice(0, 10).map((crew, index) => (
+              <div key={crew.crewId} css={s.cardDiv} onClick={() => navigate(`/crews/${crew.crewId}`)}>
                 <RankingCard 
                   key={crew.crewId} 
                   data={crew} 
@@ -44,8 +39,8 @@ function CrewRanking() {
         <section css={s.section}>
           <h2 css={s.sectionTitle}>👥 멤버 수 랭킹</h2>
           <div css={s.rankingList}>
-            {rankings?.memberRanking?.map((crew, index) => (
-              <div key={crew.crewId} onClick={() => navigate(`/crews/${crew.crewId}`)}>
+            {rankings?.memberRanking?.slice(0, 10).map((crew, index) => (
+              <div key={crew.crewId} css={s.cardDiv} onClick={() => navigate(`/crews/${crew.crewId}`)}>
                 <RankingCard 
                   key={crew.crewId} 
                   data={crew} 
@@ -61,8 +56,8 @@ function CrewRanking() {
         <section css={s.section}>
           <h2 css={s.sectionTitle}>🌟 신규 크루</h2>
           <div css={s.rankingList}>
-            {rankings?.newRanking?.map((crew, index) => (
-              <div key={crew.crewId} onClick={() => navigate(`/crews/${crew.crewId}`)}>
+            {rankings?.newRanking?.slice(0, 10).map((crew, index) => (
+              <div key={crew.crewId} css={s.cardDiv} onClick={() => navigate(`/crews/${crew.crewId}`)}>
                 <RankingCard 
                   key={crew.crewId} 
                   data={crew} 

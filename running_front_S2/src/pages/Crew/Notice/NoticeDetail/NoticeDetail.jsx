@@ -6,10 +6,12 @@ import sanitizeHtml from "sanitize-html";
 import useGetCrewNoticeDetailQuery from '../../../../queries/useGetCrewNoticeDetailQuery';
 import usePrincipalQuery from '../../../../queries/usePrincipalQuery';
 import { reqDeleteNotice } from '../../../../api/Crew/noticeApi';
+import { useCrewStore } from '../../../../stores/useCrewStroes';
 
 
 export default function NoticeDetail() {
-  const { crewId, noticeId } = useParams();
+  const { crewId } = useCrewStore();
+  const { noticeId } = useParams();
   const navigate = useNavigate();
   const principalQuery = usePrincipalQuery();
 

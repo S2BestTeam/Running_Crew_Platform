@@ -1,6 +1,8 @@
 package com.korit.running_back_s2.controller;
 
+import com.korit.running_back_s2.domain.crew.CrewMapper;
 import com.korit.running_back_s2.dto.crew.CrewRoleReqDto;
+import com.korit.running_back_s2.dto.crew.CrewUpdateReqDto;
 import com.korit.running_back_s2.dto.response.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -51,5 +53,28 @@ public class CrewController {
         return ResponseEntity.ok(ResponseDto.success(crewService.getCrewRole(userId)));
     }
 
+    @PostMapping("/{crewId}/thumbnail")
+    public ResponseEntity<ResponseDto<?>> updateCrewThumbnail(@RequestPart("thumbnailPicture") MultipartFile profileFile,
+                                                            @PathVariable Integer crewId) {
+        crewService.updateCrewThumbnailPicture(crewId, profileFile);
+        return ResponseEntity.ok(ResponseDto.success("수정 완료"));
+    }
 
+    @PostMapping("/{crewId}/profile")
+    public ResponseEntity<ResponseDto<?>> updateCrewProfile(@RequestPart("profilePicture") MultipartFile profileFile,
+                                                              @PathVariable Integer crewId) {
+        crewService.updateCrewProfilePicture(crewId, profileFile);
+        return ResponseEntity.ok(ResponseDto.success("수정 완료"));
+    }
+
+    @PatchMapping("/update")
+    public ResponseEntity<ResponseDto<?>> updateCrewData(@RequestBody CrewUpdateReqDto dto) {
+        crewService.updateCrew(dto);
+        return ResponseEntity.ok(ResponseDto.success("크루 정보 수정 성공"));
+    }
+
+    @PatchMapping("/{crewId}/withdraw")
+    public ResponseEntity<ResponseDto<?>> withDraw(@PathVariable Integer crewId) {
+        return ResponseEntity.ok(ResponseDto.success("크루 탈퇴가 성공적으로 이루어 졌습니다."));
+    }
 }

@@ -6,6 +6,7 @@ import com.korit.running_back_s2.domain.gathering.ParticipantMapper;
 import com.korit.running_back_s2.domain.user.User;
 import com.korit.running_back_s2.dto.gathering.GatheringRegisterReqDto;
 import com.korit.running_back_s2.dto.gathering.GatheringRespDto;
+import com.korit.running_back_s2.exception.auth.UnauthorizedException;
 import com.korit.running_back_s2.security.model.PrincipalUtil;
 import com.korit.running_back_s2.util.ImageUrlUtil;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +42,6 @@ public class GatheringService {
     public List<Gathering> getGatherings(Integer crewId) {
         Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
         List<Gathering> gatherings = gatheringMapper.findAllByCrewId(crewId, userId);
-
         gatherings.forEach(g -> {
             if (g.getThumbnailPicture() != null) {
                 g.setThumbnailPicture(imageUrlUtil.buildImageUrl(g.getThumbnailPicture(), "crewGathering"));

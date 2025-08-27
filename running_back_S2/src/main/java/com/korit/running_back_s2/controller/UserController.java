@@ -63,4 +63,9 @@ public class UserController {
         userService.deleteMyWelcome(welcomeId);
         return ResponseEntity.ok(ResponseDto.success("삭제 완료"));
     }
+
+    @GetMapping("/{userId}/crews")
+    public ResponseEntity<ResponseDto<?>> getMyCrews(@PathVariable Integer userId) {
+        return ResponseEntity.ok(ResponseDto.success(userService.getMyCrews(userId)));
+    }
 }

@@ -109,9 +109,9 @@
 
     <select id="findWelcomeByUserId" resultType="com.korit.running_back_s2.dto.welcome.WelcomeByUserIdResDto">
         select
-            cwt.crew_id as crewId,
-            ct.crew_name as crewName,
-            ct.profile_picture as profilePicture,
+            cwt.crew_id,
+            ct.crew_name,
+            ct.profile_picture,
             case
                 when cmt.crew_member_id is null then '대기중'
                 else '승인 완료'
@@ -120,7 +120,8 @@
             welcome_tb cwt
             join crew_tb ct on (cwt.crew_id = ct.crew_id)
             left outer join member_tb cmt on (cwt.crew_id = cmt.crew_id and cwt.user_id = cmt.user_id)
-        where cwt.user_id = #{userId}
+        where
+            cwt.user_id = #{userId}
     </select>
 
     <select id="selectUserRankingByTotalKm"

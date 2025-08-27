@@ -17,22 +17,22 @@
     </delete>
 
     <select id="getWishs" resultType="com.korit.running_back_s2.domain.wishList.WishList">
-        SELECT
-            w.wishlist_id,
-            w.user_id,
-            w.crew_id,
-            w.created_at,
-            c.crew_name,
-            c.title,
-            c.thumbnail_picture,
-            g.gungu_name
-        FROM
-            wishlist_tb w
-            LEFT JOIN crew_tb c ON w.crew_id = c.crew_id
-            LEFT JOIN gungu_tb g ON c.gungu_id = g.gungu_id
-        WHERE
-            w.user_id = #{userId}
-        ORDER BY
-            w.created_at DESC
+        select
+            wt.wishlist_id,
+            wt.user_id,
+            wt.crew_id,
+            wt.created_at,
+            ct.crew_name,
+            ct.title,
+            ct.thumbnail_picture,
+            gt.gungu_name
+        from
+            wishlist_tb wt
+            left outer join crew_tb ct ON wt.crew_id = ct.crew_id
+            left outer join gungu_tb gt ON ct.gungu_id = gt.gungu_id
+        where
+            wt.user_id = #{userId}
+        order by
+            wt.created_at DESC
     </select>
 </mapper>

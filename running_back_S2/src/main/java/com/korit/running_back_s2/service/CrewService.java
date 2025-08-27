@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -107,5 +108,36 @@ public class CrewService {
     public List<CrewRoleReqDto> getCrewRole (Integer userId) {
         return  crewMapper.findRoleByUserId(userId);
     }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void updateCrewThumbnailPicture(Integer crewId, MultipartFile file) {
+        String oldFileName = crewMapper.findThumbnailById(crewId);
+        String newFileName = fileService.uploadFile(file, "crewThumbnail");
+        crewMapper.updateCrewThumbnailPicture(crewId, newFileName);
+
+        if (oldFileName != null && !oldFileName.isBlank()) {
+            fileService.deleteFile("crewThumbnail", oldFileName);
+        }
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void updateCrewProfilePicture(Integer crewId, MultipartFile file) {
+        String oldFileName = crewMapper.findProfileById(crewId);
+        String newFileName = fileService.uploadFile(file, "crewProfile");
+        crewMapper.updateCrewProfilePicture(crewId, newFileName);
+
+        if (oldFileName != null && !oldFileName.isBlank()) {
+            fileService.deleteFile("crewProfile", oldFileName);
+        }
+    }
+
+    public void updateCrew(CrewUpdateReqDto dto) {
+        crewMapper.updateCrew(dto);
+    }
+
+//    public void CrewWithDraw (Integer crewId) {
+//        Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
+//        crewMapper.withDraw(crewId, userId);
+//    }
 }
 

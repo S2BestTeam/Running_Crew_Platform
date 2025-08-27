@@ -1,15 +1,17 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./styles";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import usePrincipalQuery from "../../../queries/usePrincipalQuery";
-import useGetCrewNotoiceQuery from "../../../queries/useGetCrewNoticeQuery";
 import { IoSearch } from "react-icons/io5";
 import { BiSolidChevronLeftSquare, BiSolidChevronRightSquare } from "react-icons/bi";
-import useGetCrewRoleId from "../../../queries/useGetCrewRoleIdQuery";
+import useGetCrewRoleQuery from "../../../queries/useGetCrewRoleQuery";
+import { useCrewStore } from "../../../stores/useCrewStroes";
+import useGetCrewNoticeDetailQuery from "../../../queries/useGetCrewNoticeDetailQuery";
 
-function Notice({ crewId }) {
+function Notice() {
   const navigate = useNavigate();
+  const { crewId } = useCrewStore();
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get("page") || "1", 10);
   const searchText = searchParams.get("searchText") || "";
@@ -19,31 +21,18 @@ function Notice({ crewId }) {
   const { data: principalData, isSuccess: isPrincipalReady } = usePrincipalQuery();
   const userId = principalData?.data?.body?.user?.userId;
 
-  const numericCrewId = Number(crewId);
+  const CrewRoleQuery = useGetCrewRoleQuery(userId);
+  const crewRole = CrewRoleQuery?.data?.find((role) => role.crewId === Number(crewId));
 
-  const {
-    data: roleRes,
-    isLoading: isRoleLoading,
-    isError: isRoleError,
-  } = useGetCrewRoleId(numericCrewId);
+  const isCrewMember = !!crewRole;
+  const canRegister = crewRole && ["1", "2"].includes(crewRole.roleId);
 
-  const roleId = Number(roleRes?.data?.body);
-  const canRegister = !isRoleLoading && [1, 2].includes(roleId);
-
-  const { data, isLoading, isError } = useGetCrewNotoiceQuery({
-    crewId: numericCrewId,
+  const { data, isLoading, isError } = useGetCrewNoticeDetailQuery({
+    crewId: Number(crewId),
     page,
     size,
     searchText,
   });
-
-  // useEffect(() => {
-  //   if (roleRes) {
-  //     console.log("role raw:", roleRes?.data?.body, typeof roleRes?.data?.body);
-  //     console.log("parsed roleId:", roleId, "canRegister:", canRegister);
-  //   }
-  // }, [roleRes, roleId, canRegister]);
-
 
   useEffect(() => {
     if (isPrincipalReady && !userId) {
@@ -90,7 +79,6 @@ function Notice({ crewId }) {
             <IoSearch />
           </button>
 
-          {/* ✅ roleId가 1 또는 2일 때만 버튼 노출 */}
           {canRegister && (
             <button css={s.registerButton} onClick={() => navigate(`./register`)}>
               공지글 등록
@@ -110,11 +98,13 @@ function Notice({ crewId }) {
         </thead>
         <tbody>
           {noticeList.map((notice) => (
-            <tr key={notice.noticeId}>
+            <tr
+              key={notice.noticeId}
+              onClick={isCrewMember ? () => navigate(`./${notice.noticeId}`) : undefined}
+              css={s.tr(isCrewMember)}
+            >
               <td css={s.td}>{notice.noticeId}</td>
-              <td css={s.tdTitle} onClick={() => navigate(`./${notice.noticeId}`)}>
-                {notice.title}
-              </td>
+              <td css={s.tdTitle}>{notice.title}</td>
               <td css={s.td}>{notice?.user?.nickname}</td>
               <td css={s.td}>{notice.createdAt}</td>
             </tr>
@@ -122,7 +112,15 @@ function Notice({ crewId }) {
         </tbody>
       </table>
 
-      <div style={{ display: "flex", justifyContent: "center", gap: 12, alignItems: "center", marginTop: 16 }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: 12,
+          alignItems: "center",
+          marginTop: 16,
+        }}
+      >
         <button onClick={() => goPage(page - 1)} disabled={page <= 1}>
           <BiSolidChevronLeftSquare />
         </button>

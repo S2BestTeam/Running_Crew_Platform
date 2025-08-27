@@ -7,7 +7,8 @@ function useGetCrewRoleQuery(userId) {
     queryFn: async () => {
       const res = await getCrewRole(userId);
       return res?.data?.body;
-    }
+    },
+    enabled: !!userId,
   });
 }
 

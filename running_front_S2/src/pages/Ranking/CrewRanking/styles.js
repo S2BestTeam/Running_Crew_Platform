@@ -55,6 +55,10 @@ export const notice = css`
   font-size: 0.875rem;
 `;
 
+export const cardDiv = css`
+  cursor: pointer;
+`;
+
 // RankingCard
 export const card = (rank) => css`
   display: flex;

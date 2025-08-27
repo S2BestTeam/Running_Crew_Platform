@@ -4,9 +4,11 @@ import usePrincipalQuery from '../../../../queries/usePrincipalQuery';
 import { useNavigate, useParams } from 'react-router-dom';
 import { reqUpdateNotice } from '../../../../api/Crew/noticeApi';
 import ReactQuill from 'react-quill-new';
+import { useCrewStore } from '../../../../stores/useCrewStroes';
 
 function NoticeEdit() {
-    const { crewId, noticeId } = useParams();
+    const { crewId } = useCrewStore();
+    const { noticeId } = useParams();
     const navigate = useNavigate();
 
     const principalQuery = usePrincipalQuery();

@@ -21,9 +21,11 @@ import Notice from "../Notice/Notice";
 import NoticeReg from "../Notice/NoticeReg/NoticeReg";
 import NoticeDetail from "../Notice/NoticeDetail/NoticeDetail";
 import GatheringManagement from "../GatheringManagement/GatheringManagement";
+import Setting from "../Setting/Setting";
 import FreeEdit from "../FreeBoard/Edit/FreeEdit";
 import NoticeEdit from "../Notice/Edit/NoticeEdit";
-
+import GatheringRegister from "../Gathering/GatheringRegister/GatheringRegister";
+import GatheringModify from "../GatheringManagement/GatheringModify/GatheringModify";
 
 function CCategory() {
   const navigate = useNavigate();
@@ -31,12 +33,13 @@ function CCategory() {
   const userId = principal?.data?.data?.body?.user?.userId;
   const { crewId } = useParams();
   const { data: crewData, isLoading, isSuccess } = useCrewDetailQuery(crewId);
-  const { setCrewId, setCrew, setCrewLeader } = useCrewStore();
+  const { setCrewId, setCrew } = useCrewStore();
   
   useEffect(() => {
     setCrewId(crewId);
     setCrew(crewData?.body);
   }, [crewId, crewData?.body]);
+  
 
   if (isLoading) {
     return <Loading isLoading={isLoading} />;
@@ -87,10 +90,10 @@ function CCategory() {
       <button>문의사항</button>
       {isCrewLeader && (
         <>
-          <button onClick={() => navigate(`/crews/${crew.crewId}/report`)}>
+          <button onClick={() => navigate(`/crews/${crewId}/report`)}>
             신고사항
           </button>
-          <button onClick={() => navigate(`/crews/${crew.crewId}/setting`)}>
+          <button onClick={() => navigate(`/crews/${crewId}/setting`)}>
             설정
           </button>
         </>
@@ -100,9 +103,15 @@ function CCategory() {
 
   const bottomSection = !isCrewLeader && (
     <div css={s.getout}>
-      <button>탈퇴하기</button>
+      <button onClick={() => handleWithdrawOnClick(userId)}>탈퇴하기</button>
     </div>
   );
+
+  const handleWithdrawOnClick = async (memberId) => {
+    console.log("멤버 아이디",memberId);
+    
+    // await 
+  }
 
   return (
     <MainContainer>
@@ -114,28 +123,22 @@ function CCategory() {
         <ContentLayout>
           <Routes>
             <Route path="/" element={<CrewInfo />} />
-            <Route
-              path="/welcome"
-              element={<Welcome isCrewLeader={isCrewLeader} />}
-            />
-            <Route path="/gathering" element={<Gathering crewId={crewId} />} />
-            <Route path="/gathering-management" element={<GatheringManagement crewId={crewId} />} />
+            <Route path="/welcome" element={<Welcome isCrewLeader={isCrewLeader} />} />
+            <Route path="/gathering/*" element={<Gathering />} />
+            <Route path="/gathering/register" element={<GatheringRegister/>} />
+            <Route path="/gathering-management" element={<GatheringManagement />} />
+            <Route path="/gathering-management/:gatheringId" element={<GatheringModify />} />
             <Route path="/members" element={<Member />} />
-            <Route path="/freeBoards" element={<FreeBoard crewId={crewId}/>} />
-            <Route path="freeBoards/register" element={<FeedReg crewId={crewId} />} />
-            <Route path="freeBoards/:freeId" element={<FeedDetail crewId={crewId} />} />
-            <Route path="freeBoards/:freeId/edit" element={<FreeEdit  crewId={crewId} />} />
-
-
-            <Route path="/notices" element={<Notice crewId={crewId}/>} />
-            <Route path="notices/register" element={<NoticeReg crewId={crewId} />} />
-            <Route path="notices/:noticeId" element={<NoticeDetail crewId={crewId} />} />
-            <Route path="notices/:noticeId/edit" element={<NoticeEdit crewId={crewId} />} />
-
-            <Route
-              path="/report"
-              element={<Report crewId={crewId} isCrewLeader={isCrewLeader} />}
-            />
+            <Route path="/freeBoards" element={<FreeBoard />} />
+            <Route path="freeBoards/register" element={<FeedReg />} />
+            <Route path="freeBoards/:freeId" element={<FeedDetail />} />
+            <Route path="freeBoards/:freeId/edit" element={<FreeEdit />} />
+            <Route path="/notices" element={<Notice />} />
+            <Route path="notices/register" element={<NoticeReg />} />
+            <Route path="notices/:noticeId" element={<NoticeDetail />} />
+            <Route path="notices/:noticeId/edit" element={<NoticeEdit />} />
+            <Route path="/report" element={<Report isCrewLeader={isCrewLeader} />} />
+            <Route path="/setting" element={<Setting />} />
           </Routes>
         </ContentLayout>
       </LeftSideBarLayout>

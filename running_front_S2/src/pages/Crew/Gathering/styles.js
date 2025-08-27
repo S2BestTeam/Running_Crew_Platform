@@ -8,7 +8,7 @@ export const gatheringMain = css`
 
 export const gatheringContainer = css`
   width: 25rem;
-  border: 0.1rem solid #dbdbdb;
+  border: 0.1rem solid #aaa;
   border-radius: 0.5rem;
 `;
 
@@ -97,4 +97,20 @@ export const recruiting = css`
 
 export const closed = css`
   background-color: #dc3545;
+`;
+
+export const closedOverlay = css`
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3); 
+    border-radius: 0.5rem; 
+  }
+
 `;

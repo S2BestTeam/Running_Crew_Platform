@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { reqCrewDetail } from "../api/Crew/crewApi";
 
 export const useCrewStore = create((set) => ({
   crewId: null,
@@ -8,7 +9,6 @@ export const useCrewStore = create((set) => ({
   setCrew: (crewData) => set({ crew: crewData }),
 
   isMember: false,
-  
   setIsMember: (value) => set({ isMember: value }),
   
   resetCrew: () =>

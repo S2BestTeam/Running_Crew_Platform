@@ -9,7 +9,6 @@ import {
   FaWonSign,
 } from "react-icons/fa";
 import { useGetGatheringsQuery } from "../../../queries/useGetGatheringsQuery";
-import GatheringRegModal from "./GatheringRegModal/GatheringRegModal";
 import GatheringDetailModal from "./GatheringDetailModal/GatheringDetailModal";
 import ContentLayout from "../../../components/ContentLayout/ContentLayout";
 import { useNavigate } from "react-router-dom";
@@ -29,26 +28,34 @@ function Gathering() {
   const userId = principalData?.data?.body?.user?.userId;
   const CrewRoleQuery = useGetCrewRoleQuery(userId);
 
-  const isCrewMember = CrewRoleQuery?.data?.some(
-    (role) => role.crewId === crewId
-  );
+  const crewRole = CrewRoleQuery?.data?.some((role) => role.crewId === Number(crewId));
+  
+  const isCrewMember = !!crewRole;
+
+  console.log(isCrewMember);
+  
 
   useEffect(() => {
     if (!isLoading) {
-      const userId = principalData?.data?.body?.user?.userId;
-
       if (!userId) {
         alert("로그인 후 이용 부탁드립니다.");
         navigate("/auth/oauth2/signin");
+        return;
       }
     }
 
     if (gatheringsQuery?.data?.data?.body) {
-      setGatherings(gatheringsQuery.data.data.body);
+      const now = new Date();
+      const updatedGatherings = gatheringsQuery.data.data.body.filter((g) => {
+        const gatheringDateTime = new Date(`${g.runningDate}T${g.runningTime}`);
+        const diffInMs = now - gatheringDateTime;
+        const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+        return diffInDays <= 3; // 3일 이내만 남김
+      });
+
+      setGatherings(updatedGatherings);
     }
-  
   }, [gatheringsQuery?.data, principalData, isLoading, navigate]);
-  
 
   const handleModalClose = () => {
     setRegOpen(false);
@@ -56,11 +63,11 @@ function Gathering() {
   };
 
   const handleOpenDetailModal = (gathering) => {
-    // if (!isCrewMember) {
-    //   alert('크루 멤버만 접근 가능합니다. 크루에 가입해주세요.');
-    //   navigate(`/crews/${crewId}`);
-    //   return;
-    // }
+    if (!isCrewMember) {
+      alert('크루 멤버만 접근 가능합니다. 크루에 가입해주세요.');
+      navigate(`/crews/${crewId}`);
+      return;
+    }
     setSelectedGathering(gathering);
     setDetailOpen(true);
   };
@@ -84,9 +91,9 @@ function Gathering() {
       <div css={s.layout}>
         <header>
           <h2>정모 일정</h2>
-          {/* {isCrewMember && ( */}
+          {isCrewMember && (
             <button onClick={() => setRegOpen(true)}>일정 등록</button>
-          {/* )} */}
+          )}
         </header>
         <main css={s.gatheringMain}>
           {gatherings.map((g, index) => {
@@ -101,9 +108,20 @@ function Gathering() {
               dateObj.getMinutes()
             ).padStart(2, "0")}분`;
 
+            const isPastTime = (runningDate, runningTime) => {
+              const gatheringDateTime = new Date(
+                `${runningDate}T${runningTime}`
+              );
+              return gatheringDateTime < new Date();
+            };
+
             return (
-              <div key={index}
-                css={s.gatheringContainer}
+              <div
+                key={index}
+                css={[
+                  s.gatheringContainer,
+                  isPastTime(g.runningDate, g.runningTime) && s.closedOverlay, // 시간 지난 경우만 오버레이
+                ]}
                 onClick={() => handleOpenDetailModal(g)}
               >
                 <div css={s.thumbnailImg}>
@@ -150,11 +168,6 @@ function Gathering() {
         </main>
       </div>
 
-      <GatheringRegModal
-        crewId={crewId}
-        isOpen={isRegOpen}
-        onClose={handleModalClose}
-      />
       <GatheringDetailModal
         isOpen={isDetailOpen}
         onClose={handleModalClose}

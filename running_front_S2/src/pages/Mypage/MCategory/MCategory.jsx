@@ -21,15 +21,8 @@ function MCategory(props) {
   const userId = principal?.data?.data?.body?.user?.userId;
   const CrewRoleQuery = useGetCrewRoleQuery(userId);
 
-  // 현재 사용자가 어떤 크루에서든 leader인지 확인
-  const isUserLeader = CrewRoleQuery?.data?.some(
-    (role) => role.userId === userId && role.roleName === 'leader'
-  );
-
-  console.log('userId:', userId, 'isUserLeader:', isUserLeader);
-
-  // leader가 아닌 경우에만 탈퇴 버튼 표시
-  const showDeleteButton = !isUserLeader;
+  const isUserLeader = CrewRoleQuery?.data?.some((role) => role.userId === userId && role.roleId === '1');
+  const showDeleteButton = !!isUserLeader;
 
   const handleDeleteUserOnClick = async () => {
     if (window.confirm('정말 탈퇴하시겠습니까?')) {
@@ -64,7 +57,7 @@ function MCategory(props) {
   const navigationButtons = (
     <>
       <button onClick={() => navigate("/mypage/welcome")}>크루 신청 내역</button>
-      <button onClick={() => navigate("/mypage/wish")}>나의 크루 리스트</button>
+      <button onClick={() => navigate("/mypage/wish")}>나의 크루</button>
       <button>내가 쓴 글</button>
       <button>나의 정모일정</button>
     </>
@@ -73,7 +66,10 @@ function MCategory(props) {
   const bottomSection = (
     <div css={s.getout}>
       {
-        showDeleteButton && (<button onClick={handleDeleteUserOnClick}>탈퇴하기</button>)
+        showDeleteButton ?
+        (<div style={{fontSize : '1.2rem', color : 'gray'}}>크루장님은 크루를 해체한 후 탈퇴할 수 있습니다.</div>)
+        :
+        (<button onClick={handleDeleteUserOnClick}>탈퇴하기</button>)
       }
     </div>
   );

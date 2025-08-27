@@ -64,6 +64,14 @@ export const table = css`
   text-align: center;
 `;
 
+export const tr = (isCrewMember) => css`
+  cursor: ${isCrewMember ? "pointer" : "default"};
+
+  &:hover {
+    background-color: ${isCrewMember ? "#cececeff" : "transparent"};
+  }
+`;
+
 export const th = css`
   padding: 1.2rem;
   border-bottom: 0.2rem solid #000;

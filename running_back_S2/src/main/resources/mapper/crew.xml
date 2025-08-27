@@ -30,6 +30,29 @@
         VALUES ( #{userId}, #{gunguId}, #{crewName}, #{title}, #{content}, #{limitedPeople}, #{profilePicture}, #{thumbnailPicture} )
     </insert>
 
+    <update id="updateCrewThumbnailPicture">
+        update crew_tb
+        set thumbnail_picture = #{thumbnailPicture}
+        where crew_id = #{crewId}
+    </update>
+
+    <update id="updateCrewProfilePicture">
+        update crew_tb
+        set profile_picture = #{profilePicture}
+        where crew_id = #{crewId}
+    </update>
+
+    <update id="updateCrew">
+        update crew_tb
+        set
+            crew_name = #{crewName},
+            title = #{title},
+            content = #{content},
+            limited_people = #{limitedPeople}
+        where
+            crew_id = #{crewId}
+    </update>
+
     <select id="findByCrewName" resultType="com.korit.running_back_s2.domain.crew.Crew">
         select
             crew_id,
@@ -51,18 +74,18 @@
 
     <select id="findByCrewId" resultMap="CrewMap">
         SELECT
-            ct.crew_id AS crew_id,
-            ct.gungu_id AS gungu_id,
-            gt.gungu_name AS gungu_name,
-            ct.crew_name as crew_name,
-            ct.title as title,
-            ct.content as content,
-            ct.profile_picture as profile_picture,
-            ct.thumbnail_picture as thumbnail_picture,
-            ct.limited_people as limited_people,
-            ct.user_id AS user_id,
-            ct.created_at AS created_at,
-            ct.total_km AS total_km
+            ct.crew_id,
+            ct.gungu_id,
+            gt.gungu_name,
+            ct.crew_name,
+            ct.title,
+            ct.content,
+            ct.profile_picture,
+            ct.thumbnail_picture,
+            ct.limited_people,
+            ct.user_id,
+            ct.created_at,
+            ct.total_km
         FROM
             crew_tb ct
             left outer join gungu_tb gt on(ct.gungu_id = gt.gungu_id)
@@ -71,16 +94,16 @@
     </select>
     <select id="findAllBySearchOption" resultMap="CrewMap">
         select
-            ct.crew_id as crew_id,
-            ct.gungu_id as gungu_id ,
-            gt.gungu_name as gungu_name,
-            ct.profile_picture as profile_picture,
-            ct.thumbnail_picture as thumbnail_picture,
-            ct.crew_name as crew_name,
-            ct.user_id as user_id,
-            ct.title as title,
-            ct.content as content,
-            ct.created_at as created_at
+            ct.crew_id,
+            ct.gungu_id,
+            gt.gungu_name,
+            ct.profile_picture,
+            ct.thumbnail_picture,
+            ct.crew_name,
+            ct.user_id,
+            ct.title,
+            ct.content,
+            ct.created_at
         from
             crew_tb ct
             left outer join gungu_tb gt on(ct.gungu_id = gt.gungu_id)
@@ -94,8 +117,8 @@
                 )
             </if>
         </where>
-        ORDER BY ct.created_at DESC
-        LIMIT #{size} OFFSET #{startIndex}
+        order by ct.created_at desc
+        limit #{size} offset #{startIndex}
     </select>
 
     <select id="countBySearchOption" resultType="int">
@@ -147,7 +170,6 @@
                         ) mt on (ct.crew_id = mt.crew_id)
         order by
             ct.total_km desc
-        limit 10
     </select>
 
     <select id="selectTop10CrewRankingByMemberCount" resultType="com.korit.running_back_s2.dto.ranking.CrewRankingRespDto">
@@ -175,7 +197,6 @@
                         ) mt on (ct.crew_id = mt.crew_id)
         order by
             mt.member_count desc
-        limit 10
     </select>
 
     <select id="selectTop10CrewRankingByCreatedDate" resultType="com.korit.running_back_s2.dto.ranking.CrewRankingRespDto">
@@ -202,19 +223,35 @@
                             crew_id
                         ) mt on (ct.crew_id = mt.crew_id)
         order by ct.created_at desc
-        limit 10
     </select>
 
     <select id="findRoleByUserId" resultType="com.korit.running_back_s2.dto.crew.CrewRoleReqDto">
         select
             ct.crew_id,
             mt.user_id,
-            rt.role_name
+            mt.role_id
         from
             crew_tb ct
             left join member_tb mt on mt.crew_id = ct.crew_id
-            left join member_role_tb rt on rt.role_id = mt.role_id
         where
             mt.user_id = #{userId};
+    </select>
+
+    <select id="findThumbnailById" resultType="java.lang.String">
+        select
+            thumbnail_picture
+        from
+            crew_tb
+        where
+            crew_id = #{crewId}
+    </select>
+
+    <select id="findProfileById" resultType="java.lang.String">
+        select
+            profile_picture
+        from
+            crew_tb
+        where
+            crew_id = #{crewId}
     </select>
 </mapper>

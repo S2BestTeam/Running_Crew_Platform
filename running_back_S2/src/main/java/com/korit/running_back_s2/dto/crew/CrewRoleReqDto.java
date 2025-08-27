@@ -6,5 +6,5 @@ import lombok.Data;
 public class CrewRoleReqDto {
     private Integer crewId;
     private Integer userId;
-    private String roleName;
+    private String roleId;
 }
