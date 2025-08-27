@@ -11,8 +11,5 @@ import java.util.List;
 public interface GatheringMapper {
     int insert(Gathering gathering);
     List<Gathering> findAllByCrewId(@Param("crewId") Integer crewId, @Param("userId") Integer userId);
-<<<<<<< HEAD
-=======
     List<User> findParticipantsByGatheringId(int gatheringId);
->>>>>>> 56-멤버-참석-여부-기능-구현
 }

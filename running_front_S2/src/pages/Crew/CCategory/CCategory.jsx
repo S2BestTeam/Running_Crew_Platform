@@ -17,15 +17,12 @@ import ContentLayout from "../../../components/ContentLayout/ContentLayout";
 import Gathering from "../Gathering/Gathering";
 import FeedReg from "../FreeBoard/FeedReg/FeedReg";
 import FeedDetail from "../FreeBoard/FeedDetail/FeedDetail";
-<<<<<<< HEAD
 import CommentDetail from "../FreeBoard/Comment/CommentDetail";
 import Notice from "../Notice/Notice";
 import NoticeReg from "../Notice/NoticeReg/NoticeReg";
 import NoticeDetail from "../Notice/NoticeDetail/NoticeDetail";
-
-=======
 import GatheringManagement from "../GatheringManagement/GatheringManagement";
->>>>>>> 56-멤버-참석-여부-기능-구현
+
 
 function CCategory() {
   const navigate = useNavigate();
@@ -116,11 +113,13 @@ function CCategory() {
         <ContentLayout>
           <Routes>
             <Route path="/" element={<CrewInfo />} />
-<<<<<<< HEAD
-            <Route path="/welcome" element={<Welcome isCrewLeader={isCrewLeader} />}/>
-            <Route path="/gathering" element={<Gathering />}/>
+            <Route
+              path="/welcome"
+              element={<Welcome isCrewLeader={isCrewLeader} />}
+            />
+            <Route path="/gathering" element={<Gathering crewId={crewId} />} />
+            <Route path="/gathering-management" element={<GatheringManagement crewId={crewId} />} />
             <Route path="/members" element={<Member />} />
-
             <Route path="/freeBoards" element={<FreeBoard crewId={crewId}/>} />
             <Route path="freeBoards/register" element={<FeedReg crewId={crewId} />} />
             <Route path="freeBoards/:freeId" element={<FeedDetail crewId={crewId} />} />
@@ -129,30 +128,10 @@ function CCategory() {
             <Route path="/notices" element={<Notice crewId={crewId}/>} />
             <Route path="notices/register" element={<NoticeReg crewId={crewId} />} />
             <Route path="notices/:noticeId" element={<NoticeDetail crewId={crewId} />} />
-
-            <Route path="/report" element={<Report crewId={crewId} isCrewLeader={isCrewLeader} />} />
-=======
-            <Route
-              path="/welcome"
-              element={<Welcome isCrewLeader={isCrewLeader} />}
-            />
-            <Route path="/gathering" element={<Gathering crewId={crewId} />} />
-            <Route path="/gathering-management" element={<GatheringManagement crewId={crewId} />} />
-            <Route path="/members" element={<Member />} />
-            <Route path="/freeBoards" element={<FreeBoard crewId={crewId} />} />
-            <Route
-              path="freeBoards/register"
-              element={<FeedReg crewId={crewId} />}
-            />
-            <Route
-              path="freeBoards/:freeId"
-              element={<FeedDetail crewId={crewId} />}
-            />
             <Route
               path="/report"
               element={<Report crewId={crewId} isCrewLeader={isCrewLeader} />}
             />
->>>>>>> 56-멤버-참석-여부-기능-구현
           </Routes>
         </ContentLayout>
       </LeftSideBarLayout>
