@@ -3,6 +3,7 @@ package com.korit.running_back_s2.service;
 import com.korit.running_back_s2.domain.gathering.Gathering;
 import com.korit.running_back_s2.domain.gathering.GatheringMapper;
 import com.korit.running_back_s2.domain.gathering.ParticipantMapper;
+import com.korit.running_back_s2.domain.user.User;
 import com.korit.running_back_s2.dto.gathering.GatheringRegisterReqDto;
 import com.korit.running_back_s2.dto.gathering.GatheringRespDto;
 import com.korit.running_back_s2.security.model.PrincipalUtil;
@@ -48,6 +49,10 @@ public class GatheringService {
         });
 
         return gatherings;
+    }
+
+    public List<User> getGatheringParticipants(int gatheringId) {
+        return gatheringMapper.findParticipantsByGatheringId(gatheringId);
     }
 
 }

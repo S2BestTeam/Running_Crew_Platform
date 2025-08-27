@@ -100,4 +100,17 @@
         cgt.running_date DESC, cgt.running_time DESC
     </select>
 
+    <select id="findParticipantsByGatheringId" resultMap="UserMap">
+        SELECT
+            ut.user_id,
+            ut.nickname,
+            ut.full_name,
+            ut.picture
+        FROM
+            gathering_participant_tb gpt
+        INNER JOIN user_tb ut ON ut.user_id = gpt.user_id
+        WHERE
+            gpt.gathering_id = #{gatheringId}
+    </select>
+
 </mapper>
