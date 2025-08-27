@@ -36,6 +36,20 @@
         values(#{freeId}, #{userId}, #{content})
     </insert>
 
+    <update id="updateComment">
+        UPDATE crew_free_comment_tb
+        SET content = #{content}
+        WHERE free_comment_id = #{freeCommentId}
+        AND user_id = #{userId}
+    </update>
+
+    <delete id="deleteComment">
+        DELETE FROM crew_free_comment_tb
+        WHERE free_comment_id = #{freeCommentId}
+        AND free_id = #{freeId}
+        AND user_id = #{userId}
+    </delete>
+
     <select id="getCommentList" resultMap="CrewFreeCommentMap">
         select
             f.free_comment_id,
@@ -48,8 +62,10 @@
         from
             crew_free_comment_tb f
             left outer join user_tb u on(f.user_id = u.user_id)
+        where
+            f.free_id = #{freeId}
         order by
-            f.created_at desc
+            f.created_at asc
     </select>
 
 

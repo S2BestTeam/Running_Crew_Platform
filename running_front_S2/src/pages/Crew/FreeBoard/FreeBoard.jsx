@@ -56,23 +56,25 @@ function FreeBoard({ crewId }) {
     setSearchParams({ page: nextPage, searchText });
   };
 
-  const handleRegisterOnClick  = () => {
-    if (!isCrewMember) {
-      alert('크루 멤버만 접근 가능합니다. 크루에 가입해주세요.');
-      navigate(`/crews/${crewId}`);
-      return;
-    }
+  const handleRegisterOnClick = () => {
+    // if (!isCrewMember) {
+    //   alert('크루 멤버만 접근 가능합니다. 크루에 가입해주세요.');
+    //   navigate(`/crews/${crewId}`);
+    //   return;
+    // }
     navigate(`./register`);
   }
 
   const handlePostOnClick = (freeId) => {
-    if (!isCrewMember) {
-      alert('크루 멤버만 접근 가능합니다. 크루에 가입해주세요.');
-      navigate(`/crews/${crewId}`);
-      return;
-    }
+    // if (!isCrewMember) {
+    //   alert('크루 멤버만 접근 가능합니다. 크루에 가입해주세요.');
+    //   navigate(`/crews/${crewId}`);
+    //   return;
+    // }
+    if (!freeId) return;
     navigate(`./${freeId}`);
   };
+
 
   return (
     <div css={s.container}>
@@ -100,7 +102,7 @@ function FreeBoard({ crewId }) {
         </thead>
         <tbody>
           {freeLists.map((board) => (
-            <tr key={board.freeId} css={s.tr} onClick={handlePostOnClick}>
+            <tr key={board.freeId} css={s.tr} onClick={() => handlePostOnClick(board.freeId)}>
               <td css={s.td}>{board.freeId}</td>
               <td css={s.tdTitle}>{board.title}</td>
               <td css={s.td}>{board?.user?.nickname}</td>

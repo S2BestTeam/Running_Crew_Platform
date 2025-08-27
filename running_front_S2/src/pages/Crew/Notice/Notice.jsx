@@ -37,15 +37,14 @@ function Notice({ crewId }) {
     searchText,
   });
 
-  // 참고용 로그
-  useEffect(() => {
-    if (roleRes) {
-      console.log("role raw:", roleRes?.data?.body, typeof roleRes?.data?.body);
-      console.log("parsed roleId:", roleId, "canRegister:", canRegister);
-    }
-  }, [roleRes, roleId, canRegister]);
+  // useEffect(() => {
+  //   if (roleRes) {
+  //     console.log("role raw:", roleRes?.data?.body, typeof roleRes?.data?.body);
+  //     console.log("parsed roleId:", roleId, "canRegister:", canRegister);
+  //   }
+  // }, [roleRes, roleId, canRegister]);
 
-  // 로그인 가드
+
   useEffect(() => {
     if (isPrincipalReady && !userId) {
       alert("로그인 후 이용 부탁드립니다.");

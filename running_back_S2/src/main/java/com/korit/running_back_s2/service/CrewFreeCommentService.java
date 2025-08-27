@@ -10,6 +10,7 @@ import com.korit.running_back_s2.dto.response.PaginationRespDto;
 import com.korit.running_back_s2.security.model.PrincipalUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,5 +33,16 @@ public class CrewFreeCommentService {
 
     public List<CrewFreeComment> getFreeCommentList(Integer freeId) {
         return crewFreeCommentMapper.getCommentList(freeId);
+    }
+
+    public void updateComment(Integer freeCommentId, String content) {
+        Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
+        int updated = crewFreeCommentMapper.updateComment(freeCommentId, userId, content);
+    }
+
+    @Transactional
+    public void deleteComment(Integer freeId, Integer freeCommentId) {
+        Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
+        int deleted = crewFreeCommentMapper.deleteComment(freeId, freeCommentId, userId);
     }
 }

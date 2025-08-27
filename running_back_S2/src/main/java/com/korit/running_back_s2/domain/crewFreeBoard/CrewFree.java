@@ -19,6 +19,7 @@ public class CrewFree {
     private String title;
     private String content;
     private LocalDate createdAt;
+//    private Integer view;
 
     private User user;
 }

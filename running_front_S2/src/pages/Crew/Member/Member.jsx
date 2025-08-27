@@ -148,7 +148,6 @@ function Member() {
               </>
             ) : (
               <div style={{ pointerEvents: "none", opacity: 0.5 }}>
-                {/* 클릭 불가 UI 표시 (선택적으로) */}
                 멤버가 아니어서 접근할 수 없습니다.
               </div>
             )}

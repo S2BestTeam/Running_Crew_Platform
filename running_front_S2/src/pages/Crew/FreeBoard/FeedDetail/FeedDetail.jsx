@@ -1,49 +1,142 @@
 /** @jsxImportSource @emotion/react */
-import * as s from './styles';
-import React, { useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import useGetCrewFreeBoardDetailQuery from '../../../../queries/useGetCrewFreeBoardDetailQuery';
+import * as s from "./styles";
+import React, { useEffect, useMemo, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import useGetCrewFreeBoardDetailQuery from "../../../../queries/useGetCrewFreeBoardDetailQuery";
+import useGetCrewFreeCommentQuery from "../../../../queries/useGetCrewFreeCommentQuery";
 import sanitizeHtml from "sanitize-html";
-import { div } from 'framer-motion/client';
-import { reqRegisterComment } from '../../../../api/Crew/freeboardApi';
-import useGetCrewFreeCommentQuery from '../../../../queries/useGetCrewFreeCommentQuery';
-
+import {
+  reqDeleteComment,
+  reqDeleteFree,
+  reqRegisterComment,
+  reqUpdateFreeComment,
+} from "../../../../api/Crew/freeboardApi";
+import usePrincipalQuery from "../../../../queries/usePrincipalQuery";
 
 export default function FeedDetail() {
   const { crewId, freeId } = useParams();
   const navigate = useNavigate();
 
-  const { data, isLoading, error } = useGetCrewFreeBoardDetailQuery({ crewId, freeId });
+  const principalQuery = usePrincipalQuery();
+  const principalId =
+    principalQuery?.data?.data?.body?.user?.userId ??
+    principalQuery?.data?.body?.user?.userId ?? null;
+
+
+  const {
+    data,
+    isLoading,
+    error,
+    refetch: refetchDetail,
+  } = useGetCrewFreeBoardDetailQuery({ crewId, freeId });
+
+  const {
+    data: cdata,
+    isLoading: cLoading,
+    isError: cError,
+    refetch: refetchComments,
+  } = useGetCrewFreeCommentQuery(crewId, freeId);
 
   const [comment, setComment] = useState("");
+  const [showAll, setShowAll] = useState(false);
+  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [editCommentValue, setEditCommentValue] = useState("");
 
-  const freeCommentList = useGetCrewFreeCommentQuery(crewId, freeId);
-  const commentList = freeCommentList?.data?.data?.body;
-  console.log(commentList);
+
+  const post = useMemo(() => {
+    const body = data?.data?.body ?? data?.body;
+    return Array.isArray(body) ? body[0] : body;
+  }, [data]);
+
+  const commentList =
+    cdata?.data?.data?.body ?? cdata?.data?.body ?? cdata?.body ?? [];
 
   if (isLoading) return <div css={s.layout}>로딩중…</div>;
   if (error) return <div css={s.layout}>에러가 발생했어요: {String(error)}</div>;
-
-  const post = data?.body?.[0];
   if (!post) return <div css={s.layout}>게시글을 찾을 수 없어요.</div>;
+
+  const authorId = post?.user?.userId ?? post?.userId ?? null;
+  const isAuthor =
+    principalId != null && authorId != null && Number(principalId) === Number(authorId);
+
+  const INITIAL_COUNT = 5;
+  const displayedComments = showAll ? commentList : commentList.slice(0, INITIAL_COUNT);
 
   const cleanHtml = sanitizeHtml(post.content ?? "", {
     allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
-    allowedAttributes: {
-      a: ["href", "name", "target", "rel"],
-      img: ["src", "alt"],
-    },
+    allowedAttributes: { a: ["href", "name", "target", "rel"], img: ["src", "alt"] },
     transformTags: {
-      "a": (tagName, attribs) => ({
-        tagName,
+      a: (tag, attribs) => ({
+        tagName: tag,
         attribs: { ...attribs, target: "_blank", rel: "noopener noreferrer" },
       }),
     },
   });
 
-  const handleCommentOnClick = () => {
-    reqRegisterComment(comment, crewId, freeId);
-  }
+  const goEdit = () => navigate(`/crews/${crewId}/freeBoards/${freeId}/edit`);
+
+  const handleDeleteOnClick = async () => {
+    if (!window.confirm("정말 이 게시글을 삭제할까요?")) return;
+    try {
+      await reqDeleteFree(crewId, freeId);
+      alert("삭제되었습니다.");
+      navigate(`/crews/${crewId}/freeBoards`, { replace: true });
+    } catch (e) {
+      console.error(e);
+      alert("삭제 중 오류가 발생했습니다.");
+    }
+  };
+
+  const handleCommentOnClick = async () => {
+    const text = comment.trim();
+    if (!text) return alert("댓글을 입력해주세요.");
+    try {
+      await reqRegisterComment(text, crewId, freeId);
+      setComment("");
+      await refetchComments();
+      // setShowAll(true); 
+    } catch (e) {
+      console.error(e);
+      alert("댓글 등록 중 오류가 발생했습니다.");
+    }
+  };
+
+
+  const startEditComment = (c) => {
+    setEditingCommentId(c.freeCommentId);
+    setEditCommentValue(c.content ?? "");
+  };
+  const cancelEditComment = () => {
+    setEditingCommentId(null);
+    setEditCommentValue("");
+  };
+
+  const saveEditComment = async () => {
+    const content = editCommentValue.trim();
+    if (!content) return alert("수정할 내용을 입력해주세요.");
+    try {
+      await reqUpdateFreeComment(crewId, freeId, editingCommentId, content);
+      await refetchComments();
+      setEditingCommentId(null);
+      setEditCommentValue("");
+      alert("댓글이 수정되었습니다.");
+    } catch (e) {
+      console.error(e);
+      alert("댓글 수정 중 오류가 발생했습니다.");
+    }
+  };
+
+  const deleteComment = async (freeCommentId) => {
+    if (!window.confirm("정말 이 댓글을 삭제할까요?")) return;
+    try {
+      await reqDeleteComment(crewId, freeId, freeCommentId);
+      await refetchComments();
+    } catch (e) {
+      console.error(e);
+      alert("댓글 삭제 중 오류가 발생했습니다.");
+    }
+  };
+
 
   return (
     <div>
@@ -59,16 +152,99 @@ export default function FeedDetail() {
         <div css={s.metaCss}>
           <span>{post.user?.nickname ?? "익명"}</span>
           <span className="dot" />
-          <span>{new Date(post.createdAt).toLocaleString()}</span>
+          <span>{post.createdAt ? new Date(post.createdAt).toLocaleString() : "-"}</span>
+          {isAuthor && (
+            <>
+              <span className="dot" />
+              <button onClick={goEdit}>수정</button>
+              <button onClick={handleDeleteOnClick}>삭제</button>
+            </>
+          )}
         </div>
+
         <div css={s.contentCss} dangerouslySetInnerHTML={{ __html: cleanHtml }} />
       </div>
-      <div>
-        <input type="text" placeholder="댓글을 입력하세요" value={comment} onChange={(e) => setComment(e.target.value)} />
+
+      <div style={{ marginTop: 16, display: "flex", gap: 8 }}>
+        <input
+          type="text"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+          style={{ flex: 1 }}
+        />
         <button onClick={handleCommentOnClick}>등록하기</button>
       </div>
-      <button onClick={() => navigate(`./comments`)}>댓글 더 보기</button>
-    </div>
 
+      <div style={{ marginTop: 16 }}>
+        {cLoading && <div>댓글 불러오는 중…</div>}
+        {cError && <div>댓글을 불러오지 못했습니다.</div>}
+
+        {displayedComments.map((c) => {
+          const cAuthorId = c?.user?.userId ?? c?.userId;
+          const isMyComment =
+            principalId != null &&
+            cAuthorId != null &&
+            Number(principalId) === Number(cAuthorId);
+
+          const isEditingThis = editingCommentId === c.freeCommentId;
+
+          return (
+            <div
+              key={c.freeCommentId}
+              style={{
+                display: "flex",
+                gap: 12,
+                padding: "12px 0",
+                borderBottom: "1px solid #eee",
+              }}
+            >
+              <img
+                src={c?.user?.picture}
+                alt=""
+                width={36}
+                height={36}
+                style={{ borderRadius: "50%", objectFit: "cover" }}
+              />
+              <div style={{ flex: 1 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <strong>{c?.user?.nickname ?? "익명"}</strong>
+                  <span style={{ color: "#94a3b8", fontSize: 12 }}>
+                    {c?.createdAt ? new Date(c.createdAt).toLocaleString() : ""}
+                  </span>
+
+                  {isMyComment && !isEditingThis && (
+                    <>
+                      <button onClick={() => startEditComment(c)}>수정</button>
+                      <button onClick={() => deleteComment(c.freeCommentId)}>삭제</button>
+                    </>
+                  )}
+                </div>
+
+                {isEditingThis ? (
+                  <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
+                    <input
+                      style={{ flex: 1, padding: 8 }}
+                      value={editCommentValue}
+                      onChange={(e) => setEditCommentValue(e.target.value)}
+                      placeholder="수정할 내용을 입력하세요"
+                    />
+                    <button onClick={saveEditComment}>수정 완료</button>
+                    <button onClick={cancelEditComment}>취소</button>
+                  </div>
+                ) : (
+                  <div style={{ whiteSpace: "pre-wrap" }}>{c.content}</div>
+                )}
+              </div>
+            </div>
+          );
+        })}
+
+        {commentList.length > INITIAL_COUNT && (
+          <button style={{ marginTop: 8 }} onClick={() => setShowAll((v) => !v)}>
+            {showAll ? "접기" : `댓글 더 보기 (${commentList.length - INITIAL_COUNT}개)`}
+          </button>
+        )}
+      </div>
+    </div>
   );
 }

@@ -17,11 +17,12 @@ import ContentLayout from "../../../components/ContentLayout/ContentLayout";
 import Gathering from "../Gathering/Gathering";
 import FeedReg from "../FreeBoard/FeedReg/FeedReg";
 import FeedDetail from "../FreeBoard/FeedDetail/FeedDetail";
-import CommentDetail from "../FreeBoard/Comment/CommentDetail";
 import Notice from "../Notice/Notice";
 import NoticeReg from "../Notice/NoticeReg/NoticeReg";
 import NoticeDetail from "../Notice/NoticeDetail/NoticeDetail";
 import GatheringManagement from "../GatheringManagement/GatheringManagement";
+import FreeEdit from "../FreeBoard/Edit/FreeEdit";
+import NoticeEdit from "../Notice/Edit/NoticeEdit";
 
 
 function CCategory() {
@@ -123,11 +124,14 @@ function CCategory() {
             <Route path="/freeBoards" element={<FreeBoard crewId={crewId}/>} />
             <Route path="freeBoards/register" element={<FeedReg crewId={crewId} />} />
             <Route path="freeBoards/:freeId" element={<FeedDetail crewId={crewId} />} />
-            <Route path="freeBoards/:freeId/comments" element={<CommentDetail crewId={crewId}/>} />
+            <Route path="freeBoards/:freeId/edit" element={<FreeEdit  crewId={crewId} />} />
+
 
             <Route path="/notices" element={<Notice crewId={crewId}/>} />
             <Route path="notices/register" element={<NoticeReg crewId={crewId} />} />
             <Route path="notices/:noticeId" element={<NoticeDetail crewId={crewId} />} />
+            <Route path="notices/:noticeId/edit" element={<NoticeEdit crewId={crewId} />} />
+
             <Route
               path="/report"
               element={<Report crewId={crewId} isCrewLeader={isCrewLeader} />}
