@@ -43,7 +43,8 @@
             f.user_id,
             f.content,
             f.created_at,
-            u.nickname
+            u.nickname,
+            u.picture
         from
             crew_free_comment_tb f
             left outer join user_tb u on(f.user_id = u.user_id)

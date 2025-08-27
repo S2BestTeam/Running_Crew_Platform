@@ -9,21 +9,33 @@ import usePrincipalQuery from "../../../queries/usePrincipalQuery";
 import MainContainer from "../../../components/MainContainer/MainContainer";
 import { reqCheckCrewName, reqRegisterCrew } from "../../../api/Crew/crewApi";
 import useGetGunguListQuery from "../../../queries/useGetGunguListQuery";
+import { useCrewStore } from "../../../stores/useCrewStroes";
+import useGetCrewRoleQuery from "../../../queries/useGetCrewRoleQuery";
 
 function CrewRegister(props) {
   const navigate = useNavigate();
   const { data: principalData, isLoading } = usePrincipalQuery();
+  const userId = principalData?.data?.body?.user?.userId;
+  const CrewRoleQuery = useGetCrewRoleQuery(userId);
 
   useEffect(() => {
-    if (!isLoading) { // 로딩이 끝난 후 체크
-      const userId = principalData?.data?.body?.user?.userId;
+    if (isLoading || CrewRoleQuery.isLoading) return;
 
-      if (!userId) {
-        alert("로그인 후 이용 부탁드립니다.");
-        navigate("/auth/oauth2/signin");
-      }
+    const userId = principalData?.data?.body?.user?.userId;
+    if (!userId) {
+      alert("로그인 후 이용 부탁드립니다.");
+      navigate("/auth/oauth2/signin");
+      return;
     }
-  }, [principalData, isLoading, navigate]);
+
+    const roles = CrewRoleQuery?.data || [];
+    const isLeader = roles.some(role => role.roleName === "leader");
+
+    if (isLeader) {
+      alert("이미 크루장입니다.");
+      navigate("/");
+    }
+  }, [principalData, isLoading, navigate, CrewRoleQuery.data, CrewRoleQuery.isLoading]);
   
   const gunguQuery = useGetGunguListQuery();
   const gunguList = gunguQuery?.data?.data.body || [];

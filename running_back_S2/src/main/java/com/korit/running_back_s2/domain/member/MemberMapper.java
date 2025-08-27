@@ -19,4 +19,7 @@ public interface MemberMapper {
     int countMember(Integer crewId);
 
     Integer findMemberIdByUserId(Integer crewId, Integer userId);
+
+    Integer getRoleId(@Param("crewId") Integer crewId,
+                      @Param("userId") Integer userId);
 }

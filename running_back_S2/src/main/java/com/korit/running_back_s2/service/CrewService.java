@@ -103,5 +103,9 @@ public class CrewService {
                 .isLast(isLast)
                 .build();
     }
+
+    public List<CrewRoleReqDto> getCrewRole (Integer userId) {
+        return  crewMapper.findRoleByUserId(userId);
+    }
 }
 

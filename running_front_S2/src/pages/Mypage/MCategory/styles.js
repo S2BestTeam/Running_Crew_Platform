@@ -51,28 +51,20 @@ export const email = css`
   font-size: 1rem;
 `;
 
-export const buttonContainer = css`
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 1rem;
+export const getout = css`
+  padding-top: 4rem;
 
   & > button {
-    height: 4rem;
-    text-align: left;
-    margin: 0.3rem 0;
+    width: 100%;
     padding: 0.6rem;
-    border-radius: 0.5rem;
-    background-color: transparent;
+    background-color: rgba(129, 126, 126, 0.1);
     border: none;
+    border-radius: 0.5rem;
     cursor: pointer;
 
     :hover {
       font-weight: bold;
-      background-color: rgba(129, 126, 126, 0.1);
+      background-color: rgba(251, 72, 72, 0.4);
     }
   }
-`;
-
-export const mainBox = css`
-  padding-left: 1rem;
 `;

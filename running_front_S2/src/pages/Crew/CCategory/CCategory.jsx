@@ -17,6 +17,11 @@ import ContentLayout from "../../../components/ContentLayout/ContentLayout";
 import Gathering from "../Gathering/Gathering";
 import FeedReg from "../FreeBoard/FeedReg/FeedReg";
 import FeedDetail from "../FreeBoard/FeedDetail/FeedDetail";
+import CommentDetail from "../FreeBoard/Comment/CommentDetail";
+import Notice from "../Notice/Notice";
+import NoticeReg from "../Notice/NoticeReg/NoticeReg";
+import NoticeDetail from "../Notice/NoticeDetail/NoticeDetail";
+import GatheringManagement from "../GatheringManagement/GatheringManagement";
 
 
 function CCategory() {
@@ -25,8 +30,8 @@ function CCategory() {
   const userId = principal?.data?.data?.body?.user?.userId;
   const { crewId } = useParams();
   const { data: crewData, isLoading, isSuccess } = useCrewDetailQuery(crewId);
-  const { setCrewId, setCrew } = useCrewStore();
-
+  const { setCrewId, setCrew, setCrewLeader } = useCrewStore();
+  
   useEffect(() => {
     setCrewId(crewId);
     setCrew(crewData?.body);
@@ -67,12 +72,17 @@ function CCategory() {
       <button onClick={() => navigate(`/crews/${crewId}/gathering`)}>
         정모 일정
       </button>
+      <button onClick={() => navigate(`/crews/${crewId}/gathering-management`)}>
+        정모 관리
+      </button>
       <button onClick={() => navigate(`/crews/${crewId}/welcome`)}>
         가입 인사
       </button>
-      <button onClick={() => navigate(`/crews/${crewId}/freeBoards`)}>자유게시판</button>
+      <button onClick={() => navigate(`/crews/${crewId}/freeBoards`)}>
+        자유게시판
+      </button>
       <button>사진첩</button>
-      <button>공지사항</button>
+      <button onClick={() => navigate(`/crews/${crewId}/notices`)}>공지사항</button>
       <button>문의사항</button>
       {isCrewLeader && (
         <>
@@ -96,20 +106,32 @@ function CCategory() {
   return (
     <MainContainer>
       <LeftSideBarLayout
-      profileSection={profileSection}
-      navigationButtons={navigationButtons}
-      bottomSection={bottomSection}
+        profileSection={profileSection}
+        navigationButtons={navigationButtons}
+        bottomSection={bottomSection}
       >
         <ContentLayout>
           <Routes>
             <Route path="/" element={<CrewInfo />} />
-            <Route path="/welcome" element={<Welcome isCrewLeader={isCrewLeader} />}/>
-            <Route path="/gathering" element={<Gathering crewId={crewId} />}/>
+            <Route
+              path="/welcome"
+              element={<Welcome isCrewLeader={isCrewLeader} />}
+            />
+            <Route path="/gathering" element={<Gathering crewId={crewId} />} />
+            <Route path="/gathering-management" element={<GatheringManagement crewId={crewId} />} />
             <Route path="/members" element={<Member />} />
             <Route path="/freeBoards" element={<FreeBoard crewId={crewId}/>} />
             <Route path="freeBoards/register" element={<FeedReg crewId={crewId} />} />
             <Route path="freeBoards/:freeId" element={<FeedDetail crewId={crewId} />} />
-            <Route path="/report" element={<Report crewId={crewId} isCrewLeader={isCrewLeader} />} />
+            <Route path="freeBoards/:freeId/comments" element={<CommentDetail crewId={crewId}/>} />
+
+            <Route path="/notices" element={<Notice crewId={crewId}/>} />
+            <Route path="notices/register" element={<NoticeReg crewId={crewId} />} />
+            <Route path="notices/:noticeId" element={<NoticeDetail crewId={crewId} />} />
+            <Route
+              path="/report"
+              element={<Report crewId={crewId} isCrewLeader={isCrewLeader} />}
+            />
           </Routes>
         </ContentLayout>
       </LeftSideBarLayout>

@@ -60,44 +60,57 @@
 
     <select id="findAllByCrewId" resultMap="GatheringMap">
         SELECT
-        cgt.gathering_id,
-        cgt.crew_id,
-        cgt.user_id as cgt_user_id,
-        cgt.title,
-        cgt.content,
-        cgt.thumbnail_picture,
-        cgt.running_date,
-        cgt.running_time,
-        cgt.place_name,
-        cgt.address,
-        cgt.road_address,
-        cgt.latitude,
-        cgt.longitude,
-        cgt.km,
-        cgt.cost,
-        cgt.max_participants,
-        if((COUNT(gpt.participant_id) &lt; cgt.max_participants) and TIMESTAMP(cgt.running_date, cgt.running_time) &gt; now(), 1, 2) as status,
-        cgt.created_at,
+            cgt.gathering_id,
+            cgt.crew_id,
+            cgt.user_id as cgt_user_id,
+            cgt.title,
+            cgt.content,
+            cgt.thumbnail_picture,
+            cgt.running_date,
+            cgt.running_time,
+            cgt.place_name,
+            cgt.address,
+            cgt.road_address,
+            cgt.latitude,
+            cgt.longitude,
+            cgt.km,
+            cgt.cost,
+            cgt.max_participants,
+            if((COUNT(gpt.participant_id) &lt; cgt.max_participants) and TIMESTAMP(cgt.running_date, cgt.running_time) &gt; now(), 1, 2) as status,
+            cgt.created_at,
 
-        ut.user_id,
-        ut.nickname,
-        ut.full_name,
-        ut.picture,
+            ut.user_id,
+            ut.nickname,
+            ut.full_name,
+            ut.picture,
 
-        COUNT(gpt.participant_id) AS current_participants,
-        if(count(gpt2.participant_id) = 0, 'false', 'true') as is_attending
+            COUNT(gpt.participant_id) AS current_participants,
+            if(count(gpt2.participant_id) = 0, 'false', 'true') as is_attending
         FROM
-        gathering_tb cgt
-        LEFT JOIN user_tb ut ON ut.user_id = cgt.user_id
-        LEFT JOIN gathering_participant_tb gpt ON gpt.gathering_id = cgt.gathering_id
-        LEFT JOIN gathering_participant_tb gpt2 ON gpt2.gathering_id = cgt.gathering_id and gpt2.user_id =#{userId}
+            gathering_tb cgt
+            LEFT JOIN user_tb ut ON ut.user_id = cgt.user_id
+            LEFT JOIN gathering_participant_tb gpt ON gpt.gathering_id = cgt.gathering_id
+            LEFT JOIN gathering_participant_tb gpt2 ON gpt2.gathering_id = cgt.gathering_id and gpt2.user_id =#{userId}
         WHERE
-        cgt.crew_id = #{crewId}
+            cgt.crew_id = #{crewId}
         GROUP BY
-        cgt.gathering_id,
-        gpt2.participant_id
+            cgt.gathering_id,
+            gpt2.participant_id
         ORDER BY
-        cgt.running_date DESC, cgt.running_time DESC
+            cgt.running_date DESC, cgt.running_time DESC
+    </select>
+
+    <select id="findParticipantsByGatheringId" resultMap="UserMap">
+        SELECT
+            ut.user_id,
+            ut.nickname,
+            ut.full_name,
+            ut.picture
+        FROM
+            gathering_participant_tb gpt
+        INNER JOIN user_tb ut ON ut.user_id = gpt.user_id
+        WHERE
+            gpt.gathering_id = #{gatheringId}
     </select>
 
 </mapper>

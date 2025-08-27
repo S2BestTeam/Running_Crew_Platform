@@ -64,6 +64,14 @@ export const table = css`
   text-align: center;
 `;
 
+export const tr = css`
+  cursor: pointer;
+
+  :hover {
+    background-color: #cececeff;
+  }
+`;
+
 export const th = css`
   padding: 1.2rem;
   border-bottom: 0.2rem solid #000;

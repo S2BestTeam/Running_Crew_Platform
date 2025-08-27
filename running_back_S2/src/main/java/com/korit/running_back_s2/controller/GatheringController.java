@@ -1,5 +1,6 @@
 package com.korit.running_back_s2.controller;
 
+import com.korit.running_back_s2.domain.user.User;
 import com.korit.running_back_s2.dto.gathering.GatheringRegisterReqDto;
 import com.korit.running_back_s2.dto.response.ResponseDto;
 import com.korit.running_back_s2.service.GatheringService;
@@ -7,6 +8,8 @@ import com.korit.running_back_s2.service.ParticipantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/crews")
@@ -42,4 +45,8 @@ public class GatheringController {
         return ResponseEntity.ok(ResponseDto.success("불참완료"));
     }
 
+    @GetMapping("/{crewId}/gatherings/{gatheringId}/participants")
+    public ResponseEntity<List<User>> getParticipants(@PathVariable Integer crewId, @PathVariable int gatheringId) {
+        return ResponseEntity.ok(gatheringService.getGatheringParticipants(gatheringId));
+    }
 }

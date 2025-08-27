@@ -15,3 +15,6 @@ export const reqAttendGathering = (crewId, gatheringId) =>
 
 export const reqCancelAttendGathering = (crewId, gatheringId) =>
   api.delete(`/api/crews/${crewId}/gatherings/${gatheringId}/attend`);
+
+export const reqGatheringParticipants = (crewId, gatheringId) => 
+  api.get(`/api/crews/${crewId}/gatherings/${gatheringId}/participants`);

@@ -14,19 +14,41 @@ import GatheringDetailModal from "./GatheringDetailModal/GatheringDetailModal";
 import ContentLayout from "../../../components/ContentLayout/ContentLayout";
 import { useNavigate } from "react-router-dom";
 import usePrincipalQuery from "../../../queries/usePrincipalQuery";
+import useGetCrewRoleQuery from "../../../queries/useGetCrewRoleQuery";
+import { useCrewStore } from "../../../stores/useCrewStroes";
 
-function Gathering({ crewId }) {
+function Gathering() {
+  const { crewId } = useCrewStore();
+  const navigate = useNavigate();
   const gatheringsQuery = useGetGatheringsQuery(crewId);
   const [isRegOpen, setRegOpen] = useState(false);
   const [isDetailOpen, setDetailOpen] = useState(false);
   const [selectedGathering, setSelectedGathering] = useState(null);
   const [gatherings, setGatherings] = useState([]);
+  const { data: principalData, isLoading } = usePrincipalQuery();
+  const userId = principalData?.data?.body?.user?.userId;
+  const CrewRoleQuery = useGetCrewRoleQuery(userId);
+
+  const isCrewMember = CrewRoleQuery?.data?.some(
+    (role) => role.crewId === crewId
+  );
 
   useEffect(() => {
+    if (!isLoading) {
+      const userId = principalData?.data?.body?.user?.userId;
+
+      if (!userId) {
+        alert("로그인 후 이용 부탁드립니다.");
+        navigate("/auth/oauth2/signin");
+      }
+    }
+
     if (gatheringsQuery?.data?.data?.body) {
       setGatherings(gatheringsQuery.data.data.body);
     }
-  }, [gatheringsQuery?.data]);
+  
+  }, [gatheringsQuery?.data, principalData, isLoading, navigate]);
+  
 
   const handleModalClose = () => {
     setRegOpen(false);
@@ -34,6 +56,11 @@ function Gathering({ crewId }) {
   };
 
   const handleOpenDetailModal = (gathering) => {
+    // if (!isCrewMember) {
+    //   alert('크루 멤버만 접근 가능합니다. 크루에 가입해주세요.');
+    //   navigate(`/crews/${crewId}`);
+    //   return;
+    // }
     setSelectedGathering(gathering);
     setDetailOpen(true);
   };
@@ -57,7 +84,9 @@ function Gathering({ crewId }) {
       <div css={s.layout}>
         <header>
           <h2>정모 일정</h2>
-          <button onClick={() => setRegOpen(true)}>일정 등록</button>
+          {isCrewMember && (
+            <button onClick={() => setRegOpen(true)}>일정 등록</button>
+          )}
         </header>
         <main css={s.gatheringMain}>
           {gatherings.map((g, index) => {
@@ -73,8 +102,7 @@ function Gathering({ crewId }) {
             ).padStart(2, "0")}분`;
 
             return (
-              <div
-                key={index}
+              <div key={index}
                 css={s.gatheringContainer}
                 onClick={() => handleOpenDetailModal(g)}
               >

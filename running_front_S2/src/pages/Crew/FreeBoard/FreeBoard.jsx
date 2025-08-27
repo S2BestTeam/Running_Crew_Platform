@@ -6,6 +6,7 @@ import { IoSearch } from "react-icons/io5";
 import * as s from "./styles";
 import { BiSolidChevronRightSquare, BiSolidChevronLeftSquare } from "react-icons/bi";
 import usePrincipalQuery from "../../../queries/usePrincipalQuery";
+import useGetCrewRoleQuery from "../../../queries/useGetCrewRoleQuery";
 
 function FreeBoard({ crewId }) {
   const navigate = useNavigate();
@@ -14,10 +15,16 @@ function FreeBoard({ crewId }) {
   const searchText = searchParams.get("searchText") || "";
   const [searchInput, setSearchInput] = useState(searchText);
   const size = 10;
-  const { data: principalData } = usePrincipalQuery();
+  const { data: principalData, isPLoading } = usePrincipalQuery();
+  const userId = principalData?.data?.body?.user?.userId;
+  const CrewRoleQuery = useGetCrewRoleQuery(userId);
+
+  const isCrewMember = CrewRoleQuery?.data?.some(
+    (role) => role.crewId === crewId
+  );
 
   useEffect(() => {
-    if (!isLoading) { // 로딩이 끝난 후 체크
+    if (!isPLoading) {
       const userId = principalData?.data?.body?.user?.userId;
 
       if (!userId) {
@@ -32,7 +39,6 @@ function FreeBoard({ crewId }) {
   const body = data?.data?.body;
   const totalPages = body?.totalPages ?? 1;
   const freeLists = useMemo(() => body?.contents ?? [], [body]);
-  console.log(body);
   const handleSearchOnClick = () => {
     setSearchParams((prev) => {
       const p = new URLSearchParams(prev);
@@ -50,6 +56,24 @@ function FreeBoard({ crewId }) {
     setSearchParams({ page: nextPage, searchText });
   };
 
+  const handleRegisterOnClick  = () => {
+    if (!isCrewMember) {
+      alert('크루 멤버만 접근 가능합니다. 크루에 가입해주세요.');
+      navigate(`/crews/${crewId}`);
+      return;
+    }
+    navigate(`./register`);
+  }
+
+  const handlePostOnClick = (freeId) => {
+    if (!isCrewMember) {
+      alert('크루 멤버만 접근 가능합니다. 크루에 가입해주세요.');
+      navigate(`/crews/${crewId}`);
+      return;
+    }
+    navigate(`./${freeId}`);
+  };
+
   return (
     <div css={s.container}>
       <h2>자유게시판</h2>
@@ -59,7 +83,7 @@ function FreeBoard({ crewId }) {
           <button css={s.searchButton} onClick={handleSearchOnClick}>
             <IoSearch />
           </button>
-          <button css={s.registerButton} onClick={() => navigate(`./register`)}>
+          <button css={s.registerButton} onClick={handleRegisterOnClick}>
             게시글 등록
           </button>
         </div>
@@ -76,9 +100,9 @@ function FreeBoard({ crewId }) {
         </thead>
         <tbody>
           {freeLists.map((board) => (
-            <tr key={board.freeId}>
+            <tr key={board.freeId} css={s.tr} onClick={handlePostOnClick}>
               <td css={s.td}>{board.freeId}</td>
-              <td css={s.tdTitle} onClick={() => navigate(`./${board.freeId}`)}>{board.title}</td>
+              <td css={s.tdTitle}>{board.title}</td>
               <td css={s.td}>{board?.user?.nickname}</td>
               <td css={s.td}>{board.createdAt}</td>
             </tr>

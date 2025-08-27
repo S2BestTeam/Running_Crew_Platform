@@ -17,20 +17,18 @@
     </resultMap>
 
     <resultMap id="ReporterUserMap" type="User">
-        <id property="userId"           column="reporter_user_id"/>
-        <result property="picture"      column="reporter_picture"/>
-        <result property="fullName"     column="reporter_full_name"/>
-        <result property="nickname"     column="reporter_nickname"/>
+        <id property="userId"               column="reporter_user_id"/>
+        <result property="picture"          column="reporter_picture"/>
+        <result property="fullName"         column="reporter_full_name"/>
+        <result property="nickname"         column="reporter_nickname"/>
     </resultMap>
 
     <resultMap id="ReportedUserMap" type="User">
-        <id property="userId"           column="reported_user_id"/>
-        <result property="picture"      column="reported_picture"/>
-        <result property="fullName"     column="reported_full_name"/>
-        <result property="nickname"     column="reported_nickname"/>
+        <id property="userId"               column="reported_user_id"/>
+        <result property="picture"          column="reported_picture"/>
+        <result property="fullName"         column="reported_full_name"/>
+        <result property="nickname"         column="reported_nickname"/>
     </resultMap>
-
-
 
     <select id="findMemberIdByCrewAndUser" resultType="int">
         select
@@ -43,9 +41,9 @@
 
     <insert id="insertReport">
         insert into report_tb
-        (crew_id, report_member_id, reported_member_id, reason)
+            (crew_id, report_member_id, reported_member_id, reason)
         values
-        (#{crewId}, #{reporterMemberId}, #{reportedMemberId}, #{reason})
+            (#{crewId}, #{reporterMemberId}, #{reportedMemberId}, #{reason})
     </insert>
 
     <select id="findReportsByCrew" resultMap="ReportMap">

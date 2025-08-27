@@ -43,7 +43,4 @@ public class CrewFreeController {
     public ResponseEntity<ResponseDto<?>> getFreeCommentList(@PathVariable Integer freeId) {
         return ResponseEntity.ok(ResponseDto.success(crewFreeCommentService.getFreeCommentList(freeId)));
     }
-
-
-
 }

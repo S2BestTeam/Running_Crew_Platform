@@ -13,7 +13,7 @@ function MypageModify() {
   const userId = userInfo?.userId;
   const myTotalKmRank = rankings?.totalKmRanking?.findIndex(user => user.userId === userId);
   const myGatheringRank = rankings?.gatheringCount?.findIndex(user => user.userId === userId);
-
+  
 
   const [updateUser, setUpdateUser] = useState({
     userId: userId,

@@ -20,4 +20,6 @@ export const reqGetCrewList = ({ page, size, gunguId, searchText }) => {
   });
 };
 
+export const getCrewRole = (userId) => api.get(`/api/crews/${userId}/role`);
+
 

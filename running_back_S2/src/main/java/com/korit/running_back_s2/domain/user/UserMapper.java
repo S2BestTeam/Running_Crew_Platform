@@ -18,6 +18,8 @@ public interface UserMapper {
     String findPictureById(Integer userId);
     List<WelcomeByUserIdResDto> findWelcomeByUserId(Integer userId);
     int updateUser(User user);
+    int deleteUser(Integer userId);
+    int insertDeleteTb(DeletedUser deletedUser);
 
     List<UserRankingRespDto> selectUserRankingByTotalKm();
     List<UserRankingRespDto> selectUserRankingByGatheringCount();
