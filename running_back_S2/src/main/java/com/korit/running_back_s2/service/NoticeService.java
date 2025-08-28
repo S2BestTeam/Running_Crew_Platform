@@ -1,12 +1,10 @@
 package com.korit.running_back_s2.service;
 
 
-import com.korit.running_back_s2.domain.crewFreeBoard.CrewFree;
 import com.korit.running_back_s2.domain.notice.CrewNotice;
 import com.korit.running_back_s2.domain.notice.CrewNoticeMapper;
 
 import com.korit.running_back_s2.domain.notice.CrewNoticeSearchOption;
-import com.korit.running_back_s2.dto.board.FreeBoardReqDto;
 import com.korit.running_back_s2.dto.notice.NoticeReqDto;
 import com.korit.running_back_s2.dto.response.PaginationRespDto;
 import com.korit.running_back_s2.security.model.PrincipalUtil;

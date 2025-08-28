@@ -13,6 +13,8 @@ export default function MemberModal({ memberId, isOpen, onClose, isLeader = fals
   const canDown = !!(isLeader && detail && detail.roleId !== 1 && detail.roleId !== 3);
   const canExpel = !!(isLeader && detail && detail.roleId !== 1);
 
+  console.log(memberId)
+
   const handleUpdateRoleOnClick = async (roleId) => {
     try {
       await reqUpdateMemberRole({ memberId, roleId });

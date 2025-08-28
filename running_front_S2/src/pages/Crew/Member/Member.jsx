@@ -98,6 +98,8 @@ function Member() {
       </MainContainer>
     );
   }
+  console.log(selectedMemberId)
+
   return (
     <ContentLayout>
 

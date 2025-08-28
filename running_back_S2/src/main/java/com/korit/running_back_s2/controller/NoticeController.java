@@ -1,6 +1,5 @@
 package com.korit.running_back_s2.controller;
 
-import com.korit.running_back_s2.dto.board.FreeBoardReqDto;
 import com.korit.running_back_s2.dto.notice.NoticeReqDto;
 import com.korit.running_back_s2.dto.response.ResponseDto;
 import com.korit.running_back_s2.service.NoticeService;

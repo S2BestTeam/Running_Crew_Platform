@@ -101,7 +101,7 @@ function Header(props) {
             </div>
             <div css={s.menuDetail}>
               <div>커뮤니티</div>
-              <div>자유게시판</div>
+              <div onClick={() => navigate("/free")}>자유게시판</div>
             </div>
             <div css={s.menuDetail}>
               <div>대회정보</div>

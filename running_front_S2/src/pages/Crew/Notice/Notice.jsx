@@ -7,7 +7,10 @@ import { IoSearch } from "react-icons/io5";
 import { BiSolidChevronLeftSquare, BiSolidChevronRightSquare } from "react-icons/bi";
 import useGetCrewRoleQuery from "../../../queries/useGetCrewRoleQuery";
 import { useCrewStore } from "../../../stores/useCrewStroes";
+<<<<<<< HEAD
 import useGetCrewNoticeDetailQuery from "../../../queries/useGetCrewNoticeDetailQuery";
+=======
+>>>>>>> origin/66-디테일-구현
 import useGetCrewNotoiceQuery from "../../../queries/useGetCrewNoticeQuery";
 
 function Notice() {
@@ -62,6 +65,7 @@ function Notice() {
     const nextPage = Math.min(Math.max(1, next), totalPages);
     setSearchParams({ page: nextPage, searchText });
   };
+
 
   return (
     <div css={s.container}>
