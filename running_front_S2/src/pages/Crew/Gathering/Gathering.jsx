@@ -92,7 +92,8 @@ function Gathering() {
         <header>
           <h2>정모 일정</h2>
           {isCrewMember && (
-            <button onClick={() => setRegOpen(true)}>일정 등록</button>
+            // <button onClick={() => setRegOpen(true)}>일정 등록</button>
+            <button onClick={() => navigate(`/crews/${crewId}/gathering/register`)}>일정 등록</button>
           )}
         </header>
         <main css={s.gatheringMain}>
