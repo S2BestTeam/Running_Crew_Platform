@@ -114,7 +114,7 @@ function Gathering() {
                 `${runningDate}T${runningTime}`
               );
               return gatheringDateTime < new Date();
-            };
+            };0
 
             return (
               <div

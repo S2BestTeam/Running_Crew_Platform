@@ -57,6 +57,7 @@ function BoardEdit(props) {
             alert("수정 중 오류가 발생했습니다.");
         }
     };
+    console.log(content)
 
     return (
         <MainContainer>
