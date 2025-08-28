@@ -21,7 +21,7 @@ function MCategory(props) {
   const userId = principal?.data?.data?.body?.user?.userId;
   const CrewRoleQuery = useGetCrewRoleQuery(userId);
 
-  const isUserLeader = CrewRoleQuery?.data?.some((role) => role.userId === userId && role.roleId === '1');
+  const isUserLeader = CrewRoleQuery?.data?.some((role) => role.userId === userId && role.roleId === 1);
   const showDeleteButton = !!isUserLeader;
 
   const handleDeleteUserOnClick = async () => {

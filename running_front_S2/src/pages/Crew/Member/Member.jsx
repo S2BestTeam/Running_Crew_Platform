@@ -33,6 +33,7 @@ function Member() {
     const merged = pages.flatMap((p) => p?.data?.body?.contents || []);
     setMembers(merged);
     setLeader(crewData?.body.userId === userId);
+    membersQuery.refetch();
   }, [membersQuery.data]);
   
 
@@ -97,6 +98,8 @@ function Member() {
       </MainContainer>
     );
   }
+  console.log(selectedMemberId)
+
   return (
     <ContentLayout>
 

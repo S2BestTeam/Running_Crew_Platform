@@ -7,7 +7,7 @@ import { IoSearch } from "react-icons/io5";
 import { BiSolidChevronLeftSquare, BiSolidChevronRightSquare } from "react-icons/bi";
 import useGetCrewRoleQuery from "../../../queries/useGetCrewRoleQuery";
 import { useCrewStore } from "../../../stores/useCrewStroes";
-import useGetCrewNoticeDetailQuery from "../../../queries/useGetCrewNoticeDetailQuery";
+import useGetCrewNotoiceQuery from "../../../queries/useGetCrewNoticeQuery";
 
 function Notice() {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ function Notice() {
   const isCrewMember = !!crewRole;
   const canRegister = crewRole && ["1", "2"].includes(crewRole.roleId);
 
-  const { data, isLoading, isError } = useGetCrewNoticeDetailQuery({
+  const { data, isLoading, isError } = useGetCrewNotoiceQuery({
     crewId: Number(crewId),
     page,
     size,
@@ -61,6 +61,7 @@ function Notice() {
     const nextPage = Math.min(Math.max(1, next), totalPages);
     setSearchParams({ page: nextPage, searchText });
   };
+
 
   return (
     <div css={s.container}>

@@ -29,7 +29,7 @@ function CrewRegister(props) {
     }
 
     const roles = CrewRoleQuery?.data || [];
-    const isLeader = roles.some(role => role.roleId === '1');
+    const isLeader = roles.some(role => role.roleId === 1);
 
     if (isLeader) {
       alert("이미 크루장입니다.");

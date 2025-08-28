@@ -1,12 +1,8 @@
 package com.korit.running_back_s2.service;
 
-import com.korit.running_back_s2.domain.crewFreeBoard.CrewFreeMapper;
 import com.korit.running_back_s2.domain.crewFreeComment.CrewFreeComment;
 import com.korit.running_back_s2.domain.crewFreeComment.CrewFreeCommentMapper;
-import com.korit.running_back_s2.domain.member.Member;
-import com.korit.running_back_s2.domain.member.MemberSearchOption;
-import com.korit.running_back_s2.dto.board.FreeCommentReqDto;
-import com.korit.running_back_s2.dto.response.PaginationRespDto;
+import com.korit.running_back_s2.dto.crewFree.FreeCommentReqDto;
 import com.korit.running_back_s2.security.model.PrincipalUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,6 @@
 package com.korit.running_back_s2.domain.welcome;
 
 import com.korit.running_back_s2.domain.member.Member;
-import com.korit.running_back_s2.dto.member.ExistsCheckReqDto;
 import com.korit.running_back_s2.dto.welcome.MyWelcomesResDto;
 import com.korit.running_back_s2.dto.welcome.UpdateMyWelcomeReqDto;
 import com.korit.running_back_s2.dto.welcome.WelcomeResDto;
@@ -14,10 +13,10 @@ public interface WelcomeMapper {
     int insert(Welcome welcome);
     List<WelcomeResDto> findAllByCrewId(Integer crewId);
     Welcome findByUserId(Welcome welcome);
-    boolean existsFind(ExistsCheckReqDto dto);
     int update(Member member);
     int statusReject(Integer welcomeId);
     int deleteRejectedAfter7Days();
+    int deleteWithDrawAfter14Days();
 
     List<MyWelcomesResDto> findAllByUserId(Integer userId);
     int updateMyWelcome(UpdateMyWelcomeReqDto dto);
