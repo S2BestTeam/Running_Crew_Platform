@@ -8,6 +8,7 @@ import { BiSolidChevronLeftSquare, BiSolidChevronRightSquare } from "react-icons
 import useGetCrewRoleQuery from "../../../queries/useGetCrewRoleQuery";
 import { useCrewStore } from "../../../stores/useCrewStroes";
 import useGetCrewNoticeDetailQuery from "../../../queries/useGetCrewNoticeDetailQuery";
+import useGetCrewNotoiceQuery from "../../../queries/useGetCrewNoticeQuery";
 
 function Notice() {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ function Notice() {
   const isCrewMember = !!crewRole;
   const canRegister = crewRole && ["1", "2"].includes(crewRole.roleId);
 
-  const { data, isLoading, isError } = useGetCrewNoticeDetailQuery({
+  const { data, isLoading, isError } = useGetCrewNotoiceQuery({
     crewId: Number(crewId),
     page,
     size,

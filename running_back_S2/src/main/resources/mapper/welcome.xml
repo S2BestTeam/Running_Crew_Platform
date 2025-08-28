@@ -77,18 +77,6 @@
             and user_id = #{userId}
     </select>
 
-    <select id="existsFind" resultType="java.lang.Boolean">
-        select exists (
-                select
-                    1
-                from
-                    welcome_tb
-                where
-                    crew_id = #{crewId}
-                    and user_id = #{userId}
-                ) as exist
-    </select>
-
     <select id="findAllByUserId" resultType="com.korit.running_back_s2.dto.welcome.MyWelcomesResDto">
         select
             wt.welcome_id,

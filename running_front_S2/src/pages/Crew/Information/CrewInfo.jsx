@@ -3,36 +3,33 @@ import { useEffect, useState } from 'react';
 import * as s from './styles';
 import { useCrewStore } from '../../../stores/useCrewStroes';
 import WelcomeRegModal from '../Welcome/WelcomeRegModal/WelcomeRegModal';
-import { reqCrewMember, reqGetMemberCount,  } from '../../../api/Crew/memberApi';
+import { reqGetMemberCount,  } from '../../../api/Crew/memberApi';
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
 import ContentLayout from '../../../components/ContentLayout/ContentLayout';
+import useGetCrewRoleQuery from '../../../queries/useGetCrewRoleQuery';
 
 function CrewInfo() {
   const principal = usePrincipalQuery();
   const userId = principal?.data?.data?.body?.user?.userId;
-  const { crew } = useCrewStore();
+  const { crew, crewId } = useCrewStore();
   const [isOpen, setIsOpen] = useState(false);
   const [isMember, setIsMember] = useState(false);
   const [ countMember, setCountMember ] = useState(1);
   const [isPending, setIsPending] = useState(false);
+  const CrewRoleQuery = useGetCrewRoleQuery(userId);
 
-  const crewId = crew?.crewId;
+  const crewRole = CrewRoleQuery?.data?.some((role) => role.crewId === Number(crewId));
+  
+  const isCrewMember = !!crewRole;
+  
   
   useEffect(() => {
     if (!crewId || !userId) return;
-    reqCrewMember({ crewId, userId })
-    .then((res) => {
-      setIsMember(res.data.body);
-    })
-    .catch((err) => {
-      console.error("API 에러:", err);
-    });
-
     reqGetMemberCount(crewId)
     .then((res) => {
       setCountMember(res.data.body);
     });
-  }, [crewId, userId, countMember]);
+  }, [userId, countMember]);
   
 
   return (
@@ -59,20 +56,20 @@ function CrewInfo() {
                 <p>총 {crew?.totalKm} KM</p>
               </div>
             </div>
-            {isMember && (
+            {!isCrewMember  && (
               <button
-              css={s.Button}
-              onClick={() => setIsOpen(true)}
-              disabled={isPending || countMember >= crew?.limitedPeople}
+                css={s.Button}
+                onClick={() => setIsOpen(true)}
+                disabled={isPending || countMember >= crew?.limitedPeople}
               >
                 {countMember >= crew?.limitedPeople ? "정원마감" : isPending ? "처리중" : "크루가입"}
               </button>
             )}
             {isOpen && (
               <WelcomeRegModal
-              setIsOpen={setIsOpen} 
-              crewId={crew?.crewId}
-              onSuccess={() => setIsPending(true)}
+                setIsOpen={setIsOpen}
+                crewId={crewId}
+                onSuccess={() => setIsPending(true)}
               />
             )}
           </div>

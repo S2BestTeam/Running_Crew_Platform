@@ -2,7 +2,7 @@
 import * as s from "./styles";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import usePrincipalQuery from "../../../queries/usePrincipalQuery";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useCrewStore } from "../../../stores/useCrewStroes";
 import useCrewDetailQuery from "../../../queries/useCrewDetailQuery";
 import Welcome from "../Welcome/Welcome";
@@ -26,6 +26,8 @@ import FreeEdit from "../FreeBoard/Edit/FreeEdit";
 import NoticeEdit from "../Notice/Edit/NoticeEdit";
 import GatheringRegister from "../Gathering/GatheringRegister/GatheringRegister";
 import GatheringModify from "../GatheringManagement/GatheringModify/GatheringModify";
+import useGetCrewRoleQuery from "../../../queries/useGetCrewRoleQuery";
+import { reqGetMemberId, reqWithDrawMember } from "../../../api/Crew/memberApi";
 
 function CCategory() {
   const navigate = useNavigate();
@@ -34,8 +36,15 @@ function CCategory() {
   const { crewId } = useParams();
   const { data: crewData, isLoading, isSuccess } = useCrewDetailQuery(crewId);
   const { setCrewId, setCrew } = useCrewStore();
+  const  crewRoleQuery = useGetCrewRoleQuery(userId);
+  const crewRole = crewRoleQuery?.data?.find((role) => role.crewId === Number(crewId));
+  const canRegister = crewRole && [2, 3].includes(crewRole.roleId);
+  const [ deleteMemberId, setDeleteMemberId ] = useState(0);
   
   useEffect(() => {
+    reqGetMemberId(crewId).then((res) => {
+      setDeleteMemberId(res.data.body);
+    });
     setCrewId(crewId);
     setCrew(crewData?.body);
   }, [crewId, crewData?.body]);
@@ -101,17 +110,24 @@ function CCategory() {
     </>
   );
 
-  const bottomSection = !isCrewLeader && (
-    <div css={s.getout}>
-      <button onClick={() => handleWithdrawOnClick(userId)}>탈퇴하기</button>
-    </div>
-  );
-
-  const handleWithdrawOnClick = async (memberId) => {
-    console.log("멤버 아이디",memberId);
-    
-    // await 
+  const handleWithdrawOnClick = async () => {
+    if (!deleteMemberId) {
+      alert("멤버 ID를 불러오지 못했습니다.");
+      return;
+    }
+    await reqWithDrawMember(deleteMemberId);
+    alert("크루 탈퇴가 완료되었습니다.");
+    navigate('/');
   }
+
+  const bottomSection = !!canRegister ? (
+    <div css={s.getout}>
+      <button onClick={handleWithdrawOnClick}>탈퇴하기</button>
+    </div>
+  )
+  :
+  (<></>);
+
 
   return (
     <MainContainer>

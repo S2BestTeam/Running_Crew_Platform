@@ -32,6 +32,12 @@
         values ( #{crewId}, #{userId}, 3)
     </insert>
 
+    <delete id="deleteMember">
+        delete from member_tb
+        where
+            member_id = #{memberId}
+    </delete>
+
     <select id="findAllMembersBySearchOption"
             parameterType="com.korit.running_back_s2.domain.member.MemberSearchOption"
             resultMap="MemberMap">
@@ -53,7 +59,6 @@
                 OR u.nickname LIKE CONCAT('%', #{searchText}, '%')
                 )
             </if>
-            and status = 1
         order by
             cm.role_id asc,
             cm.member_id asc
@@ -76,7 +81,6 @@
                 OR u.nickname LIKE CONCAT('%', #{searchText}, '%')
                 )
             </if>
-            and cm.status = 1
     </select>
     <select id="findById" resultMap="MemberMap">
         select
@@ -96,7 +100,6 @@
             left outer join user_tb u ON u.user_id = cm.user_id
         where
             cm.member_id = #{memberId}
-            and status = 1
     </select>
     <select id="findMemberIdByUserId" resultType="java.lang.Integer">
         select
@@ -106,21 +109,6 @@
         where
             crew_id = #{crewId}
             and user_id = #{userId}
-            and status = 1
-    </select>
-
-
-    <select id="existsFind" resultType="java.lang.Boolean">
-        select exists (
-                select
-                    1
-                from
-                    member_tb
-                where
-                    crew_id = #{crewId}
-                    and user_id = #{userId}
-                    and status = 1
-                )  as exist
     </select>
 
     <select id="countMember" resultType="java.lang.Integer">
@@ -130,7 +118,6 @@
             member_tb
         where
             crew_id = #{crewId}
-            and status = 1
     </select>
 
     <update id="updateRole">
@@ -139,17 +126,8 @@
             role_id = #{roleId}
         where
             member_id = #{memberId}
-            and status = 1
     </update>
 
-    <update id="deleteMember">
-        update member_tb
-        set
-            status = 0,
-            joined_at = now()
-        where
-            member_id = #{memberId}
-    </update>
 
     <insert id="insertLeaderRole">
         insert into member_tb (crew_id, user_id, role_id)
@@ -171,6 +149,5 @@
             left outer join member_role_tb mrt on (mt.role_id = mrt.role_id)
         where
             mt.user_id = #{userId}
-            and status = 1;
     </select>
 </mapper>

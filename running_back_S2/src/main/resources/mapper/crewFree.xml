@@ -105,9 +105,10 @@
         from
             crew_free_tb c
             left outer join user_tb u on(u.user_id = c.user_id)
+            left outer join member_tb mt on (mt.user_id = c.user_id)
         where
-            free_id = #{freeId}
-            and crew_id = #{crewId}
+            c.free_id = #{freeId}
+            and c.crew_id = #{crewId}
     </select>
 
 

@@ -4,10 +4,9 @@ import com.korit.running_back_s2.domain.member.Member;
 import com.korit.running_back_s2.domain.member.MemberMapper;
 import com.korit.running_back_s2.domain.member.MemberSearchOption;
 import com.korit.running_back_s2.domain.welcome.WelcomeMapper;
-import com.korit.running_back_s2.dto.member.ExistsCheckReqDto;
 import com.korit.running_back_s2.dto.member.MemberRoleUpdateReqDto;
 import com.korit.running_back_s2.dto.response.PaginationRespDto;
-import com.korit.running_back_s2.dto.welcome.WelcomeReqDto;
+import com.korit.running_back_s2.security.model.PrincipalUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +18,7 @@ public class MemberService {
 
     private final MemberMapper memberMapper;
     private final WelcomeMapper welcomeMapper;
-
-    public boolean isExists (ExistsCheckReqDto dto) {
-        boolean welcomeExists = welcomeMapper.existsFind(dto);
-        boolean memberExists = memberMapper.existsFind(dto);
-        return !(welcomeExists || memberExists);
-    }
+    private final PrincipalUtil principalUtil;
 
     public PaginationRespDto<Member> getMembers(Integer page, Integer size, Integer crewId, String searchText) {
         MemberSearchOption opt = MemberSearchOption.builder()
@@ -74,5 +68,14 @@ public class MemberService {
 
     public Integer countMember(Integer crewId) {
         return memberMapper.countMember(crewId);
+    }
+
+    public Integer getMemberId (Integer crewId) {
+        Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
+        return memberMapper.findMemberIdByUserId(crewId, userId);
+    }
+
+    public void withDrawMember (Integer memberId) {
+        memberMapper.deleteMember(memberId);
     }
 }

@@ -4,7 +4,7 @@ import * as s from './styles';
 import usePrincipalQuery from '../../../../queries/usePrincipalQuery';
 import { reqJoinCrew } from '../../../../api/Crew/welcomeApi';
 
-function WelcomeRegModal({setIsOpen, crewId, onSuccess, isMember }) {
+function WelcomeRegModal({setIsOpen, crewId, onSuccess }) {
   const principal = usePrincipalQuery();
   const userSimpleInfo = principal?.data?.data?.body?.user;
   const birthYear = new Date(userSimpleInfo.birthDate).getFullYear(); 
