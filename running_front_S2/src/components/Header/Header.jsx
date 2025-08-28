@@ -106,7 +106,7 @@ function Header(props) {
             <div css={s.menuDetail}>
               <div>대회정보</div>
               <div>대회일정</div>
-              <div>캘린더</div>
+              <div onClick={() => navigate("/calender")}>캘린더</div>
             </div>
             <div css={s.menuDetail}>
               <div>고객센터</div>

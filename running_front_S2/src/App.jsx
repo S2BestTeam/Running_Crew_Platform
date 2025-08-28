@@ -12,6 +12,7 @@ import ReactModal from "react-modal";
 import { useKakaoLoader } from "react-kakao-maps-sdk";
 import CrewRanking from "./pages/Ranking/CrewRanking/CrewRanking";
 import UserRanking from "./pages/Ranking/UserRanking/UserRanking";
+import Calender from "./pages/Schedule/Calender/Calender";
 
 function App() {
   const mapLoader = useKakaoLoader({
@@ -33,6 +34,7 @@ function App() {
         <Route path="/mypage/*" element={<MCategory />} />
         <Route path="/crewRanking" element={<CrewRanking />} />
         <Route path="/userRanking" element={<UserRanking />} />
+        <Route path="/calender" element={<Calender />} />
       </Routes>
       <Footer />
     </>
