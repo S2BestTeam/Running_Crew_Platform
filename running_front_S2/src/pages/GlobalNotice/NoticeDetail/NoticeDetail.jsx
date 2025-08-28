@@ -3,14 +3,11 @@ import * as s from './styles';
 import React, { useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import sanitizeHtml from "sanitize-html";
-import useGetCrewNoticeDetailQuery from '../../../../queries/useGetCrewNoticeDetailQuery';
-import usePrincipalQuery from '../../../../queries/usePrincipalQuery';
-import { reqDeleteNotice } from '../../../../api/Crew/noticeApi';
-import { useCrewStore } from '../../../../stores/useCrewStroes';
-
+import useGetGlobalNoticeDetailQuery from '../../../queries/useGetGlobalNoticeDetailQuery';
+import { reqDeleteGlobalNotice } from '../../../api/GlobalNotice/globalNoticeApi';
+import usePrincipalQuery from '../../../queries/usePrincipalQuery';
 
 export default function NoticeDetail() {
-  const { crewId } = useCrewStore();
   const { noticeId } = useParams();
   const navigate = useNavigate();
   const principalQuery = usePrincipalQuery();
@@ -20,7 +17,7 @@ export default function NoticeDetail() {
     principalQuery?.data?.body?.user?.userId ??
     null;
 
-  const { data, isLoading, error } = useGetCrewNoticeDetailQuery({ crewId, noticeId });
+  const { data, isLoading, error } = useGetGlobalNoticeDetailQuery({ noticeId });
   const post = useMemo(() => {
     const body = data?.data?.body ?? data?.body;
     return Array.isArray(body) ? body[0] : body;
@@ -43,14 +40,14 @@ export default function NoticeDetail() {
     },
   });
 
-  const goEdit = () => navigate(`/crews/${crewId}/notices/${noticeId}/edit`);
+  const goEdit = () => navigate(`/notice/${noticeId}/edit`);
 
   const handleDeleteOnClick = async () => {
     if (!window.confirm("정말 이 공지글을 삭제할까요?")) return;
     try {
-      await reqDeleteNotice(crewId, noticeId);
+      await reqDeleteGlobalNotice(noticeId);
       alert("삭제되었습니다.");
-      navigate(`/crews/${crewId}/notices`, { replace: true });
+      navigate(`/notice`, { replace: true });
     } catch (e) {
       console.error(e);
       alert("삭제 중 오류가 발생했습니다.");
@@ -63,7 +60,7 @@ export default function NoticeDetail() {
         <div css={s.topBar}>
           <button onClick={() => navigate(-1)}>← 목록</button>
           <span style={{ color: "#94a3b8", fontSize: 14 }}>
-            크루 #{crewId} · 글번호 #{post.noticeId}
+            글번호 #{post.noticeId}
           </span>
         </div>
         <h1 css={s.titleCss}>{post.title}</h1>

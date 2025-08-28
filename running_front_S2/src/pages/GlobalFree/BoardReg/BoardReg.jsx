@@ -121,34 +121,34 @@ function BoardReg(props) {
 
     return (
         <MainContainer>
-        <div css={s.wrap}>
-            <div css={s.titleRow}>
-                <input css={s.titleInput} type="text" placeholder="제목을 입력하세요" value={title} onChange={(e) => setTitle(e.target.value)} maxLength={255} />
-            </div>
-            <div css={[s.quillBox]}>
-                <ReactQuill
-                    ref={quillRef}
-                    className="quillRoot"
-                    style={{ height: "100%" }}
-                    theme="snow"
-                    value={quillValue}
-                    onChange={setQuillValue}
-                    modules={{
-                        toolbar: {
-                            container: [[{ header: [false, 1, 2, 3] }], ["bold", "italic", "underline", "strike"], [{ align: [] }], ["blockquote", "link", "image"]],
-                            handlers: { image: imageHandler },
-                        },
-                    }}
-                />
-            </div>
+            <div css={s.wrap}>
+                <div css={s.titleRow}>
+                    <input css={s.titleInput} type="text" placeholder="제목을 입력하세요" value={title} onChange={(e) => setTitle(e.target.value)} maxLength={255} />
+                </div>
+                <div css={[s.quillBox]}>
+                    <ReactQuill
+                        ref={quillRef}
+                        className="quillRoot"
+                        style={{ height: "100%" }}
+                        theme="snow"
+                        value={quillValue}
+                        onChange={setQuillValue}
+                        modules={{
+                            toolbar: {
+                                container: [[{ header: [false, 1, 2, 3] }], ["bold", "italic", "underline", "strike"], [{ align: [] }], ["blockquote", "link", "image"]],
+                                handlers: { image: imageHandler },
+                            },
+                        }}
+                    />
+                </div>
 
-            <div css={s.submitRow}>
-                <button css={s.submitBtn} onClick={handleSubmit} disabled={submitting}>
-                    {submitting ? "등록 중..." : "등록"}
-                </button>
+                <div css={s.submitRow}>
+                    <button css={s.submitBtn} onClick={handleSubmit} disabled={submitting}>
+                        {submitting ? "등록 중..." : "등록"}
+                    </button>
+                </div>
             </div>
-        </div>
-    </MainContainer>
+        </MainContainer>
     );
 }
 

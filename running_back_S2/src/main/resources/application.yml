@@ -49,6 +49,10 @@ app:
       prefix: "${app.server-host}/image/global/free"
       dir-path: "${user.dir}/upload/global/free"
       default-img: "default.jpg"
+    globalNoticeBoard:
+      prefix: "${app.server-host}/image/global/notice"
+      dir-path: "${user.dir}/upload/global/notice"
+      default-img: "default.jpg"
 ---
 
 spring:

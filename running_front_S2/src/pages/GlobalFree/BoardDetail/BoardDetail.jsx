@@ -38,7 +38,6 @@ function BoardDetail(props) {
     const [editingCommentId, setEditingCommentId] = useState(null);
     const [editCommentValue, setEditCommentValue] = useState("");
 
-
     const post = useMemo(() => {
         const body = data?.data?.body ?? data?.body;
         return Array.isArray(body) ? body[0] : body;
