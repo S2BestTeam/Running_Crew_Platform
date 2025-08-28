@@ -226,3 +226,36 @@ export const noEventText = css`
   margin: 0;
   font-style: italic;
 `;
+
+export const eventBox = css`
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 10px rgba(0,0,0,0.1);
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 0.75rem;
+  }
+
+  p {
+    margin: 0.25rem 0;
+    color: black;
+    font-size: 1.1rem;
+  }
+
+  p:first-of-type {
+    font-weight: 600;
+    color: #2563eb; /* 크루 이름 강조 */
+  }
+`;

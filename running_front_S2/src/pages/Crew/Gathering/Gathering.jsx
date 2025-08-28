@@ -118,7 +118,7 @@ function Gathering() {
                 key={index}
                 css={[
                   s.gatheringContainer,
-                  isPastTime(g.runningDate, g.runningTime) && s.closedOverlay, // 시간 지난 경우만 오버레이
+                  isPastTime(g.runningDate, g.runningTime) && s.closedOverlay,
                 ]}
                 onClick={() => handleOpenDetailModal(g)}
               >

@@ -25,7 +25,7 @@ function Notice() {
   const crewRole = CrewRoleQuery?.data?.find((role) => role.crewId === Number(crewId));
 
   const isCrewMember = !!crewRole;
-  const canRegister = crewRole && ["1", "2"].includes(crewRole.roleId);
+  const canRegister = crewRole && [1, 2].includes(crewRole.roleId);
 
   const { data, isLoading, isError } = useGetCrewNotoiceQuery({
     crewId: Number(crewId),

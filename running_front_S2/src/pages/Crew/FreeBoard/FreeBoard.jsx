@@ -23,9 +23,6 @@ function FreeBoard() {
   
   const crewRole = CrewRoleQuery?.data?.some((role) => role.crewId === Number(crewId));
   
-  console.log(crewRole);
-  
-  
   const isCrewMember = !!crewRole;
 
   useEffect(() => {

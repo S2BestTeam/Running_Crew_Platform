@@ -124,8 +124,8 @@ function Calendar() {
                       <p>크루 이름 : {ev.crewName}</p>
                       <p>모임장소 : {ev.placeName}</p>
                       <p>만남 시간 : {ev.runningTime}</p>
-                      <p>총 거리 : {ev.km}</p>
-                      <p>회비 : {ev.cost}</p>
+                      <p>총 거리 : {ev.km} KM</p>
+                      <p>회비 : {ev.cost} 원</p>
                     </div>
                   ))}
                 </div>
