@@ -43,7 +43,6 @@ public class MemberController {
 
     @GetMapping("/{memberId}")
     public ResponseEntity<?> getMemberDetail(@PathVariable Integer memberId) {
-
         return ResponseEntity.ok(ResponseDto.success(memberService.getMemberDetail(memberId)));
     }
 
@@ -61,9 +60,9 @@ public class MemberController {
         return ResponseEntity.ok(ResponseDto.success("멤버가 추방되었습니다."));
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<ResponseDto<?>> getMemberId(@PathVariable Integer userId) {
-        return ResponseEntity.ok(ResponseDto.success(null));
-    }
+//    @GetMapping("/{userId}")
+//    public ResponseEntity<ResponseDto<?>> getMemberId(@PathVariable Integer userId) {
+//        return ResponseEntity.ok(ResponseDto.success(null));
+//    }
 
 }

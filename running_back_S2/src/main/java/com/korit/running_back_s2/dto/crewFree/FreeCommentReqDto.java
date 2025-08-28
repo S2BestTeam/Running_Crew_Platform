@@ -1,4 +1,4 @@
-package com.korit.running_back_s2.dto.board;
+package com.korit.running_back_s2.dto.crewFree;
 
 import lombok.Data;
 
