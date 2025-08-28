@@ -33,7 +33,6 @@ function GatheringDetailModal({
         gathering.gatheringId
       );
       setParticipants(data.data);
-      console.log(participants);
     } catch (err) {
       console.error("참석자 불러오기 실패:", err);
     }

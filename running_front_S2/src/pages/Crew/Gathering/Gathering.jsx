@@ -31,8 +31,6 @@ function Gathering() {
   const crewRole = CrewRoleQuery?.data?.some((role) => role.crewId === Number(crewId));
   
   const isCrewMember = !!crewRole;
-
-  console.log(isCrewMember);
   
 
   useEffect(() => {

@@ -113,4 +113,21 @@
             gpt.gathering_id = #{gatheringId}
     </select>
 
+    <select id="findGatheringByUserId" resultType="com.korit.running_back_s2.dto.user.UserGatheringsReqDto">
+        select
+            ct.crew_name,
+            gt.title,
+            gt.running_date,
+            gt.running_time,
+            gt.place_name,
+            gt.km,
+            gt.cost
+        from
+            gathering_participant_tb gpt
+            left outer join gathering_tb gt on (gt.gathering_id = gpt.gathering_id)
+            left outer join crew_tb ct on (ct.crew_id = gt.crew_id)
+        where
+            gpt.user_id = #{userId};
+    </select>
+
 </mapper>

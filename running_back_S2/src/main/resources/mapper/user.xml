@@ -161,6 +161,10 @@
             gpt.gathering_count desc
     </select>
 
+    <select id="findGatheringByUserId" resultType="com.korit.running_back_s2.dto.user.UserGatheringsReqDto">
+
+    </select>
+
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="userId">
         INSERT INTO user_tb

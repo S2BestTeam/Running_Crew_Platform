@@ -2,6 +2,7 @@ package com.korit.running_back_s2.domain.gathering;
 
 import com.korit.running_back_s2.domain.user.User;
 import com.korit.running_back_s2.dto.gathering.GatheringRespDto;
+import com.korit.running_back_s2.dto.user.UserGatheringsReqDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,4 +13,6 @@ public interface GatheringMapper {
     int insert(Gathering gathering);
     List<Gathering> findAllByCrewId(@Param("crewId") Integer crewId, @Param("userId") Integer userId);
     List<User> findParticipantsByGatheringId(int gatheringId);
+
+    List<UserGatheringsReqDto> findGatheringByUserId(Integer userId);
 }
