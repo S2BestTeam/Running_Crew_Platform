@@ -54,7 +54,6 @@ public class MemberController {
         return ResponseEntity.ok(ResponseDto.success("멤버가 추방되었습니다."));
     }
 
-<<<<<<< HEAD
     @GetMapping("/{crewId}/memberId")
     public ResponseEntity<ResponseDto<?>> getMemberId(@PathVariable Integer crewId) {
         return ResponseEntity.ok(ResponseDto.success(memberService.getMemberId(crewId)));
@@ -65,11 +64,5 @@ public class MemberController {
         memberService.withDrawMember(memberId);
         return ResponseEntity.ok(ResponseDto.success("크루 멤버 탈퇴가 이루어졌습니다."));
     }
-=======
-//    @GetMapping("/{userId}")
-//    public ResponseEntity<ResponseDto<?>> getMemberId(@PathVariable Integer userId) {
-//        return ResponseEntity.ok(ResponseDto.success(null));
-//    }
->>>>>>> origin/66-디테일-구현
 
 }

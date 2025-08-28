@@ -12,14 +12,11 @@ import ReactModal from "react-modal";
 import { useKakaoLoader } from "react-kakao-maps-sdk";
 import CrewRanking from "./pages/Ranking/CrewRanking/CrewRanking";
 import UserRanking from "./pages/Ranking/UserRanking/UserRanking";
-<<<<<<< HEAD
-import Calender from "./pages/Schedule/Calender/Calender";
-=======
 import GlobalFree from "./pages/GlobalFree/GlobalFree";
 import BoardReg from "./pages/GlobalFree/BoardReg/BoardReg";
 import BoardDetail from "./pages/GlobalFree/BoardDetail/BoardDetail";
 import BoardEdit from "./pages/GlobalFree/Edit/BoardEdit";
->>>>>>> origin/66-디테일-구현
+import Calender from "./pages/Schedule/Calender/Calender";
 
 function App() {
   const mapLoader = useKakaoLoader({
@@ -42,16 +39,13 @@ function App() {
 
         <Route path="/crewRanking" element={<CrewRanking />} />
         <Route path="/userRanking" element={<UserRanking />} />
-<<<<<<< HEAD
-        <Route path="/calender" element={<Calender />} />
-=======
 
         <Route path="/free" element={<GlobalFree />} />
         <Route path="/free/register" element={<BoardReg />} />
         <Route path="/free/:freeId" element={<BoardDetail />} />
         <Route path="/free/:freeId/edit" element={<BoardEdit />} />
+        <Route path="/calender" element={<Calender />} />
         
->>>>>>> origin/66-디테일-구현
       </Routes>
       <Footer />
     </>
