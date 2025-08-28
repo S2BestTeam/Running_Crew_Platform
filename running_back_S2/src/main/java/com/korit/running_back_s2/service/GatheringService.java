@@ -5,8 +5,7 @@ import com.korit.running_back_s2.domain.gathering.GatheringMapper;
 import com.korit.running_back_s2.domain.gathering.ParticipantMapper;
 import com.korit.running_back_s2.domain.user.User;
 import com.korit.running_back_s2.dto.gathering.GatheringRegisterReqDto;
-import com.korit.running_back_s2.dto.gathering.GatheringRespDto;
-import com.korit.running_back_s2.exception.auth.UnauthorizedException;
+import com.korit.running_back_s2.dto.gathering.GatheringUpdateReqDto;
 import com.korit.running_back_s2.security.model.PrincipalUtil;
 import com.korit.running_back_s2.util.ImageUrlUtil;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -55,4 +53,25 @@ public class GatheringService {
         return gatheringMapper.findParticipantsByGatheringId(gatheringId);
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    public void updateGathering(Integer gatheringId, GatheringUpdateReqDto dto) {
+
+        Gathering gathering = dto.toEntity();
+
+        if (dto.getThumbnailPicture() != null && !dto.getThumbnailPicture().isEmpty()) {
+            final String UPLOAD_PATH = "crewGathering";
+
+            String newFileName = fileService.uploadFile(dto.getThumbnailPicture(), UPLOAD_PATH);
+            String thumbnailImg = UPLOAD_PATH + "/" + newFileName;
+            gathering.setThumbnailPicture(thumbnailImg);
+
+            fileService.deleteFile(UPLOAD_PATH, dto.getOldFilePath());
+        }
+
+        gatheringMapper.update(gathering);
+    }
+
+    public List<Gathering> getGatheringDetail(Integer gatheringId) {
+        return gatheringMapper.findByGatheringId(gatheringId);
+    }
 }

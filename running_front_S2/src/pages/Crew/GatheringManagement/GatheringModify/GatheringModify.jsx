@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { CiImageOn } from "react-icons/ci";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { useNavigate, useParams } from "react-router-dom";
-import { reqCrewGatherings, reqUpdateGathering } from "../../../../api/Crew/gatheringApi";
+import { reqCrewGatherings, reqGatheringDetail, reqUpdateGathering } from "../../../../api/Crew/gatheringApi";
 import ContentLayout from "../../../../components/ContentLayout/ContentLayout";
 import { useCrewStore } from "../../../../stores/useCrewStroes";
 
@@ -19,6 +19,7 @@ function GatheringModify() {
   const [addressText, setAddressText] = useState("");
   const [searchResultList, setSearchResultList] = useState([]);
   const [gatheringData, setGatheringData] = useState({
+    gatheringId: gatheringId,
     title: "",
     content: "",
     thumbnailPicture: "",
@@ -34,12 +35,16 @@ function GatheringModify() {
     km: "",
   });
 
+  console.log(gatheringId)
+  console.log(crewId)
+
   // 기존 정모 정보 불러오기
   useEffect(() => {
     const fetchGathering = async () => {
       try {
-        const res = await reqCrewGatherings(crewId);
-        const data = res.data;
+        const res = await reqGatheringDetail(crewId, gatheringId);
+        const data = res.data.body?.[0];
+        console.log(data?.address)
         setGatheringData({
           title: data.title,
           content: data.content,

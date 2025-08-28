@@ -58,6 +58,30 @@
         );
     </insert>
 
+        <update id="update" parameterType="com.korit.running_back_s2.domain.gathering.Gathering">
+        UPDATE
+            gathering_tb
+        SET
+            title = #{title},
+            content = #{content},
+            running_date = #{runningDate},
+            running_time = #{runningTime},
+            place_name = #{placeName},
+            address = #{address},
+            road_address = #{roadAddress},
+            latitude = #{latitude},
+            longitude = #{longitude},
+            km = #{km},
+            cost = #{cost},
+            max_participants = #{maxParticipants},
+            thumbnail_picture = #{thumbnailPicture}
+        WHERE
+            gathering_id = #{gatheringId}
+        AND
+            crew_id = #{crewId}
+    </update>
+
+
     <select id="findAllByCrewId" resultMap="GatheringMap">
         SELECT
             cgt.gathering_id,
@@ -112,5 +136,30 @@
         WHERE
             gpt.gathering_id = #{gatheringId}
     </select>
+
+    <select id="findByGatheringId" resultType="com.korit.running_back_s2.domain.gathering.Gathering">
+        SELECT
+            gathering_id,
+            crew_id,
+            user_id,
+            title,
+            content,
+            thumbnail_picture,
+            running_date,
+            running_time,
+            place_name,
+            address,
+            road_address,
+            latitude,
+            longitude,
+            km,
+            cost,
+            max_participants
+        FROM
+            gathering_tb
+        WHERE
+            gathering_id = #{gatheringId}
+    </select>
+
 
 </mapper>
