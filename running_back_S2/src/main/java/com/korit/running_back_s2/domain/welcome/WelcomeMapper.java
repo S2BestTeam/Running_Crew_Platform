@@ -16,6 +16,7 @@ public interface WelcomeMapper {
     int update(Member member);
     int statusReject(Integer welcomeId);
     int deleteRejectedAfter7Days();
+    int deleteWithDrawAfter14Days();
 
     List<MyWelcomesResDto> findAllByUserId(Integer userId);
     int updateMyWelcome(UpdateMyWelcomeReqDto dto);

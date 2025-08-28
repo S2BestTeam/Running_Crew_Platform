@@ -38,6 +38,14 @@
         ]]>
     </delete>
 
+    <delete id="deleteWithDrawAfter14Days">
+        <![CDATA[
+        delete from welcome_tb
+        where status = '승인'
+          and created_at < DATE_SUB(now(), INTERVAL 14 DAY)
+        ]]>
+    </delete>
+
     <delete id="deleteMyWelcome">
         delete from welcome_tb
         where

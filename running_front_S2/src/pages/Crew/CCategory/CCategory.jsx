@@ -116,7 +116,7 @@ function CCategory() {
       return;
     }
     await reqWithDrawMember(deleteMemberId);
-    alert("크루 탈퇴가 완료되었습니다.");
+    alert("크루 탈퇴가 완료되었습니다. \n 탈퇴 후 14일 이후 재가입이 가능합니다.");
     navigate('/');
   }
 
