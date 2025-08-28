@@ -6,6 +6,7 @@ import sanitizeHtml from "sanitize-html";
 import useGetGlobalNoticeDetailQuery from '../../../queries/useGetGlobalNoticeDetailQuery';
 import { reqDeleteGlobalNotice } from '../../../api/GlobalNotice/globalNoticeApi';
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
+import MainContainer from '../../../components/MainContainer/MainContainer';
 
 export default function NoticeDetail() {
   const { noticeId } = useParams();
@@ -55,6 +56,7 @@ export default function NoticeDetail() {
   };
 
   return (
+    <MainContainer>
     <div>
       <div css={s.layout}>
         <div css={s.topBar}>
@@ -79,6 +81,7 @@ export default function NoticeDetail() {
         <div css={s.contentCss} dangerouslySetInnerHTML={{ __html: cleanHtml }} />
       </div>
     </div>
+    </MainContainer>
 
   );
 }

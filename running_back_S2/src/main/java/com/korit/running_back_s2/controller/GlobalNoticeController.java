@@ -2,6 +2,7 @@ package com.korit.running_back_s2.controller;
 
 import com.korit.running_back_s2.dto.notice.NoticeReqDto;
 import com.korit.running_back_s2.dto.response.ResponseDto;
+import com.korit.running_back_s2.service.GlobalNoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,11 @@ public class GlobalNoticeController {
     
     private final GlobalNoticeService globalNoticeService;
 
-    
+    @GetMapping("/role")
+    public ResponseEntity<ResponseDto<?>> checkRoleAdmin() {
+        return ResponseEntity.ok(ResponseDto.success(globalNoticeService.checkRoleAdmin()));
+    }
+
     @PostMapping
     public ResponseEntity<ResponseDto<?>> registerGlobalNotice(@RequestBody NoticeReqDto dto) {
         globalNoticeService.register(dto);

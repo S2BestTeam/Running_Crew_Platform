@@ -22,3 +22,5 @@ export const reqUpdateGlobalNotice = ({noticeId , title, content }) => {
 export const reqDeleteGlobalNotice = (noticeId) => {
   api.delete(`/api/notice/detail/${noticeId}`)
 }
+
+export const reqGetGlobalRoleAdmin = () => api.get(`/api/notice/role`)

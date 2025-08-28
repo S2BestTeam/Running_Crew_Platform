@@ -142,7 +142,6 @@ function FeedReg() {
           }}
         />
       </div>
-
       <div css={s.submitRow}>
         <button css={s.submitBtn} onClick={handleSubmit} disabled={submitting}>
           {submitting ? "등록 중..." : "등록"}

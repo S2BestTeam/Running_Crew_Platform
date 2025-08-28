@@ -9,7 +9,7 @@ export default function useGetGlobalNoticeDetailQuery({noticeId, enabled = true 
     queryKey: ['noticeDetail', nid],
     enabled: enabled&& Number.isFinite(nid),
     queryFn: async () => {
-      const res = await reqGetGlobalNoticeDetail(cid, nid);
+      const res = await reqGetGlobalNoticeDetail(nid);
       return res.data;
     },
   });

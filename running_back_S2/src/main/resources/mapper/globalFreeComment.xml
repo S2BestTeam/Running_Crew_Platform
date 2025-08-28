@@ -28,6 +28,7 @@
         <result property="birthDate"                column="birth_date" />
         <result property="gender"                   column="gender" />
         <result property="totalKm"                  column="total_km" />
+        <result property="role"                     column="role" />
     </resultMap>
 
     <insert id="insert">

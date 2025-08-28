@@ -4,6 +4,7 @@ import ReactQuill from 'react-quill-new';
 import useGetGlobalNoticeDetailQuery from '../../../queries/useGetGlobalNoticeDetailQuery';
 import { reqUpdateGlobalNotice } from '../../../api/GlobalNotice/globalNoticeApi';
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
+import MainContainer from '../../../components/MainContainer/MainContainer';
 
 function NoticeEdit() {
     const { noticeId } = useParams();
@@ -12,7 +13,7 @@ function NoticeEdit() {
     const principalQuery = usePrincipalQuery();
     const principalId = principalQuery?.data?.data?.body?.user?.userId ?? null;
 
-    const { data, isLoading, error } = useGetGlobalNoticeDetailQuery({noticeId });
+    const { data, isLoading, error } = useGetGlobalNoticeDetailQuery({ noticeId });
 
     const post = useMemo(() => {
         const body = data?.data?.body ?? data?.body;
@@ -48,7 +49,7 @@ function NoticeEdit() {
         if (!t) return alert("제목을 입력해주세요.");
 
         try {
-            await reqUpdateGlobalNotice({noticeId, title, content });
+            await reqUpdateGlobalNotice({ noticeId, title, content });
             alert("수정되었습니다.");
             navigate(`/notice/${noticeId}`);
         } catch (e) {
@@ -58,27 +59,29 @@ function NoticeEdit() {
     };
 
     return (
-        <div style={{ maxWidth: 860, margin: "0 auto" }}>
-            <h2>공지글 수정</h2>
+        <MainContainer>
+            <div style={{ maxWidth: 860, margin: "0 auto" }}>
+                <h2>공지글 수정</h2>
 
-            <input
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="제목"
-                style={{ width: "100%", padding: 8, marginBottom: 8 }}
-            />
+                <input
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="제목"
+                    style={{ width: "100%", padding: 8, marginBottom: 8 }}
+                />
 
-            <ReactQuill
-                theme="snow"
-                value={content}
-                onChange={(value) => setContent(value)}
-            />
+                <ReactQuill
+                    theme="snow"
+                    value={content}
+                    onChange={(value) => setContent(value)}
+                />
 
-            <div style={{ marginTop: 12, display: "flex", gap: 8 }}>
-                <button onClick={() => navigate(-1)}>취소</button>
-                <button onClick={handleSave}>저장</button>
+                <div style={{ marginTop: 12, display: "flex", gap: 8 }}>
+                    <button onClick={() => navigate(-1)}>취소</button>
+                    <button onClick={handleSave}>저장</button>
+                </div>
             </div>
-        </div>
+        </MainContainer>
     )
 }
 

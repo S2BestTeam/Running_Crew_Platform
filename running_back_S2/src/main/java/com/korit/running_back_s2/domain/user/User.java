@@ -25,4 +25,5 @@ public class User {
     private LocalDate birthDate;
     private Integer gender;
     private Double totalKm;
+    private String role;
 }

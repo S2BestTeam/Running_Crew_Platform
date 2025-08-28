@@ -6,6 +6,6 @@ export default function useGetGlobalNotoiceQuery({page = 1, size = 10, searchTex
     queryKey: ["notices", page, size, searchText],
     queryFn: () => reqGetGlobalNotices({page, size, searchText }),
     keepPreviousData: true,     
-    staleTime: 5 * 1000,
+    staleTime: 0
   });
 }

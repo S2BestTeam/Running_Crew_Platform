@@ -110,7 +110,7 @@ function Header(props) {
             </div>
             <div css={s.menuDetail}>
               <div>고객센터</div>
-              <div>공지사항</div>
+              <div onClick={() => navigate("/notice")}>공지사항</div>
               <div onClick={() => navigate("/inquiry")}>러너의 소리</div>
             </div>
           </div>

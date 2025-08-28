@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import * as s from "./styles";
 import { reqRegisterGlobalNotice } from "../../../api/GlobalNotice/globalNoticeApi";
 import api from "../../../api/axios";
+import MainContainer from "../../../components/MainContainer/MainContainer";
 
 function NoticeReg() {
   const navigate = useNavigate();
@@ -110,7 +111,7 @@ function NoticeReg() {
     try {
       await reqRegisterGlobalNotice({title, content: quillValue });
       alert("등록되었습니다.");
-      navigate("..");
+      navigate("/notice");
     } catch (e) {
       alert("등록 중 오류가 발생했습니다.");
     } finally {
@@ -120,6 +121,7 @@ function NoticeReg() {
   // console.log(quillValue)
 
   return (
+    <MainContainer>
     <div css={s.wrap}>
       <div css={s.titleRow}>
         <input css={s.titleInput} type="text" placeholder="제목을 입력하세요" value={title} onChange={(e) => setTitle(e.target.value)} maxLength={255} />
@@ -147,6 +149,7 @@ function NoticeReg() {
         </button>
       </div>
     </div>
+    </MainContainer>
   );
 }
 
