@@ -26,4 +26,7 @@ public interface UserMapper {
     List<UserRankingRespDto> selectUserRankingByTotalKm();
     List<UserRankingRespDto> selectUserRankingByGatheringCount();
 
+
+    List<User> findAllOfOptions(UserSearchOption option);
+    Integer getCountOfOptions(UserSearchOption option);
 }

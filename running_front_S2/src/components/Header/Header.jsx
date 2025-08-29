@@ -6,13 +6,14 @@ import { useNavigate } from "react-router-dom";
 import usePrincipalQuery from "../../queries/usePrincipalQuery";
 import { useQueryClient } from "@tanstack/react-query";
 import { TbLogout } from "react-icons/tb";
+import { Settings } from "lucide-react";
 
 function Header(props) {
   const principalQuery = usePrincipalQuery();
   const queryClient = useQueryClient();
 
   // 추후 프로필 이미지 또는 닉네임으로 변경하기 위해 코드 유지
-  const princiapl = principalQuery?.data?.data?.body?.user;
+  const userInfo = principalQuery?.data?.data?.body?.user;
   
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate("");
@@ -41,6 +42,10 @@ function Header(props) {
       alert("로그인 상태가 아닙니다.");
     }
   };
+
+  const handleAdminPageOnClick = () => {
+    navigate("/admin");
+  }
 
   return (
     <header css={s.header}>
@@ -105,7 +110,7 @@ function Header(props) {
             </div>
             <div css={s.menuDetail}>
               <div>대회정보</div>
-              <div>대회일정</div>
+              <div onClick={() => navigate("/competition")}>대회일정</div>
               <div onClick={() => navigate("/calender")}>캘린더</div>
             </div>
             <div css={s.menuDetail}>
@@ -117,6 +122,14 @@ function Header(props) {
         )}
       </nav>
       <div css={s.icons}>
+        {
+          userInfo?.role === "ROLE_ADMIN" &&
+          (
+            <div css={s.icon} onClick={handleAdminPageOnClick}>
+              <Settings />
+            </div>
+          )
+        }
         <div css={s.icon} onClick={handleLogout}>
           <TbLogout />
         </div>
@@ -124,8 +137,6 @@ function Header(props) {
         <div css={s.icon} onClick={handleProfileClick}>
           <FiUser />
         </div>
-
-
       </div>
     </header>
   );

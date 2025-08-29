@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { reqDeleteUser } from '../../../api/User/userApi';
+import { reqDeleteUser } from '../../../api/User/UserApi';
 import ContentLayout from '../../../components/ContentLayout/ContentLayout';
 import LeftSideBarLayout from '../../../components/LeftSideBarLayout/LeftSideBarLayout';
 import MainContainer from '../../../components/MainContainer/MainContainer';
@@ -47,7 +47,7 @@ function MCategory(props) {
       <div css={s.profileImgBox}>
         <img src={user?.picture} alt="프로필 이미지" />
       </div>
-      <div css={s.userText}>
+      <div>
         <div css={s.nick}>{user?.nickname}</div>
         <div css={s.email}>{user?.email}</div>
       </div>

@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import React, { useEffect, useState } from "react";
 import * as s from "./styles";
 import running from "../../assets/videos/running.mp4";
 import runninPhoto from "../../assets/images/러닝.jpg";
@@ -9,6 +8,8 @@ import "slick-carousel/slick/slick-theme.css";
 
 
 function Home(props) {
+  
+  
   return (
     <div css={s.container}>
       <main>

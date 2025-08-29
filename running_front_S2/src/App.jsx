@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Signin from "./pages/Auth/Signin/Signin";
@@ -17,6 +17,10 @@ import BoardReg from "./pages/GlobalFree/BoardReg/BoardReg";
 import BoardDetail from "./pages/GlobalFree/BoardDetail/BoardDetail";
 import BoardEdit from "./pages/GlobalFree/Edit/BoardEdit";
 import Calender from "./pages/Schedule/Calender/Calender";
+import Competition from "./pages/Schedule/Competition/Competition";
+import { useEffect, useState} from "react";
+import Admin from "./pages/Admin/Admin";
+import SearchUser from "./pages/Admin/SearchUser/SearchUser";
 
 function App() {
   const mapLoader = useKakaoLoader({
@@ -25,9 +29,19 @@ function App() {
   });
 
   ReactModal.setAppElement("#root");
+
+  const location = useLocation();
+  const [isAdminPage, setIsAdminPage] = useState(false);
+
+  useEffect(() => {
+    const adminPageCheck = location.pathname.startsWith('/admin');
+    setIsAdminPage(adminPageCheck);
+  }, [location.pathname]);
+
   return (
     <>
-      <Header />
+      {!isAdminPage && <Header />}
+      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/auth/oauth2/signin" element={<Signin />} />
@@ -36,18 +50,20 @@ function App() {
         <Route path="/crews" element={<List />} />
         <Route path="/crews/:crewId/*" element={<CCategory />} />
         <Route path="/mypage/*" element={<MCategory />} />
-
         <Route path="/crewRanking" element={<CrewRanking />} />
         <Route path="/userRanking" element={<UserRanking />} />
-
         <Route path="/free" element={<GlobalFree />} />
         <Route path="/free/register" element={<BoardReg />} />
         <Route path="/free/:freeId" element={<BoardDetail />} />
         <Route path="/free/:freeId/edit" element={<BoardEdit />} />
         <Route path="/calender" element={<Calender />} />
+        <Route path="/competition" element={<Competition />} />
         
+        {/* Admin 라우트들 */}
+        <Route path="/admin/*" element={<Admin />} />
       </Routes>
-      <Footer />
+      
+      {!isAdminPage && <Footer />}
     </>
   );
 }
