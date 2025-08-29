@@ -12,5 +12,6 @@ export default function useGetGlobalNoticeDetailQuery({noticeId, enabled = true 
       const res = await reqGetGlobalNoticeDetail(nid);
       return res.data;
     },
+    staleTime: 0
   });
 }

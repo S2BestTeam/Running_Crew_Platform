@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.korit.running_back_s2.domain.ask.AskMapper">
+
+    <resultMap id="AskMap" type="com.korit.running_back_s2.domain.ask.Ask">
+        <id     property="askId"                    column="ask_id"/>
+        <result property="userId"                   column="a_user_id"/>
+        <result property="title"                    column="title"/>
+        <result property="content"                  column="content"/>
+        <result property="createdAt"                column="created_at" />
+        <result property="isAnswer"                 column="is_answer" />
+
+        <association property="user" resultMap="UserMap" />
+    </resultMap>
+
+    <resultMap id="UserMap" type="User" >
+        <id property="userId"                       column="user_id" />
+        <result property="oauthType"                column="oauth_type" />
+        <result property="providerId"               column="provider_id" />
+        <result property="email"                    column="email" />
+        <result property="picture"                  column="picture" />
+        <result property="fullName"                 column="full_name" />
+        <result property="nickname"                 column="nickname" />
+        <result property="phoneNumber"              column="phone_number" />
+        <result property="gunguId"                  column="gungu_id" />
+        <result property="address"                  column="address" />
+        <result property="birthDate"                column="birth_date" />
+        <result property="gender"                   column="gender" />
+        <result property="totalKm"                  column="total_km" />
+        <result property="role"                     column="role" />
+    </resultMap>
+
+    <select id="findAllAskBySearchOption"
+            parameterType="com.korit.running_back_s2.domain.ask.AskFreeSearchOption"
+            resultMap="AskMap">
+        SELECT
+            a.ask_id,
+            a.user_id       AS a_user_id,
+            u.nickname,
+            a.title,
+            a.content,
+            a.created_at,
+            a.is_answer
+        FROM
+            ask_tb a
+            LEFT JOIN user_tb u ON (u.user_id = a.user_id)
+        <where>
+            <if test="searchText != null and searchText != ''">
+                (
+                a.title   LIKE CONCAT('%', #{searchText}, '%')
+                OR a.content LIKE CONCAT('%', #{searchText}, '%')
+                OR u.nickname LIKE CONCAT('%', #{searchText}, '%')
+                )
+            </if>
+        </where>
+        ORDER BY a.ask_id DESC
+        LIMIT #{startIndex}, #{size}
+    </select>
+
+    <select id="countListsBySearchOption"
+            parameterType="com.korit.running_back_s2.domain.ask.AskFreeSearchOption"
+            resultType="int">
+        SELECT COUNT(*)
+        FROM ask_tb a
+        LEFT JOIN user_tb u ON (u.user_id = a.user_id)
+
+        <where>
+            <if test="searchText != null and searchText != ''">
+                (
+                a.title   LIKE CONCAT('%', #{searchText}, '%')
+                OR a.content LIKE CONCAT('%', #{searchText}, '%')
+                OR u.nickname LIKE CONCAT('%', #{searchText}, '%')
+                )
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert" keyProperty="askId" useGeneratedKeys="true">
+        insert into ask_tb
+        (user_id, title, content)
+        values (#{userId}, #{title}, #{content})
+    </insert>
+
+    <select id="findDetailById" resultMap="AskMap">
+        select
+            a.ask_id,
+            a.user_id,
+            a.title,
+            a.content,
+            a.created_at,
+            a.is_answer,
+            u.nickname
+        from
+            ask_tb a
+            left outer join user_tb u on(u.user_id = a.user_id)
+        where
+            ask_id = #{askId}
+    </select>
+</mapper>

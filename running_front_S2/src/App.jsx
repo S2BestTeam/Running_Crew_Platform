@@ -21,6 +21,9 @@ import GlobalNotice from "./pages/GlobalNotice/GlobalNotice";
 import NoticeReg from "./pages/GlobalNotice/NoticeReg/NoticeReg";
 import NoticeDetail from "./pages/GlobalNotice/NoticeDetail/NoticeDetail";
 import NoticeEdit from "./pages/GlobalNotice/Edit/NoticeEdit";
+import Ask from "./pages/Ask/Ask";
+import AskDetail from "./pages/Ask/AskDetail/AskDetail";
+import AskReg from "./pages/Ask/AskReg/AskReg";
 
 function App() {
   const mapLoader = useKakaoLoader({
@@ -54,8 +57,11 @@ function App() {
         <Route path="/notice/:noticeId" element={<NoticeDetail />} />
         <Route path="/notice/:noticeId/edit" element={<NoticeEdit />} />
 
-        <Route path="/calender" element={<Calender />} />
+        <Route path="/ask" element={<Ask />} />
+        <Route path="/ask/register" element={<AskReg />} />
+        <Route path="/ask/:askId" element={<AskDetail />} />
 
+        <Route path="/calender" element={<Calender />} />
       </Routes>
       <Footer />
     </>

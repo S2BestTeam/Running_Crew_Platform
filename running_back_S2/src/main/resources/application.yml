@@ -53,6 +53,11 @@ app:
       prefix: "${app.server-host}/image/global/notice"
       dir-path: "${user.dir}/upload/global/notice"
       default-img: "default.jpg"
+    ask:
+      prefix: "${app.server-host}/image/ask"
+      dir-path: "${user.dir}/upload/ask"
+      default-img: "default.jpg"
+
 ---
 
 spring:

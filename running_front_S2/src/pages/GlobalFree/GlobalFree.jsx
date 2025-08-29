@@ -18,22 +18,12 @@ function GlobalFree(props) {
   const { data: principalData } = usePrincipalQuery();
   const userId = principalData?.data?.body?.user?.userId;
 
-  //  useEffect(() => {
-  //    if (!isPLoading) {
-  //      const userId = principalData?.data?.body?.user?.userId;
-
-  //      if (!userId) {
-  //        alert("로그인 후 이용 부탁드립니다.");
-  //        navigate("/auth/oauth2/signin");
-  //      }
-  //    }
-  //  }, [principalData, navigate]);
-
-  //  const { data, isLoading, isError } = useGetCrewFreeBoardQuery({ crewId, page, size, searchText });
   const { data, isLoading, isError } = useGetGlobalBoardQuery({ page, size, searchText });
 
   const body = data?.data?.body;
   const totalPages = body?.totalPages ?? 1;
+  const totalElements = body?.totalElements ?? 0;
+  const start = (page - 1) * size;
   const freeLists = useMemo(() => body?.contents ?? [], [body]);
   const handleSearchOnClick = () => {
     setSearchParams((prev) => {
@@ -93,9 +83,9 @@ function GlobalFree(props) {
             </tr>
           </thead>
           <tbody>
-            {freeLists.map((board) => (
-              <tr key={board.freeId} css={s.tr} onClick={() => handlePostOnClick(board.freeId)}>
-                <td css={s.td}>{board.freeId}</td>
+            {freeLists.map((board, index) => (
+              <tr key={board.freeId} className={s.tr} onClick={() => handlePostOnClick(board.freeId)}>
+                <td css={s.td}>{totalElements - (start + index)}</td>
                 <td css={s.tdTitle}>{board.title}</td>
                 <td css={s.td}>{board?.user?.nickname}</td>
                 <td css={s.td}>{board.createdAt}</td>
@@ -103,7 +93,7 @@ function GlobalFree(props) {
             ))}
           </tbody>
         </table>
-        <div style={{ display: "flex", justifyContent: "center", gap: 12, alignItems: "center", marginTop: 16 }}>
+        <div style={{ display: "flex", justifyContent: "center", gap: 12, alignItems: "center", marginTop: 16, backgroundColor: 'white' }}>
           <button onClick={() => goPage(page - 1)} disabled={page <= 1}>
             <BiSolidChevronLeftSquare />
           </button>

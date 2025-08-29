@@ -23,6 +23,8 @@ export const searchBar = css`
     outline: none;
   }
 
+  
+
   /* 2) button */
   > button {
     grid-column: 2 / 3;
@@ -72,7 +74,22 @@ export const memberItem = css`
 
 export const memberInfo = css`
   display: flex;
+  align-items: center;   /* 프로필과 텍스트 수직 가운데 정렬 */
+`;
+
+export const profileImg = css`
+  width: 40px;          /* 닉네임 + 실명 높이에 맞춰 키움 */
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+  flex-shrink: 0;       /* 이미지 크기 줄어들지 않게 */
+`;
+
+export const textBox = css`
+  display: flex;
   flex-direction: column;
+  justify-content: center; /* 닉네임 + 실명 세로 가운데 */
 `;
 
 export const nickname = css`
