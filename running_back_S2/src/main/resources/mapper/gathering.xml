@@ -135,7 +135,6 @@
             gpt.gathering_id = #{gatheringId}
     </select>
 
-<<<<<<< HEAD
     <select id="findGatheringByUserId" resultType="com.korit.running_back_s2.dto.user.UserGatheringsReqDto">
         select
             ct.crew_name,
@@ -153,7 +152,6 @@
             gpt.user_id = #{userId};
     </select>
 
-=======
     <select id="findByGatheringId" resultType="com.korit.running_back_s2.domain.gathering.Gathering">
         SELECT
             gathering_id,
@@ -177,7 +175,4 @@
         WHERE
             gathering_id = #{gatheringId}
     </select>
-
-
->>>>>>> d836702712a35554ee595ef96568af59d4b367be
 </mapper>
