@@ -17,10 +17,20 @@ import BoardReg from "./pages/GlobalFree/BoardReg/BoardReg";
 import BoardDetail from "./pages/GlobalFree/BoardDetail/BoardDetail";
 import BoardEdit from "./pages/GlobalFree/Edit/BoardEdit";
 import Calender from "./pages/Schedule/Calender/Calender";
+<<<<<<< HEAD
 import Competition from "./pages/Schedule/Competition/Competition";
 import { useEffect, useState} from "react";
 import Admin from "./pages/Admin/Admin";
 import SearchUser from "./pages/Admin/SearchUser/SearchUser";
+=======
+import GlobalNotice from "./pages/GlobalNotice/GlobalNotice";
+import NoticeReg from "./pages/GlobalNotice/NoticeReg/NoticeReg";
+import NoticeDetail from "./pages/GlobalNotice/NoticeDetail/NoticeDetail";
+import NoticeEdit from "./pages/GlobalNotice/Edit/NoticeEdit";
+import Ask from "./pages/Ask/Ask";
+import AskDetail from "./pages/Ask/AskDetail/AskDetail";
+import AskReg from "./pages/Ask/AskReg/AskReg";
+>>>>>>> origin/71-글로벌-공지사항
 
 function App() {
   const mapLoader = useKakaoLoader({
@@ -56,11 +66,24 @@ function App() {
         <Route path="/free/register" element={<BoardReg />} />
         <Route path="/free/:freeId" element={<BoardDetail />} />
         <Route path="/free/:freeId/edit" element={<BoardEdit />} />
+
+        <Route path="/notice" element={<GlobalNotice />} />
+        <Route path="/notice/register" element={<NoticeReg />} />
+        <Route path="/notice/:noticeId" element={<NoticeDetail />} />
+        <Route path="/notice/:noticeId/edit" element={<NoticeEdit />} />
+
+        <Route path="/ask" element={<Ask />} />
+        <Route path="/ask/register" element={<AskReg />} />
+        <Route path="/ask/:askId" element={<AskDetail />} />
+
         <Route path="/calender" element={<Calender />} />
+<<<<<<< HEAD
         <Route path="/competition" element={<Competition />} />
         
         {/* Admin 라우트들 */}
         <Route path="/admin/*" element={<Admin />} />
+=======
+>>>>>>> origin/71-글로벌-공지사항
       </Routes>
       
       {!isAdminPage && <Footer />}

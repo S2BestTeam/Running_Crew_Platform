@@ -50,3 +50,4 @@ public class GatheringController {
         return ResponseEntity.ok(gatheringService.getGatheringParticipants(gatheringId));
     }
 }
+

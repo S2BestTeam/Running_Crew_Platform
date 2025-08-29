@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight, Circle } from 'lucide-react';
@@ -5,6 +6,9 @@ import * as s from './styles';
 import MainContainer from '../../../components/MainContainer/MainContainer';
 import useGetMyGatheringQuery from '../../../queries/useGetMyGatheringQuery';
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
+=======
+import MainContainer from "../../../components/MainContainer/MainContainer";
+>>>>>>> origin/71-글로벌-공지사항
 
 function Calendar() {
   const [currentDate, setCurrentDate] = useState(new Date());

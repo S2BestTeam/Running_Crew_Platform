@@ -17,6 +17,7 @@
         <result property="createdAt"            column="created_at"/>
         <result property="totalKm"              column="total_km"/>
         <result property="gunguName"            column="gungu_name"/>
+
     </resultMap>
 
     <resultMap id="GungguMap" type="com.korit.running_back_s2.domain.gungu.Gungu">

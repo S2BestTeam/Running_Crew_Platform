@@ -6,7 +6,7 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import usePrincipalQuery from "../../../queries/usePrincipalQuery";
 import useCrewDetailQuery from "../../../queries/useCrewDetailQuery";
 import useMembersQuery from "../../../queries/useMembersQuery";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import MemberModal from "./MemberModal/MemberModal";
 import ReportModal from "../Report/ReportModal/ReportModal";
 import ContentLayout from "../../../components/ContentLayout/ContentLayout";
@@ -22,22 +22,18 @@ function Member() {
   const [searchInput, setSearchInput] = useState(searchText);
 
   const [isLeader, setLeader] = useState(false);
+
   const membersQuery = useMembersQuery({ crewId, searchText: searchInput, size: 10 });
 
-  const [members, setMembers] = useState([]);
-  const [selectedMemberId, setSelectedMemberId] = useState(null);
-  const [reportMemberId, setReportMemberId] = useState(null);
+  const members = useMemo(() => {
+    const pages = membersQuery?.data?.pages || [];
+    return pages.flatMap((p) => p?.data?.body?.contents || []);
+  }, [membersQuery.data]);
 
   useEffect(() => {
-    const pages = membersQuery?.data?.pages || [];
-    const merged = pages.flatMap((p) => p?.data?.body?.contents || []);
-    setMembers(merged);
-    setLeader(crewData?.body.userId === userId);
-    membersQuery.refetch();
-  }, [membersQuery.data]);
-  
+    setLeader(crewData?.body?.userId === userId);
+  }, [crewData?.body?.userId, userId]);
 
-  const handleSearchOnChange = (e) => setSearchInput(e.target.value);
   const handleSearchOnClick = () => {
     setSearchParams((prev) => {
       const p = new URLSearchParams(prev);
@@ -45,7 +41,10 @@ function Member() {
       p.set("searchText", searchInput);
       return p;
     });
+    membersQuery.refetch();
   };
+
+  const handleSearchOnChange = (e) => setSearchInput(e.target.value);
   const handleSearchOnKeyDown = (e) => {
     if (e.key === "Enter") handleSearchOnClick();
   };
@@ -64,32 +63,20 @@ function Member() {
           membersQuery.fetchNextPage();
         }
       },
-      {
-        root: rootEl,
-        rootMargin: "200px",
-        threshold: 0,
-      }
+      { root: rootEl, rootMargin: "200px", threshold: 0 }
     );
 
     io.observe(sentinel);
     return () => io.disconnect();
   }, [membersQuery.hasNextPage, membersQuery.isFetchingNextPage]);
 
-  const crew = crewData?.body || {
-    crewId: Number(crewId),
-    profilePicture: "",
-    crewName: "",
-    userId: 0,
-    title: "",
-    content: "",
-    limitedPeople: 0,
-    crewTotalKm: 0,
-  };
-
   const handlePickUser = (id) => {
     if (id == null) return;
     setSelectedMemberId(Number(id));
   };
+
+  const [selectedMemberId, setSelectedMemberId] = useState(null);
+  const [reportMemberId, setReportMemberId] = useState(null);
 
   if (isLoading) {
     return (
@@ -98,32 +85,53 @@ function Member() {
       </MainContainer>
     );
   }
+<<<<<<< HEAD
+=======
+  console.log(members)
+>>>>>>> origin/71-글로벌-공지사항
 
   return (
     <ContentLayout>
-
       <div css={s.layout}>
         <h2>크루 멤버</h2>
         <div>
           <div css={s.searchBar}>
-            <input value={searchInput} onChange={handleSearchOnChange} onKeyDown={handleSearchOnKeyDown} placeholder="닉네임/실명 검색" />
+            <input
+              value={searchInput}
+              onChange={handleSearchOnChange}
+              onKeyDown={handleSearchOnKeyDown}
+              placeholder="닉네임/실명 검색"
+            />
             <button onClick={handleSearchOnClick}>검색</button>
+
             <div ref={scrollBoxRef} css={s.scrollBox}>
               {members.map((m) => (
                 <div key={m.memberId} css={s.memberItem} onClick={() => setSelectedMemberId(m.memberId)}>
                   <div css={s.memberInfo}>
-                    <div css={s.nickname}>
-                      {m.user.nickname}
-                      {m.roleId === 1 && <span css={s.roleIcon}>👑</span>}
-                      {m.roleId === 2 && <span css={s.roleIcon}>⭐</span>}
+
+                    {m.user.picture && (
+                      <img
+                        src={m.user.picture} 
+                        alt={m.user.nickname}
+                        css={s.profileImg}
+                      />
+                    )}
+
+                    <div css={s.textBox}>
+                      <div css={s.nickname}>
+                        {m.user.nickname}
+                        {m.roleId === 1 && <span css={s.roleIcon}>👑</span>}
+                        {m.roleId === 2 && <span css={s.roleIcon}>⭐</span>}
+                      </div>
+                      <div css={s.fullName}>{m.user.fullName}</div>
                     </div>
-                    <div css={s.fullName}>{m.user.fullName}</div>
                   </div>
                 </div>
               ))}
               <div ref={loadMoreRef} style={{ height: 8 }} />
             </div>
-            {members.filter(member => member.userId === userId).length > 0 ? (
+
+            {members.some((member) => member.userId === userId) ? (
               <>
                 {selectedMemberId && (
                   <MemberModal
@@ -142,7 +150,7 @@ function Member() {
                   <ReportModal
                     crewId={crewId}
                     memberId={reportMemberId}
-                    nickname={members.find(m => m.memberId === reportMemberId)?.nickname}
+                    nickname={members.find((m) => m.memberId === reportMemberId)?.nickname}
                     isOpen={!!reportMemberId}
                     onClose={() => setReportMemberId(null)}
                   />

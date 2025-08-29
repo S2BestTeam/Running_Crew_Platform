@@ -1,8 +1,11 @@
 import { css } from "@emotion/react";
 
 export const container = css`
-  width: 96%;
+    text-align: center;
+    margin: 0 auto;
+    width: 80%;
 `;
+
 
 export const tabActive = css`
   color: #000;

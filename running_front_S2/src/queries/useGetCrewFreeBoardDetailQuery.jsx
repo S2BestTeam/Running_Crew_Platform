@@ -12,5 +12,6 @@ export default function useGetCrewFreeBoardDetailQuery({ crewId, freeId, enabled
       const res = await reqGetFreeFeedDetail(cid, fid);
       return res.data;
     },
+    staleTime: 0
   });
 }

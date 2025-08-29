@@ -90,6 +90,10 @@ function Gathering() {
         <header>
           <h2>정모 일정</h2>
           {isCrewMember && (
+<<<<<<< HEAD
+=======
+            // <button onClick={() => setRegOpen(true)}>일정 등록</button>
+>>>>>>> origin/71-글로벌-공지사항
             <button onClick={() => navigate(`/crews/${crewId}/gathering/register`)}>일정 등록</button>
           )}
         </header>
@@ -111,7 +115,7 @@ function Gathering() {
                 `${runningDate}T${runningTime}`
               );
               return gatheringDateTime < new Date();
-            };
+            };0
 
             return (
               <div

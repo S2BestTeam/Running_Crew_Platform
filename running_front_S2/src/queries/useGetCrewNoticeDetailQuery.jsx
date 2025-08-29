@@ -14,5 +14,6 @@ export default function useGetCrewNoticeDetailQuery({ crewId, noticeId, enabled 
       const res = await reqGetNoticeDetail(cid, nid);
       return res.data;
     },
+    staleTime: 0
   });
 }

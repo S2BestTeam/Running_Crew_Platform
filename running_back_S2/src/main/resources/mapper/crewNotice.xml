@@ -31,6 +31,7 @@
         <result property="birthDate"                column="birth_date" />
         <result property="gender"                   column="gender" />
         <result property="totalKm"                  column="total_km" />
+        <result property="role"                     column="role" />
     </resultMap>
 
     <resultMap id="MemberMap" type="com.korit.running_back_s2.domain.member.Member">
