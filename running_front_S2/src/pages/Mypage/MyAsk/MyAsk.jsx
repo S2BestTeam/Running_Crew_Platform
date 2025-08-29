@@ -84,10 +84,6 @@ function MyAsk() {
                         </button>
 
                     </div>
-
-                    <div style={{ marginTop: 8, fontSize: 13, color: '#666' }}>
-                        내 문의만 표시 중입니다
-                    </div>
                 </div>
 
                 <table css={s.table}>

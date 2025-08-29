@@ -60,6 +60,8 @@ function Gathering() {
     setDetailOpen(false);
   };
 
+  console.log(gatheringsQuery?.data?.data?.body)
+
   const handleOpenDetailModal = (gathering) => {
     if (!isCrewMember) {
       alert('크루 멤버만 접근 가능합니다. 크루에 가입해주세요.');

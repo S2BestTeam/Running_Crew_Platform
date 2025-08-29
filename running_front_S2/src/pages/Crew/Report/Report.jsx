@@ -44,7 +44,7 @@ function Report({ isCrewLeader }) {
             reportList.map((r) => (
               <tr key={r.reportId}>
                 <td css={s.td} onClick={() => handlePickMember(r.reportMemberId)} title="신고자 정보 보기">
-                  {r.reporterUser.fullName}
+                  {r.reporterUser === null ? "탈퇴한 유저입니다." : r.reporterUser?.fullName}
                 </td>
                 <td css={s.td} onClick={() => handlePickMember(r.reportedMemberId)} title="피신고자 정보 보기">
                   {r.reportedUser?.fullName}
