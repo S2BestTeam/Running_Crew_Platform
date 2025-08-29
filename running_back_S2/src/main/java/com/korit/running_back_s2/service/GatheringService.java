@@ -5,8 +5,7 @@ import com.korit.running_back_s2.domain.gathering.GatheringMapper;
 import com.korit.running_back_s2.domain.gathering.ParticipantMapper;
 import com.korit.running_back_s2.domain.user.User;
 import com.korit.running_back_s2.dto.gathering.GatheringRegisterReqDto;
-import com.korit.running_back_s2.dto.gathering.GatheringRespDto;
-import com.korit.running_back_s2.exception.auth.UnauthorizedException;
+import com.korit.running_back_s2.dto.gathering.GatheringUpdateReqDto;
 import com.korit.running_back_s2.security.model.PrincipalUtil;
 import com.korit.running_back_s2.util.ImageUrlUtil;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -54,4 +52,28 @@ public class GatheringService {
         return gatheringMapper.findParticipantsByGatheringId(gatheringId);
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    public void updateGathering(Integer gatheringId, GatheringUpdateReqDto dto) {
+
+        Gathering gathering = dto.toEntity();
+
+        System.out.println(gathering);
+        if (dto.getThumbnailPicture() != null && !dto.getThumbnailPicture().isEmpty()) {
+            final String imageConfigName = "crewGathering";
+
+            String newFileName = fileService.uploadFile(dto.getThumbnailPicture(), imageConfigName);
+            gathering.setThumbnailPicture(newFileName);
+            Gathering foundGathering = gatheringMapper.findByGatheringId(gatheringId);
+
+            fileService.deleteFile(imageConfigName, foundGathering.getThumbnailPicture());
+        }
+
+        gatheringMapper.update(gathering);
+    }
+
+    public Gathering getGatheringDetail(Integer gatheringId) {
+        Gathering foundGathering = gatheringMapper.findByGatheringId(gatheringId);
+        foundGathering.setThumbnailPictureUrl(imageUrlUtil);
+        return foundGathering;
+    }
 }
