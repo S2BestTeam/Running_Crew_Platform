@@ -9,6 +9,7 @@ function useGetCrewFreeCommentQuery(crewId,freeId) {
             const res = await reqGetFreeCommentList(crewId,freeId);
             return res;
         },
+        staleTime: 0
     })
 }
 

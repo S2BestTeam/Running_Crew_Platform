@@ -1,14 +1,16 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import usePrincipalQuery from '../../../queries/usePrincipalQuery';
-import useGetGlobalFreeBoardDetailQuery from '../../../queries/useGetGlobalFreeBoardDetailQuery';
-import { reqUpdateGlobalFreeBoard } from '../../../api/GlobalFree/globalFreeApi';
-import ReactQuill from 'react-quill-new';
-import MainContainer from '../../../components/MainContainer/MainContainer';
+import React, { useEffect, useMemo, useRef, useState, useCallback } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import usePrincipalQuery from "../../../queries/usePrincipalQuery";
+import useGetGlobalFreeBoardDetailQuery from "../../../queries/useGetGlobalFreeBoardDetailQuery";
+import { reqUpdateGlobalFreeBoard } from "../../../api/GlobalFree/globalFreeApi";
+import ReactQuill from "react-quill-new";
+import api from "../../../api/axios";
+import MainContainer from "../../../components/MainContainer/MainContainer";
 
-function BoardEdit(props) {
+function BoardEdit() {
     const { freeId } = useParams();
     const navigate = useNavigate();
+    const quillRef = useRef(null);
 
     const principalQuery = usePrincipalQuery();
     const principalId = principalQuery?.data?.data?.body?.user?.userId ?? null;
@@ -23,7 +25,7 @@ function BoardEdit(props) {
     const authorId = post?.user?.userId ?? post?.userId ?? null;
 
     const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
+    const [content, setContent] = useState(""); // quill value
 
     useEffect(() => {
         if (post) {
@@ -39,14 +41,59 @@ function BoardEdit(props) {
         }
     }, [authorId, principalId, navigate]);
 
-    if (isLoading) return <div>로딩중…</div>;
-    if (error) return <div>에러가 발생했어요: {String(error)}</div>;
-    if (!post) return <div>게시글을 찾을 수 없어요.</div>;
+    const imageHandler = useCallback(() => {
+        const quill = quillRef.current?.getEditor?.();
+        if (!quill) return;
+
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
+        input.click();
+
+        input.onchange = async () => {
+            const file = input.files?.[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append("imageConfigName", "globalFreeBoard");
+            formData.append("file", file);
+
+            try {
+                const res = await api.post("/api/images", formData, {
+                    headers: { "Content-Type": "multipart/form-data" },
+                });
+                const url = res?.data?.body;
+                if (!url) return;
+
+                quill.focus();
+                let range = quill.getSelection(true);
+
+                const prevChar = quill.getText(Math.max(range.index - 1, 0), 1);
+                if (prevChar && prevChar !== "\n") {
+                    quill.insertText(range.index, "\n");
+                    range = { index: range.index + 1, length: 0 };
+                }
+
+                quill.insertEmbed(range.index, "image", url);
+                quill.insertText(range.index + 1, "\n");
+                quill.setSelection(range.index + 2, 0);
+            } catch (e) {
+                console.error(e);
+                alert("이미지 업로드 중 오류가 발생했습니다.");
+            }
+        };
+    }, []);
+
+    const isContentEmpty = useCallback((html) => {
+        const hasImg = /<img[^>]*src=/.test(html);
+        const text = html.replace(/<[^>]+>/g, "").replace(/&nbsp;/g, " ").trim();
+        return !hasImg && text.length === 0;
+    }, []);
 
     const handleSave = async () => {
         const t = title.trim();
-        const c = content?.trim?.() ?? content;
         if (!t) return alert("제목을 입력해주세요.");
+        if (isContentEmpty(content)) return alert("내용을 입력해주세요.");
 
         try {
             await reqUpdateGlobalFreeBoard({ freeId, title, content });
@@ -58,23 +105,40 @@ function BoardEdit(props) {
         }
     };
 
+    if (isLoading) return <div>로딩중…</div>;
+    if (error) return <div>에러가 발생했어요: {String(error)}</div>;
+    if (!post) return <div>게시글을 찾을 수 없어요.</div>;
+
+    console.log(content)
+
     return (
         <MainContainer>
-
             <div style={{ maxWidth: 860, margin: "0 auto" }}>
                 <h2>게시글 수정</h2>
 
                 <input
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    placeholder="제목"
+                    placeholder="제목을 입력하세요"
                     style={{ width: "100%", padding: 8, marginBottom: 8 }}
                 />
 
                 <ReactQuill
+                    ref={quillRef}
                     theme="snow"
                     value={content}
-                    onChange={(value) => setContent(value)}
+                    onChange={setContent}
+                    modules={{
+                        toolbar: {
+                            container: [
+                                [{ header: [false, 1, 2, 3] }],
+                                ["bold", "italic", "underline", "strike"],
+                                [{ align: [] }],
+                                ["blockquote", "link", "image"],
+                            ],
+                            handlers: { image: imageHandler },
+                        },
+                    }}
                 />
 
                 <div style={{ marginTop: 12, display: "flex", gap: 8 }}>
@@ -85,8 +149,5 @@ function BoardEdit(props) {
         </MainContainer>
     );
 }
-
-
-
 
 export default BoardEdit;

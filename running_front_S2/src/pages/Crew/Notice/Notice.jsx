@@ -25,7 +25,7 @@ function Notice() {
   const crewRole = CrewRoleQuery?.data?.find((role) => role.crewId === Number(crewId));
 
   const isCrewMember = !!crewRole;
-  const canRegister = crewRole && ["1", "2"].includes(crewRole.roleId);
+  const canRegister = crewRole && [1, 2].includes(crewRole.roleId);
 
   const { data, isLoading, isError } = useGetCrewNotoiceQuery({
     crewId: Number(crewId),
@@ -33,6 +33,7 @@ function Notice() {
     size,
     searchText,
   });
+
 
   useEffect(() => {
     if (isPrincipalReady && !userId) {
@@ -43,7 +44,9 @@ function Notice() {
 
   const body = data?.data?.body;
   const totalPages = body?.totalPages ?? 1;
+  const totalElements = body?.totalElements ?? 0;
   const noticeList = useMemo(() => body?.contents ?? [], [body]);
+  const start = (page - 1) * size;
 
   const handleSearchOnClick = () => {
     setSearchParams((prev) => {
@@ -98,13 +101,13 @@ function Notice() {
           </tr>
         </thead>
         <tbody>
-          {noticeList.map((notice) => (
+          {noticeList.map((notice, index) => (
             <tr
               key={notice.noticeId}
               onClick={isCrewMember ? () => navigate(`./${notice.noticeId}`) : undefined}
               css={s.tr(isCrewMember)}
             >
-              <td css={s.td}>{notice.noticeId}</td>
+              <td css={s.td}>{totalElements - (start + index)}</td>
               <td css={s.tdTitle}>{notice.title}</td>
               <td css={s.td}>{notice?.user?.nickname}</td>
               <td css={s.td}>{notice.createdAt}</td>

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { reqDeleteUser } from '../../../api/User/userApi';
+import { reqDeleteUser } from '../../../api/User/UserApi';
 import ContentLayout from '../../../components/ContentLayout/ContentLayout';
 import LeftSideBarLayout from '../../../components/LeftSideBarLayout/LeftSideBarLayout';
 import MainContainer from '../../../components/MainContainer/MainContainer';
@@ -7,6 +7,7 @@ import useGetCrewRoleQuery from '../../../queries/useGetCrewRoleQuery';
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
 import { useCrewStore } from '../../../stores/useCrewStroes';
 import MypageModify from '../Modify/MypageModify';
+import MyAsk from '../MyAsk/MyAsk';
 import Post from '../Post/Post';
 import Welcome from '../Welcome/Welcome';
 import Wishlist from '../Wishlist/Wishlist';
@@ -47,7 +48,7 @@ function MCategory(props) {
       <div css={s.profileImgBox}>
         <img src={user?.picture} alt="프로필 이미지" />
       </div>
-      <div css={s.userText}>
+      <div>
         <div css={s.nick}>{user?.nickname}</div>
         <div css={s.email}>{user?.email}</div>
       </div>
@@ -60,6 +61,7 @@ function MCategory(props) {
       <button onClick={() => navigate("/mypage/wish")}>나의 크루</button>
       <button>내가 쓴 글</button>
       <button>나의 정모일정</button>
+      <button onClick={() => navigate("/mypage/ask")}>나의 문의 사항</button>
     </>
   );
 
@@ -87,6 +89,7 @@ function MCategory(props) {
             <Route path='/wish' element={<Wishlist />}/>
             {/* <Route path='/post' element={<Post />}/> */}
             <Route path='/welcome' element={<Welcome />} />
+            <Route path='/ask' element={<MyAsk />} />
           </Routes>
         </ContentLayout>
       </LeftSideBarLayout>

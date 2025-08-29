@@ -8,6 +8,7 @@ function useCrewDetailQuery(crewId) {
       const res = await reqCrewDetail(crewId);
       return res.data;
     }
+    
   })
 }
 

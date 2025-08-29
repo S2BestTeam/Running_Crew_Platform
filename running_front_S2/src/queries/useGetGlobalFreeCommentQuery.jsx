@@ -9,6 +9,7 @@ function useGetGlobalFreeCommentQuery(freeId) {
             const res = await reqGetGlobalFreeCommentList(freeId);
             return res;
         },
+        staleTime: 0
     })
 }
 

@@ -18,6 +18,7 @@
         <result property="birthDate"        column="birth_date" />
         <result property="gender"           column="gender" />
         <result property="totalKm"          column="total_km" />
+        <result property="role"             column="role" />
     </resultMap>
 
     <select id="findPictureById" resultType="string" parameterType="int">
@@ -100,7 +101,8 @@
             address,
             birth_date,
             gender,
-            total_km
+            total_km,
+            role
         from
             user_tb
         where
@@ -159,6 +161,43 @@
                             ) gpt on ( gpt.user_id = ut.user_id)
         order by
             gpt.gathering_count desc
+    </select>
+
+    <select id="findAllOfOptions" resultType="com.korit.running_back_s2.domain.user.User">
+        select
+            user_id,
+            oauth_type,
+            email,
+            picture,
+            full_name,
+            nickname,
+            phone_number,
+            address,
+            birth_date,
+            gender,
+            total_km,
+            created_at,
+            role
+        from
+            user_tb
+        where
+            full_name like concat('%', #{searchText}, '%')
+            or nickname like concat('%', #{searchText}, '%')
+            or address like concat('%', #{searchText}, '%')
+            or phone_number like concat('%', #{searchText}, '%')
+        limit #{startIndex}, #{size}
+    </select>
+
+    <select id="getCountOfOptions" resultType="java.lang.Integer">
+        select
+            count(*)
+        from
+            user_tb
+        where
+            full_name like concat('%', #{searchText}, '%')
+            or nickname like concat('%', #{searchText}, '%')
+            or address like concat('%', #{searchText}, '%')
+            or phone_number like concat('%', #{searchText}, '%')
     </select>
 
 

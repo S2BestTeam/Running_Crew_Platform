@@ -2,6 +2,7 @@ package com.korit.running_back_s2.controller;
 
 import com.korit.running_back_s2.domain.user.User;
 import com.korit.running_back_s2.dto.gathering.GatheringRegisterReqDto;
+import com.korit.running_back_s2.dto.gathering.GatheringUpdateReqDto;
 import com.korit.running_back_s2.dto.response.ResponseDto;
 import com.korit.running_back_s2.service.GatheringService;
 import com.korit.running_back_s2.service.ParticipantService;
@@ -31,6 +32,18 @@ public class GatheringController {
         return ResponseEntity.ok(ResponseDto.success("Crew gathering registered"));
     }
 
+    @GetMapping("{crewId}/gatherings/{gatheringId}")
+    public ResponseEntity<ResponseDto<?>> getGatheringDetail(@PathVariable Integer crewId, @PathVariable Integer gatheringId) {
+        return ResponseEntity.ok(ResponseDto.success(gatheringService.getGatheringDetail(gatheringId)));
+    }
+
+    @PutMapping("{crewId}/gatherings/{gatheringId}")
+    public ResponseEntity<ResponseDto<?>> updateGathering (@PathVariable Integer crewId, @PathVariable Integer gatheringId, @ModelAttribute GatheringUpdateReqDto dto) {
+        gatheringService.updateGathering(gatheringId, dto);
+        System.out.println(dto);
+        return ResponseEntity.ok(ResponseDto.success("수정완료"));
+    }
+
     @PostMapping("/{crewId}/gatherings/{gatheringId}/attend")
     public ResponseEntity<ResponseDto<?>> attendGathering(@PathVariable Integer crewId,
                                                                 @PathVariable Integer gatheringId) {
@@ -50,3 +63,4 @@ public class GatheringController {
         return ResponseEntity.ok(gatheringService.getGatheringParticipants(gatheringId));
     }
 }
+

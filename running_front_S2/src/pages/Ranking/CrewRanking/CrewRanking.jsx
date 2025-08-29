@@ -9,7 +9,7 @@ import usePrincipalQuery from '../../../queries/usePrincipalQuery';
 function CrewRanking() {
   const navigate = useNavigate();
   const { data: rankings } = useGetCrewRankingQuery();
-  
+
 
   return (
     <MainContainer>
@@ -24,13 +24,13 @@ function CrewRanking() {
           <div css={s.rankingList}>
             {rankings?.totalKmRanking?.slice(0, 10).map((crew, index) => (
               <div key={crew.crewId} css={s.cardDiv} onClick={() => navigate(`/crews/${crew.crewId}`)}>
-                <RankingCard 
-                  key={crew.crewId} 
-                  data={crew} 
+                <RankingCard
+                  key={crew.crewId}
+                  data={crew}
                   rank={index + 1}
                   type="distance"
                   mode="crew"
-                  />
+                />
               </div>
             ))}
           </div>
@@ -41,9 +41,9 @@ function CrewRanking() {
           <div css={s.rankingList}>
             {rankings?.memberRanking?.slice(0, 10).map((crew, index) => (
               <div key={crew.crewId} css={s.cardDiv} onClick={() => navigate(`/crews/${crew.crewId}`)}>
-                <RankingCard 
-                  key={crew.crewId} 
-                  data={crew} 
+                <RankingCard
+                  key={crew.crewId}
+                  data={crew}
                   rank={index + 1}
                   type="member"
                   mode="crew"
@@ -58,9 +58,9 @@ function CrewRanking() {
           <div css={s.rankingList}>
             {rankings?.newRanking?.slice(0, 10).map((crew, index) => (
               <div key={crew.crewId} css={s.cardDiv} onClick={() => navigate(`/crews/${crew.crewId}`)}>
-                <RankingCard 
-                  key={crew.crewId} 
-                  data={crew} 
+                <RankingCard
+                  key={crew.crewId}
+                  data={crew}
                   rank={index + 1}
                   type="new"
                   mode="crew"

@@ -31,8 +31,6 @@ function Gathering() {
   const crewRole = CrewRoleQuery?.data?.some((role) => role.crewId === Number(crewId));
   
   const isCrewMember = !!crewRole;
-
-  console.log(isCrewMember);
   
 
   useEffect(() => {
@@ -92,7 +90,7 @@ function Gathering() {
         <header>
           <h2>정모 일정</h2>
           {isCrewMember && (
-            <button onClick={() => setRegOpen(true)}>일정 등록</button>
+            <button onClick={() => navigate(`/crews/${crewId}/gathering/register`)}>일정 등록</button>
           )}
         </header>
         <main css={s.gatheringMain}>
@@ -113,14 +111,14 @@ function Gathering() {
                 `${runningDate}T${runningTime}`
               );
               return gatheringDateTime < new Date();
-            };
+            };0
 
             return (
               <div
                 key={index}
                 css={[
                   s.gatheringContainer,
-                  isPastTime(g.runningDate, g.runningTime) && s.closedOverlay, // 시간 지난 경우만 오버레이
+                  isPastTime(g.runningDate, g.runningTime) && s.closedOverlay,
                 ]}
                 onClick={() => handleOpenDetailModal(g)}
               >

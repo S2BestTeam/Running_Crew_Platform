@@ -5,7 +5,7 @@ import {
   SIGNUP_REGEX,
   SIGNUP_REGEX_ERROR_MESSAGE,
 } from "../../../constants/signupRegex";
-import { reqCheckNickname, reqRegisterUser } from "../../../api/User/userApi";
+import { reqCheckNickname, reqRegisterUser } from "../../../api/User/UserApi";
 
 function Signup() {
   const navigate = useNavigate();

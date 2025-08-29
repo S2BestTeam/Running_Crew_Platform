@@ -11,8 +11,8 @@ export default function useGetGlobalFreeBoardDetailQuery({ freeId, enabled = tru
       const res = await reqGetGlobalFreeFeedDetail(fid);
       return res.data;
     },
-    staleTime: 0,                // 항상 stale 취급
-    refetchOnMount: "always",    // 마운트 때마다 네트워크 요청
-    refetchOnWindowFocus: false, // 원치 않으면 true로
+    staleTime: 0,              
+    refetchOnMount: "always",   
+    refetchOnWindowFocus: false,
   });
 }

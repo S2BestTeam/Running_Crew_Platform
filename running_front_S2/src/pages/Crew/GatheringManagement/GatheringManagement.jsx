@@ -13,6 +13,7 @@ import { useCrewStore } from "../../../stores/useCrewStroes";
 function GatheringManagement() {
   const { crewId } = useCrewStore();
   const navigate = useNavigate();
+
   const gatheringsQuery = useGetGatheringsQuery(crewId);
   const [gatherings, setGatherings] = useState([]);
   const [selectedGathering, setSelectedGathering] = useState(null);

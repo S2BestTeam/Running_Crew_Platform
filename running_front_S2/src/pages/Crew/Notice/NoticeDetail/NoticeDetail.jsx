@@ -48,9 +48,9 @@ export default function NoticeDetail() {
   const handleDeleteOnClick = async () => {
     if (!window.confirm("정말 이 공지글을 삭제할까요?")) return;
     try {
-      await reqDeleteNotice(crewId, freeId);
+      await reqDeleteNotice(crewId, noticeId);
       alert("삭제되었습니다.");
-      navigate(`/crews/${crewId}/freeBoards`, { replace: true });
+      navigate(`/crews/${crewId}/notices`, { replace: true });
     } catch (e) {
       console.error(e);
       alert("삭제 중 오류가 발생했습니다.");

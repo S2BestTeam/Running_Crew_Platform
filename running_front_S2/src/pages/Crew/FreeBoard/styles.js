@@ -1,8 +1,11 @@
 import { css } from "@emotion/react";
 
 export const container = css`
-  width: 96%;
+    text-align: center;
+    margin: 0 auto;
+    width: 80%;
 `;
+
 
 export const tabActive = css`
   color: #000;
@@ -11,7 +14,7 @@ export const tabActive = css`
 
 export const searchBox = css`
   display: flex;
-  justify-content: space-between;
+  justify-content: right;
   align-items: center;
   margin: 2rem 0 2rem 0;
 `;

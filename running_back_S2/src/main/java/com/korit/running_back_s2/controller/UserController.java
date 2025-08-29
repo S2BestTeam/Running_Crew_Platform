@@ -68,4 +68,9 @@ public class UserController {
     public ResponseEntity<ResponseDto<?>> getMyCrews(@PathVariable Integer userId) {
         return ResponseEntity.ok(ResponseDto.success(userService.getMyCrews(userId)));
     }
+
+    @GetMapping("/users/{userId}/gatherings")
+    public ResponseEntity<ResponseDto<?>> getMyGatherings (@PathVariable Integer userId) {
+        return ResponseEntity.ok(ResponseDto.success(userService.getMyGathering(userId)));
+    }
 }
