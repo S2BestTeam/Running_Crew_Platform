@@ -10,7 +10,6 @@ public class GatheringUpdateReqDto {
     private Integer crewId;
     private String title;
     private String content;
-    private String oldFilePath;
     private MultipartFile thumbnailPicture;
     private String runningDate;
     private String runningTime;
@@ -25,6 +24,7 @@ public class GatheringUpdateReqDto {
 
     public Gathering toEntity() {
         return Gathering.builder()
+                .gatheringId(gatheringId)
                 .crewId(crewId)
                 .title(title)
                 .content(content)

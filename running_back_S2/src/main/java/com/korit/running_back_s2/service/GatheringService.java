@@ -58,20 +58,23 @@ public class GatheringService {
 
         Gathering gathering = dto.toEntity();
 
+        System.out.println(gathering);
         if (dto.getThumbnailPicture() != null && !dto.getThumbnailPicture().isEmpty()) {
-            final String UPLOAD_PATH = "crewGathering";
+            final String imageConfigName = "crewGathering";
 
-            String newFileName = fileService.uploadFile(dto.getThumbnailPicture(), UPLOAD_PATH);
-            String thumbnailImg = UPLOAD_PATH + "/" + newFileName;
-            gathering.setThumbnailPicture(thumbnailImg);
+            String newFileName = fileService.uploadFile(dto.getThumbnailPicture(), imageConfigName);
+            gathering.setThumbnailPicture(newFileName);
+            Gathering foundGathering = gatheringMapper.findByGatheringId(gatheringId);
 
-            fileService.deleteFile(UPLOAD_PATH, dto.getOldFilePath());
+            fileService.deleteFile(imageConfigName, foundGathering.getThumbnailPicture());
         }
 
         gatheringMapper.update(gathering);
     }
 
-    public List<Gathering> getGatheringDetail(Integer gatheringId) {
-        return gatheringMapper.findByGatheringId(gatheringId);
+    public Gathering getGatheringDetail(Integer gatheringId) {
+        Gathering foundGathering = gatheringMapper.findByGatheringId(gatheringId);
+        foundGathering.setThumbnailPictureUrl(imageUrlUtil);
+        return foundGathering;
     }
 }

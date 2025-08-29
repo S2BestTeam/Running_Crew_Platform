@@ -4,13 +4,19 @@ import { useEffect, useState } from "react";
 import { CiImageOn } from "react-icons/ci";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { useNavigate, useParams } from "react-router-dom";
-import { reqCrewGatherings, reqGatheringDetail, reqUpdateGathering } from "../../../../api/Crew/gatheringApi";
+import {
+  reqCrewGatherings,
+  reqGatheringDetail,
+  reqUpdateGathering,
+} from "../../../../api/Crew/gatheringApi";
 import ContentLayout from "../../../../components/ContentLayout/ContentLayout";
 import { useCrewStore } from "../../../../stores/useCrewStroes";
+import { useQueryClient } from "@tanstack/react-query";
 
 function GatheringModify() {
   const { crewId } = useCrewStore();
   const { gatheringId } = useParams();
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const [location, setLocation] = useState({ lat: null, lng: null });
@@ -35,20 +41,15 @@ function GatheringModify() {
     km: "",
   });
 
-  console.log(gatheringId)
-  console.log(crewId)
-
-  // 기존 정모 정보 불러오기
   useEffect(() => {
     const fetchGathering = async () => {
       try {
         const res = await reqGatheringDetail(crewId, gatheringId);
-        const data = res.data.body?.[0];
-        console.log(data?.address)
+        const data = res.data.body;
+        console.log(data);
         setGatheringData({
           title: data.title,
           content: data.content,
-          thumbnailPicture: data.thumbnailPicture,
           runningDate: data.runningDate,
           runningTime: data.runningTime,
           placeName: data.placeName,
@@ -62,7 +63,10 @@ function GatheringModify() {
         });
         setPreview({ thumbnailPicture: data.thumbnailPicture });
         setAddressText(data.address);
-        setLocation({ lat: parseFloat(data.latitude), lng: parseFloat(data.longitude) });
+        setLocation({
+          lat: parseFloat(data.latitude),
+          lng: parseFloat(data.longitude),
+        });
       } catch (err) {
         console.error("기존 정모 정보 불러오기 실패:", err);
       }
@@ -139,9 +143,15 @@ function GatheringModify() {
   const handleUpdateOnClick = async () => {
     const formData = new FormData();
     Object.entries(gatheringData).forEach(([key, value]) => {
+      if (key === "thumbnailPicture" && !value) {
+        return;
+      }
       formData.append(key, value);
     });
     await reqUpdateGathering(crewId, gatheringId, formData);
+    await queryClient.invalidateQueries({
+      queryKey: ["gatherings", crewId],
+    });
     navigate(`/crews/${crewId}/gathering`);
   };
 

@@ -77,8 +77,6 @@
             thumbnail_picture = #{thumbnailPicture}
         WHERE
             gathering_id = #{gatheringId}
-        AND
-            crew_id = #{crewId}
     </update>
 
 

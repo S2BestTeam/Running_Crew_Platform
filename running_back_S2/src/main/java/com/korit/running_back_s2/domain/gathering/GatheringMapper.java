@@ -1,9 +1,6 @@
 package com.korit.running_back_s2.domain.gathering;
 
 import com.korit.running_back_s2.domain.user.User;
-import com.korit.running_back_s2.dto.gathering.GatheringRegisterReqDto;
-import com.korit.running_back_s2.dto.gathering.GatheringRespDto;
-import com.korit.running_back_s2.dto.gathering.GatheringUpdateReqDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,5 +14,5 @@ public interface GatheringMapper {
 
     int update(Gathering gathering);
 
-    List<Gathering> findByGatheringId(Integer gatheringId);
+    Gathering findByGatheringId(Integer gatheringId);
 }

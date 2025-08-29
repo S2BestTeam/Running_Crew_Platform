@@ -27,6 +27,7 @@ public class FileService {
         String newFilename = generateRandomFilename(file.getOriginalFilename());
         mkdirs(dirPath);
         Path path = Paths.get(dirPath, newFilename);
+        System.out.println(path);
         try {
             Files.write(path, file.getBytes());
         } catch (Exception e) {
@@ -63,9 +64,8 @@ public class FileService {
         }
 
         String dirPath = appProperties.getImageConfigs().get(imageConfigName).getDirPath();
-        Path filePath = Paths.get(dirPath, oldFileName);
 
-        File file = filePath.toFile();
+        File file = new File(dirPath + "/" + oldFileName);
         if (!file.exists()) {
             return false;
         }
