@@ -22,14 +22,7 @@ function FreeBoard() {
   const CrewRoleQuery = useGetCrewRoleQuery(userId);
 
   const crewRole = CrewRoleQuery?.data?.some((role) => role.crewId === Number(crewId));
-<<<<<<< HEAD
   
-=======
-
-  console.log(crewRole);
-
-
->>>>>>> origin/71-글로벌-공지사항
   const isCrewMember = !!crewRole;
 
   useEffect(() => {

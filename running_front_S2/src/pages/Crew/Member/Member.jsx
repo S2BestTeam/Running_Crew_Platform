@@ -85,10 +85,6 @@ function Member() {
       </MainContainer>
     );
   }
-<<<<<<< HEAD
-=======
-  console.log(members)
->>>>>>> origin/71-글로벌-공지사항
 
   return (
     <ContentLayout>

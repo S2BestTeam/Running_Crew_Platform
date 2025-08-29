@@ -25,9 +25,5 @@ public class User {
     private LocalDate birthDate;
     private Integer gender;
     private Double totalKm;
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/71-글로벌-공지사항
     private String role;
 }
