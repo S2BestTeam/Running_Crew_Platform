@@ -120,7 +120,7 @@ function SearchUser() {
         </tbody>
       </table>
 
-      {/* 페이지네이션 */}
+      {/* 페이지네이션 - 컴포넌트 화*/}
       <div style={{ display: "flex", justifyContent: "center", gap: 12, alignItems: "center", marginTop: 16 }}>
         <button onClick={() => goPage(page - 1)} disabled={page <= 1}>
           <BiSolidChevronLeftSquare />

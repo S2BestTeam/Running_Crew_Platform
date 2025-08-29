@@ -14,7 +14,7 @@ export const tabActive = css`
 
 export const searchBox = css`
   display: flex;
-  justify-content: space-between;
+  justify-content: right;
   align-items: center;
   margin: 2rem 0 2rem 0;
 `;
