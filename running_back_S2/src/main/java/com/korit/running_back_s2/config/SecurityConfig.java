@@ -48,13 +48,15 @@ public class SecurityConfig {
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         http.authorizeHttpRequests(auth -> {
-            auth.requestMatchers("/image/**").permitAll();
+            auth.requestMatchers("/image/**", "/uploads/**", "/oauth2/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/image/**").permitAll(); // 중복 허용, 안전상 유지
             auth.requestMatchers("/uploads/**").permitAll()
                     .requestMatchers(HttpMethod.GET, "/image/**").permitAll();
             auth.requestMatchers("/api/**").permitAll();
             auth.requestMatchers("/api/regions/**").permitAll();
             auth.requestMatchers("/api/users/**").permitAll();
             auth.requestMatchers("/api/mypage/**").permitAll();
+            auth.requestMatchers("/api/image/**").permitAll();
             auth.requestMatchers("/api/crews/**").permitAll();
             auth.requestMatchers("/api/reports/**").permitAll();
             auth.requestMatchers("/api/members/**").permitAll();

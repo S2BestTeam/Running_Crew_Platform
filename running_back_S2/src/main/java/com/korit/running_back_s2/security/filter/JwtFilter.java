@@ -91,4 +91,5 @@ public class JwtFilter implements Filter {
                 new UsernamePasswordAuthenticationToken(principalUser, "", principalUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
+
 }
