@@ -198,9 +198,12 @@ export const memberRow = css`
 
 export const memberItem = css`
   display: flex;
+  justify-content: space-around;
+  padding: 0.5rem 0.5rem;
+  align-items: center;
   box-sizing: border-box;
   border: solid #dbdbdb 0.1rem;
-  align-items: center;
+  border-radius: 0.5rem;
   gap: 12px;
   min-width: 160px;
 `;
@@ -231,15 +234,18 @@ export const textBox = css`
   display: flex;
   flex-direction: column;
   line-height: 1.2;
+
+  & > div:nth-of-type(1) > span:nth-of-type(2){
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+
 `;
 
-export const nickname = css`
-  font-weight: 700;
-  font-size: 14px;
-`;
 
 export const fullName = css`
   font-size: 12px;
+  text-align: end;
   color: #6b7280;
 `;
 

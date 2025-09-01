@@ -20,4 +20,8 @@ public class AppProperties {
         private String dirPath;
         private String defaultImg;
     }
+
+    public ImageConfig get(String key) {
+        return imageConfigs.get(key);
+    }
 }
