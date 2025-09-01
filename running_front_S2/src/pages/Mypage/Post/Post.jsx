@@ -39,7 +39,6 @@ function srcLabel(v) {
 export default function Post() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-
   const page = parseInt(searchParams.get("page") || "1", 10);
   const size = 10;
   const src = searchParams.get("src") || "";

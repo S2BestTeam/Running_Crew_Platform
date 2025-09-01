@@ -53,8 +53,7 @@ public class GatheringController {
     }
 
     @DeleteMapping("/{crewId}/gatherings/{gatheringId}/attend")
-    public ResponseEntity<ResponseDto<?>> cancelAttendance(@PathVariable Integer crewId,
-                                                                 @PathVariable Integer gatheringId) {
+    public ResponseEntity<ResponseDto<?>> cancelAttendance(@PathVariable Integer crewId, @PathVariable Integer gatheringId) {
         participantService.cancelAttendance(gatheringId);
         return ResponseEntity.ok(ResponseDto.success("불참완료"));
     }
