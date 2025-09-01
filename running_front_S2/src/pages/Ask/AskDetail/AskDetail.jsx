@@ -12,10 +12,12 @@ export default function AskDetail() {
   const navigate = useNavigate();
   const principalQuery = usePrincipalQuery();
 
-  const principalId =
-    principalQuery?.data?.data?.body?.user?.userId ??
-    principalQuery?.data?.body?.user?.userId ??
+  const principalRole =
+    principalQuery?.data?.data?.body?.user?.role ??
+    principalQuery?.data?.body?.user?.role ??
     null;
+
+  const isAdmin = principalRole === "ROLE_ADMIN";
 
   const { data, isLoading, error } = useGetAskDetailQuery({ askId });
   const post = useMemo(() => {
@@ -23,13 +25,9 @@ export default function AskDetail() {
     return Array.isArray(body) ? body[0] : body;
   }, [data]);
 
-
   if (isLoading) return <div css={s.layout}>로딩중…</div>;
   if (error) return <div css={s.layout}>에러가 발생했어요: {String(error)}</div>;
   if (!post) return <div css={s.layout}>공지글을 찾을 수 없어요.</div>;
-
-  const authorId = post?.user?.userId ?? post?.userId ?? null;
-  const isAuthor = principalId != null && authorId != null && Number(principalId) === Number(authorId);
 
   const cleanHtml = sanitizeHtml(post.content ?? "", {
     allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
@@ -39,25 +37,44 @@ export default function AskDetail() {
     },
   });
 
+  const [comment, setComment] = useState("");
+
+  const handleCommentSubmit = () => {
+    if (!comment.trim()) return;
+    // TODO: 댓글 API 호출
+    alert(`댓글 작성: ${comment}`);
+    setComment("");
+  };
+
   return (
     <MainContainer>
-    <div>
       <div css={s.layout}>
         <div css={s.topBar}>
           <button onClick={() => navigate(-1)}>← 목록</button>
-          <span style={{ color: "#94a3b8", fontSize: 14 }}>
-            글번호 #{post.askId}
-          </span>
+          <span style={{ color: "#94a3b8", fontSize: 14 }}>글번호 #{post.askId}</span>
         </div>
+
         <h1 css={s.titleCss}>{post.title}</h1>
         <div css={s.metaCss}>
           <span>{post.user?.nickname ?? "익명"}</span>
           <span>{post.createdAt ? new Date(post.createdAt).toLocaleString() : "-"}</span>
         </div>
-        <div css={s.contentCss} dangerouslySetInnerHTML={{ __html: cleanHtml }} />
-      </div>
-    </div>
-    </MainContainer>
 
+        <div css={s.contentCss} dangerouslySetInnerHTML={{ __html: cleanHtml }} />
+
+        {/* ROLE_ADMIN이면 댓글 입력 */}
+        {isAdmin && (
+          <div css={s.commentBox}>
+            <textarea
+              css={s.commentInput}
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder="댓글을 입력하세요"
+            />
+            <button css={s.commentBtn} onClick={handleCommentSubmit}>댓글 달기</button>
+          </div>
+        )}
+      </div>
+    </MainContainer>
   );
 }

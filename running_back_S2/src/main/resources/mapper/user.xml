@@ -156,6 +156,8 @@
                                 count(*) as gathering_count
                             from
                                 gathering_participant_tb
+                            where
+                                attendance_status = 1
                             group by
                                 user_id
                             ) gpt on ( gpt.user_id = ut.user_id)
