@@ -96,7 +96,7 @@ export const recruiting = css`
 `;
 
 export const closed = css`
-  background-color: #dc3545;
+  background-color: #969696;
 `;
 
 export const closedOverlay = css`

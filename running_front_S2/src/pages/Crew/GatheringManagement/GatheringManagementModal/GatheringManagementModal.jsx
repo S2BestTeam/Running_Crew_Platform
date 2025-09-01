@@ -1,20 +1,56 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import * as s from "./styles";
+import { reqGatheringParticipants, reqUpdateParticipantsAttendance } from "../../../../api/Crew/gatheringApi";
 
-function GatheringManagementModal({ isOpen, onClose, participants }) {
-  const [checkedState, setCheckedState] = useState(
-    participants.map(() => false)
-  );
+function GatheringManagementModal({ isOpen, onClose, crewId, gatheringId }) {
+  const [participants, setParticipants] = useState([]);
+  const [checkedState, setCheckedState] = useState([]);
+
+  useEffect(() => {
+    if (!isOpen || !gatheringId) return;
+
+    const fetchParticipants = async () => {
+      try {
+        const res = await reqGatheringParticipants(crewId, gatheringId);
+        console.log("참석자 데이터:", res.data);
+        setParticipants(res.data);
+        setCheckedState(res.data.map(p => p.attendanceStatus === 1));
+      } catch (err) {
+        console.error("참석자 불러오기 실패:", err);
+      }
+    };
+    
+
+    fetchParticipants();
+  }, [isOpen, crewId, gatheringId]);
 
   const handleCheckboxChange = (index) => {
     const updated = [...checkedState];
     updated[index] = !updated[index];
     setCheckedState(updated);
+  };
+
+  const handleSave = async () => {
+    const payload = participants.map((p, index) => ({
+      userId: p.userId,
+      attendanceStatus: checkedState[index] ? 1 : 0,
+    }));
+
+    console.log("저장용 payload:", payload); // ✅ null 없는지 확인
+
+    try {
+      await reqUpdateParticipantsAttendance(crewId, gatheringId, payload);
+      alert("참석 상태가 저장되었습니다.");
+      onClose();
+    } catch (err) {
+      console.error(err);
+      alert("저장 실패");
+    }
   };
 
   return (
@@ -35,7 +71,7 @@ function GatheringManagementModal({ isOpen, onClose, participants }) {
                 <td>{index + 1}</td>
                 <td css={s.participantCell}>
                   <img src={p.picture} alt="" css={s.participantImg} />
-                  <span>{p.nickname}({p.fullName})</span>
+                  <span>{p.nickname} ({p.fullName})</span>
                 </td>
                 <td>
                   <Checkbox
@@ -48,7 +84,10 @@ function GatheringManagementModal({ isOpen, onClose, participants }) {
           </tbody>
         </table>
 
-        <Button onClick={onClose} variant="contained" sx={{ mt: 2 }}>
+        <Button onClick={handleSave} variant="contained" sx={{ mt: 2, mr: 1 }}>
+          저장
+        </Button>
+        <Button onClick={onClose} variant="outlined" sx={{ mt: 2 }}>
           닫기
         </Button>
       </Box>

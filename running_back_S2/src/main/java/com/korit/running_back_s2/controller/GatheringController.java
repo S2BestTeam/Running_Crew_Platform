@@ -3,6 +3,7 @@ package com.korit.running_back_s2.controller;
 import com.korit.running_back_s2.domain.user.User;
 import com.korit.running_back_s2.dto.gathering.GatheringRegisterReqDto;
 import com.korit.running_back_s2.dto.gathering.GatheringUpdateReqDto;
+import com.korit.running_back_s2.dto.participant.ParticipantAttendanceUpdateDto;
 import com.korit.running_back_s2.dto.response.ResponseDto;
 import com.korit.running_back_s2.service.GatheringService;
 import com.korit.running_back_s2.service.ParticipantService;
@@ -61,6 +62,18 @@ public class GatheringController {
     @GetMapping("/{crewId}/gatherings/{gatheringId}/participants")
     public ResponseEntity<List<User>> getParticipants(@PathVariable Integer crewId, @PathVariable int gatheringId) {
         return ResponseEntity.ok(gatheringService.getGatheringParticipants(gatheringId));
+    }
+
+    @PostMapping("/{crewId}/gatherings/{gatheringId}/participants/attendance")
+    public ResponseEntity<ResponseDto<?>> updateParticipantsAttendance(
+            @PathVariable Integer crewId,
+            @PathVariable Integer gatheringId,
+            @RequestBody List<ParticipantAttendanceUpdateDto> updates) {
+
+        participantService.updateParticipantsAttendance(gatheringId, updates);
+        System.out.println(updates);
+
+        return ResponseEntity.ok(ResponseDto.success("출석 상태 저장 완료"));
     }
 }
 
