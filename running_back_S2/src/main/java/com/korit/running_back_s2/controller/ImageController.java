@@ -18,4 +18,5 @@ public class ImageController {
     public ResponseEntity<ResponseDto<?>> upload(@RequestParam String imageConfigName, @RequestPart MultipartFile file) {
         return ResponseEntity.ok(ResponseDto.success(imageUploadService.upload(imageConfigName, file)));
     }
+
 }

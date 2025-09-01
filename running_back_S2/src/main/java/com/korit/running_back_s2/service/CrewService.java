@@ -3,7 +3,9 @@ package com.korit.running_back_s2.service;
 import com.korit.running_back_s2.domain.crew.Crew;
 import com.korit.running_back_s2.domain.crew.CrewMapper;
 import com.korit.running_back_s2.domain.crew.CrewSearchOption;
+import com.korit.running_back_s2.domain.member.Member;
 import com.korit.running_back_s2.domain.member.MemberMapper;
+import com.korit.running_back_s2.domain.user.User;
 import com.korit.running_back_s2.dto.crew.*;
 import com.korit.running_back_s2.dto.response.PaginationRespDto;
 import com.korit.running_back_s2.security.model.PrincipalUtil;
@@ -139,5 +141,7 @@ public class CrewService {
 //        Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
 //        crewMapper.withDraw(crewId, userId);
 //    }
+
+
 }
 

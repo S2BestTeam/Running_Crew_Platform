@@ -30,6 +30,7 @@ function Member() {
     return pages.flatMap((p) => p?.data?.body?.contents || []);
   }, [membersQuery.data]);
 
+
   useEffect(() => {
     setLeader(crewData?.body?.userId === userId);
   }, [crewData?.body?.userId, userId]);
@@ -43,6 +44,8 @@ function Member() {
     });
     membersQuery.refetch();
   };
+
+  console.log(members)
 
   const handleSearchOnChange = (e) => setSearchInput(e.target.value);
   const handleSearchOnKeyDown = (e) => {
@@ -107,7 +110,7 @@ function Member() {
 
                     {m.user.picture && (
                       <img
-                        src={m.user.picture} 
+                        src={m.user.picture}
                         alt={m.user.nickname}
                         css={s.profileImg}
                       />

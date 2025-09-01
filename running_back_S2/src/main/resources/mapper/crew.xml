@@ -24,6 +24,8 @@
         <result property="gunguName"            column="gungu_name"/>
     </resultMap>
 
+
+
     <insert id="insert" useGeneratedKeys="true" keyProperty="crewId">
         INSERT INTO crew_tb
                 ( user_id, gungu_id, crew_name, title, content, limited_people, profile_picture, thumbnail_picture)
@@ -257,4 +259,5 @@
         where
             crew_id = #{crewId}
     </select>
+
 </mapper>

@@ -1,5 +1,6 @@
 package com.korit.running_back_s2.domain.crew;
 
+import com.korit.running_back_s2.domain.member.Member;
 import com.korit.running_back_s2.dto.crew.CrewRoleReqDto;
 import com.korit.running_back_s2.dto.crew.CrewUpdateReqDto;
 import com.korit.running_back_s2.dto.ranking.CrewRankingRespDto;
@@ -33,6 +34,8 @@ public interface CrewMapper {
     int updateCrewProfilePicture(Integer crewId, String profilePicture);
 
     int updateCrew(CrewUpdateReqDto dto);
+
+
 
 //    int withDrawCrew(Integer crewId, Integer userId);
 }

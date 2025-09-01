@@ -79,4 +79,8 @@ public class MemberService {
         welcomeMapper.deleteWithDrawAfter14Days();
         memberMapper.deleteMember(memberId);
     }
+
+    public List<Member> getMembers(Integer crewId) {
+        return memberMapper.getMembers(crewId);
+    }
 }
