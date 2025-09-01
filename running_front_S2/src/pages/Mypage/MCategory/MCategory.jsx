@@ -59,7 +59,7 @@ function MCategory(props) {
     <>
       <button onClick={() => navigate("/mypage/welcome")}>크루 신청 내역</button>
       <button onClick={() => navigate("/mypage/wish")}>나의 크루</button>
-      <button>내가 쓴 글</button>
+      <button onClick={() => navigate("/mypage/post")}>내가 쓴 글</button>
       <button>나의 정모일정</button>
       <button onClick={() => navigate("/mypage/ask")}>나의 문의 사항</button>
     </>
@@ -87,7 +87,7 @@ function MCategory(props) {
           <Routes>
             <Route path='/' element={<MypageModify />}/>
             <Route path='/wish' element={<Wishlist />}/>
-            {/* <Route path='/post' element={<Post />}/> */}
+            <Route path='/post' element={<Post />}/>
             <Route path='/welcome' element={<Welcome />} />
             <Route path='/ask' element={<MyAsk />} />
           </Routes>

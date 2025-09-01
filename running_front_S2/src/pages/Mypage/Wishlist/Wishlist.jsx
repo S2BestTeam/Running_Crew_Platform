@@ -124,7 +124,7 @@ function Wishlist(props) {
         <div css={s.gridBox}>
           {myCrews.map((item) => (
             <div
-              key={item.crewId}
+              key={item?.crewId}
               css={s.card}
               onClick={() => handleNavigateToCrewDetail(item.crewId)}
             >

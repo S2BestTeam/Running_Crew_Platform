@@ -76,7 +76,7 @@ function App() {
         <Route path="/calender" element={<Calender />} />
         <Route path="/competition" element={<Competition />} />
         
-        {/* Admin 라우트들 */}
+        
         <Route path="/admin/*" element={<Admin />} />
       </Routes>
       
