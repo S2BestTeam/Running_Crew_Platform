@@ -18,4 +18,6 @@ public interface GatheringMapper {
     int update(Gathering gathering);
 
     Gathering findByGatheringId(Integer gatheringId);
+
+    double getKmById(@Param("gatheringId") Integer gatheringId);
 }

@@ -233,4 +233,10 @@
         VALUES (default ,#{userId}, #{oauthType}, #{providerId}, #{email}, #{picture}, #{fullName}, #{nickname}, #{phoneNumber}, #{gunguId}, #{address}, #{birthDate}, #{gender}, #{totalKm} )
     </insert>
 
+    <update id="updateUserKm">
+        UPDATE user_tb
+        SET total_km = total_km + #{kmToAdd}
+        WHERE user_id = #{userId}
+    </update>
+
 </mapper>

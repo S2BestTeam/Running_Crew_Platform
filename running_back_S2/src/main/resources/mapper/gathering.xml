@@ -176,4 +176,9 @@
         WHERE
             gathering_id = #{gatheringId}
     </select>
+
+    <select id="getKmById" resultType="double">
+        SELECT km FROM gathering_tb WHERE gathering_id = #{gatheringId}
+    </select>
+
 </mapper>

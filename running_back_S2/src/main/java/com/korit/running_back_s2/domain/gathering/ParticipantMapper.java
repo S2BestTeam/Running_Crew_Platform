@@ -22,4 +22,8 @@ public interface ParticipantMapper {
             @Param("gatheringId") Integer gatheringId,
             @Param("list") List<ParticipantAttendanceUpdateDto> list
     );
+
+    Integer getAttendanceStatusById(@Param("gatheringId") Integer gatheringId,
+                                    @Param("userId") Integer userId);
+
 }

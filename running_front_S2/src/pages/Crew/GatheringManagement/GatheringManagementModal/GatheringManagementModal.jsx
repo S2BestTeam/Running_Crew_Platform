@@ -17,14 +17,12 @@ function GatheringManagementModal({ isOpen, onClose, crewId, gatheringId }) {
     const fetchParticipants = async () => {
       try {
         const res = await reqGatheringParticipants(crewId, gatheringId);
-        console.log("참석자 데이터:", res.data);
         setParticipants(res.data);
         setCheckedState(res.data.map(p => p.attendanceStatus === 1));
       } catch (err) {
         console.error("참석자 불러오기 실패:", err);
       }
     };
-    
 
     fetchParticipants();
   }, [isOpen, crewId, gatheringId]);
@@ -41,11 +39,11 @@ function GatheringManagementModal({ isOpen, onClose, crewId, gatheringId }) {
       attendanceStatus: checkedState[index] ? 1 : 0,
     }));
 
-    console.log("저장용 payload:", payload); // ✅ null 없는지 확인
+    console.log("저장용 payload:", payload); 
 
     try {
       await reqUpdateParticipantsAttendance(crewId, gatheringId, payload);
-      alert("참석 상태가 저장되었습니다.");
+      alert("참석 상태와 km가 저장되었습니다.");
       onClose();
     } catch (err) {
       console.error(err);

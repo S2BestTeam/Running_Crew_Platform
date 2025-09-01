@@ -6,4 +6,5 @@ import lombok.Data;
 public class ParticipantAttendanceUpdateDto {
     private Integer userId;
     private Integer attendanceStatus;
+
 }
