@@ -1,7 +1,5 @@
 package com.korit.running_back_s2.domain.crew;
 
-import com.korit.running_back_s2.domain.gungu.Gungu;
-import com.korit.running_back_s2.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,4 +25,5 @@ public class Crew {
     private LocalDateTime createdAt;
 
     private String gunguName;
+    private String fullName;
 }

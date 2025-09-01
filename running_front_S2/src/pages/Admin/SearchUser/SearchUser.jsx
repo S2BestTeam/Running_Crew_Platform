@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import useSearchUserQuery from "../../../queries/useSearchUserQuery";
 import { useSearchParams } from "react-router-dom";
 import { BiSolidChevronLeftSquare, BiSolidChevronRightSquare } from "react-icons/bi";
 import UserDetailModal from "./UserDetailModal";
+import useSearchUserQuery from "../../../queries/Admin/useSearchUserQuery";
 
 function SearchUser() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -72,7 +72,7 @@ function SearchUser() {
       <table border="1" cellPadding="6" cellSpacing="0" width="100%">
         <thead>
           <tr>
-            <th>ID</th>
+            <th>No</th>
             <th>성명</th>
             <th>프로필 사진</th>
             <th>사용자이름</th>
@@ -88,7 +88,7 @@ function SearchUser() {
               <td colSpan="5">검색 결과가 없습니다.</td>
             </tr>
           ) : (
-            users.map((user) => (
+            users.map((user, index) => (
               <tr key={user.userId}>
                 <td>{user.userId}</td>
                 <td>{user.fullName}</td>
