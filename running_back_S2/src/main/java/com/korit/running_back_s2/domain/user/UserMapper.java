@@ -7,6 +7,7 @@ import com.korit.running_back_s2.dto.report.ReportReqDto;
 import com.korit.running_back_s2.dto.user.UserGatheringsReqDto;
 import com.korit.running_back_s2.dto.welcome.WelcomeByUserIdResDto;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -29,4 +30,7 @@ public interface UserMapper {
 
     List<User> findAllOfOptions(UserSearchOption option);
     Integer getCountOfOptions(UserSearchOption option);
+
+    void updateUserKm(@Param("userId") Integer userId,
+                      @Param("kmToAdd") double kmToAdd);
 }
