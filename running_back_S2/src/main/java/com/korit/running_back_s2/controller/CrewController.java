@@ -3,6 +3,8 @@ package com.korit.running_back_s2.controller;
 import com.korit.running_back_s2.domain.crew.CrewMapper;
 import com.korit.running_back_s2.dto.crew.CrewRoleReqDto;
 import com.korit.running_back_s2.dto.crew.CrewUpdateReqDto;
+import com.korit.running_back_s2.dto.image.GalleryService;
+import com.korit.running_back_s2.dto.image.ImageFileDto;
 import com.korit.running_back_s2.dto.response.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import com.korit.running_back_s2.service.CrewService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -23,6 +26,7 @@ import java.util.Map;
 public class CrewController {
 
     private final CrewService crewService;
+    private final GalleryService galleryService;
 
     @GetMapping("/{crewId}")
     public ResponseEntity<ResponseDto<?>> getCrewById (@PathVariable Integer crewId) {
@@ -78,5 +82,10 @@ public class CrewController {
         return ResponseEntity.ok(ResponseDto.success("크루 탈퇴가 성공적으로 이루어 졌습니다."));
     }
 
+    @GetMapping("/{crewId}/albums")
+    public ResponseEntity<?> listCrewFreeAll() {
+        List<ImageFileDto> body = galleryService.listCrewFreeImages();
+        return ResponseEntity.ok(ResponseDto.success(body));
+    }
 
 }

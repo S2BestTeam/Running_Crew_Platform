@@ -29,7 +29,7 @@ function CrewInfo() {
   const displayMembers = (members ?? []).slice(0, 6);
   const [gatherings, setGatherings] = useState([]);
   const { data } = useGetGatheringsQuery(crewId);
-  console.log(data)
+  // console.log(data)
 
   useEffect(() => {
     if (!crewId) return; (
@@ -50,7 +50,7 @@ function CrewInfo() {
     const body = data?.data?.body;
     if (body) setGatherings(body);
   }, [data]);
-  console.log(gatherings)
+  // console.log(gatherings)
 
   useEffect(() => {
     if (!crewId || !userId) return;
@@ -147,26 +147,40 @@ function CrewInfo() {
           <div>
             <p css={s.fontBold}>정모 일정</p>
             <div css={s.gatheringRow}>
-              {displayGatherings.map(g => (
-                <div key={g.gatheringId} css={s.gatheringItem}>
-                  <div css={s.gatheringThumbWrap}>
-                    <img css={s.gatheringThumb} src={g.thumbnailPicture} alt={g.title ?? "gathering"} />
-                  </div>
-                  <div css={s.gatheringTextBox}>
-                    <div css={s.gatheringTitle}>{g.title ?? "-"}</div>
-                    <div css={s.gatheringPlace}>{g.placeName ?? "-"}</div>
-                    <div css={s.gatheringDate}>{formatDateTime(g.runningDate, g.runningTime)}</div>
-                  </div>
-                </div>
-              ))}
-              <button
-                type="button"
-                css={s.moreBtn}
-                aria-label="멤버 전체 보기"
-                onClick={() => navigate(`/crews/${crewId}/gathering`)}
-              >
-                <MdMoreHoriz size={22} />
-              </button>
+              {Array.isArray(displayGatherings) && displayGatherings.length > 0 ? (
+                <>
+                  {displayGatherings.map((g) => (
+                    <div key={g.gatheringId} css={s.gatheringItem}>
+                      <div css={s.gatheringThumbWrap}>
+                        <img
+                          css={s.gatheringThumb}
+                          src={g.thumbnailPicture}
+                          alt={g.title ?? "gathering"}
+                        />
+                      </div>
+
+                      <div css={s.gatheringTextBox}>
+                        <div css={s.gatheringTitle}>{g.title ?? "-"}</div>
+                        <div css={s.gatheringPlace}>{g.placeName ?? "-"}</div>
+                        <div css={s.gatheringDate}>
+                          {formatDateTime(g.runningDate, g.runningTime)}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+
+                  <button
+                    type="button"
+                    css={s.moreBtn}
+                    aria-label="정모 전체 보기"
+                    onClick={() => navigate(`/crews/${crewId}/gathering`)}
+                  >
+                    <MdMoreHoriz size={22} />
+                  </button>
+                </>
+              ) : (
+                <div>현재 등록된 정모 일정이 없습니다.</div>
+              )}
             </div>
           </div>
 
@@ -182,8 +196,10 @@ function CrewInfo() {
                     <div>
                       {m.roleId === 1 && <span css={s.badge}>👑</span>}
                       {m.roleId === 2 && <span css={s.badge}>⭐</span>}
+                      <span>
+                        {m.user?.nickname ?? "이름없음"}
+                      </span>
                     </div>
-                    <div css={s.nickname}>{m.user?.nickname ?? "이름없음"}</div>
                     <div css={s.fullName}>{m.user?.fullName ?? ""}</div>
                   </div>
                 </div>

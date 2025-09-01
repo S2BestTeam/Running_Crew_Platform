@@ -29,4 +29,14 @@ public class AdminController {
     public ResponseEntity<ResponseDto<?>> getPost(Integer userId) {
         return ResponseEntity.ok(ResponseDto.success(null));
     }
+
+    @GetMapping("/posts")
+    public ResponseEntity<ResponseDto<?>> getMyPosts(@RequestParam Integer page,
+                                                     @RequestParam Integer size,
+                                                     @RequestParam(required = false) String searchText,
+                                                     @RequestParam(required = false) String src,
+                                                     @RequestParam(required = false) Integer crewId,
+                                                     @RequestParam Integer userId) {
+        return ResponseEntity.ok(ResponseDto.success(adminService.getUserPosts(page, size, searchText, src, crewId, userId)));
+    }
 }

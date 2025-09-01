@@ -28,6 +28,7 @@ import GatheringRegister from "../Gathering/GatheringRegister/GatheringRegister"
 import GatheringModify from "../GatheringManagement/GatheringModify/GatheringModify";
 import useGetCrewRoleQuery from "../../../queries/useGetCrewRoleQuery";
 import { reqGetMemberId, reqWithDrawMember } from "../../../api/Crew/memberApi";
+import CrewAlbums from "../Albums/CrewAlbums";
 
 function CCategory() {
   const navigate = useNavigate();
@@ -94,9 +95,8 @@ function CCategory() {
       <button onClick={() => navigate(`/crews/${crewId}/freeBoards`)}>
         자유게시판
       </button>
-      <button>사진첩</button>
+      <button onClick={() => navigate(`/crews/${crewId}/albums`)}>사진첩</button>
       <button onClick={() => navigate(`/crews/${crewId}/notices`)}>공지사항</button>
-      <button>문의사항</button>
       {isCrewLeader && (
         <>
           <button onClick={() => navigate(`/crews/${crewId}/report`)}>
@@ -149,6 +149,7 @@ function CCategory() {
             <Route path="freeBoards/register" element={<FeedReg />} />
             <Route path="freeBoards/:freeId" element={<FeedDetail />} />
             <Route path="freeBoards/:freeId/edit" element={<FreeEdit />} />
+            <Route path="/albums" element={<CrewAlbums />} />
             <Route path="/notices" element={<Notice />} />
             <Route path="notices/register" element={<NoticeReg />} />
             <Route path="notices/:noticeId" element={<NoticeDetail />} />

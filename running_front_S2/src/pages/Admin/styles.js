@@ -30,7 +30,7 @@ export const headerContent = css`
 export const logoIcon = css`
   width: 32px;
   height: 32px;
-  background-color: #2563eb;
+  background-color: gray;
   border-radius: 8px;
   display: flex;
   align-items: center;

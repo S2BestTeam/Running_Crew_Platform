@@ -1,119 +1,147 @@
 /** @jsxImportSource @emotion/react */
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
+
+import * as s from "./styles";
+
 import { FaPen } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import { IoSearch } from "react-icons/io5";
+import { BiSolidChevronLeftSquare, BiSolidChevronRightSquare } from "react-icons/bi";
+
 import useGetMyCrewsQuery from "../../../queries/useGetMyCrewsQuery";
 import useGetMyGatheringQuery from "../../../queries/useGetMyGatheringQuery";
-import * as s from "./styles";
-import { reqCheckNickname, reqDeleteUser, reqUserInfoUpdate, reqUserProfileUpdate } from "../../../api/User/UserApi";
-import { SIGNUP_REGEX, SIGNUP_REGEX_ERROR_MESSAGE } from "../../../constants/signupRegex";
-import { useQueryClient } from "@tanstack/react-query";
-import { reqReportDelete, reqUserReported } from "../../../api/Admin/adminApi";
-import { MdDelete } from "react-icons/md";
 
+
+import {
+  reqCheckNickname,
+  reqDeleteUser,
+  reqUserInfoUpdate,
+  reqUserProfileUpdate,
+} from "../../../api/User/UserApi";
+import { reqReportDelete, reqUserReported } from "../../../api/Admin/adminApi";
+
+import { SIGNUP_REGEX, SIGNUP_REGEX_ERROR_MESSAGE } from "../../../constants/signupRegex";
+import useGetUserPostQuery from "../../../queries/Admin/useGetUserPostQuery";
+
+/* ----------------------- util ----------------------- */
+const SRC_OPTIONS = [
+  { value: "", label: "전체" },
+  { value: "global_free", label: "전체 자유" },
+  { value: "global_notice", label: "전체 공지" },
+  { value: "crew_free", label: "크루 자유" },
+  { value: "crew_notice", label: "크루 공지" },
+];
+
+function buildPostUrl({ src, postId, crewId }) {
+  if (!src || postId == null) return null;
+  switch (src) {
+    case "global_free":
+      return `/free/${postId}`;
+    case "global_notice":
+      return `/notice/${postId}`;
+    case "crew_free":
+      return crewId ? `/crews/${crewId}/freeBoards/${postId}` : null;
+    case "crew_notice":
+      return crewId ? `/crews/${crewId}/notices/${postId}` : null;
+    default:
+      return null;
+  }
+}
+
+function srcLabel(v) {
+  return SRC_OPTIONS.find((o) => o.value === v)?.label ?? v ?? "";
+}
+
+/* ----------------------- component ----------------------- */
 function UserDetailModal({ user, onClose, onSave }) {
   if (!user) return null;
 
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
+
   const [activeTab, setActiveTab] = useState("crews");
   const [isEditing, setIsEditing] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+
+  // 신고 내역
   const [reports, setReports] = useState({ madeReports: [], receivedReports: [] });
-
   useEffect(() => {
-    const fetchReports = async () => {
+    (async () => {
       try {
-        const response = await reqUserReported(user?.userId);
-        setReports(response.data.body);
-      } catch (err) {
-        console.error("신고 내역 불러오기 실패", err);
+        const res = await reqUserReported(user.userId);
+        setReports(res?.data?.body ?? { madeReports: [], receivedReports: [] });
+      } catch (e) {
+        console.error("신고 내역 불러오기 실패", e);
       }
-    };
-    fetchReports();
-  }, [user?.userId]);
-  
+    })();
+  }, [user.userId]);
 
+  // 수정 폼 상태
   const [updateUser, setUpdateUser] = useState({
     userId: user.userId,
-    picture : user.picture,
-    fullName : user.fullName,
+    picture: user.picture,
+    fullName: user.fullName,
     email: user.email,
-    address : user.address,
+    address: user.address,
     nickname: user.nickname || "",
     phoneNumber: user.phoneNumber || "",
   });
 
   const [isNicknameChecked, setIsNicknameChecked] = useState(true);
-  const [isSaving, setIsSaving] = useState(false);
+  const [errors, setErrors] = useState({ nickname: "", phoneNumber: "" });
 
-  const [errors, setErrors] = useState({
-    nickname: "",
-    phoneNumber: "",
-  });
-
+  // 내 크루/일정
   const userCrewsQuery = useGetMyCrewsQuery(user.userId);
   const userGatheringQuery = useGetMyGatheringQuery(user.userId);
-
   const myCrews = userCrewsQuery?.data?.body || [];
   const myGatherings = userGatheringQuery?.data?.body || [];
-  const userPosts = user.posts || [];
 
+  /* ---------- 프로필 이미지 변경 ---------- */
   const handleProfileImgUpdateClick = () => {
-      const fileInput = document.createElement("input");
-      fileInput.setAttribute("type", "file");
-      fileInput.setAttribute("accept", "image/*");
-      fileInput.onchange = async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-  
-        try {
-          const formData = new FormData();
-          formData.append("profileFile", file);
-          await reqUserProfileUpdate(user?.userId, formData);
-          alert("프로필 사진 변경이 저장되었습니다.");
-        } catch (error) {
-          alert("프로필 사진 변경에 실패했습니다.");
-          console.error(error);
-        }
-      };
-      fileInput.click();
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+    input.onchange = async (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      try {
+        const formData = new FormData();
+        formData.append("profileFile", file);
+        await reqUserProfileUpdate(user.userId, formData);
+        alert("프로필 사진 변경이 저장되었습니다.");
+      } catch (err) {
+        console.error(err);
+        alert("프로필 사진 변경에 실패했습니다.");
+      }
     };
+    input.click();
+  };
 
-  const validateField = (field, value) => {
-    switch (field) {
-      case "nickname":
-        if (!SIGNUP_REGEX.nickName.test(value)) {
-          return SIGNUP_REGEX_ERROR_MESSAGE.nickName;
-        }
-        return "";
-      case "phoneNumber":
-        if (!SIGNUP_REGEX.phoneNumber.test(value)) {
-          return SIGNUP_REGEX_ERROR_MESSAGE.phoneNumber;
-        }
-        return "";
-      default:
-        return "";
+  const validateField = (name, value) => {
+    if (name === "nickname") {
+      if (!SIGNUP_REGEX.nickName.test(value)) return SIGNUP_REGEX_ERROR_MESSAGE.nickName;
+      return "";
     }
+    if (name === "phoneNumber") {
+      if (!SIGNUP_REGEX.phoneNumber.test(value)) return SIGNUP_REGEX_ERROR_MESSAGE.phoneNumber;
+      return "";
+    }
+    return "";
   };
 
   const handleNicknameChange = (e) => {
     const value = e.target.value;
-    setUpdateUser((prev) => ({ ...prev, nickname: value }));
-
-    if (value !== user.nickname) {
-      setIsNicknameChecked(false);
-    } else {
-      setIsNicknameChecked(true);
-    }
-
-    const errorMsg = validateField("nickname", value);
-    setErrors((prev) => ({ ...prev, nickname: errorMsg }));
+    setUpdateUser((p) => ({ ...p, nickname: value }));
+    setIsNicknameChecked(value === user.nickname);
+    setErrors((p) => ({ ...p, nickname: validateField("nickname", value) }));
   };
 
   const handlePhoneChange = (e) => {
     const value = e.target.value;
-    setUpdateUser((prev) => ({ ...prev, phoneNumber: value }));
-
-    const errorMsg = validateField("phoneNumber", value);
-    setErrors((prev) => ({ ...prev, phoneNumber: errorMsg }));
+    setUpdateUser((p) => ({ ...p, phoneNumber: value }));
+    setErrors((p) => ({ ...p, phoneNumber: validateField("phoneNumber", value) }));
   };
 
   const handleNicknameCheck = async () => {
@@ -124,10 +152,9 @@ function UserDetailModal({ user, onClose, onSave }) {
       alert("현재 사용 중인 닉네임입니다.");
       return;
     }
-
     try {
-      const response = await reqCheckNickname(nickname);
-      const isAvailable = response.data.body === "false";
+      const res = await reqCheckNickname(nickname);
+      const isAvailable = res?.data?.body === "false"; // 서버 규약(중복 아님이 "false")
       if (isAvailable) {
         setIsNicknameChecked(true);
         alert("사용 가능한 닉네임입니다.");
@@ -135,35 +162,26 @@ function UserDetailModal({ user, onClose, onSave }) {
         setIsNicknameChecked(false);
         alert("중복된 닉네임입니다.");
       }
-    } catch (error) {
+    } catch (e) {
+      console.error(e);
       alert("중복확인 중 오류가 발생했습니다.");
-      console.error(error);
     }
   };
 
   const validateAll = () => {
     const nicknameError = validateField("nickname", updateUser.nickname);
     const phoneError = validateField("phoneNumber", updateUser.phoneNumber);
-
-    setErrors({
-      nickname: nicknameError,
-      phoneNumber: phoneError,
-    });
+    setErrors({ nickname: nicknameError, phoneNumber: phoneError });
 
     if (updateUser.nickname !== user.nickname && !isNicknameChecked) {
       alert("닉네임 중복 확인을 해주세요.");
       return false;
     }
-
     return !nicknameError && !phoneError;
   };
 
-  const hasChanges = () => {
-    return (
-      updateUser.nickname !== user.nickname ||
-      updateUser.phoneNumber !== user.phoneNumber
-    );
-  };
+  const hasChanges = () =>
+    updateUser.nickname !== user.nickname || updateUser.phoneNumber !== user.phoneNumber;
 
   const handleSave = async () => {
     if (!validateAll()) return;
@@ -171,17 +189,16 @@ function UserDetailModal({ user, onClose, onSave }) {
       alert("변경된 내용이 없습니다.");
       return;
     }
-
     setIsSaving(true);
     try {
       await reqUserInfoUpdate(updateUser);
-      queryClient.invalidateQueries(["searchUser", user.userId]); 
+      queryClient.invalidateQueries(["searchUser", user.userId]);
       alert("유저 정보가 성공적으로 저장되었습니다.");
-      if (onSave) onSave(updateUser);
+      onSave && onSave(updateUser);
       setIsEditing(false);
-    } catch (error) {
+    } catch (e) {
+      console.error(e);
       alert("정보 저장에 실패했습니다.");
-      console.error(error);
     } finally {
       setIsSaving(false);
     }
@@ -190,50 +207,141 @@ function UserDetailModal({ user, onClose, onSave }) {
   const handleCancel = () => {
     setUpdateUser({
       userId: user.userId,
-      nickname: user.nickname,
-      phoneNumber: user.phoneNumber,
+      picture: user.picture,
+      fullName: user.fullName,
+      email: user.email,
+      address: user.address,
+      nickname: user.nickname || "",
+      phoneNumber: user.phoneNumber || "",
     });
     setErrors({ nickname: "", phoneNumber: "" });
     setIsEditing(false);
   };
 
+  /* ---------- 신고 삭제 ---------- */
   const handleReportDeleteOnClick = async (reportId) => {
     try {
       await reqReportDelete(reportId);
       alert("신고 내역이 삭제되었습니다.");
-      
-      const response = await reqUserReported(user?.userId);
-      setReports(response.data.body);
-    } catch (error) {
+      const res = await reqUserReported(user.userId);
+      setReports(res?.data?.body ?? { madeReports: [], receivedReports: [] });
+    } catch (e) {
+      console.error("신고 삭제 오류:", e);
       alert("신고 삭제에 실패했습니다.");
-      console.error("신고 삭제 오류:", error);
     }
   };
 
+  /* ---------- 유저 추방 ---------- */
   const handleUserDeleteOnClick = async (e, userId) => {
     e.stopPropagation();
-    if (window.confirm('정말 추방시겠습니까?')) {
-      try {
-        await reqDeleteUser(userId);
-        alert('유저를 추방시켰습니다.');
-        navigate('/');
-      } catch (error) {
-        alert('추방 처리 중 오류가 발생했습니다.');
-        console.error(error);
-      }
+    if (!window.confirm("정말 추방시겠습니까?")) return;
+    try {
+      await reqDeleteUser(userId);
+      alert("유저를 추방시켰습니다.");
+      navigate("/");
+    } catch (e) {
+      console.error(e);
+      alert("추방 처리 중 오류가 발생했습니다.");
     }
-  }
+  };
 
+  /* ---------- 작성 글 탭: 검색/페이지 ---------- */
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = parseInt(searchParams.get("page") || "1", 10);
+  const size = 10;
+  const src = searchParams.get("src") || "";
+  const crewId = searchParams.get("crewId") || "";
+  const searchText = searchParams.get("searchText") || "";
+  const [searchInput, setSearchInput] = useState(searchText);
+
+  const { data, isLoading, isError } = useGetUserPostQuery({
+    page,
+    size,
+    searchText,
+    src,
+    crewId: crewId || "",
+    userId: user.userId, // ← 중요!
+  });
+
+  const body = data?.data?.body ?? data?.body ?? data ?? {};
+  const totalPages = body?.totalPages ?? 1;
+  const totalElements = body?.totalElements ?? 0;
+
+  const contents = useMemo(() => {
+    const base = body?.contents ?? body?.items ?? [];
+    return (Array.isArray(base) ? base : []).filter((p) => p && p.postId != null);
+  }, [body]);
+
+  const start = (page - 1) * size;
+
+  const handleSearchOnClick = () => {
+    setSearchParams((p) => {
+      const next = new URLSearchParams(p);
+      next.set("page", "1");
+      next.set("searchText", searchInput);
+      next.set("src", src);
+      if (crewId) next.set("crewId", crewId);
+      else next.delete("crewId");
+      return next;
+    });
+  };
+
+  const handleSrcChange = (e) => {
+    const nextVal = e.target.value;
+    setSearchParams((p) => {
+      const next = new URLSearchParams(p);
+      next.set("page", "1");
+      next.set("src", nextVal);
+      if (searchInput || searchText) next.set("searchText", searchInput || searchText);
+      if (crewId) next.set("crewId", crewId);
+      return next;
+    });
+  };
+
+  const handleCrewChange = (e) => {
+    const nextVal = e.target.value;
+    setSearchParams((p) => {
+      const next = new URLSearchParams(p);
+      next.set("page", "1");
+      next.set("src", src);
+      if (nextVal) next.set("crewId", nextVal);
+      else next.delete("crewId");
+      if (searchInput || searchText) next.set("searchText", searchInput || searchText);
+      return next;
+    });
+  };
+
+  const goPage = (next) => {
+    const nextPage = Math.min(Math.max(1, next), Math.max(1, totalPages));
+    setSearchParams((p) => {
+      const params = new URLSearchParams(p);
+      params.set("page", String(nextPage));
+      params.set("src", src);
+      if (crewId) params.set("crewId", crewId);
+      else params.delete("crewId");
+      if (searchText) params.set("searchText", searchText);
+      else params.delete("searchText");
+      return params;
+    });
+  };
+
+  /* ---------- 렌더 ---------- */
   return (
     <div css={s.overlay}>
       <div css={s.modal}>
-        <div css={s.editIcon} onClick={() => setIsEditing(true)}>
-          <FaPen css={s.ModifyButton} size={18} />
-          <MdDelete css={s.deleteButton} size={22} onClick={(e) => handleUserDeleteOnClick(e, user?.userId)}/>
+        {/* 우상단 아이콘 */}
+        <div css={s.editIcon}>
+          <FaPen css={s.ModifyButton} size={18} onClick={() => setIsEditing(true)} />
+          <MdDelete
+            css={s.deleteButton}
+            size={22}
+            onClick={(e) => handleUserDeleteOnClick(e, user.userId)}
+          />
         </div>
 
+        {/* 프로필/기본정보 */}
         <div css={s.profileSection}>
-          <div css={s.profileImageWrapper}  onClick={handleProfileImgUpdateClick}>
+          <div css={s.profileImageWrapper} onClick={handleProfileImgUpdateClick}>
             <img src={user.picture} alt={user.fullName} css={s.profileImage} />
           </div>
 
@@ -251,7 +359,7 @@ function UserDetailModal({ user, onClose, onSave }) {
                   {errors.nickname && <p css={s.nicknameErrMsg}>{errors.nickname}</p>}
                   <button
                     onClick={handleNicknameCheck}
-                    disabled={!updateUser.nickname.trim() || errors.nickname}
+                    disabled={!updateUser.nickname.trim() || !!errors.nickname}
                   >
                     {isNicknameChecked ? "❤️ 사용 가능!" : "중복 확인"}
                   </button>
@@ -267,6 +375,7 @@ function UserDetailModal({ user, onClose, onSave }) {
                   />
                   {errors.phoneNumber && <p css={s.errMsg}>{errors.phoneNumber}</p>}
                 </p>
+
                 <div css={s.editButtons}>
                   <button css={s.saveButton} onClick={handleSave} disabled={isSaving}>
                     {isSaving ? "저장 중..." : "저장"}
@@ -286,8 +395,9 @@ function UserDetailModal({ user, onClose, onSave }) {
           </div>
         </div>
 
+        {/* 탭 */}
         <div css={s.tabMenu}>
-          {["crews", "gatherings", "report" , "posts"].map((tab) => (
+          {["crews", "gatherings", "report", "posts"].map((tab) => (
             <div
               key={tab}
               css={[s.tab, activeTab === tab && s.activeTab]}
@@ -301,7 +411,9 @@ function UserDetailModal({ user, onClose, onSave }) {
           ))}
         </div>
 
+        {/* 탭 컨텐츠 */}
         <div css={s.tabContent}>
+          {/* 가입 크루 */}
           {activeTab === "crews" &&
             (myCrews.length > 0 ? (
               <div css={s.cardWrapper}>
@@ -312,8 +424,11 @@ function UserDetailModal({ user, onClose, onSave }) {
                   </div>
                 ))}
               </div>
-            ) : <p>가입된 크루가 없습니다.</p>)}
+            ) : (
+              <p>가입된 크루가 없습니다.</p>
+            ))}
 
+          {/* 참여 일정 */}
           {activeTab === "gatherings" &&
             (myGatherings.length > 0 ? (
               <div css={s.gatheringWrapper}>
@@ -326,12 +441,15 @@ function UserDetailModal({ user, onClose, onSave }) {
                   </div>
                 ))}
               </div>
-            ) : <p>참여한 일정이 없습니다.</p>)}
+            ) : (
+              <p>참여한 일정이 없습니다.</p>
+            ))}
 
+          {/* 신고 이력 */}
           {activeTab === "report" && (
             <div>
               <h3>📌 내가 신고한 내역</h3>
-              {reports.madeReports.length > 0 ? (
+              {reports.madeReports?.length > 0 ? (
                 <ul css={s.reportList}>
                   {reports.madeReports.map((r) => (
                     <li key={r.reportId} css={s.reportItem}>
@@ -340,7 +458,10 @@ function UserDetailModal({ user, onClose, onSave }) {
                           <span css={s.reportReason}>{r.reason}</span>
                           <span css={s.reportTarget}>→ {r.reportedMemberName}</span>
                         </div>
-                        <span css={s.reportDate}>{new Date(r.createdAt).toLocaleDateString("ko-KR")}<MdDelete css={s.deleteButton} onClick={() => handleReportDeleteOnClick(r.reportId)}/></span>
+                        <span css={s.reportDate}>
+                          {new Date(r.createdAt).toLocaleDateString("ko-KR")}
+                          <MdDelete css={s.deleteButton} onClick={() => handleReportDeleteOnClick(r.reportId)} />
+                        </span>
                       </div>
                     </li>
                   ))}
@@ -350,7 +471,7 @@ function UserDetailModal({ user, onClose, onSave }) {
               )}
 
               <h3>📌 내가 신고당한 내역</h3>
-              {reports.receivedReports.length > 0 ? (
+              {reports.receivedReports?.length > 0 ? (
                 <ul css={s.reportList}>
                   {reports.receivedReports.map((r) => (
                     <li key={r.reportId} css={s.reportItem}>
@@ -359,7 +480,10 @@ function UserDetailModal({ user, onClose, onSave }) {
                           <span css={s.reportReason}>{r.reason}</span>
                           <span css={s.reportTarget}>← {r.reportMemberName}</span>
                         </div>
-                        <span css={s.reportDate}>{new Date(r.createdAt).toLocaleDateString("ko-KR")}<MdDelete css={s.deleteButton} onClick={() => handleReportDeleteOnClick(r.reportId)}/></span>
+                        <span css={s.reportDate}>
+                          {new Date(r.createdAt).toLocaleDateString("ko-KR")}
+                          <MdDelete css={s.deleteButton} onClick={() => handleReportDeleteOnClick(r.reportId)} />
+                        </span>
                       </div>
                     </li>
                   ))}
@@ -370,21 +494,111 @@ function UserDetailModal({ user, onClose, onSave }) {
             </div>
           )}
 
-          {activeTab === "posts" &&
-            (userPosts.length > 0 ? (
-              <div css={s.postWrapper}>
-                {userPosts.map((post) => (
-                  <div key={post.postId} css={s.postCard}>
-                    <p><b>제목:</b> {post.title}</p>
-                    <p><b>작성일:</b> {post.createdAt}</p>
+          {/* 작성 글 */}
+          {activeTab === "posts" && (
+            <>
+              {isLoading && <div>불러오는 중…</div>}
+              {isError && <div>문제가 발생했어요.</div>}
+
+              {!isLoading && !isError && (
+                <>
+                  <div css={s.searchBox}>
+                    <div css={s.inputGroup}>
+                      <div>
+                        <select value={src} onChange={handleSrcChange} css={s.select}>
+                          {SRC_OPTIONS.map((op) => (
+                            <option key={op.value} value={op.value}>
+                              {op.label}
+                            </option>
+                          ))}
+                        </select>
+
+                        <select value={crewId} onChange={handleCrewChange} css={s.select}>
+                          <option value="">내 크루: 전체</option>
+                          {myCrews.map((c) => (
+                            <option key={c.crewId} value={String(c.crewId)}>
+                              {c.crewName ?? `Crew #${c.crewId}`}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <input
+                        type="text"
+                        placeholder="제목/내용 검색"
+                        value={searchInput}
+                        onChange={(e) => setSearchInput(e.target.value)}
+                        css={s.searchInput}
+                      />
+                      <button css={s.searchButton} onClick={handleSearchOnClick}>
+                        <IoSearch />
+                      </button>
+                    </div>
                   </div>
-                ))}
-              </div>
-            ) : <p>작성한 글이 없습니다.</p>)}
+
+                  <table css={s.table}>
+                    <thead>
+                      <tr>
+                        <th css={s.th}>번호</th>
+                        <th css={s.th}>분야</th>
+                        <th css={s.th}>제목</th>
+                        <th css={s.th}>크루</th>
+                        <th css={s.th}>등록일</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {contents.map((item, index) => (
+                        <tr
+                          key={`${item.src}-${item.postId}`}
+                          css={s.tr}
+                          onClick={() => {
+                            const url = buildPostUrl(item);
+                            if (url) navigate(url);
+                          }}
+                          style={{ cursor: "pointer" }}
+                        >
+                          <td css={s.td}>{totalElements - (start + index)}</td>
+                          <td css={s.td}>{srcLabel(item.src)}</td>
+                          <td css={s.tdTitle}>{item.title}</td>
+                          <td css={s.td}>{item.crewId ?? "-"}</td>
+                          <td css={s.td}>{item.createdAt}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      gap: 12,
+                      alignItems: "center",
+                      marginTop: 16,
+                      backgroundColor: "white",
+                    }}
+                  >
+                    <button onClick={() => goPage(page - 1)} disabled={page <= 1}>
+                      <BiSolidChevronLeftSquare />
+                    </button>
+                    <span>
+                      {page} / {Math.max(1, totalPages)}
+                    </span>
+                    <button onClick={() => goPage(page + 1)} disabled={page >= totalPages}>
+                      <BiSolidChevronRightSquare />
+                    </button>
+                  </div>
+
+                  {contents.length === 0 && <p>작성한 글이 없습니다.</p>}
+                </>
+              )}
+            </>
+          )}
         </div>
 
         <div css={s.footer}>
-          <button css={s.closeButton} onClick={onClose}>닫기</button>
+          <button css={s.closeButton} onClick={onClose}>
+            닫기
+          </button>
         </div>
       </div>
     </div>
