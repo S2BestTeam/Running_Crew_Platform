@@ -6,11 +6,15 @@ import { Database, BarChart3, MessageSquare, Headphones, LogOut, Settings } from
 import { FaUserCog } from "react-icons/fa";
 import SearchUser from './SearchUser/SearchUser';
 import SearchCrew from './SearchCrew/SearchCrew';
+import usePrincipalQuery from '../../queries/usePrincipalQuery';
+import Ask from './Ask/Ask';
 
 function Admin() {
   const navigate = useNavigate();
   const location = useLocation();
   const queryClient = useQueryClient();
+  const principalQuery = usePrincipalQuery();
+  const user = principalQuery?.data?.data?.body?.user;
   
   const menus = [
     { 
@@ -24,13 +28,8 @@ function Admin() {
       icon: <Database size={18} />
     },
     { 
-      title: "커뮤니티", 
-      path: "/admin/community",
-      icon: <MessageSquare size={18} />
-    },
-    { 
       title: "고객센터", 
-      path: "/admin/support",
+      path: "/admin/ask",
       icon: <Headphones size={18} />
     },
   ];
@@ -52,9 +51,7 @@ function Admin() {
 
   return (
     <div css={s.container}>
-      {/* Sidebar */}
       <div css={s.sidebar}>
-        {/* Header */}
         <div css={s.sidebarHeader}>
           <div css={s.headerContent}>
             <div css={s.logoIcon}>
@@ -62,7 +59,7 @@ function Admin() {
             </div>
             <div>
               <h2 css={s.title}>관리자</h2>
-              <p css={s.subtitle}>Admin Panel</p>
+              <p css={s.subtitle}>{user?.nickname} 님</p>
             </div>
           </div>
         </div>
@@ -99,6 +96,7 @@ function Admin() {
       <Routes>
         <Route path="/user-info" element={<SearchUser />} />
         <Route path="/crew-info" element={<SearchCrew />} />
+        <Route path="/ask" element={<Ask />} />
       </Routes>
     </div>
   );
