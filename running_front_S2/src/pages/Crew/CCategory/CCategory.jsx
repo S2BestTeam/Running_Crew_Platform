@@ -96,7 +96,6 @@ function CCategory() {
       </button>
       <button>사진첩</button>
       <button onClick={() => navigate(`/crews/${crewId}/notices`)}>공지사항</button>
-      <button>문의사항</button>
       {isCrewLeader && (
         <>
           <button onClick={() => navigate(`/crews/${crewId}/report`)}>
