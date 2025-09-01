@@ -90,7 +90,9 @@ function FeedReg() {
         });
 
         scrollCursorIntoView();
-      } catch (_) { }
+      } catch (error) {
+        console.log(error)
+       }
     };
   }, [scrollCursorIntoView]);
 
@@ -115,6 +117,7 @@ function FeedReg() {
       navigate("..");
     } catch (e) {
       alert("등록 중 오류가 발생했습니다.");
+      console.log(e)
     } finally {
       setSubmitting(false);
     }
