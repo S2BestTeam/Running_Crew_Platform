@@ -30,6 +30,11 @@
         <result property="nickname"         column="reported_nickname"/>
     </resultMap>
 
+    <delete id="delete">
+        delete from report_tb
+        where report_id = #{reportId}
+    </delete>
+
     <select id="findMemberIdByCrewAndUser" resultType="int">
         select
             member_id
@@ -72,4 +77,45 @@
             r.crew_id = #{crewId}
         order by r.created_at desc
     </select>
+
+    <select id="findReportsMadeByUser" resultType="com.korit.running_back_s2.dto.report.ReportResqDto">
+        select
+            rt.report_id,
+            rt.crew_id,
+            rt.report_member_id,
+            ut.full_name as report_member_name,
+            rt.reported_member_id,
+            ru.full_name as reported_member_name,
+            rt.reason,
+            rt.created_at
+        from
+            report_tb rt
+            left outer join member_tb mt on (mt.member_id = rt.report_member_id)
+            left outer join user_tb ut on (ut.user_id = mt.user_id)
+            left outer join member_tb rm on (rm.member_id = rt.reported_member_id)
+            left outer join user_tb ru on (ru.user_id = rm.user_id)
+        where
+            ut.user_id = #{userId};
+    </select>
+
+    <select id="findReportsReceivedByUser" resultType="com.korit.running_back_s2.dto.report.ReportResqDto">
+        select
+            rt.report_id,
+            rt.crew_id,
+            rt.report_member_id,
+            ru.full_name as report_member_name,
+            rt.reported_member_id,
+            ut.full_name as reported_member_name,
+            rt.reason,
+            rt.created_at
+        from
+            report_tb rt
+            left outer join member_tb mt on (mt.member_id = rt.reported_member_id)
+            left outer join user_tb ut on (ut.user_id = mt.user_id)
+            left outer join member_tb rm on (rm.member_id = rt.report_member_id)
+            left outer join user_tb ru on (ru.user_id = rm.user_id)
+        where
+            ut.user_id = #{userId};
+    </select>
+
 </mapper>

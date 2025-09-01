@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { BiSolidChevronLeftSquare, BiSolidChevronRightSquare } from "react-icons/bi";
 import UserDetailModal from "./UserDetailModal";
@@ -30,7 +30,6 @@ function SearchUser() {
     });
   };
 
-  // 유저 검색 API 호출
   const searchUserQuery = useSearchUserQuery({
     page,
     size: 20,
@@ -68,7 +67,6 @@ function SearchUser() {
         <button onClick={handleSearchOnClick}>검색</button>
       </div>
 
-      {/* 유저 리스트 */}
       <table border="1" cellPadding="6" cellSpacing="0" width="100%">
         <thead>
           <tr>
@@ -120,7 +118,6 @@ function SearchUser() {
         </tbody>
       </table>
 
-      {/* 페이지네이션 - 컴포넌트 화*/}
       <div style={{ display: "flex", justifyContent: "center", gap: 12, alignItems: "center", marginTop: 16 }}>
         <button onClick={() => goPage(page - 1)} disabled={page <= 1}>
           <BiSolidChevronLeftSquare />
@@ -133,7 +130,10 @@ function SearchUser() {
         </button>
       </div>
       {selectedUser && (
-        <UserDetailModal user={selectedUser} onClose={() => setSelectedUser(null)} />
+        <UserDetailModal 
+          user={selectedUser} 
+          onClose={() => setSelectedUser(null)} 
+          onSave={(newUser) => setSelectedUser(newUser)}/>
       )}
     </div>
   );

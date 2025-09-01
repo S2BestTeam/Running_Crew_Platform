@@ -5,9 +5,15 @@ export const reqSearchUsers = ({page, size, searchText}) => api.get("/api/admin/
   params: { page, size, searchText }
 });
 
+export const reqUserReported = (userId) => api.get(`/api/reports/${userId}`);
+
 
 // crew
 export const reqSearchCrews = ({page, size, searchText}) => api.get("/api/admin/crews", {
   params: { page, size, searchText }
 });
 
+
+
+// report
+export const reqReportDelete = (reportId) => api.delete(`/api/admin/reports/${reportId}`);

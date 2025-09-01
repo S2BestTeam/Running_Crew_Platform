@@ -37,7 +37,37 @@ export const profileSection = css`
 `;
 
 export const profileImageWrapper = css`
-  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #e5e5e5;
+  width: 12rem;
+  height: 12rem;
+  overflow: hidden;
+  background: #f9f9f9;
+  transition: all 0.3s ease;
+
+  & > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &:hover::after {
+    position: absolute;
+    content: "프로필 변경";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.55);
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 export const profileImage = css`
@@ -165,4 +195,99 @@ export const closeButton = css`
   background-color: #007bff;
   color: #fff;
   cursor: pointer;
+`;
+
+export const nicknameErrMsg = css`
+  position: absolute;
+  bottom: -2.8rem;
+  left: 1rem;
+  font-size: 1rem;
+  color: red;
+  white-space: nowrap;
+`;
+
+export const errMsg = css`
+  position: absolute;
+  bottom: -2.8rem;
+  left: 1rem;
+  font-size: 1rem;
+  color: red;
+  white-space: nowrap;
+`;
+
+export const reportList = css`
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 20px 0;
+  max-height: 150px;
+  overflow-y: auto;
+`;
+
+export const reportItem = css`
+  padding: 8px 12px;
+  margin-bottom: 4px;
+  background-color: #f8f9fa;
+  border-left: 3px solid #007bff;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: #e3f2fd;
+    border-left-color: #0056b3;
+  }
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+`;
+
+export const reportContent = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const reportMain = css`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+export const reportReason = css`
+  font-weight: 600;
+  color: #495057;
+  font-size: 13px;
+`;
+
+export const reportTarget = css`
+  color: #6c757d;
+  font-size: 12px;
+  font-style: italic;
+`;
+
+export const reportDate = css`
+  color: #868e96;
+  font-size: 11px;
+  white-space: nowrap;
+`;
+
+export const ModifyButton = css`
+  font-size: 1.6rem;
+  padding-left: 2rem;
+  cursor: pointer;
+
+  :hover {
+    color: #34f944ff;
+  }
+`;
+
+
+export const deleteButton = css`
+  font-size: 1.6rem;
+  padding-left: 2rem;
+  cursor: pointer;
+
+  :hover {
+    color: red;
+  }
 `;

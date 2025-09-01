@@ -150,5 +150,6 @@
             left outer join member_role_tb mrt on (mt.role_id = mrt.role_id)
         where
             mt.user_id = #{userId}
+            and crew_name is not null
     </select>
 </mapper>

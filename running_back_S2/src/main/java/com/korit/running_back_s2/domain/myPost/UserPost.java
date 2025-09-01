@@ -1,6 +1,5 @@
 package com.korit.running_back_s2.domain.myPost;
 
-import com.korit.running_back_s2.domain.crew.Crew;
 import com.korit.running_back_s2.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
