@@ -6,8 +6,9 @@
 
     <resultMap id="MemberMap" type="com.korit.running_back_s2.domain.member.Member">
         <id     property="memberId"                 column="member_id"/>
-        <result property="userId"                   column="cm_user_id"/>
+        <result property="userId"                   column="user_id"/>
         <result property="roleId"                   column="role_id"/>
+        <result property="crewId"                   column="crew_id"/>
         <association property="user" resultMap="UserMap" />
     </resultMap>
 
@@ -150,5 +151,24 @@
             left outer join member_role_tb mrt on (mt.role_id = mrt.role_id)
         where
             mt.user_id = #{userId}
+    </select>
+    <select id="getMembers" resultMap="MemberMap">
+        select
+            m.member_id,
+            m.crew_id,
+            m.user_id,
+            m.role_id,
+            m.joined_at,
+            u.user_id,
+            u.picture ,
+            u.full_name,
+            u.nickname
+        from
+            member_tb m
+            left outer join user_tb u on(m.user_id = u.user_id)
+        where
+            crew_id = #{crewId}
+        order by
+            m.role_id asc
     </select>
 </mapper>

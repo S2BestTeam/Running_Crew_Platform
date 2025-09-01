@@ -125,66 +125,137 @@ export const Button = css`
     background-color: #333;
   }
 `;
-
-export const memberContainer = css`
+////////////////////////////
+export const gatheringRow = css`
   display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  margin: 1rem 0;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
+  gap: 16px;
+  align-items: stretch;
 `;
 
-export const memberBox = css`
+// 카드 하나
+export const gatheringItem = css`
   display: flex;
-  flex-direction: row;
+  gap: 12px;
   align-items: center;
-  gap: 1rem;
-  padding: 0.5rem;
+  width: 230px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #fff;
 `;
 
-export const member = css`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-`;
-
-export const memberImg = css`
-  width: 4rem;
-  height: 4rem;
-  border-radius: 50%;
+// 썸네일
+export const gatheringThumbWrap = css`
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
   overflow: hidden;
-  background-color: #e0e0e0;
+  background: #f3f4f6;
   flex-shrink: 0;
-
-  & > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
 `;
 
-export const memberInfo = css`
+export const gatheringThumb = css`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+export const gatheringTextBox = css`
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
-  flex: 1;
+  gap: 3px;
+  min-width: 0; 
 `;
 
-export const memberName = css`
-  font-size: 0.9rem;
-  font-weight: bold;
-  color: #333;
+export const gatheringTitle = css`
+  font-weight: 700;
+  font-size: 14px;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 `;
 
-export const memberStatus = css`
-  font-size: 0.8rem;
-  color: gray;
+export const gatheringPlace = css`
+  font-size: 13px;
+  color: #4b5563;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+`;
+
+export const gatheringDate = css`
+  font-size: 10px;
+  color: #6b7280;
+`;
+////////////////////////////////////
+
+export const memberRow = css`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 5rem;
+`;
+
+export const memberItem = css`
+  display: flex;
+  box-sizing: border-box;
+  border: solid #dbdbdb 0.1rem;
+  align-items: center;
+  gap: 12px;
+  min-width: 160px;
+`;
+
+export const avatarWrap = css`
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  overflow: hidden;
+  background: #eee;
+`;
+
+export const avatar = css`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+export const badge = css`
+  left: 4px;         
+  bottom: 4px;     
+  font-size: 16px;
+  line-height: 1;
+`;
+
+export const textBox = css`
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+`;
+
+export const nickname = css`
+  font-weight: 700;
+  font-size: 14px;
+`;
+
+export const fullName = css`
+  font-size: 12px;
+  color: #6b7280;
+`;
+
+export const moreBtn = css`
+  margin-left: auto;         
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid #e5e7eb;
+  background: transparent;
+  cursor: pointer;
+
+  &:hover {
+    background: #f3f4f6;
+  }
 `;

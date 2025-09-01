@@ -77,4 +77,6 @@ public class CrewController {
     public ResponseEntity<ResponseDto<?>> withDraw(@PathVariable Integer crewId) {
         return ResponseEntity.ok(ResponseDto.success("크루 탈퇴가 성공적으로 이루어 졌습니다."));
     }
+
+
 }
