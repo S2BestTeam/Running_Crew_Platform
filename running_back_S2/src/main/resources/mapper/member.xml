@@ -6,9 +6,8 @@
 
     <resultMap id="MemberMap" type="com.korit.running_back_s2.domain.member.Member">
         <id     property="memberId"                 column="member_id"/>
-        <result property="userId"                   column="user_id"/>
+        <result property="userId"                   column="cm_user_id"/>
         <result property="roleId"                   column="role_id"/>
-        <result property="crewId"                   column="crew_id"/>
         <association property="user" resultMap="UserMap" />
     </resultMap>
 
@@ -37,33 +36,33 @@
     <delete id="deleteMember">
         delete from member_tb
         where
-            member_id = #{memberId}
+        member_id = #{memberId}
     </delete>
 
     <select id="findAllMembersBySearchOption"
             parameterType="com.korit.running_back_s2.domain.member.MemberSearchOption"
             resultMap="MemberMap">
         select
-            cm.member_id,
-            cm.user_id as cm_user_id,
-            cm.role_id,
-            u.full_name,
-            u.nickname,
-            u.picture as picture
+        cm.member_id,
+        cm.user_id as cm_user_id,
+        cm.role_id,
+        u.full_name,
+        u.nickname,
+        u.picture as picture
         from
-            member_tb cm
-            left outer join user_tb u on (u.user_id = cm.user_id)
+        member_tb cm
+        left outer join user_tb u on (u.user_id = cm.user_id)
         where
-            cm.crew_id = #{crewId}
-            <if test="searchText != null and searchText != ''">
-                AND (
-                u.full_name LIKE CONCAT('%', #{searchText}, '%')
-                OR u.nickname LIKE CONCAT('%', #{searchText}, '%')
-                )
-            </if>
+        cm.crew_id = #{crewId}
+        <if test="searchText != null and searchText != ''">
+            AND (
+            u.full_name LIKE CONCAT('%', #{searchText}, '%')
+            OR u.nickname LIKE CONCAT('%', #{searchText}, '%')
+            )
+        </if>
         order by
-            cm.role_id asc,
-            cm.member_id asc
+        cm.role_id asc,
+        cm.member_id asc
         limit #{startIndex}, #{size}
     </select>
 
@@ -71,63 +70,63 @@
             parameterType="com.korit.running_back_s2.domain.member.MemberSearchOption"
             resultType="int">
         select
-            COUNT(*)
+        COUNT(*)
         from
-            member_tb cm
-            left outer join user_tb u on (u.user_id = cm.user_id)
+        member_tb cm
+        left outer join user_tb u on (u.user_id = cm.user_id)
         where
-            cm.crew_id = #{crewId}
-            <if test="searchText != null and searchText != ''">
-                AND (
-                u.full_name LIKE CONCAT('%', #{searchText}, '%')
-                OR u.nickname LIKE CONCAT('%', #{searchText}, '%')
-                )
-            </if>
+        cm.crew_id = #{crewId}
+        <if test="searchText != null and searchText != ''">
+            AND (
+            u.full_name LIKE CONCAT('%', #{searchText}, '%')
+            OR u.nickname LIKE CONCAT('%', #{searchText}, '%')
+            )
+        </if>
     </select>
     <select id="findById" resultMap="MemberMap">
         select
-            cm.member_id,
-            cm.crew_id,
-            cm.user_id as cm_user_id,
-            cm.role_id,
-            u.user_id,
-            u.nickname,
-            u.full_name,
-            u.picture as picture,
-            u.gender,
-            u.birth_date,
-            u.total_km
+        cm.member_id,
+        cm.crew_id,
+        cm.user_id as cm_user_id,
+        cm.role_id,
+        u.user_id,
+        u.nickname,
+        u.full_name,
+        u.picture as picture,
+        u.gender,
+        u.birth_date,
+        u.total_km
         from
-            member_tb cm
-            left outer join user_tb u ON u.user_id = cm.user_id
+        member_tb cm
+        left outer join user_tb u ON u.user_id = cm.user_id
         where
-            cm.member_id = #{memberId}
+        cm.member_id = #{memberId}
     </select>
     <select id="findMemberIdByUserId" resultType="java.lang.Integer">
         select
-            member_id
+        member_id
         from
-            member_tb
+        member_tb
         where
-            crew_id = #{crewId}
-            and user_id = #{userId}
+        crew_id = #{crewId}
+        and user_id = #{userId}
     </select>
 
     <select id="countMember" resultType="java.lang.Integer">
         select
-            count(*)
+        count(*)
         from
-            member_tb
+        member_tb
         where
-            crew_id = #{crewId}
+        crew_id = #{crewId}
     </select>
 
     <update id="updateRole">
         update member_tb
         set
-            role_id = #{roleId}
+        role_id = #{roleId}
         where
-            member_id = #{memberId}
+        member_id = #{memberId}
     </update>
 
 
@@ -138,20 +137,22 @@
 
     <select id="findCrewsByUserId" resultType="com.korit.running_back_s2.dto.crew.CrewsByUserIdResDto">
         select
-            ct.crew_id,
-            ct.crew_name,
-            ct.title,
-            ct.thumbnail_picture,
-            gt.gungu_name,
-            mrt.role_name
+        ct.crew_id,
+        ct.crew_name,
+        ct.title,
+        ct.thumbnail_picture,
+        gt.gungu_name,
+        mrt.role_name
         from
-            member_tb mt
-            left outer join crew_tb ct on (mt.crew_id = ct.crew_id)
-            left outer join gungu_tb gt on (gt.gungu_id = ct.gungu_id)
-            left outer join member_role_tb mrt on (mt.role_id = mrt.role_id)
+        member_tb mt
+        left outer join crew_tb ct on (mt.crew_id = ct.crew_id)
+        left outer join gungu_tb gt on (gt.gungu_id = ct.gungu_id)
+        left outer join member_role_tb mrt on (mt.role_id = mrt.role_id)
         where
-            mt.user_id = #{userId}
+        mt.user_id = #{userId}
+        and crew_name is not null
     </select>
+
     <select id="getMembers" resultMap="MemberMap">
         select
             m.member_id,
