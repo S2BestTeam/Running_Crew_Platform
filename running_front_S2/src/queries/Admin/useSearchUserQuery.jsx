@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { reqSearchUsers } from '../api/Admin/adminApi';
+import { reqSearchUsers } from '../../api/Admin/adminApi';
 
 function useSearchUserQuery({ page, size, searchText }) {
     return useQuery({

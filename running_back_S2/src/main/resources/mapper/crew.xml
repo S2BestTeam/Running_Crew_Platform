@@ -102,12 +102,15 @@
             ct.thumbnail_picture,
             ct.crew_name,
             ct.user_id,
+            ut.full_name,
             ct.title,
             ct.content,
+            ct.limited_people,
             ct.created_at
         from
             crew_tb ct
             left outer join gungu_tb gt on(ct.gungu_id = gt.gungu_id)
+            left outer join user_tb ut on(ut.user_id = ct.user_id)
         <where>
             <if test="gunguId != null">
                 and ct.gungu_id = #{gunguId}

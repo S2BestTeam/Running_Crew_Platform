@@ -5,6 +5,7 @@ import { Outlet, useNavigate, useLocation, Routes, Route } from "react-router-do
 import { Database, BarChart3, MessageSquare, Headphones, LogOut, Settings } from "lucide-react";
 import { FaUserCog } from "react-icons/fa";
 import SearchUser from './SearchUser/SearchUser';
+import SearchCrew from './SearchCrew/SearchCrew';
 
 function Admin() {
   const navigate = useNavigate();
@@ -21,11 +22,6 @@ function Admin() {
       title: "크루정보", 
       path: "/admin/crew-info",
       icon: <Database size={18} />
-    },
-    { 
-      title: "랭킹정보", 
-      path: "/admin/ranking-info",
-      icon: <BarChart3 size={18} />
     },
     { 
       title: "커뮤니티", 
@@ -71,7 +67,6 @@ function Admin() {
           </div>
         </div>
 
-        {/* Navigation */}
         <nav css={s.navigation}>
           {menus.map((menu, idx) => {
             const isActive = location.pathname === menu.path;
@@ -90,7 +85,6 @@ function Admin() {
           })}
         </nav>
 
-        {/* Logout Button */}
         <div css={s.logoutContainer}>
           <button
             onClick={handleLogout}
@@ -104,6 +98,7 @@ function Admin() {
 
       <Routes>
         <Route path="/user-info" element={<SearchUser />} />
+        <Route path="/crew-info" element={<SearchCrew />} />
       </Routes>
     </div>
   );

@@ -8,6 +8,7 @@ import com.korit.running_back_s2.util.AppProperties;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,10 +28,17 @@ public class JwtFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         // OPTIONS 요청은 그대로 통과
         if (request.getMethod().equalsIgnoreCase("OPTIONS")) {
             filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+
+        String path = request.getRequestURI();
+        if (path.startsWith("/image/") || path.startsWith("/uploads/")) {
+            filterChain.doFilter(request, response);
             return;
         }
 

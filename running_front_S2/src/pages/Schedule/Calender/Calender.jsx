@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import React, { useEffect, useState } from 'react';
-import { ChevronLeft, ChevronRight, Circle } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import * as s from './styles';
+import { ChevronLeft, ChevronRight, Circle } from 'lucide-react';
 import MainContainer from '../../../components/MainContainer/MainContainer';
 import useGetMyGatheringQuery from '../../../queries/useGetMyGatheringQuery';
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
