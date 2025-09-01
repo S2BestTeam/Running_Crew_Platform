@@ -5,7 +5,6 @@ import ContentLayout from "../../../components/ContentLayout/ContentLayout";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 import { useGetGatheringsQuery } from "../../../queries/useGetGatheringsQuery";
-import { reqGatheringParticipants } from "../../../api/Crew/gatheringApi";
 import GatheringManagementModal from "./GatheringManagementModal/GatheringManagementModal";
 import { useNavigate } from "react-router-dom";
 import { useCrewStore } from "../../../stores/useCrewStroes";
@@ -18,7 +17,6 @@ function GatheringManagement() {
   const [gatherings, setGatherings] = useState([]);
   const [selectedGathering, setSelectedGathering] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [participants, setParticipants] = useState([]);
 
   useEffect(() => {
     if (gatheringsQuery?.data?.data?.body) {
@@ -26,25 +24,13 @@ function GatheringManagement() {
     }
   }, [gatheringsQuery?.data]);
 
-  // 출석체크 버튼 클릭 시 모달 열기
-  const handleAttendanceClick = async (gathering) => {
+  const handleAttendanceClick = (gathering) => {
     setSelectedGathering(gathering);
     setIsModalOpen(true);
-
-    try {
-      const res = await reqGatheringParticipants(
-        gathering.crewId,
-        gathering.gatheringId
-      );
-      setParticipants(res.data);
-    } catch (err) {
-      console.error("참석자 불러오기 실패:", err);
-    }
   };
 
   const handleCloseModal = () => {
     setSelectedGathering(null);
-    setParticipants([]);
     setIsModalOpen(false);
   };
 
@@ -59,11 +45,7 @@ function GatheringManagement() {
       width: 200,
       renderCell: (params) => (
         <div css={s.profileRow}>
-          <img
-            src={params.row.user?.picture}
-            alt={params.value}
-            css={s.profileImg}
-          />
+          <img src={params.row.user?.picture} alt={params.value} css={s.profileImg} />
           <span>{params.value}</span>
         </div>
       ),
@@ -75,7 +57,6 @@ function GatheringManagement() {
       renderCell: (params) => {
         const today = new Date();
         const runningDate = new Date(params.row.runningDate);
-
         if (runningDate < today) {
           return (
             <button
@@ -89,7 +70,6 @@ function GatheringManagement() {
             </button>
           );
         }
-
         return <span>진행중</span>;
       },
     },
@@ -119,9 +99,7 @@ function GatheringManagement() {
               rows={rows}
               columns={columns}
               pageSizeOptions={[10]}
-              initialState={{
-                pagination: { paginationModel: { pageSize: 10 } },
-              }}
+              initialState={{ pagination: { paginationModel: { pageSize: 10 } } }}
               checkboxSelection
               disableRowSelectionOnClick
               onRowClick={(params) => {
@@ -135,7 +113,8 @@ function GatheringManagement() {
           <GatheringManagementModal
             isOpen={isModalOpen}
             onClose={handleCloseModal}
-            participants={participants}
+            crewId={crewId}
+            gatheringId={selectedGathering?.gatheringId}
           />
         </main>
       </div>
