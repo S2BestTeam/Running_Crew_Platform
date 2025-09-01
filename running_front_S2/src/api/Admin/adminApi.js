@@ -29,3 +29,5 @@ export const reqGetUserPosts = ({
   api.get("/api/admin/posts", {
     params: { page, size, searchText, src, crewId, userId },
   });
+
+  export const reqRegisterAnswer = ({ askId, content }) => api.post(`/api/ask/${askId}`, { content });
