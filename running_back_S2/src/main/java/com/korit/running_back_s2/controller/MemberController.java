@@ -22,6 +22,11 @@ public class MemberController {
         return ResponseEntity.ok(ResponseDto.success(memberService.countMember(crewId)));
     }
 
+    @GetMapping("/crew/{crewId}")
+    public ResponseEntity<ResponseDto<?>> getMembers (@PathVariable Integer crewId) {
+        return ResponseEntity.ok(ResponseDto.success(memberService.getMembers(crewId)));
+    }
+
     @PostMapping
     public ResponseEntity<ResponseDto<?>> registerCrewMember(@RequestBody Member member) {
         memberService.registerMember(member);

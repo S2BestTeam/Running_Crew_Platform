@@ -26,5 +26,10 @@ public class ReportController {
         return ResponseEntity.ok(ResponseDto.success(reportService.getReportsByCrew(crewId)));
     }
 
+    @GetMapping("/{userId}")
+    public ResponseEntity<ResponseDto<?>> getMyReported(@PathVariable Integer userId) {
+        return ResponseEntity.ok(ResponseDto.success(reportService.getUserReported(userId)));
+    }
+
 
 }

@@ -1,4 +1,4 @@
-import { member } from "../../pages/Crew/Information/styles";
+
 import api from "../axios";
 
 export const reqCrewDetail = (crewId) => api.get(`/api/crews/${crewId}`);

@@ -5,9 +5,7 @@ import com.korit.running_back_s2.dto.user.UserSearchReqDto;
 import com.korit.running_back_s2.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -21,18 +19,14 @@ public class AdminController {
         return ResponseEntity.ok(ResponseDto.success(adminService.searchUser(dto)));
     }
 
-    @GetMapping("/crews")
-    public ResponseEntity<ResponseDto<?>> getCrews() {
-        return ResponseEntity.ok(ResponseDto.success(null));
+    @DeleteMapping("/reports/{reportId}")
+    public ResponseEntity<ResponseDto<?>> deleteReport (@PathVariable Integer reportId) {
+        adminService.deleteReport(reportId);
+        return ResponseEntity.ok(ResponseDto.success("삭제 성공"));
     }
 
-    @GetMapping("/crews/freeBroads")
-    public ResponseEntity<ResponseDto<?>> getFreeBroads() {
-        return ResponseEntity.ok(ResponseDto.success(null));
-    }
-
-    @GetMapping("/crews/notices")
-    public ResponseEntity<ResponseDto<?>> getNotices() {
+    @GetMapping("/{userId}/post")
+    public ResponseEntity<ResponseDto<?>> getPost(Integer userId) {
         return ResponseEntity.ok(ResponseDto.success(null));
     }
 }

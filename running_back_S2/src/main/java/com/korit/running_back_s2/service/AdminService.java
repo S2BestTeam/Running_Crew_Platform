@@ -1,5 +1,6 @@
 package com.korit.running_back_s2.service;
 
+import com.korit.running_back_s2.domain.report.ReportMapper;
 import com.korit.running_back_s2.domain.user.User;
 import com.korit.running_back_s2.domain.user.UserMapper;
 import com.korit.running_back_s2.dto.user.UserSearchReqDto;
@@ -17,6 +18,7 @@ public class AdminService {
 
     private final ImageUrlUtil imageUrlUtil;
     private final UserMapper userMapper;
+    private final ReportMapper reportMapper;
 
     public UserSearchRespDto searchUser(UserSearchReqDto dto) {
         Integer totalElements = userMapper.getCountOfOptions(dto.toOption());
@@ -37,4 +39,10 @@ public class AdminService {
                 .isLast(isLast)
                 .build();
     }
+
+    public void deleteReport (Integer reportId) {
+        reportMapper.delete(reportId);
+    }
+
+//    public List<>
 }

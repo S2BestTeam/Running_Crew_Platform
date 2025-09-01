@@ -13,13 +13,14 @@ export const tabActive = css`
 
 export const searchBox = css`
   display: flex;
-  justify-content: right;
+  justify-content: space-between;
   align-items: center;
   margin: 2rem 0 2rem 0;
 `;
 
 export const inputGroup = css`
     display: flex;
+    justify-content: space-between;
 `;
 
 export const searchInput = css`
@@ -28,7 +29,7 @@ export const searchInput = css`
   padding: 0.8rem;
   border: 0.1rem solid #ccc;
   border-right: none;
-border-radius: 0.6rem 0 0 0.6rem;
+  border-radius: 0.6rem 0 0 0.6rem;
   outline: none;
 `;
 

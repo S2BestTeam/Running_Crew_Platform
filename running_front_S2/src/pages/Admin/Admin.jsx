@@ -58,7 +58,7 @@ function Admin() {
         <div css={s.sidebarHeader}>
           <div css={s.headerContent}>
             <div css={s.logoIcon}>
-              <Settings css={s.logoIconSvg} />
+              <Settings css={s.logoIconSvg} onClick={() => navigate("/")}/>
             </div>
             <div>
               <h2 css={s.title}>관리자</h2>

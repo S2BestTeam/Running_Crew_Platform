@@ -19,3 +19,5 @@ export const reqExpelMember = ({ memberId }) => api.delete(`/api/members/${membe
 export const reqGetMemberId = (crewId) => api.get(`/api/members/${crewId}/memberId`); 
 
 export const reqWithDrawMember = (memberId) => api.delete(`/api/members/${memberId}/withdraw`);
+
+export const reqGetMembers = (crewId) => api.get(`/api/members/crew/${crewId}`);

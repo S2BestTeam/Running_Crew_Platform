@@ -3,6 +3,8 @@ package com.korit.running_back_s2.service;
 import com.korit.running_back_s2.domain.report.Report;
 import com.korit.running_back_s2.domain.report.ReportMapper;
 import com.korit.running_back_s2.dto.report.ReportReqDto;
+import com.korit.running_back_s2.dto.report.ReportResqDto;
+import com.korit.running_back_s2.dto.report.UserReportRespDto;
 import com.korit.running_back_s2.security.model.PrincipalUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,8 +25,14 @@ public class ReportService {
         reportMapper.insertReport(crewId, reporterMemberId, reportedMemberId, dto.getReason());
     }
 
-    public List<Report> getReportsByCrew(int crewId) {
+    public List<Report> getReportsByCrew(Integer crewId) {
         return reportMapper.findReportsByCrew(crewId);
+    }
+
+    public UserReportRespDto getUserReported(Integer userId) {
+        List<ReportResqDto> madeReports = reportMapper.findReportsMadeByUser(userId);
+        List<ReportResqDto> receivedReports = reportMapper.findReportsReceivedByUser(userId);
+        return new UserReportRespDto(madeReports, receivedReports);
     }
 }
 

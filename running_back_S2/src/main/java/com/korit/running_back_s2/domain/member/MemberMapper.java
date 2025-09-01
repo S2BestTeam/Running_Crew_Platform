@@ -21,4 +21,5 @@ public interface MemberMapper {
 
     List<CrewsByUserIdResDto> findCrewsByUserId(Integer userId);
 
+    List<Member> getMembers(Integer crewId);
 }

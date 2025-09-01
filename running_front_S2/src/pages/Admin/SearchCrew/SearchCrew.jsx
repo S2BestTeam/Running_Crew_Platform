@@ -15,7 +15,7 @@ function SearchCrew() {
     page,
     size: 20,
     searchText,
-    gunguId: "", // 관리자 페이지는 굳이 군구 필터 안 써도 된다면 제거
+    gunguId: "",
   });
 
   if (crewListQuery.isLoading) return <div>Loading...</div>;
@@ -49,7 +49,6 @@ function SearchCrew() {
         <button onClick={handleSearchOnClick}>검색</button>
       </div>
 
-      {/* 크루 리스트 테이블 */}
       <table border="1" cellPadding="6" cellSpacing="0" width="100%">
         <thead>
           <tr>
@@ -95,7 +94,6 @@ function SearchCrew() {
         </tbody>
       </table>
 
-      {/* 페이지네이션 */}
       <div style={{ display: "flex", justifyContent: "center", gap: 12, alignItems: "center", marginTop: 16 }}>
         <button onClick={() => goPage(page - 1)} disabled={page <= 1}>
           <BiSolidChevronLeftSquare />
@@ -106,7 +104,6 @@ function SearchCrew() {
         </button>
       </div>
 
-      {/* 선택된 크루 상세보기 모달 */}
       {selectedCrew && (
         <CrewDetailModal crew={selectedCrew} onClose={() => setSelectedCrew(null)} />
       )}
