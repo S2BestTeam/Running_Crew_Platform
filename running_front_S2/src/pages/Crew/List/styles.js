@@ -85,8 +85,8 @@ export const rankingBox = css`
 `;
 
 export const topRanking = css`
-  width: 6rem;
-  height: 3rem;
+  width: 7rem;
+  height: 2.8rem;
   background-color: purple;
   color: #fff;
   border-radius: 0.3rem;
@@ -94,8 +94,8 @@ export const topRanking = css`
 
 `;
 export const newRanking = css`
-  width: 6rem;
-  height: 3rem;
+  width: 7rem;
+  height: 2.8rem;
   background-color: green;
   color: #fff;
   border-radius: 0.3rem;

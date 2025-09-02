@@ -185,7 +185,7 @@ function List() {
                       animate={{ scale: isLiked ? [1, 1.4, 1] : [1, 0.8, 1] }}
                       transition={{ duration: 0.3 }}
                     >
-                      {isLiked ? <FaHeart color="#ff4d6d" /> : <FiHeart color="fff" />}
+                      {isLiked ? <FaHeart color="red" /> : <FiHeart color="fff" />}
                     </motion.div>
                   </div>
                   <div css={s.textBox}>
@@ -196,7 +196,7 @@ function List() {
                     </div>
                   </div>
                   <div css={s.rankingBox}>
-                    <div css={s.topRanking}>인기크루</div>
+                    <div css={s.topRanking}>Top 랭킹</div>
                     <div css={s.newRanking}>신규크루</div>
                   </div>
                 </div>
