@@ -2,10 +2,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as s from "./styles";
 import { reqCrewAlbum } from "../../../api/Crew/crewApi";
+import { useCrewStore } from "../../../stores/useCrewStroes";
 
 const STEP = 24;
 
 export default function CrewAlbums() {
+    const { crewId } = useCrewStore();
     const [all, setAll] = useState([]);
     const [visible, setVisible] = useState(STEP);
     const [loading, setLoading] = useState(false);
@@ -16,7 +18,7 @@ export default function CrewAlbums() {
         (async () => {
             setLoading(true);
             try {
-                const res = await reqCrewAlbum();
+                const res = await reqCrewAlbum(crewId);
                 const payload = res?.data?.body;
                 setAll(Array.isArray(payload) ? payload : []);
                 setAll(res.data?.body ?? []);

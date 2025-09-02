@@ -111,6 +111,13 @@
             c.free_id = #{freeId}
             and c.crew_id = #{crewId}
     </select>
+    <select id="findAllTest" resultType="java.lang.String">
+        select
+        content
+        from crew_free_tb
+        where crew_id = #{crewId}
+
+    </select>
 
 
 </mapper>

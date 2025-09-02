@@ -143,11 +143,13 @@ function NoticeReg() {
         />
       </div>
 
-      <div css={s.submitRow}>
-        <button css={s.submitBtn} onClick={handleSubmit} disabled={submitting}>
-          {submitting ? "등록 중..." : "등록"}
-        </button>
-      </div>
+     
+           <div css={s.submitRow}>
+             <button css={s.cancleBtn} onClick={() => navigate(-1)}>취소</button>
+             <button css={s.submitBtn} onClick={handleSubmit} disabled={submitting}>
+               {submitting ? "등록 중..." : "등록"}
+             </button>
+           </div>
     </div>
     </MainContainer>
   );
