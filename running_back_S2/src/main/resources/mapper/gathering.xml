@@ -32,6 +32,7 @@
         <result property="nickname" column="nickname" />
         <result property="fullName" column="full_name" />
         <result property="picture" column="picture" />
+        <result property="attendanceStatus" column="attendance_status"/>
     </resultMap>
 
 
@@ -125,15 +126,16 @@
 
     <select id="findParticipantsByGatheringId" resultMap="UserMap">
         SELECT
-            ut.user_id,
-            ut.nickname,
-            ut.full_name,
-            ut.picture
+        ut.user_id,
+        ut.nickname,
+        ut.full_name,
+        ut.picture,
+        gpt.attendance_status
         FROM
-            gathering_participant_tb gpt
+        gathering_participant_tb gpt
         INNER JOIN user_tb ut ON ut.user_id = gpt.user_id
         WHERE
-            gpt.gathering_id = #{gatheringId}
+        gpt.gathering_id = #{gatheringId}
     </select>
 
     <select id="findGatheringByUserId" resultType="com.korit.running_back_s2.dto.user.UserGatheringsReqDto">
@@ -178,7 +180,12 @@
     </select>
 
     <select id="getKmById" resultType="double">
-        SELECT km FROM gathering_tb WHERE gathering_id = #{gatheringId}
+        SELECT
+            km
+        FROM
+            gathering_tb
+        WHERE
+            gathering_id = #{gatheringId}
     </select>
 
 </mapper>
