@@ -18,10 +18,8 @@ export const gridBox = css`
 `;
 
 export const cards = css`
-  border: 0.1rem solid #ddd;
   border-radius: 0.8rem;
   padding: 1.2rem;
-  background-color: #fafafa;
   cursor: pointer;
 `;
 
@@ -30,8 +28,8 @@ export const tumbnailBox = css`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 25rem;
   height: 25rem;
-  padding: 1rem 1rem 0 1rem;
   overflow: hidden;
 
   & > img {
@@ -47,7 +45,6 @@ export const heartIcon = css`
   bottom: 0.6rem;
   right: 2rem;
   font-size: 3.2rem;
-  color: white;
   cursor: pointer;
 
   &:hover {
@@ -56,20 +53,51 @@ export const heartIcon = css`
 `;
 
 export const textBox = css`
-  padding-left: 1rem;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
 `;
 
 export const gungu = css`
+  color: #7b7b7b;
   padding: 0.6rem 0 0.6rem 0;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+  font-weight: 500;
 `;
 
 export const crewName = css`
   font-weight: bold;
+  margin-right: 0.5rem;
+    font-size: 1.6rem;
 `;
 
 export const crewTitle = css`
-  font-size: 1.3rem;
-  margin-top: 0.4rem;
+  font-size: 1.6rem;
   color: #333;
+`;
+
+export const rankingBox = css`
+  display: flex;
+  padding: 0.5rem;
+  font-weight: 500;
+  text-align: center;
+    border-radius: 0.4rem;
+
+`;
+
+export const topRanking = css`
+  width: 6rem;
+  height: 3rem;
+  background-color: purple;
+  color: #fff;
+  border-radius: 0.3rem;
+  margin-right: 0.5rem;
+
+`;
+export const newRanking = css`
+  width: 6rem;
+  height: 3rem;
+  background-color: green;
+  color: #fff;
+  border-radius: 0.3rem;
+
 `;
