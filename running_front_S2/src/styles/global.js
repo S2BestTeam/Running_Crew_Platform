@@ -19,6 +19,7 @@ export const global = css`
     padding: 0;
     width: 100%;
     height: 100vh;
+    overflow-x: hidden;
   }
 
   #root {

@@ -1,12 +1,15 @@
 import { css } from "@emotion/react";
 
 export const container = css`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* 화면 전체 높이 */
   width: 100%;
-  height: 100vh;
   background-color: #000;
-`
+`;
 
 export const main = css`
+  flex: 1; /* 남은 공간 채우기 */
   margin: 0;
   padding: 0;
   width: 100%;
@@ -19,6 +22,7 @@ export const mainVideo = css`
   width: 100%;
   height: 55rem;
   overflow: hidden;
+
   & > video {
     width: 100%;
   }
@@ -47,6 +51,15 @@ export const mainGallery = css`
 
 export const sliderImg = css`
   box-sizing: border-box;
-  width: "96rem";
+  width: 96rem;
   padding: 0 2rem;
+`;
+
+export const footer = css`
+  height: 5rem; /* 푸터 높이 */
+  background-color: #111;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
