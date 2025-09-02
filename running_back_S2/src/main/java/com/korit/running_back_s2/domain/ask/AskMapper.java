@@ -15,4 +15,8 @@ public interface AskMapper {
     int updateIsAnswer(Integer askId);
 
     List<Ask> findDetailById(@Param("askId") int askId);
+
+    void insertAnswer(Answer answer);
+
+    void updateIsAnswer(Integer askId);
 }

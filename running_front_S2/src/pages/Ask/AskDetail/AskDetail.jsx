@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+<<<<<<< HEAD
 import * as s from './styles';
 import { useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -8,21 +9,36 @@ import MainContainer from '../../../components/MainContainer/MainContainer';
 import useGetAskDetailQuery from '../../../queries/useGetAskDetailQuery';
 import { reqAskComment, reqDeleteAskComment, reqUpdateAskComment } from '../../../api/Admin/adminApi';
 import { useGetAskCommentsQuery } from '../../../queries/Admin/useGetAskCommentsQuery';
+=======
+import * as s from "./styles";
+import React, { useMemo } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import sanitizeHtml from "sanitize-html";
+import MainContainer from "../../../components/MainContainer/MainContainer";
+import useGetAskDetailQuery from "../../../queries/useGetAskDetailQuery";
+>>>>>>> origin/95-세부기능-다듬기-4
 
 function AskDetail() {
   const { askId } = useParams();
   const navigate = useNavigate();
+<<<<<<< HEAD
 
   const principalQuery = usePrincipalQuery();
   const principalRole = principalQuery?.data?.data?.body?.user?.role;
   const isAdmin = principalRole === "ROLE_ADMIN";
 
   const { data, isLoading, error, refetch } = useGetAskDetailQuery({ askId });
+=======
+
+  const { data, isLoading, error } = useGetAskDetailQuery({ askId });
+
+>>>>>>> origin/95-세부기능-다듬기-4
   const post = useMemo(() => {
     const body = data?.body;
     return Array.isArray(body) ? body[0] : body;
   }, [data]);
 
+<<<<<<< HEAD
   const askCommentQuery = useGetAskCommentsQuery(post?.askId);
   const comments = askCommentQuery?.data?.data?.body ?? [];
   
@@ -66,21 +82,74 @@ function AskDetail() {
   if (isLoading) return <div css={s.layout}>로딩중…</div>;
   if (error) return <div css={s.layout}>에러가 발생했어요: {String(error)}</div>;
   if (!post) return <div css={s.layout}>공지글을 찾을 수 없어요.</div>;
+=======
+  if (isLoading)
+    return (
+      <MainContainer>
+        <div css={s.layout}>
+          <div css={s.skeletonHeader} />
+          <div css={s.skeletonBlock} />
+          <div css={s.skeletonBlock} />
+        </div>
+      </MainContainer>
+    );
+>>>>>>> origin/95-세부기능-다듬기-4
 
-  const cleanHtml = sanitizeHtml(post.content ?? "", {
+  if (error)
+    return (
+      <MainContainer>
+        <div css={s.layout}>에러가 발생했어요: {String(error)}</div>
+      </MainContainer>
+    );
+
+  if (!post)
+    return (
+      <MainContainer>
+        <div css={s.layout}>문의글을 찾을 수 없어요.</div>
+      </MainContainer>
+    );
+
+  // 응답 형태 호환: askContent/askCreatedAt 또는 content/createdAt
+  const askContentRaw = post.askContent ?? post.content ?? "";
+  const askCreated =
+    post.askCreatedAt ??
+    post.createdAt ??
+    null;
+  const writerName = post.user?.nickname ?? post.nickname ?? "익명";
+
+  const answerContent =
+    post.answerContent ?? post.answer?.content ?? null;
+  const answerCreated =
+    post.answerCreatedAt ?? post.answer?.createdAt ?? null;
+
+  const isAnswered =
+    Boolean(post.isAnswer) || Boolean(answerContent);
+
+  const cleanHtml = sanitizeHtml(askContentRaw, {
     allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
+<<<<<<< HEAD
     allowedAttributes: { 
       a: ["href", "name", "target", "rel"], 
       img: ["src", "alt"] 
+=======
+    allowedAttributes: {
+      a: ["href", "name", "target", "rel"],
+      img: ["src", "alt"],
+>>>>>>> origin/95-세부기능-다듬기-4
     },
     transformTags: {
       a: (tagName, attribs) => ({
         tagName,
+<<<<<<< HEAD
         attribs: { ...attribs, target: "_blank", rel: "noopener noreferrer" }
+=======
+        attribs: { ...attribs, target: "_blank", rel: "noopener noreferrer" },
+>>>>>>> origin/95-세부기능-다듬기-4
       }),
     },
   });
 
+<<<<<<< HEAD
   const handleCommentSubmit = async () => {
     if (!comment.trim()) return;
 
@@ -110,11 +179,17 @@ function AskDetail() {
       alert("댓글 삭제 중 오류가 발생했습니다.");
     }
   };
+=======
+  const format = (d) =>
+    d ? new Date(d).toLocaleString("ko-KR") : "-";
+>>>>>>> origin/95-세부기능-다듬기-4
 
   return (
     <MainContainer>
       <div css={s.layout}>
+        {/* 상단 바 */}
         <div css={s.topBar}>
+<<<<<<< HEAD
           <button onClick={() => navigate(-1)}>← 목록</button>
           <span style={{ color: "#94a3b8", fontSize: 14 }}>
             글번호 #{post.askId}
@@ -221,7 +296,43 @@ function AskDetail() {
             <button css={s.commentBtn} onClick={handleCommentSubmit}>
               댓글 달기
             </button>
+=======
+          <button css={s.backBtn} onClick={() => navigate(-1)} aria-label="목록으로">
+            ← 목록
+          </button>
+          <div css={s.metaRight}>
+            <span css={[s.stateChip, isAnswered ? s.chipAnswered : s.chipWaiting]}>
+              {isAnswered ? "답변완료" : "대기"}
+            </span>
+            <span css={s.idText}>글번호 #{post.askId}</span>
+>>>>>>> origin/95-세부기능-다듬기-4
           </div>
+        </div>
+
+        {/* 제목 & 작성 메타 */}
+        <h1 css={s.title}>{post.title}</h1>
+        <div css={s.metaRow}>
+          <span>{writerName}</span>
+          <span>{format(askCreated)}</span>
+        </div>
+
+        {/* 본문 */}
+        <div css={s.card}>
+          <div css={s.content} dangerouslySetInnerHTML={{ __html: cleanHtml }} />
+        </div>
+
+        {/* 관리자 답변 (있을 때만 표시) */}
+        {answerContent && (
+          <>
+            <div css={s.sectionTitle}>관리자 답변</div>
+            <div css={[s.card, s.answerCard]}>
+              <div css={s.answerMeta}>
+                <span>관리자</span>
+                <span>{format(answerCreated)}</span>
+              </div>
+              <div css={s.answerContent}>{answerContent}</div>
+            </div>
+          </>
         )}
       </div>
     </MainContainer>

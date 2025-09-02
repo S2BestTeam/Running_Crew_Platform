@@ -1,6 +1,10 @@
 package com.korit.running_back_s2.controller;
 
+<<<<<<< HEAD
 import com.korit.running_back_s2.dto.ask.AskCommentReqDto;
+=======
+import com.korit.running_back_s2.dto.ask.AnswerReqDto;
+>>>>>>> origin/95-세부기능-다듬기-4
 import com.korit.running_back_s2.dto.ask.AskReqDto;
 import com.korit.running_back_s2.dto.ask.UpdateAskCommentReqDto;
 import com.korit.running_back_s2.dto.response.ResponseDto;
@@ -33,6 +37,7 @@ public class AskController {
     public ResponseEntity<ResponseDto<?>> getDetail(@PathVariable Integer askId) {
         return ResponseEntity.ok(ResponseDto.success(askService.getDetail(askId)));
     }
+<<<<<<< HEAD
 
     @PostMapping("/{askId}/comments")
     public ResponseEntity<ResponseDto<?>> registerAskComment(@RequestBody AskCommentReqDto dto) {
@@ -55,4 +60,12 @@ public class AskController {
         askService.deleteAskComment(askCommentId);
         return ResponseEntity.ok(ResponseDto.success("댓글 수정 완료"));
     }
+=======
+    @PostMapping("/{askId}")
+    public ResponseEntity<ResponseDto<?>> registerAnswer(@PathVariable Integer askId, @RequestBody AnswerReqDto dto) throws Exception {
+        askService.registerAnswer(askId, dto);
+        return ResponseEntity.ok(ResponseDto.success("답변 등록 성공"));
+    }
+
+>>>>>>> origin/95-세부기능-다듬기-4
 }

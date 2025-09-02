@@ -7,7 +7,8 @@ import { FaUserCog } from "react-icons/fa";
 import SearchUser from './SearchUser/SearchUser';
 import SearchCrew from './SearchCrew/SearchCrew';
 import usePrincipalQuery from '../../queries/usePrincipalQuery';
-import Ask from './Ask/Ask';
+import Ask from './Ask/AskAnswer';
+import AskAnswer from './Ask/AskAnswer';
 
 function Admin() {
   const navigate = useNavigate();
@@ -96,7 +97,7 @@ function Admin() {
       <Routes>
         <Route path="/user-info" element={<SearchUser />} />
         <Route path="/crew-info" element={<SearchCrew />} />
-        <Route path="/ask" element={<Ask />} />
+        <Route path="/ask" element={<AskAnswer />} />
       </Routes>
     </div>
   );
