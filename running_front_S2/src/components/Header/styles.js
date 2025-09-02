@@ -21,6 +21,7 @@ export const logo = css`
 export const nav = css`
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
   position: relative;
   flex-grow: 1;
@@ -111,5 +112,21 @@ export const icon = css`
 
   &:hover {
     background-color: #ebebeb26;
+  }
+`;
+
+export const profileImgBox = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  overflow: hidden;
+
+  & > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 `;

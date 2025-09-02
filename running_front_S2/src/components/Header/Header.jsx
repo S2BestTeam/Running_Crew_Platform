@@ -133,10 +133,15 @@ function Header(props) {
         <div css={s.icon} onClick={handleLogout}>
           <TbLogout />
         </div>
-        {/* 로그인시 프로필 이미지로 바뀜*/}
         <div css={s.icon} onClick={handleProfileClick}>
+        {userInfo?.picture ? (
+          <div css={s.profileImgBox}>
+            <img src={userInfo.picture} alt="프로필 이미지" />
+          </div>
+        ) : (
           <FiUser />
-        </div>
+        )}
+      </div>
       </div>
     </header>
   );

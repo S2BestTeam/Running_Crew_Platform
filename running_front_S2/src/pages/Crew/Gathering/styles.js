@@ -4,6 +4,7 @@ export const gatheringMain = css`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 3rem 2rem;
+  padding-bottom: 4rem;
 `;
 
 export const gatheringContainer = css`

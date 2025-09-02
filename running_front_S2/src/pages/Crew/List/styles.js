@@ -6,9 +6,52 @@ export const layout = css`
 
 export const headerBox = css`
   display: flex;
-  flex-direction: row;
-  padding-top: 2rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding: 1rem 1.6rem;
 `;
+
+export const selectBox = css`
+  height: 3.6rem;
+  padding: 0 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.4rem;
+  font-size: 1.4rem;
+  background-color: white;
+`;
+
+export const searchGroup = css`
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* 여기서 간격을 2rem으로 설정 */
+`;
+
+
+export const searchInput = css`
+  width: 30rem;
+  height: 3.6rem;
+  padding: 0 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.4rem;
+  font-size: 1.4rem;
+`;
+
+export const searchButton = css`
+  height: 3.6rem;
+  padding: 0 1.2rem;
+  background-color: #000; /* 2번째 이미지처럼 검정 버튼 */
+  color: white;
+  border: none;
+  border-radius: 0.4rem;
+  font-size: 1.4rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #333;
+  }
+`;
+
 
 export const gridBox = css`
   display: grid;
@@ -46,7 +89,7 @@ export const heartIcon = css`
   position: absolute;
   bottom: 0.6rem;
   right: 2rem;
-  font-size: 3.2rem;
+  font-size: 3rem;
   color: white;
   cursor: pointer;
 

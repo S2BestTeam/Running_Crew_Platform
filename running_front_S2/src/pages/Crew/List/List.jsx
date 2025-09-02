@@ -149,7 +149,11 @@ function List() {
     <MainContainer>
       <div css={s.layout}>
         <div css={s.headerBox}>
-          <select value={selectedGunguId} onChange={handleGunguChange}>
+          <select
+            value={selectedGunguId}
+            onChange={handleGunguChange}
+            css={s.selectBox}
+          >
             <option value="">전체</option>
             {gunguList.map((gungu) => (
               <option key={gungu.gunguId} value={gungu.gunguId}>
@@ -158,11 +162,21 @@ function List() {
             ))}
           </select>
 
-          <div>
-            <input type="text" placeholder="크루 검색" value={searchInput} onChange={handleSearchOnChange} onKeyDown={handleSearchOnKeyDown} />
-            <button onClick={handleSearchOnClick}>검색</button>
+          <div css={s.searchGroup}>
+            <input
+              type="text"
+              placeholder="크루 검색"
+              value={searchInput}
+              onChange={handleSearchOnChange}
+              onKeyDown={handleSearchOnKeyDown}
+              css={s.searchInput}
+            />
+            <button onClick={handleSearchOnClick} css={s.searchButton}>
+              검색
+            </button>
           </div>
         </div>
+
 
         <div css={s.gridBox}>
             {crewList.length === 0 ? (
