@@ -89,7 +89,6 @@ function BoardDetail(props) {
             await reqRegisterGlobalComment(text, freeId);
             setComment("");
             await refetchComments();
-            // setShowAll(true); 
         } catch (e) {
             console.error(e);
             alert("댓글 등록 중 오류가 발생했습니다.");

@@ -1,29 +1,67 @@
 /** @jsxImportSource @emotion/react */
 import * as s from './styles';
-import React, { useMemo, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useMemo, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import sanitizeHtml from "sanitize-html";
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
 import MainContainer from '../../../components/MainContainer/MainContainer';
 import useGetAskDetailQuery from '../../../queries/useGetAskDetailQuery';
+import { reqAskComment, reqDeleteAskComment, reqUpdateAskComment } from '../../../api/Admin/adminApi';
+import { useGetAskCommentsQuery } from '../../../queries/Admin/useGetAskCommentsQuery';
 
-export default function AskDetail() {
+function AskDetail() {
   const { askId } = useParams();
   const navigate = useNavigate();
+
   const principalQuery = usePrincipalQuery();
-
-  const principalRole =
-    principalQuery?.data?.data?.body?.user?.role ??
-    principalQuery?.data?.body?.user?.role ??
-    null;
-
+  const principalRole = principalQuery?.data?.data?.body?.user?.role;
   const isAdmin = principalRole === "ROLE_ADMIN";
 
-  const { data, isLoading, error } = useGetAskDetailQuery({ askId });
+  const { data, isLoading, error, refetch } = useGetAskDetailQuery({ askId });
   const post = useMemo(() => {
-    const body = data?.data?.body ?? data?.body;
+    const body = data?.body;
     return Array.isArray(body) ? body[0] : body;
   }, [data]);
+
+  const askCommentQuery = useGetAskCommentsQuery(post?.askId);
+  const comments = askCommentQuery?.data?.data?.body ?? [];
+  
+  const [comment, setComment] = useState("");
+  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [editContent, setEditContent] = useState("");
+
+  const handleEditClick = (comment) => {
+    setEditingCommentId(comment.askCommentId);
+    setEditContent(comment.content);
+  };
+
+  const handleEditCancel = () => {
+    setEditingCommentId(null);
+    setEditContent("");
+  };
+
+  const handleEditSave = async (commentId) => {
+    if (!editContent.trim()) {
+      alert("댓글 내용을 입력해주세요.");
+      return;
+    }
+
+    try {
+      const updateComment = {
+        askCommentId: commentId,
+        content: editContent.trim()
+      };
+      
+      await reqUpdateAskComment(updateComment);
+      alert("댓글이 수정되었습니다.");
+      askCommentQuery.refetch();
+      setEditingCommentId(null);
+      setEditContent("");
+    } catch (err) {
+      console.error(err);
+      alert("댓글 수정 중 오류가 발생했습니다.");
+    }
+  };
 
   if (isLoading) return <div css={s.layout}>로딩중…</div>;
   if (error) return <div css={s.layout}>에러가 발생했어요: {String(error)}</div>;
@@ -31,19 +69,46 @@ export default function AskDetail() {
 
   const cleanHtml = sanitizeHtml(post.content ?? "", {
     allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
-    allowedAttributes: { a: ["href", "name", "target", "rel"], img: ["src", "alt"] },
+    allowedAttributes: { 
+      a: ["href", "name", "target", "rel"], 
+      img: ["src", "alt"] 
+    },
     transformTags: {
-      a: (tagName, attribs) => ({ tagName, attribs: { ...attribs, target: "_blank", rel: "noopener noreferrer" } }),
+      a: (tagName, attribs) => ({
+        tagName,
+        attribs: { ...attribs, target: "_blank", rel: "noopener noreferrer" }
+      }),
     },
   });
 
-  const [comment, setComment] = useState("");
-
-  const handleCommentSubmit = () => {
+  const handleCommentSubmit = async () => {
     if (!comment.trim()) return;
-    // TODO: 댓글 API 호출
-    alert(`댓글 작성: ${comment}`);
-    setComment("");
+
+    try {
+      await reqAskComment({
+        askId: post.askId,
+        content: comment
+      });
+      alert("댓글이 등록되었습니다.");
+      refetch();
+      setComment("");
+    } catch (err) {
+      console.error(err);
+      alert("댓글 등록 중 오류가 발생했습니다.");
+    }
+  };
+
+  const handleDeleteComment = async (askCommentId) => {
+    if (!window.confirm("정말 삭제하시겠습니까?")) return;
+
+    try {
+      await reqDeleteAskComment(askCommentId);
+      alert("댓글이 삭제되었습니다.");
+      askCommentQuery.refetch();
+    } catch (err) {
+      console.error(err);
+      alert("댓글 삭제 중 오류가 발생했습니다.");
+    }
   };
 
   return (
@@ -51,18 +116,100 @@ export default function AskDetail() {
       <div css={s.layout}>
         <div css={s.topBar}>
           <button onClick={() => navigate(-1)}>← 목록</button>
-          <span style={{ color: "#94a3b8", fontSize: 14 }}>글번호 #{post.askId}</span>
+          <span style={{ color: "#94a3b8", fontSize: 14 }}>
+            글번호 #{post.askId}
+          </span>
         </div>
 
         <h1 css={s.titleCss}>{post.title}</h1>
         <div css={s.metaCss}>
           <span>{post.user?.nickname ?? "익명"}</span>
-          <span>{post.createdAt ? new Date(post.createdAt).toLocaleString() : "-"}</span>
+          <span>
+            {post.createdAt ? new Date(post.createdAt).toLocaleString() : "-"}
+          </span>
         </div>
 
         <div css={s.contentCss} dangerouslySetInnerHTML={{ __html: cleanHtml }} />
 
-        {/* ROLE_ADMIN이면 댓글 입력 */}
+        <div css={s.commentList}>
+          {comments.length === 0 ? (
+            <p>아직 댓글이 없습니다.</p>
+          ) : (
+            comments.map((comment) => (
+              <div key={comment.askCommentId} css={s.commentItem}>
+                {comment.status === 1 ? (
+                  <p style={{ color: "#94a3b8", fontStyle: "italic" }}>
+                    관리자에 의해 삭제된 댓글입니다.
+                  </p>
+                ) : (
+                  <>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                      <div>
+                        <strong>
+                          {comment.user?.role === "ROLE_ADMIN" && "관리자"}
+                        </strong>
+                        <span style={{ marginLeft: 8, color: "#94a3b8", fontSize: 14 }}>
+                          {new Date(comment.createdAt).toLocaleString()}
+                        </span>
+                      </div>
+                      {isAdmin && (
+                        <div>
+                          {editingCommentId === comment.askCommentId ? (
+                            <>
+                              <button
+                                style={{ marginRight: 6, backgroundColor: '#10b981', color: 'white', border: 'none', padding: '4px 8px', borderRadius: '4px' }}
+                                onClick={() => handleEditSave(comment.askCommentId)}
+                              >
+                                저장
+                              </button>
+                              <button
+                                style={{ backgroundColor: '#6b7280', color: 'white', border: 'none', padding: '4px 8px', borderRadius: '4px' }}
+                                onClick={handleEditCancel}
+                              >
+                                취소
+                              </button>
+                            </>
+                          ) : (
+                            <>
+                              <button
+                                style={{ marginRight: 6 }}
+                                onClick={() => handleEditClick(comment)}
+                              >
+                                수정
+                              </button>
+                              <button onClick={() => handleDeleteComment(comment.askCommentId)}>
+                                삭제
+                              </button>
+                            </>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                    
+                    {editingCommentId === comment.askCommentId ? (
+                      <textarea
+                        value={editContent}
+                        onChange={(e) => setEditContent(e.target.value)}
+                        placeholder={comment.content}
+                        style={{
+                          width: '100%',
+                          minHeight: '80px',
+                          padding: '8px',
+                          border: '1px solid #d1d5db',
+                          borderRadius: '4px',
+                          resize: 'vertical',
+                          fontSize: '14px'
+                        }}
+                      />
+                    ) : (
+                      <p style={{ margin: 0 }}>{comment.content}</p>
+                    )}
+                  </>
+                )}
+              </div>
+            ))
+          )}
+        </div>
         {isAdmin && (
           <div css={s.commentBox}>
             <textarea
@@ -71,10 +218,14 @@ export default function AskDetail() {
               onChange={(e) => setComment(e.target.value)}
               placeholder="댓글을 입력하세요"
             />
-            <button css={s.commentBtn} onClick={handleCommentSubmit}>댓글 달기</button>
+            <button css={s.commentBtn} onClick={handleCommentSubmit}>
+              댓글 달기
+            </button>
           </div>
         )}
       </div>
     </MainContainer>
   );
 }
+
+export default AskDetail;

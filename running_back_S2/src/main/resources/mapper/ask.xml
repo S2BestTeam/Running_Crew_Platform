@@ -32,6 +32,14 @@
         <result property="role"                     column="role" />
     </resultMap>
 
+    <update id="updateIsAnswer">
+        update ask_tb
+        set
+            is_answer = 1
+        where
+            ask_id = #{askId}
+    </update>
+
     <select id="findAllAskBySearchOption"
             parameterType="com.korit.running_back_s2.domain.ask.AskFreeSearchOption"
             resultMap="AskMap">

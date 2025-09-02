@@ -1,3 +1,4 @@
+import { data } from "react-router-dom";
 import api from "../axios"
 
 // user
@@ -13,8 +14,6 @@ export const reqSearchCrews = ({ page, size, searchText }) => api.get("/api/admi
   params: { page, size, searchText }
 });
 
-
-
 // report
 export const reqReportDelete = (reportId) => api.delete(`/api/admin/reports/${reportId}`);
 
@@ -29,3 +28,4 @@ export const reqGetUserPosts = ({
   api.get("/api/admin/posts", {
     params: { page, size, searchText, src, crewId, userId },
   });
+

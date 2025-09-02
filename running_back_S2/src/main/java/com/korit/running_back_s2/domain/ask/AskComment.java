@@ -1,4 +1,4 @@
-package com.korit.running_back_s2.domain.crewFreeBoard;
+package com.korit.running_back_s2.domain.ask;
 
 import com.korit.running_back_s2.domain.user.User;
 import lombok.AllArgsConstructor;
@@ -6,19 +6,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class CrewFree {
-    private Integer freeId;
-    private Integer crewId;
+@NoArgsConstructor
+public class AskComment {
+    private Integer askCommentId;
+    private Integer askId;
     private Integer userId;
-    private String title;
     private String content;
-    private LocalDate createdAt;
+    private Integer status;
+    private LocalDateTime createdAt;
 
     private User user;
 }
