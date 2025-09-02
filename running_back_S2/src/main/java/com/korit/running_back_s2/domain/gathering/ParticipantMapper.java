@@ -17,13 +17,9 @@ public interface ParticipantMapper {
 
     boolean existsByGatheringIdAndUserId(Integer gatheringId, Integer userId);
 
-
-    int updateAttendance(
-            @Param("gatheringId") Integer gatheringId,
-            @Param("list") List<ParticipantAttendanceUpdateDto> list
-    );
-
     Integer getAttendanceStatusById(@Param("gatheringId") Integer gatheringId,
                                     @Param("userId") Integer userId);
 
+    int updateAttendance(@Param("gatheringId") Integer gatheringId,
+                         @Param("list") List<ParticipantAttendanceUpdateDto> list);
 }
