@@ -9,9 +9,13 @@ import { useEffect } from 'react';
 
 function UserRanking(props) {
   const { data: rankings } = useGetUserRankingQuery();
-  const { data: principalQuery, isLoading } = usePrincipalQuery();
-  const userId = principalQuery?.data?.data?.body.user.userId;
-  const myTotalKmRank = rankings?.totalKmRanking?.findIndex(user => user.userId === userId);
+  const { data: principalQuery, isLoading } = usePrincipalQuery();  
+  const userId = principalQuery?.data?.body?.user?.userId;
+  
+  const myTotalKmRank = rankings?.totalKmRanking?.findIndex(user => {
+    return user.userId === userId;
+  });
+  
   const myGatheringRank = rankings?.gatheringCount?.findIndex(user => user.userId === userId);
 
   const navigate = useNavigate();
