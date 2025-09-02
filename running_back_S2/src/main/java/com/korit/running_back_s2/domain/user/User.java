@@ -26,4 +26,6 @@ public class User {
     private Integer gender;
     private Double totalKm;
     private String role;
+
+    private Integer attendanceStatus;
 }

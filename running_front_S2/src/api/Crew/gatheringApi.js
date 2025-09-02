@@ -29,7 +29,6 @@ export const reqCancelAttendGathering = (crewId, gatheringId) =>
 export const reqGatheringParticipants = (crewId, gatheringId) =>
   api.get(`/api/crews/${crewId}/gatherings/${gatheringId}/participants`);
 
-
 export const reqUpdateParticipantsAttendance = (crewId, gatheringId, data) =>
   api.post(`/api/crews/${crewId}/gatherings/${gatheringId}/participants/attendance`, data, {
     headers: {
