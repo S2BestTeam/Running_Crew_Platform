@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -18,7 +19,7 @@ public class CrewFreeComment {
     private Integer freeId;
     private String content;
     private Integer userId;
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
     private User user;
 }

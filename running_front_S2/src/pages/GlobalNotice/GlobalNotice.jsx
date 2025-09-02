@@ -103,7 +103,7 @@ function GlobalNotice() {
                 <td css={s.td}>{totalElements - (start + index)}</td>
                 <td css={s.tdTitle}>{notice.title}</td>
                 <td css={s.td}>{notice?.user?.nickname}</td>
-                <td css={s.td}>{notice.createdAt}</td>
+                <td css={s.td}>{new Date(notice.createdAt).toLocaleString("ko-KR")}</td>
               </tr>
             ))}
           </tbody>

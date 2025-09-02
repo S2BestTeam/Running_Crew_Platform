@@ -69,7 +69,7 @@ export default function NoticeDetail() {
         <div css={s.metaCss}>
           <span>{post.user?.nickname ?? "익명"}</span>
           <span className="dot" />
-          <span>{post.createdAt ? new Date(post.createdAt).toLocaleString() : "-"}</span>
+          <span>{new Date(post.createdAt).toLocaleString("ko-KR")}</span>
           {isAuthor && (
             <>
               <span className="dot" />

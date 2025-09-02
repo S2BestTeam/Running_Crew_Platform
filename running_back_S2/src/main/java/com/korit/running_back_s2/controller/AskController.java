@@ -1,5 +1,7 @@
 package com.korit.running_back_s2.controller;
 
+
+import com.korit.running_back_s2.dto.ask.AnswerReqDto;
 import com.korit.running_back_s2.dto.ask.AskReqDto;
 import com.korit.running_back_s2.dto.response.ResponseDto;
 import com.korit.running_back_s2.service.AskService;
@@ -28,5 +30,11 @@ public class AskController {
     @GetMapping("/{askId}")
     public ResponseEntity<ResponseDto<?>> getDetail(@PathVariable Integer askId) {
         return ResponseEntity.ok(ResponseDto.success(askService.getDetail(askId)));
+    }
+
+    @PostMapping("/{askId}")
+    public ResponseEntity<ResponseDto<?>> registerAnswer(@PathVariable Integer askId, @RequestBody AnswerReqDto dto) throws Exception {
+        askService.registerAnswer(askId, dto);
+        return ResponseEntity.ok(ResponseDto.success("답변 등록 성공"));
     }
 }

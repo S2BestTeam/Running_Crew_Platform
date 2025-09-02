@@ -1,26 +1,21 @@
 package com.korit.running_back_s2.domain.ask;
 
-import com.korit.running_back_s2.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class Ask {
-    private Integer askId;
+public class Answer {
+
+    private Integer answerId;
     private Integer userId;
-    private String title;
+    private Integer askId;
     private String content;
     private LocalDateTime createdAt;
-    private Integer isAnswer;
-
-    private User user;
-    private Answer answer;
 }

@@ -12,6 +12,7 @@ export default function useGetAskDetailQuery({askId, enabled = true }) {
       const res = await reqGetAskDetail(aid);
       return res.data;
     },
+    enabled: !!askId,
     staleTime: 5 * 1000,
   });
 }

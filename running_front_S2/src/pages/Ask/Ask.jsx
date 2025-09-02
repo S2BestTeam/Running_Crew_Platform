@@ -88,7 +88,7 @@ function Ask() {
           </div>
 
           <div style={{ marginTop: 8, fontSize: 13, color: '#666' }}>
-           <b>내가 작성한 문의만</b> 상세로 들어갈 수 있습니다.
+            <b>내가 작성한 문의만</b> 상세로 들어갈 수 있습니다.
           </div>
         </div>
 
