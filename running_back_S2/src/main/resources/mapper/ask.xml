@@ -19,15 +19,6 @@
         <id     property="userId"    column="user_id"/>
         <result property="nickname"  column="nickname"/>
     </resultMap>
-
-<<<<<<< HEAD
-    <update id="updateIsAnswer">
-        update ask_tb
-        set
-            is_answer = 1
-        where
-            ask_id = #{askId}
-=======
     <resultMap id="AnswerMap" type="com.korit.running_back_s2.domain.ask.Answer">
         <id     property="answerId"   column="answer_id"/>
         <result property="askId"      column="ask_id"/>
@@ -40,7 +31,6 @@
         update ask_tb
         set is_answer = 1
         where ask_id = #{askId}
->>>>>>> origin/95-세부기능-다듬기-4
     </update>
 
     <select id="findAllAskBySearchOption"

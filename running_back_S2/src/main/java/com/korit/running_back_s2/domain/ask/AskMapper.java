@@ -12,7 +12,6 @@ public interface AskMapper {
     Integer countListsBySearchOption(AskFreeSearchOption opt);
 
     void insert(Ask ask);
-    int updateIsAnswer(Integer askId);
 
     List<Ask> findDetailById(@Param("askId") int askId);
 

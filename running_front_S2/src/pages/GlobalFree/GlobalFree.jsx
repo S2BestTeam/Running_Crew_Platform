@@ -88,7 +88,7 @@ function GlobalFree(props) {
                 <td css={s.td}>{totalElements - (start + index)}</td>
                 <td css={s.tdTitle}>{board.title}</td>
                 <td css={s.td}>{board?.user?.nickname}</td>
-                <td css={s.td}>{board.createdAt}</td>
+                <td css={s.td}>{new Date(board.createdAt).toLocaleString("ko-KR")}</td>
               </tr>
             ))}
           </tbody>

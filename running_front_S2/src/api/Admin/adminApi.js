@@ -29,7 +29,4 @@ export const reqGetUserPosts = ({
     params: { page, size, searchText, src, crewId, userId },
   });
 
-<<<<<<< HEAD
-=======
   export const reqRegisterAnswer = ({ askId, content }) => api.post(`/api/ask/${askId}`, { content });
->>>>>>> origin/95-세부기능-다듬기-4

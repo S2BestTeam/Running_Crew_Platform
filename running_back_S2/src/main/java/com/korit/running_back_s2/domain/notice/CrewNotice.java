@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -19,8 +20,7 @@ public class CrewNotice {
     private Integer userId;
     private String title;
     private String content;
-    private LocalDate createdAt;
-//    private Integer view;
+    private LocalDateTime createdAt;
 
     private User user;
     private Member member;
