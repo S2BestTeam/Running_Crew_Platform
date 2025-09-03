@@ -259,5 +259,14 @@
         where
             crew_id = #{crewId}
     </select>
+    <select id="findContentsByCrewId" resultType="com.korit.running_back_s2.dto.image.CrewAlbumRow">
+        SELECT
+        f.free_id,
+        f.content,
+        f.created_at
+        FROM crew_free_tb f          <!-- ← 네 테이블명에 맞게 수정 (예: free_tb) -->
+        WHERE f.crew_id = #{crewId}
+        ORDER BY f.free_id DESC
+    </select>
 
 </mapper>

@@ -3,8 +3,10 @@ package com.korit.running_back_s2.domain.crew;
 import com.korit.running_back_s2.domain.member.Member;
 import com.korit.running_back_s2.dto.crew.CrewRoleReqDto;
 import com.korit.running_back_s2.dto.crew.CrewUpdateReqDto;
+import com.korit.running_back_s2.dto.image.CrewAlbumRow;
 import com.korit.running_back_s2.dto.ranking.CrewRankingRespDto;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -34,6 +36,8 @@ public interface CrewMapper {
     int updateCrewProfilePicture(Integer crewId, String profilePicture);
 
     int updateCrew(CrewUpdateReqDto dto);
+
+    List<CrewAlbumRow> findContentsByCrewId(@Param("crewId") int crewId);
 
 
 

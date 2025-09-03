@@ -7,4 +7,6 @@ public class AnswerReqDto {
 
     private Integer askId;
     private String content;
+
+
 }

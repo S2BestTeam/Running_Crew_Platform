@@ -6,6 +6,8 @@ import { reqUpdateGlobalFreeBoard } from "../../../api/GlobalFree/globalFreeApi"
 import ReactQuill from "react-quill-new";
 import api from "../../../api/axios";
 import MainContainer from "../../../components/MainContainer/MainContainer";
+/** @jsxImportSource @emotion/react */
+import * as s from './styles';
 
 function BoardEdit() {
     const { freeId } = useParams();
@@ -113,37 +115,38 @@ function BoardEdit() {
 
     return (
         <MainContainer>
-            <div style={{ maxWidth: 860, margin: "0 auto" }}>
-                <h2>게시글 수정</h2>
-
+            <div css={s.wrap}>
+                <h2 css={s.titleRow}>게시글 수정</h2>
                 <input
+                    css={s.titleInput}
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="제목을 입력하세요"
-                    style={{ width: "100%", padding: 8, marginBottom: 8 }}
                 />
 
-                <ReactQuill
-                    ref={quillRef}
-                    theme="snow"
-                    value={content}
-                    onChange={setContent}
-                    modules={{
-                        toolbar: {
-                            container: [
-                                [{ header: [false, 1, 2, 3] }],
-                                ["bold", "italic", "underline", "strike"],
-                                [{ align: [] }],
-                                ["blockquote", "link", "image"],
-                            ],
-                            handlers: { image: imageHandler },
-                        },
-                    }}
-                />
+                <div css={[s.quillBox]}>
+                    <ReactQuill
+                        ref={quillRef}
+                        theme="snow"
+                        value={content}
+                        onChange={setContent}
+                        modules={{
+                            toolbar: {
+                                container: [
+                                    [{ header: [false, 1, 2, 3] }],
+                                    ["bold", "italic", "underline", "strike"],
+                                    [{ align: [] }],
+                                    ["blockquote", "link", "image"],
+                                ],
+                                handlers: { image: imageHandler },
+                            },
+                        }}
+                    />
+                </div>
 
-                <div style={{ marginTop: 12, display: "flex", gap: 8 }}>
-                    <button onClick={() => navigate(-1)}>취소</button>
-                    <button onClick={handleSave}>저장</button>
+                <div css={s.submitRow}>
+                    <button css={s.cancleBtn} onClick={() => navigate(-1)}>취소</button>
+                    <button css={s.submitBtn} onClick={handleSave}>저장</button>
                 </div>
             </div>
         </MainContainer>
