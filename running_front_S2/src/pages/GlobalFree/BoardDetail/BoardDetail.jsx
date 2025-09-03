@@ -15,16 +15,9 @@ function BoardDetail(props) {
     const navigate = useNavigate();
 
     const principalQuery = usePrincipalQuery();
-    const principalId =
-        principalQuery?.data?.data?.body?.user?.userId ??
-        principalQuery?.data?.body?.user?.userId ?? null;
+    const principalId = principalQuery?.data?.data?.body?.user?.userId;
 
-    const {
-        data,
-        isLoading,
-        error,
-        refetch: refetchDetail,
-    } = useGetGlobalFreeBoardDetailQuery({ freeId });
+    const { data, isLoading, error, refetch: refetchDetail, } = useGetGlobalFreeBoardDetailQuery({ freeId });
 
     const {
         data: cdata,
@@ -135,13 +128,11 @@ function BoardDetail(props) {
     return (
         <MainContainer>
             <div css={s.layout}>
-                {/* 상단 바 */}
                 <div css={s.topBar}>
                     <button onClick={() => navigate(-1)}>← 목록</button>
                     <span>글번호 #{post.freeId}</span>
                 </div>
 
-                {/* 제목/메타 */}
                 <h1 css={s.titleCss}>{post.title}</h1>
                 <div css={s.metaCss}>
                     <span>{post.user?.nickname ?? "익명"}</span>
@@ -157,10 +148,8 @@ function BoardDetail(props) {
                     )}
                 </div>
 
-                {/* 본문 */}
                 <div css={s.contentCss} dangerouslySetInnerHTML={{ __html: cleanHtml }} />
 
-                {/* 댓글 입력 */}
                 <div css={s.inputRow}>
                     <input
                         css={s.input}
@@ -172,7 +161,6 @@ function BoardDetail(props) {
                     <button css={s.btnPrimary} onClick={handleCommentOnClick}>등록</button>
                 </div>
 
-                {/* 댓글 리스트 */}
                 <div css={s.commentList}>
                     {cLoading && <div>댓글 불러오는 중…</div>}
                     {cError && <div>댓글을 불러오지 못했습니다.</div>}

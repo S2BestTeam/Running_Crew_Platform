@@ -56,7 +56,7 @@ export const menu = css`
 `;
 
 export const menuDetail = css`
-  padding: 3rem;
+  padding: 1rem 3rem 1rem 3rem;
   display: flex;
   flex-direction: column;
 
