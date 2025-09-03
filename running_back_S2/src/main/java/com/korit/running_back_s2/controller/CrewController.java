@@ -83,8 +83,8 @@ public class CrewController {
     }
 
     @GetMapping("/{crewId}/albums")
-    public ResponseEntity<?> listCrewFreeAll() {
-        List<ImageFileDto> body = galleryService.listCrewFreeImages();
+    public ResponseEntity<?> listCrewFreeAll(@PathVariable Integer crewId) {
+        List<ImageFileDto> body = galleryService.listCrewFreeImages(crewId);
         return ResponseEntity.ok(ResponseDto.success(body));
     }
 

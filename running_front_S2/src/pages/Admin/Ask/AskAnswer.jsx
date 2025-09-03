@@ -9,6 +9,7 @@ import MainContainer from "../../../components/MainContainer/MainContainer";
 
 import useGetAskBoardQuery from "../../../queries/useGetAskBoardQuery";
 import { reqRegisterAnswer } from "../../../api/Admin/adminApi";
+import Pagination from "../../../components/Pagination/Pagination";
 
 function AskAnswer() {
   const navigate = useNavigate();
@@ -141,17 +142,12 @@ function AskAnswer() {
           </tbody>
         </table>
 
-        <div style={{ display: "flex", justifyContent: "center", gap: 12, alignItems: "center", marginTop: 16 }}>
-          <button onClick={() => goPage(page - 1)} disabled={page <= 1}>
-            <BiSolidChevronLeftSquare />
-          </button>
-          <span>
-            {page} / {totalPages}
-          </span>
-          <button onClick={() => goPage(page + 1)} disabled={page >= totalPages}>
-            <BiSolidChevronRightSquare />
-          </button>
-        </div>
+        <Pagination
+          page={page}                // 1-base 현재 페이지
+          totalPages={totalPages}    // 총 페이지 수
+          onChange={(p) => goPage(p)}// 페이지 변경 핸들러
+          windowSize={1}
+        />
       </div>
     </MainContainer>
   );

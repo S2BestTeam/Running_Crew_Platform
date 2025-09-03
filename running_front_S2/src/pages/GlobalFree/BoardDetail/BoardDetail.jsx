@@ -134,79 +134,65 @@ function BoardDetail(props) {
 
     return (
         <MainContainer>
-            <div>
-                <div css={s.layout}>
-                    <div css={s.topBar}>
-                        <button onClick={() => navigate(-1)}>← 목록</button>
-                        <span style={{ color: "#94a3b8", fontSize: 14 }}>
-                            글번호 #{post.freeId}
-                        </span>
-                    </div>
-
-                    <h1 css={s.titleCss}>{post.title}</h1>
-                    <div css={s.metaCss}>
-                        <span>{post.user?.nickname ?? "익명"}</span>
-                        <span className="dot" />
-                        <span>{post.createdAt ? new Date(post.createdAt).toLocaleString() : "-"}</span>
-                        {isAuthor && (
-                            <>
-                                <span className="dot" />
-                                <button onClick={goEdit}>수정</button>
-                                <button onClick={handleDeleteOnClick}>삭제</button>
-                            </>
-                        )}
-                    </div>
-
-                    <div css={s.contentCss} dangerouslySetInnerHTML={{ __html: cleanHtml }} />
+            <div css={s.layout}>
+                {/* 상단 바 */}
+                <div css={s.topBar}>
+                    <button onClick={() => navigate(-1)}>← 목록</button>
+                    <span>글번호 #{post.freeId}</span>
                 </div>
 
-                <div style={{ marginTop: 16, display: "flex", gap: 8 }}>
+                {/* 제목/메타 */}
+                <h1 css={s.titleCss}>{post.title}</h1>
+                <div css={s.metaCss}>
+                    <span>{post.user?.nickname ?? "익명"}</span>
+                    <span className="dot" />
+                    <span>{post.createdAt ? new Date(post.createdAt).toLocaleString() : "-"}</span>
+                    {isAuthor && (
+                        <>
+                            <span css={s.metaSpacer} />
+                            <span className="dot" />
+                            <button onClick={goEdit}>수정</button>
+                            <button onClick={handleDeleteOnClick}>삭제</button>
+                        </>
+                    )}
+                </div>
+
+                {/* 본문 */}
+                <div css={s.contentCss} dangerouslySetInnerHTML={{ __html: cleanHtml }} />
+
+                {/* 댓글 입력 */}
+                <div css={s.inputRow}>
                     <input
+                        css={s.input}
                         type="text"
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
-                        style={{ flex: 1 }}
+                        placeholder="댓글을 입력하세요"
                     />
-                    <button onClick={handleCommentOnClick}>등록하기</button>
+                    <button css={s.btnPrimary} onClick={handleCommentOnClick}>등록</button>
                 </div>
 
-                <div style={{ marginTop: 16 }}>
+                {/* 댓글 리스트 */}
+                <div css={s.commentList}>
                     {cLoading && <div>댓글 불러오는 중…</div>}
                     {cError && <div>댓글을 불러오지 못했습니다.</div>}
 
                     {displayedComments.map((c) => {
                         const cAuthorId = c?.user?.userId ?? c?.userId;
                         const isMyComment =
-                            principalId != null &&
-                            cAuthorId != null &&
-                            Number(principalId) === Number(cAuthorId);
-
+                            principalId != null && cAuthorId != null && Number(principalId) === Number(cAuthorId);
                         const isEditingThis = editingCommentId === c.freeCommentId;
 
                         return (
-                            <div
-                                key={c.freeCommentId}
-                                style={{
-                                    display: "flex",
-                                    gap: 12,
-                                    padding: "12px 0",
-                                    borderBottom: "1px solid #eee",
-                                }}
-                            >
-                                <img
-                                    src={c?.user?.picture}
-                                    alt=""
-                                    width={36}
-                                    height={36}
-                                    style={{ borderRadius: "50%", objectFit: "cover" }}
-                                />
-                                <div style={{ flex: 1 }}>
-                                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                            <div key={c.freeCommentId} css={s.commentItem}>
+                                <div css={s.avatar}>
+                                    <img src={c?.user?.picture} alt="" />
+                                </div>
+                                <div css={s.commentBody}>
+                                    <div className="head">
                                         <strong>{c?.user?.nickname ?? "익명"}</strong>
-                                        <span style={{ color: "#94a3b8", fontSize: 12 }}>
-                                            {c?.createdAt ? new Date(c.createdAt).toLocaleString() : ""}
-                                        </span>
-
+                                        <time>{c?.createdAt ? new Date(c.createdAt).toLocaleString() : ""}</time>
+                                        <span css={s.headSpacer} />
                                         {isMyComment && !isEditingThis && (
                                             <>
                                                 <button onClick={() => startEditComment(c)}>수정</button>
@@ -216,18 +202,17 @@ function BoardDetail(props) {
                                     </div>
 
                                     {isEditingThis ? (
-                                        <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
+                                        <div css={s.editRow}>
                                             <input
-                                                style={{ flex: 1, padding: 8 }}
                                                 value={editCommentValue}
                                                 onChange={(e) => setEditCommentValue(e.target.value)}
                                                 placeholder="수정할 내용을 입력하세요"
                                             />
-                                            <button onClick={saveEditComment}>수정 완료</button>
-                                            <button onClick={cancelEditComment}>취소</button>
+                                            <button css={s.btnPrimary} onClick={saveEditComment}>수정 완료</button>
+                                            <button css={s.btnOutline} onClick={cancelEditComment}>취소</button>
                                         </div>
                                     ) : (
-                                        <div style={{ whiteSpace: "pre-wrap" }}>{c.content}</div>
+                                        <div className="content">{c.content}</div>
                                     )}
                                 </div>
                             </div>
@@ -235,9 +220,11 @@ function BoardDetail(props) {
                     })}
 
                     {commentList.length > INITIAL_COUNT && (
-                        <button style={{ marginTop: 8 }} onClick={() => setShowAll((v) => !v)}>
-                            {showAll ? "접기" : `댓글 더 보기 (${commentList.length - INITIAL_COUNT}개)`}
-                        </button>
+                        <div css={s.moreRow}>
+                            <button css={s.moreBtn} onClick={() => setShowAll(v => !v)}>
+                                {showAll ? "접기" : `댓글 더 보기 (${commentList.length - INITIAL_COUNT}개)`}
+                            </button>
+                        </div>
                     )}
                 </div>
             </div>

@@ -24,6 +24,7 @@ import { reqReportDelete, reqUserReported } from "../../../api/Admin/adminApi";
 
 import { SIGNUP_REGEX, SIGNUP_REGEX_ERROR_MESSAGE } from "../../../constants/signupRegex";
 import useGetUserPostQuery from "../../../queries/Admin/useGetUserPostQuery";
+import Pagination from "../../../components/Pagination/Pagination";
 
 /* ----------------------- util ----------------------- */
 const SRC_OPTIONS = [
@@ -567,27 +568,12 @@ function UserDetailModal({ user, onClose, onSave }) {
                     </tbody>
                   </table>
 
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      gap: 12,
-                      alignItems: "center",
-                      marginTop: 16,
-                      backgroundColor: "white",
-                    }}
-                  >
-                    <button onClick={() => goPage(page - 1)} disabled={page <= 1}>
-                      <BiSolidChevronLeftSquare />
-                    </button>
-                    <span>
-                      {page} / {Math.max(1, totalPages)}
-                    </span>
-                    <button onClick={() => goPage(page + 1)} disabled={page >= totalPages}>
-                      <BiSolidChevronRightSquare />
-                    </button>
-                  </div>
-
+                  <Pagination
+                    page={page}                // 1-base 현재 페이지
+                    totalPages={totalPages}    // 총 페이지 수
+                    onChange={(p) => goPage(p)}// 페이지 변경 핸들러
+                    windowSize={1}
+                  />
                   {contents.length === 0 && <p>작성한 글이 없습니다.</p>}
                 </>
               )}

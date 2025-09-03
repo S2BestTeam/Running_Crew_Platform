@@ -12,6 +12,7 @@ import useGetCrewFreeBoardQuery from "../../../queries/useGetCrewFreeBoardQuery"
 import useGetCrewNoticeQuery from "../../../queries/useGetCrewNoticeQuery";
 
 import { reqExpelMember, reqUpdateMemberRole } from "../../../api/Crew/memberApi";
+import Pagination from "../../../components/Pagination/Pagination";
 
 function CrewDetailModal({ crew, onClose }) {
   if (!crew) return null;
@@ -243,7 +244,7 @@ function CrewDetailModal({ crew, onClose }) {
                   <button css={s.searchButton} onClick={handleSearchOnClick}>
                     <IoSearch />
                   </button>
-                
+
                 </div>
               </div>
 
@@ -274,17 +275,12 @@ function CrewDetailModal({ crew, onClose }) {
                     </tbody>
                   </table>
 
-                  <div style={{ display: "flex", justifyContent: "center", gap: 12, alignItems: "center", marginTop: 16 }}>
-                    <button onClick={() => goPage(page - 1)} disabled={page <= 1}>
-                      <BiSolidChevronLeftSquare />
-                    </button>
-                    <span>
-                      {page} / {freeTotalPages}
-                    </span>
-                    <button onClick={() => goPage(page + 1)} disabled={page >= freeTotalPages}>
-                      <BiSolidChevronRightSquare />
-                    </button>
-                  </div>
+                   <Pagination
+                          page={page}                // 1-base 현재 페이지
+                          totalPages={freeTotalPages}    // 총 페이지 수
+                          onChange={(p) => goPage(p)}// 페이지 변경 핸들러
+                           windowSize={1} 
+                        />
                 </>
               )}
             </div>
@@ -334,7 +330,7 @@ function CrewDetailModal({ crew, onClose }) {
                         <tr
                           key={notice.noticeId}
                           onClick={() => navigate(`/crews/${crewId}/notices/${notice.noticeId}`)}
-                          className={s.tr} 
+                          className={s.tr}
                         >
                           <td css={s.td}>{noticeTotalElements - (noticeStart + index)}</td>
                           <td css={s.tdTitle}>{notice.title}</td>
@@ -345,17 +341,12 @@ function CrewDetailModal({ crew, onClose }) {
                     </tbody>
                   </table>
 
-                  <div style={{ display: "flex", justifyContent: "center", gap: 12, alignItems: "center", marginTop: 16 }}>
-                    <button onClick={() => goPage(page - 1)} disabled={page <= 1}>
-                      <BiSolidChevronLeftSquare />
-                    </button>
-                    <span>
-                      {page} / {noticeTotalPages}
-                    </span>
-                    <button onClick={() => goPage(page + 1)} disabled={page >= noticeTotalPages}>
-                      <BiSolidChevronRightSquare />
-                    </button>
-                  </div>
+                  <Pagination
+                    page={page}                // 1-base 현재 페이지
+                    totalPages={noticeTotalPages}    // 총 페이지 수
+                    onChange={(p) => goPage(p)}// 페이지 변경 핸들러
+                    windowSize={1}
+                  />
                 </>
               )}
             </div>
