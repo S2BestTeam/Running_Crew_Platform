@@ -7,9 +7,11 @@ import { reqGetMemberCount, reqGetMembers, } from '../../../api/Crew/memberApi';
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
 import ContentLayout from '../../../components/ContentLayout/ContentLayout';
 import useGetCrewRoleQuery from '../../../queries/useGetCrewRoleQuery';
-import { MdMoreHoriz } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 import { useGetGatheringsQuery } from '../../../queries/useGetGatheringsQuery';
+import { IoTimeSharp, IoLocation } from "react-icons/io5";
+import { FaWonSign } from "react-icons/fa6";
+import { IoIosArrowForward } from "react-icons/io";
 
 function CrewInfo() {
   const principal = usePrincipalQuery();
@@ -29,7 +31,7 @@ function CrewInfo() {
   const displayMembers = (members ?? []).slice(0, 6);
   const [gatherings, setGatherings] = useState([]);
   const { data } = useGetGatheringsQuery(crewId);
-  // console.log(data)
+  console.log(displayMembers);
 
   useEffect(() => {
     if (!crewId) return; (
@@ -50,7 +52,6 @@ function CrewInfo() {
     const body = data?.data?.body;
     if (body) setGatherings(body);
   }, [data]);
-  // console.log(gatherings)
 
   useEffect(() => {
     if (!crewId || !userId) return;
@@ -73,17 +74,6 @@ function CrewInfo() {
     return `${y}${m}${d}${hh}${mm}`;
   })();
 
-  const formatDateTime = (dateStr, timeStr) => {
-    if (!dateStr && !timeStr) return "-";
-    const d = new Date(dateStr);
-    const yoils = ["일", "월", "화", "수", "목", "금", "토"];
-    const y = d.getFullYear();
-    const m = String(d.getMonth() + 1).padStart(2, "0");
-    const day = String(d.getDate()).padStart(2, "0");
-    const w = yoils[d.getDay()];
-    return `${y}.${m}.${day} (${w}) ${timeStr || ""}`;
-  };
-
   const displayGatherings = useMemo(() => {
     const list = (gatherings ?? []).filter(g => {
       const k = getKey(g.runningDate, g.runningTime);
@@ -92,7 +82,29 @@ function CrewInfo() {
     list.sort((a, b) => getKey(a.runningDate, a.runningTime).localeCompare(getKey(b.runningDate, b.runningTime)));
     return list.slice(0, 3);
   }, [gatherings]);
-  // console.log(displayGatherings)
+
+  const formatRelativeDate = (dateStr, timeStr) => {
+  const now = new Date();
+  const targetDate = new Date(dateStr);
+
+  if (timeStr) {
+    const [hour, minute] = timeStr.split(":").map(Number);
+    targetDate.setHours(hour, minute, 0, 0);
+  }
+
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const targetDay = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
+  const diffDays = Math.floor((targetDay - today) / (1000 * 60 * 60 * 24));
+
+  if (diffDays === 0) {
+    return `오늘 ${timeStr || ""}`;
+  } else if (diffDays === 1) {
+    return `내일 ${timeStr || ""}`;
+  } else {
+    return `${targetDate.getFullYear()}.${targetDate.getMonth() + 1}.${targetDate.getDate()} ${timeStr || ""}`;
+  }
+};
+
 
   return (
     <ContentLayout>
@@ -144,44 +156,44 @@ function CrewInfo() {
             <div dangerouslySetInnerHTML={{ __html: crew?.content }} />
           </div>
 
-          <div>
-            <p css={s.fontBold}>정모 일정</p>
-            <div css={s.gatheringRow}>
-              {Array.isArray(displayGatherings) && displayGatherings.length > 0 ? (
-                <>
-                  {displayGatherings.map((g) => (
-                    <div key={g.gatheringId} css={s.gatheringItem}>
-                      <div css={s.gatheringThumbWrap}>
-                        <img
-                          css={s.gatheringThumb}
-                          src={g.thumbnailPicture}
-                          alt={g.title ?? "gathering"}
-                        />
-                      </div>
-
-                      <div css={s.gatheringTextBox}>
-                        <div css={s.gatheringTitle}>{g.title ?? "-"}</div>
-                        <div css={s.gatheringPlace}>{g.placeName ?? "-"}</div>
-                        <div css={s.gatheringDate}>
-                          {formatDateTime(g.runningDate, g.runningTime)}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-
-                  <button
-                    type="button"
-                    css={s.moreBtn}
-                    aria-label="정모 전체 보기"
-                    onClick={() => navigate(`/crews/${crewId}/gathering`)}
-                  >
-                    <MdMoreHoriz size={22} />
-                  </button>
-                </>
-              ) : (
-                <div>현재 등록된 정모 일정이 없습니다.</div>
-              )}
+          <div css={s.section}>
+            <div css={s.sectionHeader}>
+              <p css={s.fontBold}>정모 일정</p>
             </div>
+
+            {Array.isArray(displayGatherings) && displayGatherings.length > 0 ? (
+              <div css={s.gatheringRow}>
+                {displayGatherings.map((g) => (
+                  <div key={g.gatheringId} css={s.gatheringCard}>
+                    <div css={s.thumbWrap}>
+                      <img src={g.thumbnailPicture} alt={g.title} />
+                    </div>
+                    <div css={s.cardBody}>
+                      <div css={s.title}>{g.title}</div>
+                      <div css={s.time}><IoTimeSharp /> {formatRelativeDate(g.runningDate, g.runningTime)}</div>
+                      <div css={s.place}><IoLocation /> {g.placeName}</div>
+                      <div css={s.cost}> <FaWonSign /> {g.cost.toLocaleString()} </div>
+                        <div css={s.participants}>
+                          <img src={g?.user?.picture} alt="참여자" css={s.participantImg}/>
+                          <div css={s.fontSetting}>
+                            {g.currentParticipants}/{g.maxParticipants}
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                ))}
+                <button
+                  css={s.arrowBtnOverlay}
+                  aria-label="정모 전체 보기"
+                  onClick={() => navigate(`/crews/${crewId}/gathering`)}
+                >
+                  <IoIosArrowForward size={22}/>
+                </button>
+              </div>
+              
+            ) : (
+              <div>현재 등록된 정모 일정이 없습니다.</div>
+            )}
           </div>
 
           <div>
@@ -194,11 +206,11 @@ function CrewInfo() {
                   </div>
                   <div css={s.textBox}>
                     <div>
-                      {m.roleId === 1 && <span css={s.badge}>👑</span>}
-                      {m.roleId === 2 && <span css={s.badge}>⭐</span>}
                       <span>
                         {m.user?.nickname ?? "이름없음"}
                       </span>
+                      {m.roleId === 1 && <span css={s.badge}>👑</span>}
+                      {m.roleId === 2 && <span css={s.badge}>⭐</span>}
                     </div>
                     <div css={s.fullName}>{m.user?.fullName ?? ""}</div>
                   </div>
@@ -207,11 +219,11 @@ function CrewInfo() {
 
               <button
                 type="button"
-                css={s.moreBtn}
+                css={s.arrowBtnOverlay}
                 aria-label="멤버 전체 보기"
                 onClick={() => navigate(`/crews/${crewId}/members`)}
               >
-                <MdMoreHoriz size={22} />
+                <IoIosArrowForward size={22} />
               </button>
             </div>
           </div>

@@ -4,7 +4,7 @@ import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import { useNavigate } from "react-router-dom";
 import api from "../../../../api/axios";
-import { reqRegisterNotice} from "../../../../api/Crew/noticeApi";
+import { reqRegisterNotice } from "../../../../api/Crew/noticeApi";
 import * as s from "./styles";
 import { useCrewStore } from "../../../../stores/useCrewStroes";
 
@@ -144,6 +144,7 @@ function NoticeReg() {
       </div>
 
       <div css={s.submitRow}>
+        <button css={s.cancleBtn} onClick={() => navigate(-1)}>취소</button>
         <button css={s.submitBtn} onClick={handleSubmit} disabled={submitting}>
           {submitting ? "등록 중..." : "등록"}
         </button>

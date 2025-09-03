@@ -20,4 +20,6 @@ public interface CrewFreeMapper {
     void updateContent(CrewFree newcrewFree);
 
     void deleteFeed(Integer crewId, Integer freeId);
+
+    List<String> findAllTest(Integer crewId);
 }

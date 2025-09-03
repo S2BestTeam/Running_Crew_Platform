@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { BiSolidChevronLeftSquare, BiSolidChevronRightSquare } from "react-icons/bi";
 import UserDetailModal from "./UserDetailModal";
 import useSearchUserQuery from "../../../queries/Admin/useSearchUserQuery";
+import Pagination from "../../../components/Pagination/Pagination";
 
 function SearchUser() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -45,7 +46,7 @@ function SearchUser() {
   }
 
   const users = searchUserQuery.data?.data?.body?.contents || [];
-  
+
   const totalPages = searchUserQuery.data?.data?.body?.totalPages || 1;
 
   const goPage = (next) => {
@@ -118,22 +119,17 @@ function SearchUser() {
         </tbody>
       </table>
 
-      <div style={{ display: "flex", justifyContent: "center", gap: 12, alignItems: "center", marginTop: 16 }}>
-        <button onClick={() => goPage(page - 1)} disabled={page <= 1}>
-          <BiSolidChevronLeftSquare />
-        </button>
-        <span>
-          {page} / {totalPages}
-        </span>
-        <button onClick={() => goPage(page + 1)} disabled={page >= totalPages}>
-          <BiSolidChevronRightSquare />
-        </button>
-      </div>
+      <Pagination
+        page={page}                // 1-base 현재 페이지
+        totalPages={totalPages}    // 총 페이지 수
+        onChange={(p) => goPage(p)}// 페이지 변경 핸들러
+        windowSize={1}
+      />
       {selectedUser && (
-        <UserDetailModal 
-          user={selectedUser} 
-          onClose={() => setSelectedUser(null)} 
-          onSave={(newUser) => setSelectedUser(newUser)}/>
+        <UserDetailModal
+          user={selectedUser}
+          onClose={() => setSelectedUser(null)}
+          onSave={(newUser) => setSelectedUser(newUser)} />
       )}
     </div>
   );

@@ -126,70 +126,126 @@ export const Button = css`
   }
 `;
 ////////////////////////////
-export const gatheringRow = css`
-  display: flex;
-  gap: 16px;
-  align-items: stretch;
+export const section = css`
+  margin-bottom: 2rem;
 `;
 
-// 카드 하나
-export const gatheringItem = css`
+export const sectionHeader = css`
   display: flex;
-  gap: 12px;
+  justify-content: space-between;
   align-items: center;
-  width: 230px;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  padding: 10px 12px;
-  background: #fff;
 `;
 
-// 썸네일
-export const gatheringThumbWrap = css`
-  width: 64px;
-  height: 64px;
-  border-radius: 8px;
+export const gatheringRow = css`
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+`;
+
+export const gatheringCard = css`
+  display: flex;
+  align-items: center;
   overflow: hidden;
-  background: #f3f4f6;
+  padding: 2px 8px 2px 8px;
+  gap: 12px;
+  width: 20rem;
+  max-width: 320px;
   flex-shrink: 0;
 `;
 
-export const gatheringThumb = css`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+export const thumbWrap = css`
+  position: relative;
+  width: 100px;
+  height: 12rem;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 
-export const gatheringTextBox = css`
+export const timeOverlay = css`
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  background: rgba(0,0,0,0.65);
+  color: #fff;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 4px;
+`;
+
+export const cardBody = css`
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  min-width: 0; 
+  justify-content: center;
+  flex: 1;
+  gap: 4px;
 `;
 
-export const gatheringTitle = css`
+export const title = css`
   font-weight: 700;
-  font-size: 14px;
+  font-size: 12px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  width: 150px; /* 또는 max-width */
+  display: block; /* inline 요소면 ellipsis 적용 안 될 수 있음 */
 `;
 
-export const gatheringPlace = css`
-  font-size: 13px;
+export const time = css`
+  font-size: 1rem;
+  color: #4b5563;
+`;
+
+export const place = css`
+  font-size: 10px;
   color: #4b5563;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 `;
 
-export const gatheringDate = css`
-  font-size: 10px;
-  color: #6b7280;
+export const meta = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
 `;
+
+export const cost = css`
+  font-size: 1rem;
+  color: #4b5563;
+`;
+
+export const participants = css`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+`;
+
+export const fontSetting = css`
+  padding-left: 0.4rem;
+  font-size: 1.2rem;
+  color: #4b5563;
+`;
+
+export const participantImg = css`
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+`;
+
 ////////////////////////////////////
 
 export const memberRow = css`
+  position: relative;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -202,9 +258,6 @@ export const memberItem = css`
   padding: 0.5rem 0.5rem;
   align-items: center;
   box-sizing: border-box;
-  border: solid #dbdbdb 0.1rem;
-  border-radius: 0.5rem;
-  gap: 12px;
   min-width: 160px;
 `;
 
@@ -239,29 +292,21 @@ export const textBox = css`
     font-size: 1.6rem;
     font-weight: 700;
   }
-
 `;
 
 
 export const fullName = css`
   font-size: 12px;
-  text-align: end;
+  text-align: start;
   color: #6b7280;
 `;
 
-export const moreBtn = css`
-  margin-left: auto;         
-  width: 36px;
-  height: 36px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-  border: 1px solid #e5e7eb;
-  background: transparent;
+export const arrowBtnOverlay = css`
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);  /* 세로 중앙 정렬 */
+  background: none;
+  border: none;
   cursor: pointer;
-
-  &:hover {
-    background: #f3f4f6;
-  }
 `;
