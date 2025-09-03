@@ -7,7 +7,6 @@ export const layout = css`
 
 export const headerBox = css`
   display: flex;
-<<<<<<< HEAD
   align-items: center;
   justify-content: space-between;
   gap: 0.8rem;
@@ -30,33 +29,32 @@ export const searchGroup = css`
 `;
 
 
-export const searchInput = css`
-  width: 30rem;
-  height: 3.6rem;
-  padding: 0 1rem;
-  border: 1px solid #ccc;
-  border-radius: 0.4rem;
-  font-size: 1.4rem;
-`;
+// export const searchInput = css`
+//   width: 30rem;
+//   height: 3.6rem;
+//   padding: 0 1rem;
+//   border: 1px solid #ccc;
+//   border-radius: 0.4rem;
+//   font-size: 1.4rem;
+// `;
 
-export const searchButton = css`
-  height: 3.6rem;
-  padding: 0 1.2rem;
-  background-color: #000; /* 2번째 이미지처럼 검정 버튼 */
-  color: white;
-  border: none;
-  border-radius: 0.4rem;
-  font-size: 1.4rem;
-  cursor: pointer;
+// export const searchButton = css`
+//   height: 3.6rem;
+//   padding: 0 1.2rem;
+//   background-color: #000; /* 2번째 이미지처럼 검정 버튼 */
+//   color: white;
+//   border: none;
+//   border-radius: 0.4rem;
+//   font-size: 1.4rem;
+//   cursor: pointer;
 
-  &:hover {
-    background-color: #333;
-  }
-=======
-  flex-direction: row;
-  padding-top: 2rem;
-  justify-content: space-between;
-`;
+//   &:hover {
+//     background-color: #333;
+//   }
+//   flex-direction: row;
+//   padding-top: 2rem;
+//   justify-content: space-between;
+// `;
 
 export const inputGroup = css`
     display: flex;
@@ -96,7 +94,6 @@ export const registerButton = css`
   cursor: pointer;
   align-items: center;
   justify-content: center;
->>>>>>> origin/101-크루-km-기능-부여
 `;
 
 
@@ -135,12 +132,7 @@ export const heartIcon = css`
   position: absolute;
   bottom: 0.6rem;
   right: 2rem;
-<<<<<<< HEAD
-  font-size: 3rem;
-  color: white;
-=======
   font-size: 3.5rem;
->>>>>>> origin/101-크루-km-기능-부여
   cursor: pointer;
 
   &:hover {

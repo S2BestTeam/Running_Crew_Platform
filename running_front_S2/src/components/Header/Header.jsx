@@ -16,7 +16,6 @@ function Header() {
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
 
-  // ✅ navigate + 드롭다운 닫기 한번에 처리하는 함수
   const handleNavigate = (path) => {
     navigate(path);
     setShowDropdown(false);
@@ -47,7 +46,6 @@ function Header() {
         S2BestTeam
       </div>
 
-      {/* 메뉴 hover 이벤트는 nav에 걸기 */}
       <nav
         css={s.nav}
         onMouseEnter={() => setShowDropdown(true)}
@@ -62,7 +60,6 @@ function Header() {
         </ul>
       </nav>
 
-      {/* 풀드롭다운을 header의 직계 자식으로 이동 */}
       {showDropdown && (
         <div
           css={s.fullDropdown}

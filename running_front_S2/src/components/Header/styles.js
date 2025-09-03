@@ -117,7 +117,6 @@ export const icon = css`
     background-color: #ebebeb26;
   }
 `;
-<<<<<<< HEAD
 
 export const profileImgBox = css`
   display: flex;
@@ -134,5 +133,3 @@ export const profileImgBox = css`
     object-fit: cover;
   }
 `;
-=======
->>>>>>> origin/101-크루-km-기능-부여

@@ -162,7 +162,6 @@ function List() {
       <div css={s.layout}>
         <h2>지역별 크루</h2>
         <div css={s.headerBox}>
-<<<<<<< HEAD
           <select
             value={selectedGunguId}
             onChange={handleGunguChange}
@@ -180,31 +179,11 @@ function List() {
             <input
               type="text"
               placeholder="크루 검색"
-=======
-          <div>
-            <select value={selectedGunguId} onChange={handleGunguChange}>
-              <option value="">전체</option>
-              {gunguList.map((gungu) => (
-                <option key={gungu.gunguId} value={gungu.gunguId}>
-                  {gungu.gunguName}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div css={s.inputGroup}>
-            <input
-              type="text"
-              placeholder="검색어를 입력하세요."
->>>>>>> origin/101-크루-km-기능-부여
               value={searchInput}
               onChange={handleSearchOnChange}
               onKeyDown={handleSearchOnKeyDown}
               css={s.searchInput}
             />
-<<<<<<< HEAD
-            <button onClick={handleSearchOnClick} css={s.searchButton}>
-              검색
-=======
             <button css={s.searchButton} onClick={handleSearchOnClick}>
               <IoSearch />
             </button>
@@ -213,7 +192,6 @@ function List() {
               onClick={() => navigate("/crew/register")}
             >
               크루 등록
->>>>>>> origin/101-크루-km-기능-부여
             </button>
           </div>
         </div>
@@ -233,7 +211,7 @@ function List() {
                   onClick={() => navigate(`/crews/${crew.crewId}`)}
                 >
                   <div css={s.tumbnailBox}>
-                    <img src={crew?.thumbnailPicture} alt="" />
+                    <img src={crew?.profilePicture} alt="" />
                     <motion.div
                       css={s.heartIcon}
                       onClick={(e) => handleLike(e, crew.crewId)}
