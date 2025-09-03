@@ -54,6 +54,18 @@
         where
             crew_id = #{crewId}
     </update>
+    <update id="updateAllCrewTotalKm">
+            UPDATE
+                crew_tb
+            SET
+            total_km = (
+                SELECT COALESCE(SUM(g.km), 0)
+                FROM gathering_tb g
+                INNER JOIN gathering_participant_tb gp ON g.gathering_id = gp.gathering_id
+                WHERE g.crew_id = crew_tb.crew_id
+                AND gp.attendance_status = '1'
+                )
+    </update>
 
     <select id="findByCrewName" resultType="com.korit.running_back_s2.domain.crew.Crew">
         select

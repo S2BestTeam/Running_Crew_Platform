@@ -37,11 +37,11 @@ function CCategory() {
   const { crewId } = useParams();
   const { data: crewData, isLoading, isSuccess } = useCrewDetailQuery(crewId);
   const { setCrewId, setCrew } = useCrewStore();
-  const  crewRoleQuery = useGetCrewRoleQuery(userId);
+  const crewRoleQuery = useGetCrewRoleQuery(userId);
   const crewRole = crewRoleQuery?.data?.find((role) => role.crewId === Number(crewId));
   const canRegister = crewRole && [2, 3].includes(crewRole.roleId);
-  const [ deleteMemberId, setDeleteMemberId ] = useState(0);
-  
+  const [deleteMemberId, setDeleteMemberId] = useState(0);
+
   useEffect(() => {
     reqGetMemberId(crewId).then((res) => {
       setDeleteMemberId(res.data.body);
@@ -49,7 +49,7 @@ function CCategory() {
     setCrewId(crewId);
     setCrew(crewData?.body);
   }, [crewId, crewData?.body]);
-  
+
 
   if (isLoading) {
     return <Loading isLoading={isLoading} />;
@@ -66,6 +66,7 @@ function CCategory() {
     limitedPeople: 0,
     crewTotalKm: 0,
   };
+
 
   const isCrewLeader = crew?.userId === userId;
 
@@ -86,12 +87,6 @@ function CCategory() {
       <button onClick={() => navigate(`/crews/${crewId}/gathering`)}>
         정모 일정
       </button>
-      <button onClick={() => navigate(`/crews/${crewId}/gathering-management`)}>
-        정모 관리
-      </button>
-      <button onClick={() => navigate(`/crews/${crewId}/welcome`)}>
-        가입 인사
-      </button>
       <button onClick={() => navigate(`/crews/${crewId}/freeBoards`)}>
         자유게시판
       </button>
@@ -99,6 +94,12 @@ function CCategory() {
       <button onClick={() => navigate(`/crews/${crewId}/notices`)}>공지사항</button>
       {isCrewLeader && (
         <>
+          <button onClick={() => navigate(`/crews/${crewId}/gathering-management`)}>
+            정모 관리
+          </button>
+          <button onClick={() => navigate(`/crews/${crewId}/welcome`)}>
+            가입 인사 관리
+          </button>
           <button onClick={() => navigate(`/crews/${crewId}/report`)}>
             신고사항
           </button>
@@ -125,8 +126,8 @@ function CCategory() {
       <button onClick={handleWithdrawOnClick}>탈퇴하기</button>
     </div>
   )
-  :
-  (<></>);
+    :
+    (<></>);
 
 
   return (
@@ -141,7 +142,7 @@ function CCategory() {
             <Route path="/" element={<CrewInfo />} />
             <Route path="/welcome" element={<Welcome isCrewLeader={isCrewLeader} />} />
             <Route path="/gathering/*" element={<Gathering />} />
-            <Route path="/gathering/register" element={<GatheringRegister/>} />
+            <Route path="/gathering/register" element={<GatheringRegister />} />
             <Route path="/gathering-management" element={<GatheringManagement />} />
             <Route path="/gathering-management/:gatheringId" element={<GatheringModify />} />
             <Route path="/members" element={<Member />} />
