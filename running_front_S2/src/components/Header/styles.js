@@ -4,11 +4,10 @@ export const header = css`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 3rem;
   padding: 2rem 3.2rem;
   background-color: #1f1f21;
   color: white;
-  //position: flex;
-
   position: relative;
 `;
 
@@ -16,6 +15,8 @@ export const logo = css`
   font-size: 2rem;
   font-weight: 600;
   color: #fff;
+  flex-shrink: 0;
+  cursor: pointer;
 `;
 
 export const nav = css`
@@ -23,15 +24,13 @@ export const nav = css`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  position: relative;
   flex-grow: 1;
 `;
 
 export const menu = css`
   list-style: none;
   display: flex;
-  gap: 2.4rem;
-  flex-grow: 1; 
+  gap: 5rem;
   margin: 0;
   padding: 0;
   font-size: 1.4rem;
@@ -44,10 +43,10 @@ export const menu = css`
       box-sizing: border-box;
       text-decoration: none;
       color: #fff;
-      padding: 8px;
+      padding: 0.8rem;
       display: block;
       transition: background-color 0.2s;
-      height: 36px;
+      height: 3.6rem;
 
       &:hover {
         border-bottom: solid 0.3rem #fff;
@@ -63,26 +62,30 @@ export const menuDetail = css`
 
   div {
     color: #a6a6a6;
-    padding: 8px 16px;
+    padding: 0.8rem 1.6rem;
     text-decoration: none;
     white-space: nowrap;
     transition: color 0.2s;
 
     &:hover {
       color: #fff;
+      cursor: pointer;
     }
   }
 
-  & > div {
-    padding: 8px 16px;
+  & > div:first-of-type {
+    font-weight: bold;
     cursor: default;
+    color: #fff;
   }
 `;
 
 export const fullDropdown = css`
   position: absolute;
-  top: 35px;
-  width: 100vw;
+  top: 100%;
+  left: 0;
+  right: 0; 
+  width: auto;  
   background-color: #1f1f21;
   display: flex;
   justify-content: center;
@@ -93,11 +96,11 @@ export const fullDropdown = css`
 `;
 
 export const icons = css`
-  flex: 1;
   display: flex;
-  justify-content: flex-end;
+  gap: 0.8rem;
   color: #fff;
   font-size: 2.2rem;
+  flex-shrink: 0;
 `;
 
 export const icon = css`
@@ -114,6 +117,7 @@ export const icon = css`
     background-color: #ebebeb26;
   }
 `;
+<<<<<<< HEAD
 
 export const profileImgBox = css`
   display: flex;
@@ -130,3 +134,5 @@ export const profileImgBox = css`
     object-fit: cover;
   }
 `;
+=======
+>>>>>>> origin/101-크루-km-기능-부여

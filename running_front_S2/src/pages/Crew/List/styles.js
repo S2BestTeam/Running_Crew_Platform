@@ -2,10 +2,12 @@ import { css } from "@emotion/react";
 
 export const layout = css`
   width: 100%;
+  text-align: center;
 `;
 
 export const headerBox = css`
   display: flex;
+<<<<<<< HEAD
   align-items: center;
   justify-content: space-between;
   gap: 0.8rem;
@@ -50,38 +52,82 @@ export const searchButton = css`
   &:hover {
     background-color: #333;
   }
+=======
+  flex-direction: row;
+  padding-top: 2rem;
+  justify-content: space-between;
+`;
+
+export const inputGroup = css`
+    display: flex;
+`;
+
+export const searchInput = css`
+    height: 3.425rem;
+    box-sizing: border-box;
+  padding: 0.8rem;
+  border: 0.1rem solid #ccc;
+  border-right: none;
+border-radius: 0.6rem 0 0 0.6rem;
+  outline: none;
+`;
+
+export const searchButton = css`
+    height: 3.425rem;
+    box-sizing: border-box;
+  padding: 0.8rem 1.2rem;
+  border: 0.1rem solid #000;
+  border-left: none;
+  background: #000;
+  color: white;
+  border-radius: 0 0.6rem 0.6rem 0;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+`;
+
+export const registerButton = css`
+  width: auto;
+  padding: 0.6rem 1.2rem;
+  background: #000;
+  color: white;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+>>>>>>> origin/101-크루-km-기능-부여
 `;
 
 
 export const gridBox = css`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1.6rem;
-  padding: 1.6rem;
+  width: 100%;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem 1.8rem;
+  margin: 3rem 0;
 `;
 
 export const cards = css`
-  border: 0.1rem solid #ddd;
+  width: 100%;
   border-radius: 0.8rem;
-  padding: 1.2rem;
-  background-color: #fafafa;
   cursor: pointer;
 `;
 
 export const tumbnailBox = css`
   position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 25rem;
-  padding: 1rem 1rem 0 1rem;
-  overflow: hidden;
 
   & > img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 0.5rem;
   }
 `;
 
@@ -89,8 +135,12 @@ export const heartIcon = css`
   position: absolute;
   bottom: 0.6rem;
   right: 2rem;
+<<<<<<< HEAD
   font-size: 3rem;
   color: white;
+=======
+  font-size: 3.5rem;
+>>>>>>> origin/101-크루-km-기능-부여
   cursor: pointer;
 
   &:hover {
@@ -99,20 +149,50 @@ export const heartIcon = css`
 `;
 
 export const textBox = css`
-  padding-left: 1rem;
+  padding: 0.5rem;
+  text-align: left;
 `;
 
 export const gungu = css`
+  color: #7b7b7b;
   padding: 0.6rem 0 0.6rem 0;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+  font-weight: 500;
 `;
 
 export const crewName = css`
   font-weight: bold;
+  margin-right: 0.5rem;
+  font-size: 1.7rem;
 `;
 
 export const crewTitle = css`
-  font-size: 1.3rem;
-  margin-top: 0.4rem;
+  font-size: 1.7rem;
   color: #333;
+`;
+
+export const rankingBox = css`
+  display: flex;
+  padding: 0.5rem;
+  font-weight: 500;
+  color: #fff;
+  gap: 0.5rem; 
+  margin-top: 0.5rem;
+
+  & > div {
+    width: 7rem;
+    height: 2.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.3rem;
+  }
+`;
+
+export const topRanking = css`
+  background-color: #f5383f;
+`;
+
+export const newRanking = css`
+  background-color: #1f1f21;
 `;

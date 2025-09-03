@@ -1,16 +1,21 @@
 /** @jsxImportSource @emotion/react */
-import * as s from './styles';
+import * as s from "./styles";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import useGetCrewListQuery from "../../../queries/useGetCrewListQuery";
 import useGetGunguListQuery from "../../../queries/useGetGunguListQuery";
 import MainContainer from "../../../components/MainContainer/MainContainer";
-import { FaHeart } from 'react-icons/fa';
-import { FiHeart } from 'react-icons/fi';
+import { FaHeart } from "react-icons/fa";
+import { FiHeart } from "react-icons/fi";
 import { motion } from "framer-motion";
-import usePrincipalQuery from '../../../queries/usePrincipalQuery';
-import { useCrewStore } from '../../../stores/useCrewStroes';
-import { addWishlist, getUserWishlist, removeWishlist } from '../../../api/Crew/wishlistApi';
+import usePrincipalQuery from "../../../queries/usePrincipalQuery";
+import { useCrewStore } from "../../../stores/useCrewStroes";
+import {
+  addWishlist,
+  getUserWishlist,
+  removeWishlist,
+} from "../../../api/Crew/wishlistApi";
+import { IoSearch } from "react-icons/io5";
 
 function List() {
   const navigate = useNavigate();
@@ -24,20 +29,20 @@ function List() {
   const [searchInput, setSearchInput] = useState(searchText);
 
   const { resetCrew } = useCrewStore();
-  
+
   useEffect(() => {
-    const loadUserWishlist  = async () => {
+    const loadUserWishlist = async () => {
       if (userId) {
         try {
           const response = await getUserWishlist(userId);
-          const crewIds = response.data.body.map(wish => wish.crewId);
+          const crewIds = response.data.body.map((wish) => wish.crewId);
           setWishlist(crewIds);
         } catch (error) {
-          console.error('위시리스트 불러오기 실패:', error);
+          console.error("위시리스트 불러오기 실패:", error);
         }
       }
     };
-    
+
     loadUserWishlist();
   }, [userId]);
 
@@ -52,18 +57,18 @@ function List() {
     const isCurrentlyLiked = wishlist.includes(crewId);
 
     const mywish = {
-    crewId: crewId,
-    userId: userId
-  };
-    
-    setWishlist(prev => {
+      crewId: crewId,
+      userId: userId,
+    };
+
+    setWishlist((prev) => {
       if (prev.includes(crewId)) {
-        return prev.filter(id => id !== crewId);
+        return prev.filter((id) => id !== crewId);
       } else {
         return [...prev, crewId];
       }
     });
-    
+
     try {
       if (isCurrentlyLiked) {
         await removeWishlist(mywish);
@@ -71,16 +76,15 @@ function List() {
         await addWishlist(mywish);
       }
     } catch (error) {
-      setWishlist(prev => {
+      setWishlist((prev) => {
         if (isCurrentlyLiked) {
           return [...prev, crewId];
         } else {
-          return prev.filter(id => id !== crewId);
+          return prev.filter((id) => id !== crewId);
         }
       });
-    };
-  }
-  
+    }
+  };
 
   const crewListQuery = useGetCrewListQuery({
     page,
@@ -107,7 +111,11 @@ function List() {
 
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && crewListQuery.hasNextPage && !crewListQuery.isFetchingNextPage) {
+        if (
+          entry.isIntersecting &&
+          crewListQuery.hasNextPage &&
+          !crewListQuery.isFetchingNextPage
+        ) {
           crewListQuery.fetchNextPage();
         }
       },
@@ -116,7 +124,11 @@ function List() {
 
     io.observe(el);
     return () => io.disconnect();
-  }, [crewListQuery.hasNextPage, crewListQuery.isFetchingNextPage, crewListQuery.fetchNextPage]);
+  }, [
+    crewListQuery.hasNextPage,
+    crewListQuery.isFetchingNextPage,
+    crewListQuery.fetchNextPage,
+  ]);
 
   const handleGunguChange = (e) => {
     const value = e.target.value;
@@ -148,7 +160,9 @@ function List() {
   return (
     <MainContainer>
       <div css={s.layout}>
+        <h2>지역별 크루</h2>
         <div css={s.headerBox}>
+<<<<<<< HEAD
           <select
             value={selectedGunguId}
             onChange={handleGunguChange}
@@ -166,25 +180,52 @@ function List() {
             <input
               type="text"
               placeholder="크루 검색"
+=======
+          <div>
+            <select value={selectedGunguId} onChange={handleGunguChange}>
+              <option value="">전체</option>
+              {gunguList.map((gungu) => (
+                <option key={gungu.gunguId} value={gungu.gunguId}>
+                  {gungu.gunguName}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div css={s.inputGroup}>
+            <input
+              type="text"
+              placeholder="검색어를 입력하세요."
+>>>>>>> origin/101-크루-km-기능-부여
               value={searchInput}
               onChange={handleSearchOnChange}
               onKeyDown={handleSearchOnKeyDown}
               css={s.searchInput}
             />
+<<<<<<< HEAD
             <button onClick={handleSearchOnClick} css={s.searchButton}>
               검색
+=======
+            <button css={s.searchButton} onClick={handleSearchOnClick}>
+              <IoSearch />
+            </button>
+            <button
+              css={s.registerButton}
+              onClick={() => navigate("/crew/register")}
+            >
+              크루 등록
+>>>>>>> origin/101-크루-km-기능-부여
             </button>
           </div>
         </div>
 
 
         <div css={s.gridBox}>
-            {crewList.length === 0 ? (
+          {crewList.length === 0 ? (
             <p>크루가 없습니다.</p>
           ) : (
             crewList.map((crew) => {
               const isLiked = wishlist.includes(crew.crewId);
-              
+
               return (
                 <div
                   key={crew.crewId}
@@ -199,13 +240,24 @@ function List() {
                       animate={{ scale: isLiked ? [1, 1.4, 1] : [1, 0.8, 1] }}
                       transition={{ duration: 0.3 }}
                     >
-                      {isLiked ? <FaHeart color="#ff4d6d" /> : <FiHeart color="black" />}
+                      {isLiked ? (
+                        <FaHeart color="#fc2848" />
+                      ) : (
+                        <FiHeart color="fff" />
+                      )}
                     </motion.div>
                   </div>
                   <div css={s.textBox}>
                     <div css={s.gungu}>{crew.gunguName}</div>
-                    <div css={s.crewName}>[{crew.crewName}]</div>
-                    <div css={s.crewTitle}>{crew.title}</div>
+                    <div>
+                      <span css={s.crewName}>[{crew.crewName}]</span>
+                      <span css={s.crewTitle}>{crew.title}</span>
+                    </div>
+                  </div>
+                  <div></div>
+                  <div css={s.rankingBox}>
+                    <div css={s.topRanking}>Top 랭킹</div>
+                    <div css={s.newRanking}>신규크루</div>
                   </div>
                 </div>
               );
