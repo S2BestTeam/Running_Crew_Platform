@@ -31,7 +31,7 @@ function CrewInfo() {
   const displayMembers = (members ?? []).slice(0, 6);
   const [gatherings, setGatherings] = useState([]);
   const { data } = useGetGatheringsQuery(crewId);
-  console.log(displayMembers);
+  // console.log(displayMembers);
 
   useEffect(() => {
     if (!crewId) return; (

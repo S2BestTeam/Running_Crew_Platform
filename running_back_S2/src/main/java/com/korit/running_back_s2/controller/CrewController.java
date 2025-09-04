@@ -13,6 +13,8 @@ import com.korit.running_back_s2.service.CrewService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/crews")
 @RequiredArgsConstructor
@@ -33,6 +35,7 @@ public class CrewController {
 
     @GetMapping("/duplicate/name")
     public ResponseEntity<ResponseDto<?>> checkCrewName(@RequestParam String crewName) {
+        System.out.println(crewName);
         return ResponseEntity.ok(ResponseDto.success(crewService.checkCrewNames(crewName)));
     }
 
@@ -68,4 +71,13 @@ public class CrewController {
         crewService.updateCrew(dto);
         return ResponseEntity.ok(ResponseDto.success("크루 정보 수정 성공"));
     }
+
+    @GetMapping("/{crewId}/meta/latest")  // ✅ 메서드 레벨
+    public ResponseEntity<?> latest(@PathVariable Integer crewId) {
+        CrewService.SectionsLatestDto body = crewService.getSectionsLatest(crewId);
+        return ResponseEntity.ok(ResponseDto.success(body)); // {code,message,body}
+    }
+
+
+
 }

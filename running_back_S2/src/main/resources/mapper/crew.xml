@@ -260,4 +260,14 @@
             crew_id = #{crewId}
     </select>
 
+    <select id="selectSectionsLatest"
+            parameterType="int"
+            resultType="com.korit.running_back_s2.dto.crew.SectionsLatestRaw">
+        SELECT
+        (SELECT MAX(cm.joined_at) FROM member_tb cm     WHERE cm.crew_id = #{crewId}) AS members,
+        (SELECT MAX(g.created_at)  FROM gathering_tb g          WHERE g.crew_id  = #{crewId}) AS gatherings,
+        (SELECT MAX(fb.created_at) FROM crew_free_tb fb WHERE fb.crew_id = #{crewId}) AS freeBoards,
+        (SELECT MAX(n.created_at)  FROM crew_notice_tb n      WHERE n.crew_id  = #{crewId}) AS notices
+    </select>
+
 </mapper>
