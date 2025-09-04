@@ -37,14 +37,14 @@ public class GatheringService {
     }
 
     public List<Gathering> getGatherings(Integer crewId) {
-        Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
-        List<Gathering> gatherings = gatheringMapper.findAllByCrewId(crewId, userId);
+//        Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
+//        List<Gathering> gatherings = gatheringMapper.findAllByCrewId(crewId, userId);
+        List<Gathering> gatherings = gatheringMapper.findAllByCrewId(crewId);
         gatherings.forEach(g -> {
             if (g.getThumbnailPicture() != null) {
                 g.setThumbnailPicture(imageUrlUtil.buildImageUrl(g.getThumbnailPicture(), "crewGathering"));
             }
         });
-
         return gatherings;
     }
 

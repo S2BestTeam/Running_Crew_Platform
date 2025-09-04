@@ -6,6 +6,8 @@ import { reqUpdateGlobalNotice } from '../../../api/GlobalNotice/globalNoticeApi
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
 import MainContainer from '../../../components/MainContainer/MainContainer';
 import api from '../../../api/axios';
+/** @jsxImportSource @emotion/react */
+import * as s from './styles';
 
 function NoticeEdit() {
   const { noticeId } = useParams();
@@ -55,7 +57,7 @@ function NoticeEdit() {
       if (!file) return;
 
       const formData = new FormData();
-      formData.append('imageConfigName', 'globalNoticeBoard'); 
+      formData.append('imageConfigName', 'globalNoticeBoard');
       formData.append('file', file);
 
       try {
@@ -111,37 +113,38 @@ function NoticeEdit() {
 
   return (
     <MainContainer>
-      <div style={{ maxWidth: 860, margin: '0 auto' }}>
-        <h2>공지글 수정</h2>
-
+      <div css={s.wrap}>
+        <h2 css={s.titleRow}>공지글 수정</h2>
         <input
+          css={s.titleInput}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="제목"
-          style={{ width: '100%', padding: 8, marginBottom: 8 }}
+          placeholder="제목을 입력하세요"
         />
+        <div css={[s.quillBox]}>
 
-        <ReactQuill
-          ref={quillRef}
-          theme="snow"
-          value={content}
-          onChange={setContent}
-          modules={{
-            toolbar: {
-              container: [
-                [{ header: [false, 1, 2, 3] }],
-                ['bold', 'italic', 'underline', 'strike'],
-                [{ align: [] }],
-                ['blockquote', 'link', 'image'],
-              ],
-              handlers: { image: imageHandler }, 
-            },
-          }}
-        />
+          <ReactQuill
+            ref={quillRef}
+            theme="snow"
+            value={content}
+            onChange={setContent}
+            modules={{
+              toolbar: {
+                container: [
+                  [{ header: [false, 1, 2, 3] }],
+                  ['bold', 'italic', 'underline', 'strike'],
+                  [{ align: [] }],
+                  ['blockquote', 'link', 'image'],
+                ],
+                handlers: { image: imageHandler },
+              },
+            }}
+          />
 
-        <div style={{ marginTop: 12, display: 'flex', gap: 8 }}>
-          <button onClick={() => navigate(-1)}>취소</button>
-          <button onClick={handleSave}>저장</button>
+        </div>
+        <div css={s.submitRow}>
+          <button css={s.cancleBtn} onClick={() => navigate(-1)}>취소</button>
+          <button css={s.submitBtn} onClick={handleSave}>저장</button>
         </div>
       </div>
     </MainContainer>

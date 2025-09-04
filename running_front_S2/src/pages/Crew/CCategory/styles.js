@@ -76,3 +76,86 @@ export const getout = css`
     }
   }
 `;
+
+export const navButton = css`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+`;
+
+export const newBadge = css`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 6px;
+  background: #ff4757;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 8px;
+  margin-left: 8px;
+  min-width: 28px;
+  animation: pulse 2s infinite;
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+`;
+
+/* 또는 더 심플한 스타일 */
+export const newBadgeSimple = css`
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #ff4757;
+  border-radius: 50%;
+  margin-left: 8px;
+  animation: blink 1.5s infinite;
+  
+  @keyframes blink {
+    0%, 50% {
+      opacity: 1;
+    }
+    51%, 100% {
+      opacity: 0.3;
+    }
+  }
+`;
+
+/* 숫자 뱃지 스타일 */
+export const numberBadge = css`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  background: #ff4757;
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+  border-radius: 9px;
+  margin-left: 8px;
+  padding: 0 4px;
+`;

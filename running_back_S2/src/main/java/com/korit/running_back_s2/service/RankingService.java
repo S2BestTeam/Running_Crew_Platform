@@ -33,7 +33,6 @@ public class RankingService {
     private LocalDateTime lastUpdatedUser;
     private static final Duration USER_CACHE_DURATION = Duration.ofDays(1); // 하루 단위
 
-
     @PostConstruct
     @Scheduled(cron = "0 0 0 * * *")
     public void updateCrewRankings() {
@@ -54,6 +53,7 @@ public class RankingService {
     }
 
     private CrewRankingGroupRespDto calculateCrewRankingsFromDB() {
+<<<<<<< HEAD
         List<CrewRankingRespDto> totalKmRanking = crewMapper.selectTop10CrewRankingByTotalKm().stream().map(crew -> {
             crew.setProfilePicture(imageUrlUtil.buildImageUrl(crew.getProfilePicture(), "crewProfile"));
             return crew;
@@ -66,6 +66,13 @@ public class RankingService {
             crew.setProfilePicture(imageUrlUtil.buildImageUrl(crew.getProfilePicture(), "crewProfile"));
             return crew;
         }).collect(Collectors.toList());
+=======
+        crewMapper.updateAllCrewTotalKm();
+
+        List<CrewRankingRespDto> totalKmRanking = crewMapper.selectTop10CrewRankingByTotalKm();
+        List<CrewRankingRespDto> memberRanking = crewMapper.selectTop10CrewRankingByMemberCount();
+        List<CrewRankingRespDto> newRanking = crewMapper.selectTop10CrewRankingByCreatedDate();
+>>>>>>> origin/109-사진첩-다듬기-2
         return new CrewRankingGroupRespDto(totalKmRanking, memberRanking, newRanking);
     }
 

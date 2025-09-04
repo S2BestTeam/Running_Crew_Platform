@@ -10,7 +10,12 @@ public class AnswerReqDto {
 
     private Integer askId;
     private String content;
+<<<<<<< HEAD
     private LocalDate createdAt;
 
     private User user;
+=======
+
+
+>>>>>>> origin/109-사진첩-다듬기-2
 }

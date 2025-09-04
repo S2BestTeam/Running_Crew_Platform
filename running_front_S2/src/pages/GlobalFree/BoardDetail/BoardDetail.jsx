@@ -130,7 +130,6 @@ function BoardDetail(props) {
             <div css={s.layout}>
                 <div css={s.topBar}>
                     <button onClick={() => navigate(-1)}>← 목록</button>
-                    <span>글번호 #{post.freeId}</span>
                 </div>
 
                 <h1 css={s.titleCss}>{post.title}</h1>

@@ -50,6 +50,7 @@ function CrewInfo() {
     if (body) setGatherings(body);
   }, [data]);
 
+<<<<<<< HEAD
     useEffect(() => {
     if (!crewId) return;
     reqGetMemberCount(crewId)
@@ -57,6 +58,21 @@ function CrewInfo() {
         setCountMember(res.data.body);
       });
   }, [countMember]);
+=======
+  useEffect(() => {
+    if (!crewId) return;               
+    (async () => {
+      try {
+        const res = await reqGetMemberCount(crewId);
+        const count = res?.data?.body ?? res?.body;
+        setCountMember(Number(count));   
+        console.log("memberCount:", count);
+      } catch (e) {
+        console.error("getMemberCount error", e);
+      }
+    })();
+  }, [crewId]);
+>>>>>>> origin/109-사진첩-다듬기-2
 
   const getKey = (dateStr, timeStr) =>
     dateStr ? `${dateStr.replaceAll("-", "")}${(timeStr || "00:00").replace(":", "")}` : null;
@@ -81,26 +97,26 @@ function CrewInfo() {
   }, [gatherings]);
 
   const formatRelativeDate = (dateStr, timeStr) => {
-  const now = new Date();
-  const targetDate = new Date(dateStr);
+    const now = new Date();
+    const targetDate = new Date(dateStr);
 
-  if (timeStr) {
-    const [hour, minute] = timeStr.split(":").map(Number);
-    targetDate.setHours(hour, minute, 0, 0);
-  }
+    if (timeStr) {
+      const [hour, minute] = timeStr.split(":").map(Number);
+      targetDate.setHours(hour, minute, 0, 0);
+    }
 
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const targetDay = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
-  const diffDays = Math.floor((targetDay - today) / (1000 * 60 * 60 * 24));
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const targetDay = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
+    const diffDays = Math.floor((targetDay - today) / (1000 * 60 * 60 * 24));
 
-  if (diffDays === 0) {
-    return `오늘 ${timeStr || ""}`;
-  } else if (diffDays === 1) {
-    return `내일 ${timeStr || ""}`;
-  } else {
-    return `${targetDate.getFullYear()}.${targetDate.getMonth() + 1}.${targetDate.getDate()} ${timeStr || ""}`;
-  }
-};
+    if (diffDays === 0) {
+      return `오늘 ${timeStr || ""}`;
+    } else if (diffDays === 1) {
+      return `내일 ${timeStr || ""}`;
+    } else {
+      return `${targetDate.getFullYear()}.${targetDate.getMonth() + 1}.${targetDate.getDate()} ${timeStr || ""}`;
+    }
+  };
 
 
   return (
@@ -144,6 +160,7 @@ function CrewInfo() {
         </div>
       </div>
 
+<<<<<<< HEAD
       <div css={s.mainLine}>
         <div>
           <p css={s.fontBold}>한줄 소개</p>
@@ -155,6 +172,41 @@ function CrewInfo() {
         <div css={s.section}>
           <div css={s.sectionHeader}>
             <p css={s.fontBold}>정모 일정</p>
+=======
+            {Array.isArray(displayGatherings) && displayGatherings.length > 0 ? (
+              <div css={s.gatheringRow}>
+                {displayGatherings.map((g) => (
+                  <div key={g.gatheringId} css={s.gatheringCard}>
+                    <div css={s.thumbWrap}>
+                      <img src={g.thumbnailPicture} alt={g.title} />
+                    </div>
+                    <div css={s.cardBody}>
+                      <div css={s.title}>{g.title}</div>
+                      <div css={s.time}><IoTimeSharp /> {formatRelativeDate(g.runningDate, g.runningTime)}</div>
+                      <div css={s.place}><IoLocation /> {g.placeName}</div>
+                      <div css={s.cost}> <FaWonSign /> {g.cost.toLocaleString()} </div>
+                      <div css={s.participants}>
+                        <img src={g?.user?.picture} alt="참여자" css={s.participantImg} />
+                        <div css={s.fontSetting}>
+                          {g.currentParticipants}/{g.maxParticipants}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                <button
+                  css={s.arrowBtnOverlay}
+                  aria-label="정모 전체 보기"
+                  onClick={() => navigate(`/crews/${crewId}/gathering`)}
+                >
+                  <IoIosArrowForward size={22} />
+                </button>
+              </div>
+
+            ) : (
+              <div>현재 등록된 정모 일정이 없습니다.</div>
+            )}
+>>>>>>> origin/109-사진첩-다듬기-2
           </div>
 
           {Array.isArray(displayGatherings) && displayGatherings.length > 0 ? (

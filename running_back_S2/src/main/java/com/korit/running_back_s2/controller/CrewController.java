@@ -1,7 +1,9 @@
 package com.korit.running_back_s2.controller;
 
 import com.korit.running_back_s2.dto.crew.CrewUpdateReqDto;
+import com.korit.running_back_s2.dto.image.CrewAlbumImageDto;
 import com.korit.running_back_s2.dto.response.ResponseDto;
+import com.korit.running_back_s2.service.CrewAlbumService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,12 +15,15 @@ import com.korit.running_back_s2.service.CrewService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/crews")
 @RequiredArgsConstructor
 public class CrewController {
 
     private final CrewService crewService;
+    private final CrewAlbumService crewAlbumService;
 
     @GetMapping("/{crewId}")
     public ResponseEntity<ResponseDto<?>> getCrewById (@PathVariable Integer crewId) {
@@ -67,5 +72,13 @@ public class CrewController {
     public ResponseEntity<ResponseDto<?>> updateCrewData(@RequestBody CrewUpdateReqDto dto) {
         crewService.updateCrew(dto);
         return ResponseEntity.ok(ResponseDto.success("크루 정보 수정 성공"));
+    }
+
+    @GetMapping("/{crewId}/albums")
+    public ResponseEntity<ResponseDto<List<CrewAlbumImageDto>>> getCrewAlbumImages(
+            @PathVariable int crewId
+    ) {
+        List<CrewAlbumImageDto> list = crewAlbumService.getCrewAlbumImages(crewId);
+        return ResponseEntity.ok(ResponseDto.success(list));
     }
 }
