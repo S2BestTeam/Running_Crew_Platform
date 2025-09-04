@@ -5,7 +5,6 @@ import { useCrewStore } from '../../../stores/useCrewStroes';
 import WelcomeRegModal from '../Welcome/WelcomeRegModal/WelcomeRegModal';
 import { reqGetMemberCount, reqGetMembers, } from '../../../api/Crew/memberApi';
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
-import ContentLayout from '../../../components/ContentLayout/ContentLayout';
 import useGetCrewRoleQuery from '../../../queries/useGetCrewRoleQuery';
 import { useNavigate } from 'react-router-dom';
 import { useGetGatheringsQuery } from '../../../queries/useGetGatheringsQuery';
@@ -50,15 +49,6 @@ function CrewInfo() {
     if (body) setGatherings(body);
   }, [data]);
 
-<<<<<<< HEAD
-    useEffect(() => {
-    if (!crewId) return;
-    reqGetMemberCount(crewId)
-      .then((res) => {
-        setCountMember(res.data.body);
-      });
-  }, [countMember]);
-=======
   useEffect(() => {
     if (!crewId) return;               
     (async () => {
@@ -72,7 +62,6 @@ function CrewInfo() {
       }
     })();
   }, [crewId]);
->>>>>>> origin/109-사진첩-다듬기-2
 
   const getKey = (dateStr, timeStr) =>
     dateStr ? `${dateStr.replaceAll("-", "")}${(timeStr || "00:00").replace(":", "")}` : null;
@@ -160,7 +149,6 @@ function CrewInfo() {
         </div>
       </div>
 
-<<<<<<< HEAD
       <div css={s.mainLine}>
         <div>
           <p css={s.fontBold}>한줄 소개</p>
@@ -172,41 +160,6 @@ function CrewInfo() {
         <div css={s.section}>
           <div css={s.sectionHeader}>
             <p css={s.fontBold}>정모 일정</p>
-=======
-            {Array.isArray(displayGatherings) && displayGatherings.length > 0 ? (
-              <div css={s.gatheringRow}>
-                {displayGatherings.map((g) => (
-                  <div key={g.gatheringId} css={s.gatheringCard}>
-                    <div css={s.thumbWrap}>
-                      <img src={g.thumbnailPicture} alt={g.title} />
-                    </div>
-                    <div css={s.cardBody}>
-                      <div css={s.title}>{g.title}</div>
-                      <div css={s.time}><IoTimeSharp /> {formatRelativeDate(g.runningDate, g.runningTime)}</div>
-                      <div css={s.place}><IoLocation /> {g.placeName}</div>
-                      <div css={s.cost}> <FaWonSign /> {g.cost.toLocaleString()} </div>
-                      <div css={s.participants}>
-                        <img src={g?.user?.picture} alt="참여자" css={s.participantImg} />
-                        <div css={s.fontSetting}>
-                          {g.currentParticipants}/{g.maxParticipants}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                <button
-                  css={s.arrowBtnOverlay}
-                  aria-label="정모 전체 보기"
-                  onClick={() => navigate(`/crews/${crewId}/gathering`)}
-                >
-                  <IoIosArrowForward size={22} />
-                </button>
-              </div>
-
-            ) : (
-              <div>현재 등록된 정모 일정이 없습니다.</div>
-            )}
->>>>>>> origin/109-사진첩-다듬기-2
           </div>
 
           {Array.isArray(displayGatherings) && displayGatherings.length > 0 ? (
