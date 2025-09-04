@@ -1,18 +1,18 @@
 import { css } from "@emotion/react";
 
 export const layout = css`
+  width: 100%;
   padding: 16px;
 `;
 
 export const gatheringMain = css`
   margin-top: 16px;
-  
 `;
 
 export const dataGridWrapper = css`
   height: 100%;
-  width: 100%;
-    .MuiDataGrid-cell {
+  width: 90rem;
+  .MuiDataGrid-cell {
     font-size: 1.5rem; // 셀 글자 크기
   }
 

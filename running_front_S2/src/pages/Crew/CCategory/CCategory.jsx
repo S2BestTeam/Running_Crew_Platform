@@ -29,6 +29,7 @@ import GatheringModify from "../GatheringManagement/GatheringModify/GatheringMod
 import useGetCrewRoleQuery from "../../../queries/useGetCrewRoleQuery";
 import { reqGetMemberId, reqWithDrawMember } from "../../../api/Crew/memberApi";
 import CrewAlbums from "../Albums/CrewAlbums";
+import { contentContainer } from './styles';
 
 function CCategory() {
   const navigate = useNavigate();
@@ -37,11 +38,13 @@ function CCategory() {
   const { crewId } = useParams();
   const { data: crewData, isLoading, isSuccess } = useCrewDetailQuery(crewId);
   const { setCrewId, setCrew } = useCrewStore();
-  const  crewRoleQuery = useGetCrewRoleQuery(userId);
-  const crewRole = crewRoleQuery?.data?.find((role) => role.crewId === Number(crewId));
+  const crewRoleQuery = useGetCrewRoleQuery(userId);
+  const crewRole = crewRoleQuery?.data?.find(
+    (role) => role.crewId === Number(crewId)
+  );
   const canRegister = crewRole && [2, 3].includes(crewRole.roleId);
-  const [ deleteMemberId, setDeleteMemberId ] = useState(0);
-  
+  const [deleteMemberId, setDeleteMemberId] = useState(0);
+
   useEffect(() => {
     reqGetMemberId(crewId).then((res) => {
       setDeleteMemberId(res.data.body);
@@ -49,7 +52,6 @@ function CCategory() {
     setCrewId(crewId);
     setCrew(crewData?.body);
   }, [crewId, crewData?.body]);
-  
 
   if (isLoading) {
     return <Loading isLoading={isLoading} />;
@@ -95,8 +97,12 @@ function CCategory() {
       <button onClick={() => navigate(`/crews/${crewId}/freeBoards`)}>
         자유게시판
       </button>
-      <button onClick={() => navigate(`/crews/${crewId}/albums`)}>사진첩</button>
-      <button onClick={() => navigate(`/crews/${crewId}/notices`)}>공지사항</button>
+      <button onClick={() => navigate(`/crews/${crewId}/albums`)}>
+        사진첩
+      </button>
+      <button onClick={() => navigate(`/crews/${crewId}/notices`)}>
+        공지사항
+      </button>
       {isCrewLeader && (
         <>
           <button onClick={() => navigate(`/crews/${crewId}/report`)}>
@@ -116,34 +122,45 @@ function CCategory() {
       return;
     }
     await reqWithDrawMember(deleteMemberId);
-    alert("크루 탈퇴가 완료되었습니다. \n 탈퇴 후 14일 이후 재가입이 가능합니다.");
-    navigate('/');
-  }
+    alert(
+      "크루 탈퇴가 완료되었습니다. \n 탈퇴 후 14일 이후 재가입이 가능합니다."
+    );
+    navigate("/");
+  };
 
   const bottomSection = !!canRegister ? (
     <div css={s.getout}>
       <button onClick={handleWithdrawOnClick}>탈퇴하기</button>
     </div>
-  )
-  :
-  (<></>);
-
+  ) : (
+    <></>
+  );
 
   return (
     <MainContainer>
-      <LeftSideBarLayout
-        profileSection={profileSection}
-        navigationButtons={navigationButtons}
-        bottomSection={bottomSection}
-      >
+      <div css={s.contentContainer}>
+        <LeftSideBarLayout
+          profileSection={profileSection}
+          navigationButtons={navigationButtons}
+          bottomSection={bottomSection}
+        ></LeftSideBarLayout>
         <ContentLayout>
           <Routes>
             <Route path="/" element={<CrewInfo />} />
-            <Route path="/welcome" element={<Welcome isCrewLeader={isCrewLeader} />} />
+            <Route
+              path="/welcome"
+              element={<Welcome isCrewLeader={isCrewLeader} />}
+            />
             <Route path="/gathering/*" element={<Gathering />} />
-            <Route path="/gathering/register" element={<GatheringRegister/>} />
-            <Route path="/gathering-management" element={<GatheringManagement />} />
-            <Route path="/gathering-management/:gatheringId" element={<GatheringModify />} />
+            <Route path="/gathering/register" element={<GatheringRegister />} />
+            <Route
+              path="/gathering-management"
+              element={<GatheringManagement />}
+            />
+            <Route
+              path="/gathering-management/:gatheringId"
+              element={<GatheringModify />}
+            />
             <Route path="/members" element={<Member />} />
             <Route path="/freeBoards" element={<FreeBoard />} />
             <Route path="freeBoards/register" element={<FeedReg />} />
@@ -154,11 +171,14 @@ function CCategory() {
             <Route path="notices/register" element={<NoticeReg />} />
             <Route path="notices/:noticeId" element={<NoticeDetail />} />
             <Route path="notices/:noticeId/edit" element={<NoticeEdit />} />
-            <Route path="/report" element={<Report isCrewLeader={isCrewLeader} />} />
+            <Route
+              path="/report"
+              element={<Report isCrewLeader={isCrewLeader} />}
+            />
             <Route path="/setting" element={<Setting />} />
           </Routes>
         </ContentLayout>
-      </LeftSideBarLayout>
+      </div>
     </MainContainer>
   );
 }

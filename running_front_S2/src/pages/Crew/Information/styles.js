@@ -1,12 +1,12 @@
 import { css } from "@emotion/react";
 
-export const mainBox = css`
-  width: 96%;
-`;
+// export const mainBox = css`
+//   width: 96%;
+// `;
 
-export const mainLine = css`
-  padding-left: 1rem;
-`;
+// export const mainLine = css`
+//   padding-left: 1rem;
+// `;
 
 export const fontBold = css`
   font-weight: bold;

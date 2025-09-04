@@ -1,29 +1,26 @@
 import { css } from "@emotion/react";
 
-export const layout = css`
-  display: flex;
-  flex-direction: row;
-  padding-left: 1.6rem;
-`;
+// export const layout = css`
+//   display: flex;
+//   flex-direction: row;
+//     width: 25rem;
+//   /* padding-left: 1.6rem; */
+// `;
 
 export const leftBox = css`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  /* display: flex;
+  flex-direction: column; */
+  /* justify-content: space-between; */
   border: 0.1rem solid #dbdbdb;
   border-radius: 0.5rem;
-  width: 18rem;
-  padding: 1rem;
-  background-color: #ffffff;
-  top: 0;
-
-  height: 100%;
+  padding: 3rem;
+  height: 70vh;
 `;
 
-export const rightContent = css`
-  flex: 1;
-  background-color: white;
-`;
+// export const rightContent = css`
+//   flex: 1;
+//   background-color: white;
+// `;
 
 export const buttonContainer = css`
   display: flex;

@@ -207,7 +207,7 @@ function Setting(props) {
 
   return (
     <ContentLayout>
-      <div css={s.mainBox}>
+      <div>
         <div css={s.titleBox}>
           <div css={s.banner} onClick={handleThumbnailImgUpdateClick}>
             <div>

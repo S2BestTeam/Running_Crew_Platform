@@ -8,6 +8,7 @@ import { useGetGatheringsQuery } from "../../../queries/useGetGatheringsQuery";
 import GatheringManagementModal from "./GatheringManagementModal/GatheringManagementModal";
 import { useNavigate } from "react-router-dom";
 import { useCrewStore } from "../../../stores/useCrewStroes";
+import LeftSideBarLayout from "../../../components/LeftSideBarLayout/LeftSideBarLayout";
 
 function GatheringManagement() {
   const { crewId } = useCrewStore();
@@ -45,7 +46,11 @@ function GatheringManagement() {
       width: 200,
       renderCell: (params) => (
         <div css={s.profileRow}>
-          <img src={params.row.user?.picture} alt={params.value} css={s.profileImg} />
+          <img
+            src={params.row.user?.picture}
+            alt={params.value}
+            css={s.profileImg}
+          />
           <span>{params.value}</span>
         </div>
       ),
@@ -53,7 +58,7 @@ function GatheringManagement() {
     {
       field: "status",
       headerName: "상태",
-      width: 200,
+      width: 80,
       renderCell: (params) => {
         const today = new Date();
         const runningDate = new Date(params.row.runningDate);
@@ -98,13 +103,18 @@ function GatheringManagement() {
             <DataGrid
               rows={rows}
               columns={columns}
+              getRowId={(row) => row.id}
               pageSizeOptions={[10]}
-              initialState={{ pagination: { paginationModel: { pageSize: 10 } } }}
+              initialState={{
+                pagination: { paginationModel: { pageSize: 10 } },
+              }}
               checkboxSelection
               disableRowSelectionOnClick
               onRowClick={(params) => {
                 const gatheringId = params.row.gatheringId;
-                navigate(`/crews/${crewId}/gathering-management/${gatheringId}`);
+                navigate(
+                  `/crews/${crewId}/gathering-management/${gatheringId}`
+                );
               }}
             />
           </Box>

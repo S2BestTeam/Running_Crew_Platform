@@ -162,23 +162,20 @@ function List() {
       <div css={s.layout}>
         <h2>지역별 크루</h2>
         <div css={s.headerBox}>
-          <select
-            value={selectedGunguId}
-            onChange={handleGunguChange}
-            css={s.selectBox}
-          >
-            <option value="">전체</option>
-            {gunguList.map((gungu) => (
-              <option key={gungu.gunguId} value={gungu.gunguId}>
-                {gungu.gunguName}
-              </option>
-            ))}
-          </select>
-
-          <div css={s.searchGroup}>
+          <div>
+            <select value={selectedGunguId} onChange={handleGunguChange}>
+              <option value="">전체</option>
+              {gunguList.map((gungu) => (
+                <option key={gungu.gunguId} value={gungu.gunguId}>
+                  {gungu.gunguName}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div css={s.inputGroup}>
             <input
               type="text"
-              placeholder="크루 검색"
+              placeholder="검색어를 입력하세요."
               value={searchInput}
               onChange={handleSearchOnChange}
               onKeyDown={handleSearchOnKeyDown}

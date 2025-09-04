@@ -17,9 +17,6 @@ export const imageOverlay = css`
   transition: opacity 0.2s ease;
 `;
 
-export const mainBox = css`
-  width: 96%;
-`;
 
 export const settingHeader = css`
   display: flex;

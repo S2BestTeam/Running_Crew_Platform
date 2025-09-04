@@ -22,7 +22,7 @@ function CrewRanking() {
         <section css={s.section}>
           <h2 css={s.sectionTitle}>🏃‍♂️ 총 거리 랭킹</h2>
           <div css={s.rankingList}>
-            {rankings?.totalKmRanking?.slice(0, 10).map((crew, index) => (
+            {rankings?.totalKmRanking?.map((crew, index) => (
               <div key={crew.crewId} css={s.cardDiv} onClick={() => navigate(`/crews/${crew.crewId}`)}>
                 <RankingCard
                   key={crew.crewId}

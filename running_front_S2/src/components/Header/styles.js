@@ -22,7 +22,6 @@ export const logo = css`
 export const nav = css`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   align-items: center;
   flex-grow: 1;
 `;
@@ -56,13 +55,13 @@ export const menu = css`
 `;
 
 export const menuDetail = css`
-  padding: 1rem 3rem 1rem 3rem;
+  padding-bottom: 3rem;
   display: flex;
   flex-direction: column;
 
   div {
     color: #a6a6a6;
-    padding: 0.8rem 1.6rem;
+    padding: 0.8rem 3rem;
     text-decoration: none;
     white-space: nowrap;
     transition: color 0.2s;
@@ -74,7 +73,6 @@ export const menuDetail = css`
   }
 
   & > div:first-of-type {
-    font-weight: bold;
     cursor: default;
     color: #fff;
   }
@@ -90,7 +88,7 @@ export const fullDropdown = css`
   display: flex;
   justify-content: center;
   gap: 4rem;
-  padding: 16px 0;
+  padding: 1.6rem 0;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 `;

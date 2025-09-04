@@ -1,22 +1,28 @@
 import { css } from "@emotion/react";
 
-export const layout = css`
-  display: flex;
-  flex-direction: row;
-  padding-top: 2rem;
+export const contentContainer = css`
+  display: grid;
+  grid-template-columns: 25rem 1fr;
+  gap: 3rem;
 `;
 
-export const leftBox = css`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border: 0.1rem solid #dbdbdb;
-  border-radius: 0.5rem;
-  width: 18rem;
-  padding: 1rem;
-  background-color: #ffffff;
-  top: 0;
-`;
+// export const layout = css`
+//   display: flex;
+//   flex-direction: row;
+//   padding-top: 2rem;
+// `;
+
+// export const leftBox = css`
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+//   border: 0.1rem solid #dbdbdb;
+//   border-radius: 0.5rem;
+//   width: 18rem;
+//   padding: 1rem;
+//   background-color: #ffffff;
+//   top: 0;
+// `;
 
 export const crewInfoBox = css`
   display: flex;
