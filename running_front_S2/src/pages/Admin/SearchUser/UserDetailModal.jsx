@@ -528,6 +528,7 @@ function UserDetailModal({ user, onClose, onSave }) {
                         value={searchInput}
                         onChange={(e) => setSearchInput(e.target.value)}
                         css={s.searchInput}
+                        onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()}
                       />
                       <button css={s.searchButton} onClick={handleSearchOnClick}>
                         <IoSearch />

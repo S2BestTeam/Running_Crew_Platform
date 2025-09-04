@@ -156,9 +156,6 @@ function List() {
     });
   };
 
-  const handleSearchOnKeyDown = (e) => {
-    if (e.key === "Enter") handleSearchOnClick();
-  };
 
   return (
     <MainContainer>
@@ -184,7 +181,7 @@ function List() {
               placeholder="검색어를 입력하세요."
               value={searchInput}
               onChange={handleSearchOnChange}
-              onKeyDown={handleSearchOnKeyDown}
+              onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()}
               css={s.searchInput}
             />
             <button css={s.searchButton} onClick={handleSearchOnClick}>

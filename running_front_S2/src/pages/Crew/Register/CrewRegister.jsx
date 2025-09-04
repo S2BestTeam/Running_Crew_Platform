@@ -168,7 +168,7 @@ function CrewRegister(props) {
             <div css={s.crewTextBox}>
               <h2>{registerCrew.crewName || "크루명 입력"}</h2>
               <div css={s.crewText}>
-                <p css={s.gungu}>{gunguList.find(g => g.gunguId === registerCrew.gunguId)?.gunguName || "지역 선택"}</p>
+                <p css={s.gungu}>{gunguList.find(g => String(g.gunguId) === String(registerCrew.gunguId))?.gunguName || "지역 미선택"}</p>
                 <p>멤버수 1 / {registerCrew.limitedPeople || 10}</p>
               </div>
             </div>

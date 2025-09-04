@@ -31,6 +31,7 @@ import { reqGetMemberId, reqWithDrawMember } from "../../../api/Crew/memberApi";
 import CrewAlbums from "../Albums/CrewAlbums";
 import useCrewSectionsLatestQuery from "../../../queries/useCrewSectionsLatestQuery";
 import { isNewSinceLastVisit, setLastVisitedNow } from "../../../components/Time/newBadgeUtil";
+import Message from "../Message/Message";
 
 function CCategory() {
   const navigate = useNavigate();
@@ -146,6 +147,7 @@ function CCategory() {
       {isCrewLeader && (
         <>
           <button onClick={go("report", `/crews/${crewId}/report`)}>신고사항</button>
+          <button onClick={go("setting", `/crews/${crewId}/message`)}>메세지</button>
           <button onClick={go("setting", `/crews/${crewId}/setting`)}>설정</button>
         </>
       )}
@@ -196,6 +198,7 @@ function CCategory() {
           <Route path="notices/:noticeId" element={<NoticeDetail />} />
           <Route path="notices/:noticeId/edit" element={<NoticeEdit />} />
           <Route path="/report" element={<Report isCrewLeader={isCrewLeader} />} />
+          <Route path="/message" element={<Message isCrewLeader={isCrewLeader} />} />
           <Route path="/setting" element={<Setting />} />
         </Routes>
       </LeftSideBarLayout>

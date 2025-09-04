@@ -26,7 +26,6 @@ function SearchCrew() {
   const totalPages = crewListQuery.data?.pages?.[0]?.data?.body?.totalPages || 1;
 
   const handleSearchOnChange = (e) => setSearchInput(e.target.value);
-  const handleSearchOnKeyDown = (e) => e.key === "Enter" && handleSearchOnClick();
 
   const handleSearchOnClick = () => {
     setSearchParams({ page: 1, searchText: searchInput });
@@ -44,7 +43,7 @@ function SearchCrew() {
           type="text"
           value={searchInput}
           onChange={handleSearchOnChange}
-          onKeyDown={handleSearchOnKeyDown}
+          onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()}
           placeholder="크루명 검색"
         />
         <button onClick={handleSearchOnClick}>검색</button>

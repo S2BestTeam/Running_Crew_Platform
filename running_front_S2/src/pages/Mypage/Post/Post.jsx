@@ -73,6 +73,8 @@ export default function Post() {
     return (Array.isArray(base) ? base : []).filter((p) => p && p.postId != null);
   }, [body]);
 
+  console.log(data)
+
   const start = (page - 1) * size;
 
   const handleSearchOnClick = () => {
@@ -161,7 +163,7 @@ export default function Post() {
             </select>
           </div>
 
-          <input type="text" placeholder="제목/내용 검색" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} css={s.searchInput} />
+          <input type="text" placeholder="제목/내용 검색" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} css={s.searchInput} onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()} />
           <button css={s.searchButton} onClick={handleSearchOnClick}>
             <IoSearch />
           </button>
@@ -193,7 +195,7 @@ export default function Post() {
               <td css={s.td}>{totalElements - (start + index)}</td>
               <td css={s.td}>{srcLabel(item.src)}</td>
               <td css={s.tdTitle}>{item.title}</td>
-              <td css={s.td}>{item.crewId ?? "-"}</td>
+              <td css={s.td}>{item.crew?.crewName}</td>
               <td css={s.td}>{item.createdAt}</td>
             </tr>
           ))}
@@ -204,7 +206,7 @@ export default function Post() {
         page={page}                // 1-base 현재 페이지
         totalPages={totalPages}    // 총 페이지 수
         onChange={(p) => goPage(p)}// 페이지 변경 핸들러
-        windowSize={1} 
+        windowSize={1}
       />
     </div>
   );

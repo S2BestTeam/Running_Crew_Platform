@@ -135,7 +135,9 @@ function CrewDetailModal({ crew, onClose }) {
             <span>총거리: {crew.totalKm}km</span>
             <span>지역: {crew.gunguName}</span>
           </div>
+          <button>메세지 보내기</button>
         </div>
+
 
         <div css={s.tabs}>
           {[
@@ -151,7 +153,6 @@ function CrewDetailModal({ crew, onClose }) {
         </div>
 
         <div css={s.content}>
-          {/* 멤버 */}
           {activeTab === "members" &&
             (membersQuery.isLoading ? (
               <div css={s.emptyState}>멤버 목록을 불러오는 중...</div>
@@ -240,6 +241,7 @@ function CrewDetailModal({ crew, onClose }) {
                     value={searchInput}
                     onChange={(e) => setSearchInput(e.target.value)}
                     css={s.searchInput}
+                    onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()}
                   />
                   <button css={s.searchButton} onClick={handleSearchOnClick}>
                     <IoSearch />
@@ -298,6 +300,7 @@ function CrewDetailModal({ crew, onClose }) {
                     value={searchInput}
                     onChange={(e) => setSearchInput(e.target.value)}
                     css={s.searchInput}
+                    onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()}
                   />
                   <button css={s.searchButton} onClick={handleSearchOnClick}>
                     <IoSearch />
