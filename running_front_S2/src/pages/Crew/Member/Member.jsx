@@ -44,9 +44,6 @@ function Member() {
     });
     membersQuery.refetch();
   };
-
-  console.log(members)
-
   const handleSearchOnChange = (e) => setSearchInput(e.target.value);
   const handleSearchOnKeyDown = (e) => {
     if (e.key === "Enter") handleSearchOnClick();
@@ -90,10 +87,9 @@ function Member() {
   }
 
   return (
-    <ContentLayout>
       <div css={s.layout}>
         <h2>크루 멤버</h2>
-        <div>
+        <div css={s.asd}>
           <div css={s.searchBar}>
             <input
               value={searchInput}
@@ -102,68 +98,66 @@ function Member() {
               placeholder="닉네임/실명 검색"
             />
             <button onClick={handleSearchOnClick}>검색</button>
+          </div>
+          <div ref={scrollBoxRef} css={s.scrollBox}>
+            {members.map((m) => (
+              <div key={m.memberId} css={s.memberItem} onClick={() => setSelectedMemberId(m.memberId)}>
+                <div css={s.memberInfo}>
 
-            <div ref={scrollBoxRef} css={s.scrollBox}>
-              {members.map((m) => (
-                <div key={m.memberId} css={s.memberItem} onClick={() => setSelectedMemberId(m.memberId)}>
-                  <div css={s.memberInfo}>
+                  {m.user.picture && (
+                    <img
+                      src={m?.user?.picture}
+                      alt={m.user.nickname}
+                      css={s.profileImg}
+                    />
+                  )}
 
-                    {m.user.picture && (
-                      <img
-                        src={m.user.picture}
-                        alt={m.user.nickname}
-                        css={s.profileImg}
-                      />
-                    )}
-
-                    <div css={s.textBox}>
-                      <div css={s.nickname}>
-                        {m.user.nickname}
-                        {m.roleId === 1 && <span css={s.roleIcon}>👑</span>}
-                        {m.roleId === 2 && <span css={s.roleIcon}>⭐</span>}
-                      </div>
-                      <div css={s.fullName}>{m.user.fullName}</div>
+                  <div css={s.textBox}>
+                    <div css={s.nickname}>
+                      {m.user.nickname}
+                      {m.roleId === 1 && <span css={s.roleIcon}>👑</span>}
+                      {m.roleId === 2 && <span css={s.roleIcon}>⭐</span>}
                     </div>
+                    <div css={s.fullName}>{m.user.fullName}</div>
                   </div>
                 </div>
-              ))}
-              <div ref={loadMoreRef} style={{ height: 8 }} />
-            </div>
-
-            {members.some((member) => member.userId === userId) ? (
-              <>
-                {selectedMemberId && (
-                  <MemberModal
-                    memberId={selectedMemberId}
-                    isOpen={!!selectedMemberId}
-                    isLeader={isLeader}
-                    onChanged={() => membersQuery.refetch()}
-                    onClose={() => setSelectedMemberId(null)}
-                    onReport={(memberId) => {
-                      setSelectedMemberId(null);
-                      setReportMemberId(memberId);
-                    }}
-                  />
-                )}
-                {reportMemberId && (
-                  <ReportModal
-                    crewId={crewId}
-                    memberId={reportMemberId}
-                    nickname={members.find((m) => m.memberId === reportMemberId)?.nickname}
-                    isOpen={!!reportMemberId}
-                    onClose={() => setReportMemberId(null)}
-                  />
-                )}
-              </>
-            ) : (
-              <div style={{ pointerEvents: "none", opacity: 0.5 }}>
-                멤버가 아니어서 접근할 수 없습니다.
               </div>
-            )}
+            ))}
+            <div ref={loadMoreRef} style={{ height: 8 }} />
           </div>
-        </div>
+
+        {members.some((member) => member.userId === userId) ? (
+          <>
+            {selectedMemberId && (
+              <MemberModal
+                memberId={selectedMemberId}
+                isOpen={!!selectedMemberId}
+                isLeader={isLeader}
+                onChanged={() => membersQuery.refetch()}
+                onClose={() => setSelectedMemberId(null)}
+                onReport={(memberId) => {
+                  setSelectedMemberId(null);
+                  setReportMemberId(memberId);
+                }}
+              />
+            )}
+            {reportMemberId && (
+              <ReportModal
+                crewId={crewId}
+                memberId={reportMemberId}
+                nickname={members.find((m) => m.memberId === reportMemberId)?.nickname}
+                isOpen={!!reportMemberId}
+                onClose={() => setReportMemberId(null)}
+              />
+            )}
+          </>
+        ) : (
+          <div style={{ pointerEvents: "none", opacity: 0.5 }}>
+            멤버가 아니어서 접근할 수 없습니다.
+          </div>
+        )}
       </div>
-    </ContentLayout>
+    </div>
   );
 }
 

@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import * as s from './styles';
-import MainContainer from "../MainContainer/MainContainer";
+import ContentLayout from '../ContentLayout/ContentLayout';
 
 function LeftSideBarLayout({ profileSection, navigationButtons, bottomSection, children }) {
   return (
@@ -14,9 +14,9 @@ function LeftSideBarLayout({ profileSection, navigationButtons, bottomSection, c
           </div>
           {bottomSection}
         </div>
-        <div css={s.rightContent}>
+        <ContentLayout>
           {children}
-        </div>
+        </ContentLayout>
       </div>
   );
 }

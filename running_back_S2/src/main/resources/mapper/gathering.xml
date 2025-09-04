@@ -114,7 +114,8 @@
             gathering_tb cgt
             LEFT JOIN user_tb ut ON ut.user_id = cgt.user_id
             LEFT JOIN gathering_participant_tb gpt ON gpt.gathering_id = cgt.gathering_id
-            LEFT JOIN gathering_participant_tb gpt2 ON gpt2.gathering_id = cgt.gathering_id and gpt2.user_id =#{userId}
+<!--            LEFT JOIN gathering_participant_tb gpt2 ON gpt2.gathering_id = cgt.gathering_id and gpt2.user_id =#{userId}-->
+            LEFT JOIN gathering_participant_tb gpt2 ON gpt2.gathering_id = cgt.gathering_id and gpt2.user_id = cgt.user_id
         WHERE
             cgt.crew_id = #{crewId}
         GROUP BY

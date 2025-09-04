@@ -57,22 +57,19 @@ export default function NoticeDetail() {
 
   return (
     <MainContainer>
-    <div>
       <div css={s.layout}>
         <div css={s.topBar}>
           <button onClick={() => navigate(-1)}>← 목록</button>
-          <span style={{ color: "#94a3b8", fontSize: 14 }}>
-            글번호 #{post.noticeId}
-          </span>
         </div>
+
         <h1 css={s.titleCss}>{post.title}</h1>
         <div css={s.metaCss}>
           <span>{post.user?.nickname ?? "익명"}</span>
           <span className="dot" />
           <span>{new Date(post.createdAt).toLocaleString("ko-KR")}</span>
+          <span css={s.metaSpacer}></span>
           {isAuthor && (
             <>
-              <span className="dot" />
               <button onClick={goEdit}>수정</button>
               <button onClick={handleDeleteOnClick}>삭제</button>
             </>
@@ -80,8 +77,6 @@ export default function NoticeDetail() {
         </div>
         <div css={s.contentCss} dangerouslySetInnerHTML={{ __html: cleanHtml }} />
       </div>
-    </div>
-    </MainContainer>
-
+    </MainContainer >
   );
 }

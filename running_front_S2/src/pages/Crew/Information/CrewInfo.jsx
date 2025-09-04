@@ -5,7 +5,6 @@ import { useCrewStore } from '../../../stores/useCrewStroes';
 import WelcomeRegModal from '../Welcome/WelcomeRegModal/WelcomeRegModal';
 import { reqGetMemberCount, reqGetMembers, } from '../../../api/Crew/memberApi';
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
-import ContentLayout from '../../../components/ContentLayout/ContentLayout';
 import useGetCrewRoleQuery from '../../../queries/useGetCrewRoleQuery';
 import { useNavigate } from 'react-router-dom';
 import { useGetGatheringsQuery } from '../../../queries/useGetGatheringsQuery';
@@ -19,7 +18,6 @@ function CrewInfo() {
   const userId = principal?.data?.data?.body?.user?.userId;
   const { crew, crewId } = useCrewStore();
   const [isOpen, setIsOpen] = useState(false);
-  const [isMember, setIsMember] = useState(false);
   const [countMember, setCountMember] = useState(1);
   const [isPending, setIsPending] = useState(false);
   const CrewRoleQuery = useGetCrewRoleQuery(userId);
@@ -31,14 +29,12 @@ function CrewInfo() {
   const displayMembers = (members ?? []).slice(0, 6);
   const [gatherings, setGatherings] = useState([]);
   const { data } = useGetGatheringsQuery(crewId);
-  console.log(displayMembers);
-
+  
   useEffect(() => {
     if (!crewId) return; (
       async () => {
         try {
           const res = await reqGetMembers(crewId);
-          // console.log("멤버 응답:", res.data);
           setMembers(res.data.body ?? []);
         }
         catch (e) {
@@ -54,12 +50,18 @@ function CrewInfo() {
   }, [data]);
 
   useEffect(() => {
-    if (!crewId || !userId) return;
-    reqGetMemberCount(crewId)
-      .then((res) => {
-        setCountMember(res.data.body);
-      });
-  }, [userId, countMember]);
+    if (!crewId) return;               
+    (async () => {
+      try {
+        const res = await reqGetMemberCount(crewId);
+        const count = res?.data?.body ?? res?.body;
+        setCountMember(Number(count));   
+        console.log("memberCount:", count);
+      } catch (e) {
+        console.error("getMemberCount error", e);
+      }
+    })();
+  }, [crewId]);
 
   const getKey = (dateStr, timeStr) =>
     dateStr ? `${dateStr.replaceAll("-", "")}${(timeStr || "00:00").replace(":", "")}` : null;
@@ -84,152 +86,150 @@ function CrewInfo() {
   }, [gatherings]);
 
   const formatRelativeDate = (dateStr, timeStr) => {
-  const now = new Date();
-  const targetDate = new Date(dateStr);
+    const now = new Date();
+    const targetDate = new Date(dateStr);
 
-  if (timeStr) {
-    const [hour, minute] = timeStr.split(":").map(Number);
-    targetDate.setHours(hour, minute, 0, 0);
-  }
+    if (timeStr) {
+      const [hour, minute] = timeStr.split(":").map(Number);
+      targetDate.setHours(hour, minute, 0, 0);
+    }
 
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const targetDay = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
-  const diffDays = Math.floor((targetDay - today) / (1000 * 60 * 60 * 24));
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const targetDay = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
+    const diffDays = Math.floor((targetDay - today) / (1000 * 60 * 60 * 24));
 
-  if (diffDays === 0) {
-    return `오늘 ${timeStr || ""}`;
-  } else if (diffDays === 1) {
-    return `내일 ${timeStr || ""}`;
-  } else {
-    return `${targetDate.getFullYear()}.${targetDate.getMonth() + 1}.${targetDate.getDate()} ${timeStr || ""}`;
-  }
-};
+    if (diffDays === 0) {
+      return `오늘 ${timeStr || ""}`;
+    } else if (diffDays === 1) {
+      return `내일 ${timeStr || ""}`;
+    } else {
+      return `${targetDate.getFullYear()}.${targetDate.getMonth() + 1}.${targetDate.getDate()} ${timeStr || ""}`;
+    }
+  };
 
 
   return (
-    <ContentLayout>
-      <div css={s.mainBox}>
-        <div css={s.titleBox}>
-          <div css={s.banner}>
-            <div>
-              <img src={crew?.thumbnailPicture} alt="" />
-            </div>
-          </div>
-          <div css={s.crewInfoSection}>
-            <div css={s.profilePicture}>
-              <img src={crew?.profilePicture} alt="크루 프로필" />
-            </div>
-
-            <div css={s.crewTextBox}>
-              <h2>{crew?.crewName}</h2>
-              <div css={s.crewText}>
-                <p css={s.gungu}>{crew?.gunguName}</p>
-                <p>멤버수 {countMember} / {crew?.limitedPeople}</p>
-                <p>•</p>
-                <p>총 {crew?.totalKm} KM</p>
-              </div>
-            </div>
-            {!isCrewMember && (
-              <button
-                css={s.Button}
-                onClick={() => setIsOpen(true)}
-                disabled={isPending || countMember >= crew?.limitedPeople}
-              >
-                {countMember >= crew?.limitedPeople ? "정원마감" : isPending ? "처리중" : "크루가입"}
-              </button>
-            )}
-            {isOpen && (
-              <WelcomeRegModal
-                setIsOpen={setIsOpen}
-                crewId={crewId}
-                onSuccess={() => setIsPending(true)}
-              />
-            )}
+    <div css={s.layout}>
+      <div css={s.titleBox}>
+        <div css={s.banner}>
+          <div>
+            <img src={crew?.thumbnailPicture} alt="" />
           </div>
         </div>
-
-        <div css={s.mainLine}>
-          <div>
-            <p css={s.fontBold}>한줄 소개</p>
-            <div>{crew?.title}</div>
-            <p css={s.fontBold}>크루 소개</p>
-            <div dangerouslySetInnerHTML={{ __html: crew?.content }} />
+        <div css={s.crewInfoSection}>
+          <div css={s.profilePicture}>
+            <img src={crew?.profilePicture} alt="크루 프로필" />
           </div>
 
-          <div css={s.section}>
-            <div css={s.sectionHeader}>
-              <p css={s.fontBold}>정모 일정</p>
+          <div css={s.crewTextBox}>
+            <h2>{crew?.crewName}</h2>
+            <div css={s.crewText}>
+              <p css={s.gungu}>{crew?.gunguName}</p>
+              <p>멤버수 {countMember} / {crew?.limitedPeople}</p>
+              <p>•</p>
+              <p>총 {crew?.totalKm} KM</p>
             </div>
+          </div>
+          {!isCrewMember && (
+            <button
+              css={s.Button}
+              onClick={() => setIsOpen(true)}
+              disabled={isPending || countMember >= crew?.limitedPeople}
+            >
+              {countMember >= crew?.limitedPeople ? "정원마감" : isPending ? "처리중" : "크루가입"}
+            </button>
+          )}
+          {isOpen && (
+            <WelcomeRegModal
+              setIsOpen={setIsOpen}
+              crewId={crewId}
+              onSuccess={() => setIsPending(true)}
+            />
+          )}
+        </div>
+      </div>
 
-            {Array.isArray(displayGatherings) && displayGatherings.length > 0 ? (
-              <div css={s.gatheringRow}>
-                {displayGatherings.map((g) => (
-                  <div key={g.gatheringId} css={s.gatheringCard}>
-                    <div css={s.thumbWrap}>
-                      <img src={g.thumbnailPicture} alt={g.title} />
-                    </div>
-                    <div css={s.cardBody}>
-                      <div css={s.title}>{g.title}</div>
-                      <div css={s.time}><IoTimeSharp /> {formatRelativeDate(g.runningDate, g.runningTime)}</div>
-                      <div css={s.place}><IoLocation /> {g.placeName}</div>
-                      <div css={s.cost}> <FaWonSign /> {g.cost.toLocaleString()} </div>
-                        <div css={s.participants}>
-                          <img src={g?.user?.picture} alt="참여자" css={s.participantImg}/>
-                          <div css={s.fontSetting}>
-                            {g.currentParticipants}/{g.maxParticipants}
-                          </div>
-                        </div>
-                    </div>
-                  </div>
-                ))}
-                <button
-                  css={s.arrowBtnOverlay}
-                  aria-label="정모 전체 보기"
-                  onClick={() => navigate(`/crews/${crewId}/gathering`)}
-                >
-                  <IoIosArrowForward size={22}/>
-                </button>
-              </div>
-              
-            ) : (
-              <div>현재 등록된 정모 일정이 없습니다.</div>
-            )}
+      <div css={s.mainLine}>
+        <div>
+          <p css={s.fontBold}>한줄 소개</p>
+          <div>{crew?.title}</div>
+          <p css={s.fontBold}>크루 소개</p>
+          <div dangerouslySetInnerHTML={{ __html: crew?.content }} />
+        </div>
+
+        <div css={s.section}>
+          <div css={s.sectionHeader}>
+            <p css={s.fontBold}>정모 일정</p>
           </div>
 
-          <div>
-            <p css={s.fontBold}>크루 멤버 ({countMember})</p>
-            <div css={s.memberRow}>
-              {displayMembers.map((m) => (
-                <div key={m.memberId} css={s.memberItem}>
-                  <div css={s.avatarWrap}>
-                    <img css={s.avatar} src={m.user?.picture} alt={m.user?.nickname ?? "member"} />
+          {Array.isArray(displayGatherings) && displayGatherings.length > 0 ? (
+            <div css={s.gatheringRow}>
+              {displayGatherings.map((g) => (
+                <div key={g.gatheringId} css={s.gatheringCard}>
+                  <div css={s.thumbWrap}>
+                    <img src={g.thumbnailPicture} alt={g.title} />
                   </div>
-                  <div css={s.textBox}>
-                    <div>
-                      <span>
-                        {m.user?.nickname ?? "이름없음"}
-                      </span>
-                      {m.roleId === 1 && <span css={s.badge}>👑</span>}
-                      {m.roleId === 2 && <span css={s.badge}>⭐</span>}
-                    </div>
-                    <div css={s.fullName}>{m.user?.fullName ?? ""}</div>
+                  <div css={s.cardBody}>
+                    <div css={s.title}>{g.title}</div>
+                    <div css={s.time}><IoTimeSharp /> {formatRelativeDate(g.runningDate, g.runningTime)}</div>
+                    <div css={s.place}><IoLocation /> {g.placeName}</div>
+                    <div css={s.cost}> <FaWonSign /> {g.cost.toLocaleString()} </div>
+                      <div css={s.participants}>
+                        <img src={g?.user?.picture} alt="참여자" css={s.participantImg}/>
+                        <div css={s.fontSetting}>
+                          {g.currentParticipants}/{g.maxParticipants}
+                        </div>
+                      </div>
                   </div>
                 </div>
               ))}
-
               <button
-                type="button"
                 css={s.arrowBtnOverlay}
-                aria-label="멤버 전체 보기"
-                onClick={() => navigate(`/crews/${crewId}/members`)}
+                aria-label="정모 전체 보기"
+                onClick={() => navigate(`/crews/${crewId}/gathering`)}
               >
-                <IoIosArrowForward size={22} />
+                <IoIosArrowForward size={22}/>
               </button>
             </div>
+            
+          ) : (
+            <div>현재 등록된 정모 일정이 없습니다.</div>
+          )}
+        </div>
+
+        <div>
+          <p css={s.fontBold}>크루 멤버 ({countMember})</p>
+          <div css={s.memberRow}>
+            {displayMembers.map((m) => (
+              <div key={m.memberId} css={s.memberItem}>
+                <div css={s.avatarWrap}>
+                  <img css={s.avatar} src={m.user?.picture} alt={m.user?.nickname ?? "member"} />
+                </div>
+                <div css={s.textBox}>
+                  <div>
+                    <span>
+                      {m.user?.nickname ?? "이름없음"}
+                    </span>
+                    {m.roleId === 1 && <span css={s.badge}>👑</span>}
+                    {m.roleId === 2 && <span css={s.badge}>⭐</span>}
+                  </div>
+                  <div css={s.fullName}>{m.user?.fullName ?? ""}</div>
+                </div>
+              </div>
+            ))}
+
+            <button
+              type="button"
+              css={s.arrowBtnOverlay}
+              aria-label="멤버 전체 보기"
+              onClick={() => navigate(`/crews/${crewId}/members`)}
+            >
+              <IoIosArrowForward size={22} />
+            </button>
           </div>
         </div>
       </div>
-    </ContentLayout>
+    </div>
   );
 }
 

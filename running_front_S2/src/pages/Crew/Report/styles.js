@@ -1,9 +1,8 @@
 import { css } from "@emotion/react";
 
 export const table = css`
-  width: 96%;
+  width: 100%;
   border-collapse: collapse;
-  margin-left: 10rem; 
 `;
 
 export const th = css`

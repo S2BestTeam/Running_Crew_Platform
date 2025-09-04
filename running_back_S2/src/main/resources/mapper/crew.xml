@@ -54,6 +54,18 @@
         where
             crew_id = #{crewId}
     </update>
+    <update id="updateAllCrewTotalKm">
+            UPDATE
+                crew_tb
+            SET
+            total_km = (
+                SELECT COALESCE(SUM(g.km), 0)
+                FROM gathering_tb g
+                INNER JOIN gathering_participant_tb gp ON g.gathering_id = gp.gathering_id
+                WHERE g.crew_id = crew_tb.crew_id
+                AND gp.attendance_status = '1'
+                )
+    </update>
 
     <select id="findByCrewName" resultType="com.korit.running_back_s2.domain.crew.Crew">
         select
@@ -258,6 +270,15 @@
             crew_tb
         where
             crew_id = #{crewId}
+    </select>
+    <select id="findContentsByCrewId" resultType="com.korit.running_back_s2.dto.image.CrewAlbumRow">
+        SELECT
+        f.free_id,
+        f.content,
+        f.created_at
+        FROM crew_free_tb f          <!-- ← 네 테이블명에 맞게 수정 (예: free_tb) -->
+        WHERE f.crew_id = #{crewId}
+        ORDER BY f.free_id DESC
     </select>
 
 </mapper>

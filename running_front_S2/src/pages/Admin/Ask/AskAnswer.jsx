@@ -22,6 +22,8 @@ function AskAnswer() {
 
   const { data, isLoading, isError, refetch } = useGetAskBoardQuery({ page, size, searchText });
   const body = data?.data?.body;
+  console.log(body);
+  
   const totalPages = body?.totalPages ?? 1;
   const totalElements = body?.totalElements ?? 0;
   const start = (page - 1) * size;
@@ -29,6 +31,7 @@ function AskAnswer() {
 
   const [answers, setAnswers] = useState({});
   const onChangeAnswer = (askId, v) => setAnswers((prev) => ({ ...prev, [askId]: v }));
+  console.log(body);
 
   const handleRegister = async (askId) => {
     const content = (answers[askId] || "").trim();
@@ -98,21 +101,43 @@ function AskAnswer() {
           <tbody>
             {askLists.map((board, index) => {
               const number = totalElements - (start + index);
-              const nickname = board?.user?.nickname ?? board?.nickname ?? "-";
               const askId = board.askId;
+
+              // ✅ 작성자 이름 (fullName → 닉네임 → fallback)
+              const authorName =
+                board?.user?.fullName ??
+                board?.user?.nickname ??
+                board?.nickname ??
+                "-";
+
+              // ✅ 등록일 포맷 (예: 2025. 9. 3. 오후 2:58)
+              const createdAtText = board?.createdAt
+                ? new Date(board.createdAt).toLocaleString("ko-KR", {
+                  dateStyle: "medium",
+                  timeStyle: "short",
+                })
+                : "";
+
               const value = answers[askId] ?? "";
 
               return (
                 <tr key={askId} css={s.tr}>
                   <td css={s.td}>{number}</td>
 
-                  <td css={s.tdTitle} style={{ cursor: "pointer" }} title="문의 상세 보기" onClick={() => navigate(`/ask/${askId}`)}>
+                  <td
+                    css={s.tdTitle}
+                    style={{ cursor: "pointer" }}
+                    title="문의 상세 보기"
+                    onClick={() => navigate(`/ask/${askId}`)}
+                  >
                     {board.title}
                   </td>
 
-                  <td css={s.td}>{nickname}</td>
-                  <td css={s.td}>{board.createdAt}</td>
+                  {/* ✅ 작성자 / 시간 */}
+                  <td css={s.td}>{authorName}</td>
+                  <td css={s.td}>{createdAtText}</td>
 
+                  {/* 답변 입력/등록 */}
                   <td css={s.td} style={{ minWidth: 320 }}>
                     <input
                       type="text"
@@ -123,7 +148,11 @@ function AskAnswer() {
                     />
                     <div style={{ marginTop: 8, display: "flex", gap: 8 }}>
                       <button onClick={() => handleRegister(askId)}>등록</button>
-                      {board.isAnswer && <span style={{ fontSize: 12, color: "#888" }}>(기존 답변 있음)</span>}
+                      {board.isAnswer && (
+                        <span style={{ fontSize: 12, color: "#888" }}>
+                          (기존 답변 있음)
+                        </span>
+                      )}
                     </div>
                   </td>
 

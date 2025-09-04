@@ -4,7 +4,7 @@ import MainContainer from "../../../components/MainContainer/MainContainer";
 import useGetCrewRankingQuery from "../../../queries/useGetCrewRankingQuery";
 import RankingCard from "./RankingCard";
 import { useNavigate } from 'react-router-dom';
-import usePrincipalQuery from '../../../queries/usePrincipalQuery';
+import { FaStar } from "react-icons/fa";
 
 function CrewRanking() {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ function CrewRanking() {
     <MainContainer>
       <div css={s.headerlayout}>
         <div css={s.notice}>
-          <h1>⭐ 랭킹은 매일 자정 마다 자동 갱신됩니다. ⭐</h1>
+          <h1><FaStar style={{fontSize: '1.5rem'}}/> 랭킹은 매일 자정 마다 자동 갱신됩니다. </h1>
         </div>
       </div>
       <div css={s.layout}>

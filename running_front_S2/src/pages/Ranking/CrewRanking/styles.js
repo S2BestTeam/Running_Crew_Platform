@@ -51,7 +51,7 @@ export const rankingList = css`
 
 export const notice = css`
   text-align: center;
-  color: #666;
+  color: black;
   font-size: 0.875rem;
 `;
 
@@ -65,20 +65,24 @@ export const card = (rank) => css`
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
-  border-radius: 12px;
+  border-radius: 0.5rem;
   background: white;
   margin-bottom: 1rem;
-  ${rank === 1 &&
-  `box-shadow: 0 4px 10px rgba(255, 217, 0, 0.9);`}
-  
-  ${rank === 2 &&
-  `box-shadow: 0 4px 8px rgba(255, 217, 0, 0.6);`}
-  
-  ${rank === 3 &&
-  `box-shadow: 0 4px 6px rgba(255, 217, 0, 0.4);`}
-  
-  ${rank > 3 &&
-  `box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);`}
+
+  :hover {
+    transform: scale(1.1);
+    ${rank === 1 &&
+    `box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9);`}
+    
+    ${rank === 2 &&
+    `box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);`}
+    
+    ${rank === 3 &&
+    `box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);`}
+    
+    ${rank > 3 &&
+    `box-shadow: 0 2px 6px rgba(255, 255, 255, 0.1);`}
+  }
 `;
 
 export const rankBadge = css`
@@ -118,6 +122,7 @@ export const crewStats = css`
   flex-direction: column;
   align-items: flex-end;
   gap: 0.25rem;
+  padding-right: 1rem;
 `;
 
 export const mainStat = css`

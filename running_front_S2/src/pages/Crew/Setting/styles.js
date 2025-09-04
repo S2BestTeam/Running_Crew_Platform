@@ -18,7 +18,7 @@ export const imageOverlay = css`
 `;
 
 export const mainBox = css`
-  width: 96%;
+  width: 100%;
 `;
 
 export const settingHeader = css`

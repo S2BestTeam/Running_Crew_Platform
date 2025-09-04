@@ -2,19 +2,19 @@ import { css } from "@emotion/react";
 
 export const gatheringMain = css`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 3rem 2rem;
   padding-bottom: 4rem;
 `;
 
 export const gatheringContainer = css`
-  width: 25rem;
+  width: 20rem;
   border: 0.1rem solid #aaa;
   border-radius: 0.5rem;
 `;
 
 export const thumbnailImg = css`
-  width: 25rem;
+  width: 20rem;
   height: 15rem;
   background-color: #ebebeb;
   border-radius: 0.4rem 0.4rem 0 0;

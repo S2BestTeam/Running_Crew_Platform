@@ -17,6 +17,7 @@
 
     <resultMap id="UserMap" type="com.korit.running_back_s2.domain.user.User">
         <id     property="userId"    column="user_id"/>
+        <result property="fullName"  column="full_name" />
         <result property="nickname"  column="nickname"/>
     </resultMap>
     <resultMap id="AnswerMap" type="com.korit.running_back_s2.domain.ask.Answer">
@@ -25,6 +26,7 @@
         <result property="userId"     column="user_id"/>
         <result property="content"    column="content"/>
         <result property="createdAt"  column="created_at"/>
+        <association property="user" resultMap="UserMap" columnPrefix="u_"/>
     </resultMap>
 
     <update id="updateIsAnswer">
@@ -37,25 +39,31 @@
             parameterType="com.korit.running_back_s2.domain.ask.AskFreeSearchOption"
             resultMap="AskMap">
         SELECT
-            a.ask_id,
-            a.user_id       AS a_user_id,
-            u.nickname,
-            a.title,
-            a.content,
-            a.created_at,
-            a.is_answer
-        FROM
-            ask_tb a
-            LEFT JOIN user_tb u ON (u.user_id = a.user_id)
+        a.ask_id            AS ask_id,
+        a.user_id           AS a_user_id,
+        a.title             AS title,
+        a.content           AS ask_content,      -- ✅ AskMap의 content 매핑
+        a.created_at        AS ask_created_at,   -- ✅ AskMap의 createdAt 매핑
+        a.is_answer         AS is_answer,
+
+        u.user_id           AS u_user_id,
+        u.full_name         AS u_full_name,      -- ✅ fullName 표시용
+        u.nickname          AS u_nickname
+
+        FROM ask_tb a
+        LEFT JOIN user_tb u ON (u.user_id = a.user_id)
+
         <where>
             <if test="searchText != null and searchText != ''">
                 (
-                a.title   LIKE CONCAT('%', #{searchText}, '%')
-                OR a.content LIKE CONCAT('%', #{searchText}, '%')
-                OR u.nickname LIKE CONCAT('%', #{searchText}, '%')
+                a.title    LIKE CONCAT('%', #{searchText}, '%')
+                OR a.content   LIKE CONCAT('%', #{searchText}, '%')
+                OR u.nickname  LIKE CONCAT('%', #{searchText}, '%')
+                OR u.full_name LIKE CONCAT('%', #{searchText}, '%')  <!-- 원하면 추가 -->
                 )
             </if>
         </where>
+
         ORDER BY a.ask_id DESC
         LIMIT #{startIndex}, #{size}
     </select>
@@ -100,6 +108,7 @@
             a.is_answer                            AS is_answer,
 
             u.user_id                               AS u_user_id,
+            u.full_name                             As u_full_name,
             u.nickname                              AS u_nickname,
 
             an.answer_id                            AS an_answer_id,

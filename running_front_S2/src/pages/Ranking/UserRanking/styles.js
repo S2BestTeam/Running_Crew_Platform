@@ -51,7 +51,7 @@ export const rankingList = css`
 
 export const notice = css`
   text-align: center;
-  color: #666;
+  color: black;
   font-size: 0.875rem;
 `;
 

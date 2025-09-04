@@ -4,7 +4,6 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import usePrincipalQuery from "../../../queries/usePrincipalQuery";
 import { IoSearch } from "react-icons/io5";
-import { BiSolidChevronLeftSquare, BiSolidChevronRightSquare } from "react-icons/bi";
 import useGetCrewRoleQuery from "../../../queries/useGetCrewRoleQuery";
 import { useCrewStore } from "../../../stores/useCrewStroes";
 import useGetCrewNotoiceQuery from "../../../queries/useGetCrewNoticeQuery";

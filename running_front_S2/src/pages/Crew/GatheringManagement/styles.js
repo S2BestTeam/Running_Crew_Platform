@@ -1,12 +1,11 @@
 import { css } from "@emotion/react";
 
 export const layout = css`
-  padding: 16px;
+  width: 100%;
 `;
 
 export const gatheringMain = css`
   margin-top: 16px;
-  
 `;
 
 export const dataGridWrapper = css`

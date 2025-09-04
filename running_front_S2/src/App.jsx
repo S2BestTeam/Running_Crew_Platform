@@ -9,7 +9,6 @@ import CrewRegister from "./pages/Crew/Register/CrewRegister";
 import CCategory from "./pages/Crew/CCategory/CCategory";
 import MCategory from "./pages/Mypage/MCategory/MCategory";
 import ReactModal from "react-modal";
-import { useKakaoLoader } from "react-kakao-maps-sdk";
 import CrewRanking from "./pages/Ranking/CrewRanking/CrewRanking";
 import UserRanking from "./pages/Ranking/UserRanking/UserRanking";
 import GlobalFree from "./pages/GlobalFree/GlobalFree";
@@ -30,11 +29,6 @@ import Admin from "./pages/Admin/Admin";
 import SearchUser from "./pages/Admin/SearchUser/SearchUser";
 
 function App() {
-  const mapLoader = useKakaoLoader({
-    appkey: import.meta.env.VITE_KAKAO_JAVASCRIPT_KEY,
-    libraries: ["clusterer", "drawing", "services"],
-  });
-
   ReactModal.setAppElement("#root");
 
   const location = useLocation();

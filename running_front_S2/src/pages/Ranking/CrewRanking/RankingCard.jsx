@@ -4,9 +4,9 @@ import * as s from "./styles";
 function RankingCard({ data, rank, type, mode }) {
   // rank 아이콘
   const getRankIcon = (rank) => {
-    if (rank === 1) return <h2>🥇</h2>;
-    if (rank === 2) return <h3>🥈</h3>;
-    if (rank === 3) return <h4>🥉</h4>;
+    if (rank === 1) return <h2 style={{fontSize: '2rem'}}>🥇</h2>;
+    if (rank === 2) return <h3 style={{fontSize: '1.6rem'}}>🥈</h3>;
+    if (rank === 3) return <h4 style={{fontSize: '1.2rem'}}>🥉</h4>;
     return `${rank}위`;
   };
 

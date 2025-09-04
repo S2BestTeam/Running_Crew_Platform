@@ -16,6 +16,7 @@ import com.korit.running_back_s2.dto.welcome.WelcomeByUserIdResDto;
 import com.korit.running_back_s2.dto.user.UserRegisterReqDto;
 import com.korit.running_back_s2.security.jwt.JwtUtil;
 import com.korit.running_back_s2.security.model.PrincipalUtil;
+import com.korit.running_back_s2.util.ImageUrlUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +39,7 @@ public class UserService {
     private final PrincipalUtil principalUtil;
     private final MemberMapper memberMapper;
     private final GatheringMapper gatheringMapper;
+    private final ImageUrlUtil imageUrlUtil;
 
     public Map<String, String> register(UserRegisterReqDto dto) {
         User user = dto.toEntity();
@@ -118,7 +121,11 @@ public class UserService {
     }
 
     public List<CrewsByUserIdResDto> getMyCrews (Integer userId) {
-        return memberMapper.findCrewsByUserId(userId);
+        List<CrewsByUserIdResDto> MyCrewList = memberMapper.findCrewsByUserId(userId).stream().map(crews -> {
+            crews.setThumbnailPicture(imageUrlUtil.buildImageUrl(crews.getThumbnailPicture(), "crewThumbnail"));
+            return crews;
+        }).collect(Collectors.toList());
+        return MyCrewList;
     }
 
     public List<UserGatheringsReqDto> getMyGathering (Integer userId) {

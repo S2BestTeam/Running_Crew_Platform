@@ -13,7 +13,7 @@ function Header() {
   const queryClient = useQueryClient();
   const userInfo = principalQuery?.data?.data?.body?.user;
 
-  const [showDropdown, setShowDropdown] = useState(true);
+  const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
 
   const handleNavigate = (path) => {
