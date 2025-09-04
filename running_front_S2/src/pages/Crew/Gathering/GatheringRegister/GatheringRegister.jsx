@@ -129,7 +129,6 @@ function GatheringRegister() {
   };
 
   return (
-    <ContentLayout>
       <div css={s.layout}>
         <header css={s.header}>
           <h2>정모 일정 등록</h2>
@@ -193,7 +192,7 @@ function GatheringRegister() {
           </div>
 
           <div css={s.mapContainer}>
-            <div css={s.mapSearchResultList}>{searchResultList}</div>
+            <div>{searchResultList}</div>
             {map}
           </div>
 
@@ -219,12 +218,17 @@ function GatheringRegister() {
             onChange={handleInputOnChange}
           />
 
-          <button css={s.registerButton} onClick={handleRegisterOnClick}>
-            등록하기
-          </button>
+          <div css={s.buttonContainer}>
+            <button css={s.cancelButton} onClick={() => navigate(-1)}>
+              취소
+            </button>
+            <button css={s.registerButton} onClick={handleRegisterOnClick}>
+              등록
+            </button>
+          </div>
         </main>
+
       </div>
-    </ContentLayout>
   );
 }
 

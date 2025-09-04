@@ -3,33 +3,30 @@ import { css } from "@emotion/react";
 export const layout = css`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 2rem;
+  width: 100%;
 `;
 
 export const header = css`
-  h2 {
-    font-size: 24px;
-    font-weight: bold;
-  }
+  text-align: center;
 `;
 
 export const main = css`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 2rem;
 
   input,
   textarea {
-    width: 100%;
-    padding: 12px 14px;
+    padding: 1.2rem 1.4rem;
     border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    font-size: 14px;
+    border-radius: 1rem;
+    font-size: 1.4rem;
     transition: border 0.2s;
 
     &:focus {
       outline: none;
-      border-color: #4cafef;
+      border-color: #000;
       box-shadow: 0 0 0 3px rgba(76, 175, 239, 0.2);
     }
   }
@@ -37,7 +34,6 @@ export const main = css`
 
 export const thumbnailContainer = css`
   font-size: 1.2rem;
-  width: 50rem;
   height: 30rem;
   border: 0.1rem solid #dbdbdb;
   border-radius: 0.5rem;
@@ -67,19 +63,13 @@ export const thumbnailImg = css`
 export const mapContainer = css`
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  border: 1px solid #e0e0e0;
+  /* gap: 1.2rem; */
+  border: 0.1rem solid #e0e0e0;
   border-radius: 12px;
   overflow: hidden;
 `;
 
 export const mapSearchResultList = css`
-  max-height: 120px;
-  overflow-y: auto;
-  background: #fafafa;
-  border-bottom: 1px solid #eee;
-  padding: 8px;
-
   div {
     padding: 6px 10px;
     border-radius: 6px;
@@ -91,55 +81,69 @@ export const mapSearchResultList = css`
     }
 
     h3 {
-      font-size: 14px;
+      font-size: 1.4rem;
       margin: 0;
       font-weight: bold;
     }
 
     p {
-      font-size: 12px;
-      margin: 2px 0;
+      font-size: 1.2rem;
+      margin: 0.2rem 0;
       color: #555;
     }
   }
 `;
 
-export const registerButton = css`
-  background: #4cafef;
-  color: #fff;
-  padding: 14px;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 12px;
-  transition: background 0.2s;
-
-  &:hover {
-    background: #3b9cdc;
-  }
-`;
-
 export const addressWrapper = css`
   display: flex;
-  gap: 8px;
+  gap: 0.8rem;
 
-  input {
+  & > input {
     flex: 1;
   }
 
-  button {
-    padding: 0 16px;
-    background: #4cafef;
+  & > button {
+    padding: 0 1.6rem;
+    background: #000;
     color: #fff;
     border: none;
-    border-radius: 8px;
+    border-radius: 0.8rem;
     cursor: pointer;
     transition: background 0.2s;
 
     &:hover {
-      background: #3b9cdc;
+      background: #000;
     }
   }
+`;
+
+export const buttonContainer = css`
+  text-align: center;
+  width: 100%;
+  margin: 3rem 0;
+`;
+
+export const registerButton = css`
+  width: 12rem;
+  height: 4rem;
+  border-radius: 0.8rem;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+
+`;
+
+export const cancelButton = css`
+  width: 12rem;
+  height: 4rem;
+  border-radius: 0.8rem;
+  background: #ffffff;
+  border: solid 0.1rem #000;
+  color: #000;
+  cursor: pointer;
+  &:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+  margin-right: 1.5rem;
 `;
