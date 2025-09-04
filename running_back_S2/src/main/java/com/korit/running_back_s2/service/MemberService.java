@@ -70,9 +70,9 @@ public class MemberService {
         return memberMapper.countMember(crewId);
     }
 
-    public Integer getMemberId (Integer crewId) {
-        Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
-        return memberMapper.findMemberIdByUserId(crewId, userId);
+    public List<Integer> getMemberId (Integer crewId) {
+//        Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
+        return memberMapper.findMemberIdByUserId(crewId);
     }
 
     public void withDrawMember (Integer memberId) {

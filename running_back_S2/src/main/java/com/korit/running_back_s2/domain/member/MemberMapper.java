@@ -17,7 +17,7 @@ public interface MemberMapper {
     void insertLeaderRole(Integer userId, Integer crewId);
     int countMember(Integer crewId);
 
-    Integer findMemberIdByUserId(Integer crewId, Integer userId);
+    List<Integer> findMemberIdByUserId(Integer crewId);
 
     List<CrewsByUserIdResDto> findCrewsByUserId(Integer userId);
 

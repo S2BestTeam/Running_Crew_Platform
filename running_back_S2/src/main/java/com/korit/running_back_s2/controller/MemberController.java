@@ -16,7 +16,6 @@ public class MemberController {
 
     private final MemberService memberService;
 
-
     @GetMapping("/{crewId}/count")
     public ResponseEntity<ResponseDto<?>> getCrewMemberCount(@PathVariable Integer crewId) {
         return ResponseEntity.ok(ResponseDto.success(memberService.countMember(crewId)));

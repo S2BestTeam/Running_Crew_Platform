@@ -54,12 +54,18 @@ function CrewInfo() {
   }, [data]);
 
   useEffect(() => {
-    if (!crewId || !userId) return;
-    reqGetMemberCount(crewId)
-      .then((res) => {
-        setCountMember(res.data.body);
-      });
-  }, [userId, countMember]);
+    if (!crewId) return;               
+    (async () => {
+      try {
+        const res = await reqGetMemberCount(crewId);
+        const count = res?.data?.body ?? res?.body;
+        setCountMember(Number(count));   
+        console.log("memberCount:", count);
+      } catch (e) {
+        console.error("getMemberCount error", e);
+      }
+    })();
+  }, [crewId]);
 
   const getKey = (dateStr, timeStr) =>
     dateStr ? `${dateStr.replaceAll("-", "")}${(timeStr || "00:00").replace(":", "")}` : null;
@@ -84,26 +90,26 @@ function CrewInfo() {
   }, [gatherings]);
 
   const formatRelativeDate = (dateStr, timeStr) => {
-  const now = new Date();
-  const targetDate = new Date(dateStr);
+    const now = new Date();
+    const targetDate = new Date(dateStr);
 
-  if (timeStr) {
-    const [hour, minute] = timeStr.split(":").map(Number);
-    targetDate.setHours(hour, minute, 0, 0);
-  }
+    if (timeStr) {
+      const [hour, minute] = timeStr.split(":").map(Number);
+      targetDate.setHours(hour, minute, 0, 0);
+    }
 
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const targetDay = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
-  const diffDays = Math.floor((targetDay - today) / (1000 * 60 * 60 * 24));
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const targetDay = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
+    const diffDays = Math.floor((targetDay - today) / (1000 * 60 * 60 * 24));
 
-  if (diffDays === 0) {
-    return `오늘 ${timeStr || ""}`;
-  } else if (diffDays === 1) {
-    return `내일 ${timeStr || ""}`;
-  } else {
-    return `${targetDate.getFullYear()}.${targetDate.getMonth() + 1}.${targetDate.getDate()} ${timeStr || ""}`;
-  }
-};
+    if (diffDays === 0) {
+      return `오늘 ${timeStr || ""}`;
+    } else if (diffDays === 1) {
+      return `내일 ${timeStr || ""}`;
+    } else {
+      return `${targetDate.getFullYear()}.${targetDate.getMonth() + 1}.${targetDate.getDate()} ${timeStr || ""}`;
+    }
+  };
 
 
   return (
@@ -173,12 +179,12 @@ function CrewInfo() {
                       <div css={s.time}><IoTimeSharp /> {formatRelativeDate(g.runningDate, g.runningTime)}</div>
                       <div css={s.place}><IoLocation /> {g.placeName}</div>
                       <div css={s.cost}> <FaWonSign /> {g.cost.toLocaleString()} </div>
-                        <div css={s.participants}>
-                          <img src={g?.user?.picture} alt="참여자" css={s.participantImg}/>
-                          <div css={s.fontSetting}>
-                            {g.currentParticipants}/{g.maxParticipants}
-                          </div>
+                      <div css={s.participants}>
+                        <img src={g?.user?.picture} alt="참여자" css={s.participantImg} />
+                        <div css={s.fontSetting}>
+                          {g.currentParticipants}/{g.maxParticipants}
                         </div>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -187,10 +193,10 @@ function CrewInfo() {
                   aria-label="정모 전체 보기"
                   onClick={() => navigate(`/crews/${crewId}/gathering`)}
                 >
-                  <IoIosArrowForward size={22}/>
+                  <IoIosArrowForward size={22} />
                 </button>
               </div>
-              
+
             ) : (
               <div>현재 등록된 정모 일정이 없습니다.</div>
             )}
