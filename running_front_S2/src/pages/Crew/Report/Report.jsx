@@ -25,7 +25,7 @@ function Report({ isCrewLeader }) {
   };
 
   return (
-    <ContentLayout>
+    <>
       <table css={s.table}>
         <thead>
           <tr>
@@ -59,17 +59,17 @@ function Report({ isCrewLeader }) {
 
       {selectedMemberId && (
         <MemberModal
-          memberId={selectedMemberId}
-          isOpen={!!selectedMemberId}
-          isLeader={isCrewLeader}
-          onClose={() => setSelectedMemberId(null)}
-          onChanged={() => {
-            setSelectedMemberId(null);
-          }}
-          onReport={() => {}}
+        memberId={selectedMemberId}
+        isOpen={!!selectedMemberId}
+        isLeader={isCrewLeader}
+        onClose={() => setSelectedMemberId(null)}
+        onChanged={() => {
+          setSelectedMemberId(null);
+        }}
+        onReport={() => {}}
         />
       )}
-    </ContentLayout>
+    </>
   );
 }
 export default Report;

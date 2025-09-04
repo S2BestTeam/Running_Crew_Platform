@@ -136,28 +136,26 @@ function CCategory() {
         navigationButtons={navigationButtons}
         bottomSection={bottomSection}
       >
-        <ContentLayout>
-          <Routes>
-            <Route path="/" element={<CrewInfo />} />
-            <Route path="/welcome" element={<Welcome isCrewLeader={isCrewLeader} />} />
-            <Route path="/gathering/*" element={<Gathering />} />
-            <Route path="/gathering/register" element={<GatheringRegister/>} />
-            <Route path="/gathering-management" element={<GatheringManagement />} />
-            <Route path="/gathering-management/:gatheringId" element={<GatheringModify />} />
-            <Route path="/members" element={<Member />} />
-            <Route path="/freeBoards" element={<FreeBoard />} />
-            <Route path="freeBoards/register" element={<FeedReg />} />
-            <Route path="freeBoards/:freeId" element={<FeedDetail />} />
-            <Route path="freeBoards/:freeId/edit" element={<FreeEdit />} />
-            <Route path="/albums" element={<CrewAlbums />} />
-            <Route path="/notices" element={<Notice />} />
-            <Route path="notices/register" element={<NoticeReg />} />
-            <Route path="notices/:noticeId" element={<NoticeDetail />} />
-            <Route path="notices/:noticeId/edit" element={<NoticeEdit />} />
-            <Route path="/report" element={<Report isCrewLeader={isCrewLeader} />} />
-            <Route path="/setting" element={<Setting />} />
-          </Routes>
-        </ContentLayout>
+        <Routes>
+          <Route path="/" element={<CrewInfo />} />
+          <Route path="/welcome" element={<Welcome isCrewLeader={isCrewLeader} />} />
+          <Route path="/gathering/*" element={<Gathering />} />
+          <Route path="/gathering/register" element={<GatheringRegister/>} />
+          <Route path="/gathering-management" element={<GatheringManagement />} />
+          <Route path="/gathering-management/:gatheringId" element={<GatheringModify />} />
+          <Route path="/members" element={<Member />} />
+          <Route path="/freeBoards" element={<FreeBoard />} />
+          <Route path="freeBoards/register" element={<FeedReg />} />
+          <Route path="freeBoards/:freeId" element={<FeedDetail />} />
+          <Route path="freeBoards/:freeId/edit" element={<FreeEdit />} />
+          <Route path="/albums" element={<CrewAlbums />} />
+          <Route path="/notices" element={<Notice />} />
+          <Route path="notices/register" element={<NoticeReg />} />
+          <Route path="notices/:noticeId" element={<NoticeDetail />} />
+          <Route path="notices/:noticeId/edit" element={<NoticeEdit />} />
+          <Route path="/report" element={<Report isCrewLeader={isCrewLeader} />} />
+          <Route path="/setting" element={<Setting />} />
+        </Routes>
       </LeftSideBarLayout>
     </MainContainer>
   );

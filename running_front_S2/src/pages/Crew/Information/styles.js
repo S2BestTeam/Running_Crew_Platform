@@ -1,19 +1,12 @@
 import { css } from "@emotion/react";
 
-export const mainBox = css`
-  width: 96%;
+
+// 1. 페이지 레이아웃 & 공통
+export const layout = css`
+  width: 100%;
 `;
 
-export const mainLine = css`
-  padding-left: 1rem;
-`;
-
-export const fontBold = css`
-  font-weight: bold;
-  font-size: 2rem;
-
-`;
-
+// 2. 타이틀/배너 영역
 export const titleBox = css`
   border: 0.1rem solid #dbdbdb;
   border-radius: 0.5rem;
@@ -26,27 +19,39 @@ export const banner = css`
   height: 20rem;
   overflow: hidden;
   position: relative;
+  cursor: pointer;
 
   & > div {
     width: 100%;
     height: 100%;
     background-color: black;
     display: block;
+    position: relative;
+
+    &:hover .overlay {
+      opacity: 1;
+    }
 
     & > img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.2s ease;
+    }
+
+    &:hover > img {
+      transform: scale(1.05);
     }
   }
 `;
 
+
+// 3. 크루 정보 영역
 export const crewInfoSection = css`
   position: relative;
   padding: 3rem 2rem 0.2rem;
   background-color: #fff;
   border-bottom: 1px solid #ddd;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -62,12 +67,17 @@ export const profilePicture = css`
   border: 0.3rem solid #fff;
   overflow: hidden;
   background-color: #f0f0f0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
 
-  & > div {
-    width: 100%;
-    height: 100%;
-    background-color: #5f5f5f;
+  &:hover {
+    transform: translateY(-2px);
   }
+
+  &:hover .overlay {
+    opacity: 1;
+  }
+
   & > img {
     width: 100%;
     height: 100%;
@@ -112,6 +122,16 @@ export const gungu = css`
   background-color: #f0f0f0;
 `;
 
+export const mainLine = css`
+  padding-left: 1rem;
+`;
+
+export const fontBold = css`
+  font-weight: bold;
+  font-size: 2rem;
+`;
+
+
 export const Button = css`
   margin-top: 4rem;
   padding: 0.8rem 2rem;
@@ -125,7 +145,8 @@ export const Button = css`
     background-color: #333;
   }
 `;
-////////////////////////////
+
+// 4. 본문 섹션 공통
 export const section = css`
   margin-bottom: 2rem;
 `;
@@ -136,6 +157,7 @@ export const sectionHeader = css`
   align-items: center;
 `;
 
+// 5. 정모 일정 카드
 export const gatheringRow = css`
   position: relative;
   display: flex;
@@ -147,11 +169,11 @@ export const gatheringCard = css`
   display: flex;
   align-items: center;
   overflow: hidden;
-  padding: 2px 8px 2px 8px;
+  padding: 2px 8px;
   gap: 12px;
-  width: 20rem;
-  max-width: 320px;
-  flex-shrink: 0;
+  max-width: 20rem;
+  flex: 1 1 calc(20% - 1.5rem);
+  min-width: 15rem;
 `;
 
 export const thumbWrap = css`
@@ -173,7 +195,7 @@ export const timeOverlay = css`
   position: absolute;
   bottom: 6px;
   left: 6px;
-  background: rgba(0,0,0,0.65);
+  background: rgba(0, 0, 0, 0.65);
   color: #fff;
   font-size: 11px;
   padding: 2px 6px;
@@ -194,8 +216,8 @@ export const title = css`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 150px; /* 또는 max-width */
-  display: block; /* inline 요소면 ellipsis 적용 안 될 수 있음 */
+  width: 150px;
+  display: block;
 `;
 
 export const time = css`
@@ -242,8 +264,7 @@ export const participantImg = css`
   object-fit: cover;
 `;
 
-////////////////////////////////////
-
+// 6. 멤버 목록
 export const memberRow = css`
   position: relative;
   display: flex;
@@ -255,9 +276,11 @@ export const memberRow = css`
 export const memberItem = css`
   display: flex;
   justify-content: space-around;
-  padding: 0.5rem 0.5rem;
+  padding: 0.5rem;
   align-items: center;
   box-sizing: border-box;
+  max-width: 15rem;
+  flex: 1 1 calc(20% - 1.6rem); 
   min-width: 160px;
 `;
 
@@ -277,8 +300,8 @@ export const avatar = css`
 `;
 
 export const badge = css`
-  left: 4px;         
-  bottom: 4px;     
+  left: 4px;
+  bottom: 4px;
   font-size: 16px;
   line-height: 1;
 `;
@@ -288,12 +311,11 @@ export const textBox = css`
   flex-direction: column;
   line-height: 1.2;
 
-  & > div:nth-of-type(1) > span:nth-of-type(2){
+  & > div:nth-of-type(1) > span:nth-of-type(2) {
     font-size: 1.6rem;
     font-weight: 700;
   }
 `;
-
 
 export const fullName = css`
   font-size: 12px;
@@ -305,7 +327,7 @@ export const arrowBtnOverlay = css`
   position: absolute;
   right: 0;
   top: 50%;
-  transform: translateY(-50%);  /* 세로 중앙 정렬 */
+  transform: translateY(-50%);
   background: none;
   border: none;
   cursor: pointer;

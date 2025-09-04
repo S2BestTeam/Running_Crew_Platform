@@ -1,14 +1,21 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./styles";
+import { useKakaoLoader } from "react-kakao-maps-sdk";
 import { useEffect, useState } from "react";
 import { CiImageOn } from "react-icons/ci";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { useNavigate, useParams } from "react-router-dom";
 import { reqRegisterGathering } from "../../../../api/Crew/gatheringApi";
 import ContentLayout from "../../../../components/ContentLayout/ContentLayout";
+import { useCrewStore } from "../../../../stores/useCrewStroes";
 
 function GatheringRegister() {
-  const { crewId } = useParams();
+  const mapLoader = useKakaoLoader({
+    appkey: import.meta.env.VITE_KAKAO_JAVASCRIPT_KEY,
+    libraries: ["clusterer", "drawing", "services"],
+  });
+
+  const { crewId } = useCrewStore();
   const navigate = useNavigate();
   const [location, setLocation] = useState({ lat: null, lng: null });
   const [map, setMap] = useState(<></>);

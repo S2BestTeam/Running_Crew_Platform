@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { reqRegisterCrewMember } from '../../../api/Crew/memberApi';
-import { reqGetReportByUserId } from '../../../api/User/userApi';
 import { useCrewStore } from '../../../stores/useCrewStroes';
 import useGetCrewWelcomeListQuery from '../../../queries/useGetCrewWelcomeListQuery';
 import * as s from './styles';
@@ -9,6 +8,7 @@ import { reqRejectWelcome } from '../../../api/Crew/welcomeApi';
 import ContentLayout from '../../../components/ContentLayout/ContentLayout';
 import { useNavigate } from 'react-router-dom';
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
+import { reqGetReportByUserId } from '../../../api/User/UserApi';
 
 function Welcome({ isCrewLeader }) {
   const { crewId } = useCrewStore();
@@ -87,7 +87,6 @@ function Welcome({ isCrewLeader }) {
   };
 
   return (
-    <ContentLayout>
       <div css={s.mainBox}>
         <h2>가입 인사</h2>
         {isCrewLeader && (
@@ -97,13 +96,13 @@ function Welcome({ isCrewLeader }) {
         <table css={s.table}>
           <thead>
             <tr>
-              <th>No.</th>
-              <th>닉네임</th>
-              {isCrewLeader && <th>이름</th>}
-              {isCrewLeader && <th>나이</th>}
-              <th>자기소개</th>
-              <th>신청 상태</th>
-              <th>등록일</th>
+              <th css={s.th}>No.</th>
+              <th css={s.th}>닉네임</th>
+              {isCrewLeader && <th css={s.th}>이름</th>}
+              {isCrewLeader && <th css={s.th}>나이</th>}
+              <th css={s.th}>자기소개</th>
+              <th css={s.th}>신청 상태</th>
+              <th css={s.th}>등록일</th>
             </tr>
           </thead>
           <tbody>
@@ -117,24 +116,24 @@ function Welcome({ isCrewLeader }) {
                   css={isCrewLeader ? s.clickableRow : undefined}
                   onClick={() => handleSelectedRowOnClick(welcome)}
                   >
-                    <td>{welcome.welcomeRank}</td>
+                    <td css={s.td}>{welcome.welcomeRank}</td>
                     { isCrewLeader ? 
-                    <td css={s.nicknameCell}>
+                    <td css={s.td}>
                       {welcome.nickname}
                       {hasReport(welcome.userId) && (
                         <span css={s.warningDot} title="신고 이력이 있습니다">🔴</span>
                       )}
                     </td>
                     :
-                    <td css={s.nicknameCell}>
+                    <td css={s.td}>
                       {welcome.nickname}
                     </td>
                     }
-                    {isCrewLeader && <td>{welcome.fullName}</td>}
-                    {isCrewLeader && <td>{age}</td>}
-                    <td css={s.contentCell}>{welcome.content}</td>
-                    <td css={s.statusCell}>{welcome.status}</td>
-                    <td>{new Date(welcome.createdAt).toLocaleDateString("ko-KR")}</td>
+                    {isCrewLeader && <td css={s.td}>{welcome.fullName}</td>}
+                    {isCrewLeader && <td css={s.td}>{age}</td>}
+                    <td css={s.td}>{welcome.content}</td>
+                    <td css={s.td}>{welcome.status}</td>
+                    <td css={s.td}>{new Date(welcome.createdAt).toLocaleDateString("ko-KR")}</td>
                   </tr>
                 );
               })
@@ -243,7 +242,6 @@ function Welcome({ isCrewLeader }) {
           </div>
         )}
       </div>
-    </ContentLayout>
   );
 }
 

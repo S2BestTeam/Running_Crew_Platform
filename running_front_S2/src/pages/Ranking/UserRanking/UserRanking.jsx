@@ -6,6 +6,7 @@ import RankingCard from '../CrewRanking/RankingCard';
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { FaStar } from "react-icons/fa";
 
 function UserRanking(props) {
   const { data: rankings } = useGetUserRankingQuery();
@@ -35,7 +36,7 @@ function UserRanking(props) {
     <MainContainer>
       <div css={s.headerlayout}>
         <div css={s.notice}>
-          <h1>⭐ 랭킹은 매일 자정 마다 자동 갱신됩니다. ⭐</h1>
+          <h1><FaStar style={{fontSize: '1.5rem'}}/> 랭킹은 매일 자정 마다 자동 갱신됩니다. </h1>
         </div>
       </div>
       <div css={s.layout}>

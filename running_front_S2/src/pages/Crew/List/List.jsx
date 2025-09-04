@@ -16,6 +16,7 @@ import {
   removeWishlist,
 } from "../../../api/Crew/wishlistApi";
 import { IoSearch } from "react-icons/io5";
+import useGetCrewRankingQuery from "../../../queries/useGetCrewRankingQuery";
 
 function List() {
   const navigate = useNavigate();
@@ -27,8 +28,22 @@ function List() {
   const selectedGunguId = searchParams.get("gunguId") || "";
   const [wishlist, setWishlist] = useState([]);
   const [searchInput, setSearchInput] = useState(searchText);
-
+  const rankingsQuery = useGetCrewRankingQuery();
   const { resetCrew } = useCrewStore();
+
+  const top5Member = rankingsQuery?.data?.memberRanking.slice(0, 5).map(m => m.crewId);
+  const top5CreatedAt = rankingsQuery?.data?.newRanking.slice(0, 5).map(m => m.crewId);
+  const crewListQuery = useGetCrewListQuery({
+    page,
+    size: 12,
+    searchText,
+    gunguId: selectedGunguId,
+  });
+
+  const gunguQuery = useGetGunguListQuery();
+  const gunguList = gunguQuery?.data?.data?.body || [];
+
+  const [crewList, setCrewList] = useState([]);
 
   useEffect(() => {
     const loadUserWishlist = async () => {
@@ -85,18 +100,6 @@ function List() {
       });
     }
   };
-
-  const crewListQuery = useGetCrewListQuery({
-    page,
-    size: 12,
-    searchText,
-    gunguId: selectedGunguId,
-  });
-
-  const gunguQuery = useGetGunguListQuery();
-  const gunguList = gunguQuery?.data?.data?.body || [];
-
-  const [crewList, setCrewList] = useState([]);
 
   useEffect(() => {
     const pages = crewListQuery?.data?.pages || [];
@@ -175,10 +178,10 @@ function List() {
             ))}
           </select>
 
-          <div css={s.searchGroup}>
+          <div css={s.inputGroup}>
             <input
               type="text"
-              placeholder="크루 검색"
+              placeholder="검색어를 입력하세요."
               value={searchInput}
               onChange={handleSearchOnChange}
               onKeyDown={handleSearchOnKeyDown}
@@ -196,14 +199,14 @@ function List() {
           </div>
         </div>
 
-
         <div css={s.gridBox}>
           {crewList.length === 0 ? (
             <p>크루가 없습니다.</p>
           ) : (
             crewList.map((crew) => {
               const isLiked = wishlist.includes(crew.crewId);
-
+              const isTopRanking = top5Member.includes(crew.crewId);
+              const isNewRanking = top5CreatedAt.includes(crew.crewId);
               return (
                 <div
                   key={crew.crewId}
@@ -232,10 +235,9 @@ function List() {
                       <span css={s.crewTitle}>{crew.title}</span>
                     </div>
                   </div>
-                  <div></div>
                   <div css={s.rankingBox}>
-                    <div css={s.topRanking}>Top 랭킹</div>
-                    <div css={s.newRanking}>신규크루</div>
+                    {isTopRanking && <div css={s.topRanking}>Top 랭킹</div>}
+                    {isNewRanking && <div css={s.newRanking}>신규크루</div>}
                   </div>
                 </div>
               );

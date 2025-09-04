@@ -7,10 +7,12 @@ import com.korit.running_back_s2.domain.welcome.WelcomeMapper;
 import com.korit.running_back_s2.dto.member.MemberRoleUpdateReqDto;
 import com.korit.running_back_s2.dto.response.PaginationRespDto;
 import com.korit.running_back_s2.security.model.PrincipalUtil;
+import com.korit.running_back_s2.util.ImageUrlUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +21,7 @@ public class MemberService {
     private final MemberMapper memberMapper;
     private final WelcomeMapper welcomeMapper;
     private final PrincipalUtil principalUtil;
+    private final ImageUrlUtil imageUrlUtil;
 
     public PaginationRespDto<Member> getMembers(Integer page, Integer size, Integer crewId, String searchText) {
         MemberSearchOption opt = MemberSearchOption.builder()
@@ -28,7 +31,11 @@ public class MemberService {
                 .searchText((searchText != null && !searchText.isBlank()) ? searchText : null)
                 .build();
 
-        List<Member> contents = memberMapper.findAllMembersBySearchOption(opt);
+        List<Member> contents = memberMapper.findAllMembersBySearchOption(opt).stream().map(member -> {
+            member.getUser().setPicture(imageUrlUtil.buildImageUrl(member.getUser().getPicture(), "profile"));
+            return member;
+        }).collect(Collectors.toList());
+
         Integer totalElements = memberMapper.countMembersBySearchOption(opt);
         Integer totalPages = (int) Math.ceil(totalElements.doubleValue() / size.doubleValue());
         boolean isLast = page >= Math.max(totalPages, 1);
@@ -44,7 +51,9 @@ public class MemberService {
     }
 
     public Member getMemberDetail(Integer memberId) {
-        return memberMapper.findById(memberId);
+        Member foundMemberDetail = memberMapper.findById(memberId);
+        foundMemberDetail.getUser().setPicture(imageUrlUtil.buildImageUrl(foundMemberDetail.getUser().getPicture(), "profile"));
+        return foundMemberDetail;
     }
 
     public void updateRole(MemberRoleUpdateReqDto dto) {
@@ -81,6 +90,10 @@ public class MemberService {
     }
 
     public List<Member> getMembers(Integer crewId) {
-        return memberMapper.getMembers(crewId);
+        List<Member> memberList = memberMapper.getMembers(crewId).stream().map(member -> {
+            member.getUser().setPicture(imageUrlUtil.buildImageUrl(member.getUser().getPicture(), "profile"));
+            return member;
+        }).collect(Collectors.toList());
+        return memberList;
     }
 }

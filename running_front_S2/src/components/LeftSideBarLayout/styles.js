@@ -1,9 +1,12 @@
 import { css } from "@emotion/react";
 
 export const layout = css`
-  display: flex;
-  flex-direction: row;
-  padding-left: 1.6rem;
+  display: grid;
+  grid-template-columns: 20rem minmax(0, 1fr); /* 1fr 셀도 0~남은공간 범위로 제한 */
+  gap: 4rem;
+  width: 100%;
+  overflow: hidden; /* 전체 레이아웃 넘침 방지 */
+
 `;
 
 export const leftBox = css`
@@ -16,24 +19,18 @@ export const leftBox = css`
   padding: 1rem;
   background-color: #ffffff;
   top: 0;
-
-  height: 100%;
-`;
-
-export const rightContent = css`
-  flex: 1;
-  background-color: white;
+  height: 60rem;
 `;
 
 export const buttonContainer = css`
   display: flex;
   flex-direction: column;
-  padding: 1rem 0;
+  padding: 1rem 1rem;
 
   & > button {
     text-align: left;
     margin: 0.3rem 0;
-    padding: 0.6rem;
+    padding: 0.8rem;
     border-radius: 0.5rem;
     background-color: transparent;
     border: none;

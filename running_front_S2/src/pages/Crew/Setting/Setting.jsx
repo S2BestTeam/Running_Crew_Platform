@@ -206,7 +206,6 @@ function Setting(props) {
   };
 
   return (
-    <ContentLayout>
       <div css={s.mainBox}>
         <div css={s.titleBox}>
           <div css={s.banner} onClick={handleThumbnailImgUpdateClick}>
@@ -299,7 +298,6 @@ function Setting(props) {
           </div>
         </div>
       </div>
-    </ContentLayout>
   );
 }
 

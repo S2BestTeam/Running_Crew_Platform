@@ -6,18 +6,6 @@ export const layout = css`
   padding-top: 2rem;
 `;
 
-export const leftBox = css`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border: 0.1rem solid #dbdbdb;
-  border-radius: 0.5rem;
-  width: 18rem;
-  padding: 1rem;
-  background-color: #ffffff;
-  top: 0;
-`;
-
 export const crewInfoBox = css`
   display: flex;
   align-items: center;

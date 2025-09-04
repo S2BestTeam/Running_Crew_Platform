@@ -22,40 +22,6 @@ export const selectBox = css`
   background-color: white;
 `;
 
-export const searchGroup = css`
-  display: flex;
-  align-items: center;
-  gap: 1rem; /* 여기서 간격을 2rem으로 설정 */
-`;
-
-
-// export const searchInput = css`
-//   width: 30rem;
-//   height: 3.6rem;
-//   padding: 0 1rem;
-//   border: 1px solid #ccc;
-//   border-radius: 0.4rem;
-//   font-size: 1.4rem;
-// `;
-
-// export const searchButton = css`
-//   height: 3.6rem;
-//   padding: 0 1.2rem;
-//   background-color: #000; /* 2번째 이미지처럼 검정 버튼 */
-//   color: white;
-//   border: none;
-//   border-radius: 0.4rem;
-//   font-size: 1.4rem;
-//   cursor: pointer;
-
-//   &:hover {
-//     background-color: #333;
-//   }
-//   flex-direction: row;
-//   padding-top: 2rem;
-//   justify-content: space-between;
-// `;
-
 export const inputGroup = css`
     display: flex;
 `;

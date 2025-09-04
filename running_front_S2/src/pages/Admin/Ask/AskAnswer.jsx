@@ -22,6 +22,8 @@ function AskAnswer() {
 
   const { data, isLoading, isError, refetch } = useGetAskBoardQuery({ page, size, searchText });
   const body = data?.data?.body;
+  console.log(body);
+  
   const totalPages = body?.totalPages ?? 1;
   const totalElements = body?.totalElements ?? 0;
   const start = (page - 1) * size;

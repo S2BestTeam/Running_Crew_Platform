@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 export const mainBox = css`
-  width: 96%;
+  width: 100%;
 `;
 
 export const instruction = css`
@@ -14,22 +14,31 @@ export const instruction = css`
 export const table = css`
   width: 100%;
   border-collapse: collapse;
-  margin-top: 1rem;
+  text-align: center;
+`;
 
-  th, td {
-    border: 0.1rem solid #ddd;
-    padding: 1.2rem 0.8rem;
-    text-align: left;
-  }
+export const tr = css`
+  cursor: pointer;
 
-  th {
-    background-color: #f5f5f5;
-    font-weight: bold;
+  :hover {
+    background-color: #cececeff;
   }
+`;
 
-  tbody tr:nth-of-type(even) {
-    background-color: #f9f9f9;
-  }
+export const th = css`
+  padding: 1.2rem;
+  border-bottom: 0.2rem solid #000;
+  font-weight: 600;
+`;
+
+export const td = css`
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+`;
+
+export const tdTitle = css`
+  ${td};
+  text-align: left;
 `;
 
 export const clickableRow = css`

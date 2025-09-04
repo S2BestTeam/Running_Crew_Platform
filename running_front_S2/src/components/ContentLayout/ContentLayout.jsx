@@ -6,7 +6,8 @@ const layoutStyle = css`
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  padding-left: 2rem;
+  min-width: 0;
+  background-color: white;
 `;
 
 function ContentLayout({ children }) {

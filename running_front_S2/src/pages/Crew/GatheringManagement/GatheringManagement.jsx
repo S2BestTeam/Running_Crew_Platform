@@ -88,7 +88,6 @@ function GatheringManagement() {
   }));
 
   return (
-    <ContentLayout>
       <div css={s.layout}>
         <header>
           <h2>정모 관리</h2>
@@ -118,7 +117,6 @@ function GatheringManagement() {
           />
         </main>
       </div>
-    </ContentLayout>
   );
 }
 
