@@ -38,7 +38,7 @@ function MCategory(props) {
         navigate('/');
       } catch (error) {
         alert('탈퇴 처리 중 오류가 발생했습니다.');
-        // console.error(error);
+        console.error(error);
       }
     }
   }

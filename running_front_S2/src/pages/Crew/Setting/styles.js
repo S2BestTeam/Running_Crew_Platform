@@ -92,7 +92,15 @@ export const label = css`
   color: #333;
 `;
 
+export const checkName = css`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+`;
+
 export const input = css`
+  flex: 1;
   padding: 1rem;
   font-size: 1.4rem;
   border: 0.1rem solid #ddd;
@@ -101,12 +109,23 @@ export const input = css`
   transition: border-color 0.2s ease;
 
   &:focus {
-    border-color: #007bff;
+    border-color: #000000ff;
   }
 
   &::placeholder {
     color: #999;
   }
+`;
+
+export const subButton = css`
+  flex-shrink: 0;
+  border: none;
+  padding: 0.8rem 1.2rem;
+  background: #000;
+  color: white;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  white-space: nowrap;
 `;
 
 export const numberInputContainer = css`
@@ -125,7 +144,7 @@ export const numberInput = css`
   width: 10rem;
 
   &:focus {
-    border-color: #007bff;
+    border-color: #000000ff;
   }
 `;
 

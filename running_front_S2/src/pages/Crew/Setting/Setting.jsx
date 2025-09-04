@@ -5,8 +5,7 @@ import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import { useCrewStore } from '../../../stores/useCrewStroes';
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
-import ContentLayout from '../../../components/ContentLayout/ContentLayout';
-import { reqCrewProfileUpdate, reqCrewThumbnailUpdate, reqCrewUpdate } from '../../../api/Crew/crewApi';
+import { reqCheckCrewName, reqCrewProfileUpdate, reqCrewThumbnailUpdate, reqCrewUpdate } from '../../../api/Crew/crewApi';
 import useCrewDetailQuery from '../../../queries/useCrewDetailQuery';
 
 function Setting(props) {
@@ -17,6 +16,7 @@ function Setting(props) {
   const crew = crewDetailQuery?.data?.body;
   const [countMember, setCountMember] = useState(1);
   const [isPending, setIsPending] = useState(false);
+  const [isDuplicated, setDuplicated] = useState(true);
 
   const [updateCrew, setUpdateCrew] = useState({
     crewName: '',
@@ -84,6 +84,26 @@ function Setting(props) {
       }
     };
     fileInput.click();
+  };
+
+  const handleCheckCrewNameOnClick = async () => {
+    if (!updateCrew.crewName.trim()) return;
+    try {
+      const { data } = await reqCheckCrewName(updateCrew.crewName);
+      const raw = data?.body;
+
+      const isDuplicated =
+        raw === true || raw === "true" || raw === 1 || raw === "1";
+      setDuplicated(isDuplicated);
+      if (isDuplicated) {
+        alert("중복된 크루명 입니다.");
+      } else {
+        alert("사용 가능한 크루명 입니다!");
+      }
+    } catch (e) {
+      console.error("checkCrewName error:", e);
+      alert("중복확인 중 오류가 발생했습니다.");
+    }
   };
 
   const validateField = (field, value) => {
@@ -199,53 +219,54 @@ function Setting(props) {
     toolbar: [
       [{ 'header': [1, 2, false] }],
       ['bold', 'italic', 'underline', 'strike'],
-      [{'list': 'ordered'}, {'list': 'bullet'}],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
       ['link'],
       ['clean']
     ],
   };
 
   return (
-      <div css={s.mainBox}>
-        <div css={s.titleBox}>
-          <div css={s.banner} onClick={handleThumbnailImgUpdateClick}>
-            <div>
-              <img src={crew?.thumbnailPicture} alt="크루 썸네일" />
-              <div css={s.imageOverlay} className="overlay">클릭하여 썸네일 변경</div>
-            </div>
-          </div>
-          <div css={s.crewInfoSection}>
-            <div css={s.profilePicture} onClick={handleProfileImgUpdateClick}>
-              <img src={crew?.profilePicture} alt="크루 프로필" />
-              <div css={s.profileImageOverlay} className="overlay">프로필 변경</div>
-            </div>
-
-            <div css={s.crewTextBox}>
-              <h2>{updateCrew.crewName || crew?.crewName}</h2>
-              <div css={s.crewText}>
-                <p css={s.gungu}>{crew?.gunguName}</p>
-                <p>멤버수 {countMember} / {updateCrew.limitedPeople}</p>
-                <p>•</p>
-                <p>총 {crew?.totalKm} KM</p>
-              </div>
-            </div>
-
-            <button
-              css={s.saveButton}
-              onClick={handleUpdateCrewOnClick}
-              disabled={isPending}
-            >
-              {isPending ? "저장 중..." : "저장"}
-            </button>
+    <div css={s.mainBox}>
+      <div css={s.titleBox}>
+        <div css={s.banner} onClick={handleThumbnailImgUpdateClick}>
+          <div>
+            <img src={crew?.thumbnailPicture} alt="크루 썸네일" />
+            <div css={s.imageOverlay} className="overlay">클릭하여 썸네일 변경</div>
           </div>
         </div>
+        <div css={s.crewInfoSection}>
+          <div css={s.profilePicture} onClick={handleProfileImgUpdateClick}>
+            <img src={crew?.profilePicture} alt="크루 프로필" />
+            <div css={s.profileImageOverlay} className="overlay">프로필 변경</div>
+          </div>
 
-        <div css={s.mainLine}>
-          <div>
-            <p css={s.fontBold}>크루 정보 설정</p>
-            
-            <div css={s.field}>
-              <label css={s.label}>크루명</label>
+          <div css={s.crewTextBox}>
+            <h2>{updateCrew.crewName || crew?.crewName}</h2>
+            <div css={s.crewText}>
+              <p css={s.gungu}>{crew?.gunguName}</p>
+              <p>멤버수 {countMember} / {updateCrew.limitedPeople}</p>
+              <p>•</p>
+              <p>총 {crew?.totalKm} KM</p>
+            </div>
+          </div>
+
+          <button
+            css={s.saveButton}
+            onClick={handleUpdateCrewOnClick}
+            disabled={isPending}
+          >
+            {isPending ? "저장 중..." : "저장"}
+          </button>
+        </div>
+      </div>
+
+      <div css={s.mainLine}>
+        <div>
+          <p css={s.fontBold}>크루 정보 설정</p>
+
+          <div css={s.field}>
+            <label css={s.label}>크루명</label>
+            <div css={s.checkName}>
               <input
                 type="text"
                 value={updateCrew.crewName}
@@ -253,51 +274,55 @@ function Setting(props) {
                 css={s.input}
                 placeholder="크루명을 입력하세요"
               />
+              <button css={s.subButton} onClick={handleCheckCrewNameOnClick}>
+                중복 확인
+              </button>
               {errors.crewName && <p css={s.errorMsg}>{errors.crewName}</p>}
             </div>
+          </div>
 
-            <div css={s.field}>
-              <label css={s.label}>한줄 소개</label>
+          <div css={s.field}>
+            <label css={s.label}>한줄 소개</label>
+            <input
+              type="text"
+              value={updateCrew.title}
+              onChange={handleTitleChange}
+              css={s.input}
+              placeholder="크루를 한줄로 소개해주세요"
+            />
+            {errors.title && <p css={s.errorMsg}>{errors.title}</p>}
+          </div>
+
+          <div css={s.field}>
+            <label css={s.label}>최대 인원</label>
+            <div css={s.numberInputContainer}>
               <input
-                type="text"
-                value={updateCrew.title}
-                onChange={handleTitleChange}
-                css={s.input}
-                placeholder="크루를 한줄로 소개해주세요"
+                type="number"
+                value={updateCrew.limitedPeople}
+                onChange={handleLimitedPeopleChange}
+                css={s.numberInput}
+                min={countMember}
+                max={100}
               />
-              {errors.title && <p css={s.errorMsg}>{errors.title}</p>}
+              <span css={s.inputHint}>현재 멤버: {countMember}명</span>
             </div>
+            {errors.limitedPeople && <p css={s.errorMsg}>{errors.limitedPeople}</p>}
+          </div>
 
-            <div css={s.field}>
-              <label css={s.label}>최대 인원</label>
-              <div css={s.numberInputContainer}>
-                <input
-                  type="number"
-                  value={updateCrew.limitedPeople}
-                  onChange={handleLimitedPeopleChange}
-                  css={s.numberInput}
-                  min={countMember}
-                  max={100}
-                />
-                <span css={s.inputHint}>현재 멤버: {countMember}명</span>
-              </div>
-              {errors.limitedPeople && <p css={s.errorMsg}>{errors.limitedPeople}</p>}
-            </div>
-
-            <div css={s.field}>
-              <label css={s.label}>크루 소개</label>
-              <div css={s.quillWrapper}>
-                <ReactQuill
-                  value={updateCrew.content}
-                  onChange={handleContentChange}
-                  modules={quillModules}
-                  placeholder="크루에 대해 자세히 소개해주세요"
-                />
-              </div>
+          <div css={s.field}>
+            <label css={s.label}>크루 소개</label>
+            <div css={s.quillWrapper}>
+              <ReactQuill
+                value={updateCrew.content}
+                onChange={handleContentChange}
+                modules={quillModules}
+                placeholder="크루에 대해 자세히 소개해주세요"
+              />
             </div>
           </div>
         </div>
       </div>
+    </div>
   );
 }
 

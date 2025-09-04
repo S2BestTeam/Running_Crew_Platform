@@ -159,3 +159,11 @@ export const numberBadge = css`
   margin-left: 8px;
   padding: 0 4px;
 `;
+
+export const newBadge1 = css`
+  padding: 1px 6px;
+  font-size: 11px;
+  border: 1px solid #ff3b30;
+  border-radius: 999px;
+  line-height: 1;
+`;

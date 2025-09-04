@@ -4,11 +4,14 @@ import com.korit.running_back_s2.domain.member.Member;
 import com.korit.running_back_s2.dto.crew.CrewRoleReqDto;
 import com.korit.running_back_s2.dto.crew.CrewUpdateReqDto;
 import com.korit.running_back_s2.dto.image.CrewAlbumRow;
+import com.korit.running_back_s2.dto.crew.SectionsLatestRaw;
 import com.korit.running_back_s2.dto.ranking.CrewRankingRespDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface CrewMapper {
@@ -39,7 +42,11 @@ public interface CrewMapper {
 
     int updateCrew(CrewUpdateReqDto dto);
 
+
     List<CrewAlbumRow> findContentsByCrewId(@Param("crewId") int crewId);
+
+
+    SectionsLatestRaw selectSectionsLatest(@Param("crewId") Integer crewId);
 
 
 

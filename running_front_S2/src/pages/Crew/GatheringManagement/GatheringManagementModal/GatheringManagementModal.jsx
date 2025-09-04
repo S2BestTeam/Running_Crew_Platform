@@ -39,7 +39,7 @@ function GatheringManagementModal({ isOpen, onClose, crewId, gatheringId }) {
       attendanceStatus: checkedState[index] ? 1 : 0,
     }));
 
-    console.log("저장용 payload:", payload); 
+    console.error("저장용 payload:", payload); 
 
     try {
       await reqUpdateParticipantsAttendance(crewId, gatheringId, payload);

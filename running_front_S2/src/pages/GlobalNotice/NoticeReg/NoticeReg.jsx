@@ -107,7 +107,6 @@ function NoticeReg() {
     if (isContentEmpty(quillValue)) return alert("내용을 입력해 주세요.");
 
     setSubmitting(true);
-    // console.log({title, content: quillValue })
     try {
       await reqRegisterGlobalNotice({title, content: quillValue });
       alert("등록되었습니다.");
@@ -118,8 +117,7 @@ function NoticeReg() {
       setSubmitting(false);
     }
   }, [title, quillValue, isContentEmpty, navigate]);
-  // console.log(quillValue)
-
+  
   return (
     <MainContainer>
     <div css={s.wrap}>

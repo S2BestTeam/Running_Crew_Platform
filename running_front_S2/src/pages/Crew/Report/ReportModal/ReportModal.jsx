@@ -5,7 +5,6 @@ import { reqReportMember } from "../../../../api/Crew/reportApi";
 
 function ReportModal({ isOpen, onClose, memberId, nickname, crewId }) {
   const [reason, setReason] = useState("");
-  console.log(memberId);
 
   const modalStyles = useMemo(
     () => ({
@@ -46,8 +45,6 @@ function ReportModal({ isOpen, onClose, memberId, nickname, crewId }) {
     }
 
     try {
-      console.log("memberId:", memberId);
-      console.log("crewId:", crewId);
       setSubmitting(true);
       await reqReportMember({ crewId, memberId, reason });
       alert("신고가 접수되었습니다.");

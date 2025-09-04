@@ -74,6 +74,7 @@ public class CrewController {
         return ResponseEntity.ok(ResponseDto.success("크루 정보 수정 성공"));
     }
 
+
     @GetMapping("/{crewId}/albums")
     public ResponseEntity<ResponseDto<List<CrewAlbumImageDto>>> getCrewAlbumImages(
             @PathVariable int crewId
@@ -81,4 +82,11 @@ public class CrewController {
         List<CrewAlbumImageDto> list = crewAlbumService.getCrewAlbumImages(crewId);
         return ResponseEntity.ok(ResponseDto.success(list));
     }
+
+    @GetMapping("/{crewId}/meta/latest")
+    public ResponseEntity<?> latest(@PathVariable Integer crewId) {
+        CrewService.SectionsLatestDto body = crewService.getSectionsLatest(crewId);
+        return ResponseEntity.ok(ResponseDto.success(body));
+    }
+
 }

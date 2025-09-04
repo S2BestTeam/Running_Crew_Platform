@@ -56,7 +56,6 @@ export default function Post() {
     const raw = myCrewsRes?.data?.body ?? myCrewsRes?.body ?? myCrewsRes ?? [];
     return (Array.isArray(raw) ? raw : []).filter((c) => c && c.crewId != null);
   }, [myCrewsRes]);
-  console.log(myCrews);
 
   const { data, isLoading, isError } = useGetMyPostQuery({
     page,

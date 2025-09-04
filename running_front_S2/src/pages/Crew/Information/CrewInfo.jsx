@@ -56,7 +56,6 @@ function CrewInfo() {
         const res = await reqGetMemberCount(crewId);
         const count = res?.data?.body ?? res?.body;
         setCountMember(Number(count));   
-        console.log("memberCount:", count);
       } catch (e) {
         console.error("getMemberCount error", e);
       }

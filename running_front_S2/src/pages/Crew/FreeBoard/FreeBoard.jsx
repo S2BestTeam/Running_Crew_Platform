@@ -39,7 +39,6 @@ function FreeBoard() {
 
   const { data, isLoading, isError } = useGetCrewFreeBoardQuery({ crewId, page, size, searchText });
   const body = data?.data?.body;
-  // console.log(body)
   const totalPages = body?.totalPages ?? 1;
   const totalElements = body?.totalElements ?? 0;
   const freeLists = useMemo(() => body?.contents ?? [], [body]);

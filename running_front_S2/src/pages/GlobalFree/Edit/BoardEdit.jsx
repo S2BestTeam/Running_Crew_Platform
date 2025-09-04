@@ -111,8 +111,6 @@ function BoardEdit() {
     if (error) return <div>에러가 발생했어요: {String(error)}</div>;
     if (!post) return <div>게시글을 찾을 수 없어요.</div>;
 
-    console.log(content)
-
     return (
         <MainContainer>
             <div css={s.wrap}>

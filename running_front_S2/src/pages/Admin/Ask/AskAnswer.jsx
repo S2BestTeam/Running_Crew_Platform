@@ -22,7 +22,6 @@ function AskAnswer() {
 
   const { data, isLoading, isError, refetch } = useGetAskBoardQuery({ page, size, searchText });
   const body = data?.data?.body;
-  console.log(body);
   
   const totalPages = body?.totalPages ?? 1;
   const totalElements = body?.totalElements ?? 0;
@@ -31,7 +30,6 @@ function AskAnswer() {
 
   const [answers, setAnswers] = useState({});
   const onChangeAnswer = (askId, v) => setAnswers((prev) => ({ ...prev, [askId]: v }));
-  console.log(body);
 
   const handleRegister = async (askId) => {
     const content = (answers[askId] || "").trim();
