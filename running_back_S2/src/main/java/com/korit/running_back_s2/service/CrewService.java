@@ -137,8 +137,6 @@ public class CrewService {
     public void updateCrew(CrewUpdateReqDto dto) {
         crewMapper.updateCrew(dto);
     }
-<<<<<<< HEAD
-=======
 
 
 
@@ -159,7 +157,5 @@ public class CrewService {
 //        crewMapper.withDraw(crewId, userId);
 //    }
 
-
->>>>>>> 110-new-기능-구현-도전
 }
 

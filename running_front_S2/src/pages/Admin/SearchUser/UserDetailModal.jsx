@@ -66,7 +66,6 @@ function UserDetailModal({ user, onClose, onSave }) {
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 
-  // 신고 내역
   const [reports, setReports] = useState({ madeReports: [], receivedReports: [] });
   useEffect(() => {
     (async () => {
@@ -79,7 +78,6 @@ function UserDetailModal({ user, onClose, onSave }) {
     })();
   }, [user.userId]);
 
-  // 수정 폼 상태
   const [updateUser, setUpdateUser] = useState({
     userId: user.userId,
     picture: user.picture,

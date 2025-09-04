@@ -31,9 +31,7 @@ function Welcome() {
       userId : userId,
       content: editContent
     }
-    console.log(welcomeId);
-    
-    console.log(updateData);
+
     reqUpdateMyWelcome(updateData)
       .then(() => {
         fetchWelcomes();

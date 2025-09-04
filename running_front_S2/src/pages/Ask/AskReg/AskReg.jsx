@@ -104,9 +104,7 @@ function AskReg(props) {
     const handleSubmit = useCallback(async () => {
         if (!title.trim()) return alert("제목을 입력해 주세요.");
         if (isContentEmpty(quillValue)) return alert("내용을 입력해 주세요.");
-
         setSubmitting(true);
-        // console.log({ title, content: quillValue })
         try {
             await reqRegisterAskBoard({ title, content: quillValue });
             alert("등록되었습니다.");
@@ -117,7 +115,6 @@ function AskReg(props) {
             setSubmitting(false);
         }
     }, [title, quillValue, isContentEmpty, navigate]);
-    console.log(quillValue)
 
     return (
         <MainContainer>

@@ -147,8 +147,6 @@ function Signup() {
 
     try {
       const result = await reqRegisterUser(regUser);
-      console.log(regUser);
-
       const accessToken = result?.data?.body?.accessToken;
 
       if (accessToken) {

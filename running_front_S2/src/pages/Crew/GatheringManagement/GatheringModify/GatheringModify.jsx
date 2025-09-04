@@ -46,7 +46,6 @@ function GatheringModify() {
       try {
         const res = await reqGatheringDetail(crewId, gatheringId);
         const data = res.data.body;
-        console.log(data);
         setGatheringData({
           title: data.title,
           content: data.content,

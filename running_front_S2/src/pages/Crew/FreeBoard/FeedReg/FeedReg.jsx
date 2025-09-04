@@ -91,7 +91,7 @@ function FeedReg() {
 
         scrollCursorIntoView();
       } catch (error) {
-        console.log(error)
+        console.error(error)
       }
     };
   }, [scrollCursorIntoView]);
@@ -108,21 +108,18 @@ function FeedReg() {
   const handleSubmit = useCallback(async () => {
     if (!title.trim()) return alert("제목을 입력해 주세요.");
     if (isContentEmpty(quillValue)) return alert("내용을 입력해 주세요.");
-
     setSubmitting(true);
-    console.log({ crewId, title, content: quillValue })
     try {
       await reqRegisterFreeBoard({ crewId, title, content: quillValue });
       alert("등록되었습니다.");
       navigate("..");
     } catch (e) {
       alert("등록 중 오류가 발생했습니다.");
-      console.log(e)
+      console.error(e)
     } finally {
       setSubmitting(false);
     }
   }, [crewId, title, quillValue, isContentEmpty, navigate]);
-  console.log(quillValue)
 
   return (
     <div css={s.wrap}>

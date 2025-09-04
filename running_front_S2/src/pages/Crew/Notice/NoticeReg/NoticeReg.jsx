@@ -108,7 +108,6 @@ function NoticeReg() {
     if (isContentEmpty(quillValue)) return alert("내용을 입력해 주세요.");
 
     setSubmitting(true);
-    console.log({ crewId, title, content: quillValue })
     try {
       await reqRegisterNotice({ crewId, title, content: quillValue });
       alert("등록되었습니다.");
@@ -119,7 +118,6 @@ function NoticeReg() {
       setSubmitting(false);
     }
   }, [crewId, title, quillValue, isContentEmpty, navigate]);
-  console.log(quillValue)
 
   return (
     <div css={s.wrap}>

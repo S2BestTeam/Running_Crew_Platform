@@ -29,12 +29,7 @@ function CrewInfo() {
   const displayMembers = (members ?? []).slice(0, 6);
   const [gatherings, setGatherings] = useState([]);
   const { data } = useGetGatheringsQuery(crewId);
-<<<<<<< HEAD
   
-=======
-  // console.log(displayMembers);
-
->>>>>>> 110-new-기능-구현-도전
   useEffect(() => {
     if (!crewId) return; (
       async () => {
@@ -61,7 +56,6 @@ function CrewInfo() {
         const res = await reqGetMemberCount(crewId);
         const count = res?.data?.body ?? res?.body;
         setCountMember(Number(count));   
-        console.log("memberCount:", count);
       } catch (e) {
         console.error("getMemberCount error", e);
       }

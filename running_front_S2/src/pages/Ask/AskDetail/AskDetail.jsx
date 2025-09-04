@@ -17,9 +17,6 @@ function AskDetail() {
     const body = data?.body;
     return Array.isArray(body) ? body[0] : body;
   }, [data]);
-  
-  console.log(data);
-  
 
   if (isLoading)
     return (

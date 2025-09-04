@@ -39,7 +39,7 @@ function Welcome({ isCrewLeader }) {
         const res = await reqGetReportByUserId(userId);
         setReports(res.data.body);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
     fetchData();
