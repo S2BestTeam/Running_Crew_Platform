@@ -138,119 +138,118 @@ function CrewRegister(props) {
 
   return (
     <MainContainer>
-      <div css={s.container}>
-        <div>
-          {/* 상단 */}
-          <div css={s.titleBox}>
-            {/* 배너(썸네일 업로드) */}
-            <div css={s.banner} onClick={(e) => handleImgAddOnClick(e, "thumbnailPicture")}>
-              <div>
-                <img src={preview.thumbnailPicture} alt="크루 썸네일" />
-                <div className="overlay">클릭하여 썸네일 업로드</div>
-              </div>
-            </div>
+    <div css={s.mainBox}>
+      <div css={s.titleBox}>
+        {/* 썸네일 */}
+        <div css={s.banner} onClick={(e) => handleImgAddOnClick(e, "thumbnailPicture")}>
+          <div>
+            {preview.thumbnailPicture && <img src={preview.thumbnailPicture} alt="크루 썸네일" />}
+            <div css={s.imageOverlay} className="overlay">클릭하여 썸네일 업로드</div>
+          </div>
+        </div>
 
-            {/* 프로필 + 텍스트 + 저장(등록) */}
-            <div css={s.headerRow}>
-              <div css={s.profileWrap}>
-                <div css={s.profileAvatar} onClick={(e) => handleImgAddOnClick(e, "profilePicture")}>
-                  <img src={preview.profilePicture} alt="크루 프로필" />
-                  <div className="overlay">프로필 변경</div>
-                </div>
+        {/* 프로필 + 크루 정보 */}
+        <div css={s.crewInfoSection}>
+          <div css={s.profilePicture} onClick={(e) => handleImgAddOnClick(e, "profilePicture")}>
+            {preview.profilePicture && <img src={preview.profilePicture} alt="크루 프로필" />}
+            <div css={s.profileImageOverlay} className="overlay">프로필 업로드</div>
+          </div>
 
-                <div css={s.headerText}>
-                  <h2>{registerCrew.crewName || "크루 이름을 입력하세요"}</h2>
-                  <div className="meta">
-                    <span className="chip">{gunguList.find(g => String(g.gunguId) === String(registerCrew.gunguId))?.gunguName || "지역 미선택"}</span>
-                    <span>정원 {registerCrew.limitedPeople || 0} 명</span>
-                  </div>
-                </div>
-              </div>
-
-              <button css={s.saveButton} onClick={handleRegisterCrewOnClick} disabled={isDuplicated}>
-                크루 등록
-              </button>
+          <div css={s.crewTextBox}>
+            <h2>{registerCrew.crewName || "크루명 입력"}</h2>
+            <div css={s.crewText}>
+              <p css={s.gungu}>{gunguList.find(g => g.gunguId === registerCrew.gunguId)?.gunguName || "지역 선택"}</p>
+              <p>멤버수 1 / {registerCrew.limitedPeople || 10}</p>
             </div>
           </div>
 
-          {/* 폼 */}
-          <div css={s.mainLine}>
-            <p css={s.sectionTitle}>크루 정보 설정</p>
+          <button
+            css={s.saveButton}
+            onClick={handleRegisterCrewOnClick}
+          >
+            크루 등록
+          </button>
+        </div>
+      </div>
 
-            <div css={s.field}>
-              <label css={s.label}>지역</label>
-              <select
-                css={s.select}
-                value={registerCrew.gunguId}
-                onChange={(e) => setRegisterCrew(prev => ({ ...prev, gunguId: e.target.value }))}
-              >
-                <option value="">선택하세요</option>
-                {gunguList.map(g => <option key={g.gunguId} value={g.gunguId}>{g.gunguName}</option>)}
-              </select>
-            </div>
+      <div css={s.mainLine}>
+        <p css={s.fontBold}>크루 정보 입력</p>
 
-            <div css={s.field}>
-              <label css={s.label}>크루명</label>
-              <input
-                css={s.input}
-                type="text"
-                placeholder="크루명을 입력하세요"
-                value={registerCrew.crewName}
-                onChange={(e) => setRegisterCrew(prev => ({ ...prev, crewName: e.target.value }))}
+        {/* 크루명 */}
+        <div css={s.field}>
+            
+          <label css={s.label}>크루명</label>
+          <div css={s.checkName}>
+            <input
+              type="text"
+              value={registerCrew.crewName}
+              onChange={(e) => setRegisterCrew(prev => ({ ...prev, crewName: e.target.value }))}
+              css={s.input}
+              placeholder="크루명을 입력하세요"
               />
-              <div css={s.buttonRow}>
-                <button css={s.subButton} onClick={handleCheckCrewNameOnClick}>중복 확인</button>
-              </div>
-            </div>
+            <button css={s.subButton} onClick={handleCheckCrewNameOnClick}>
+              중복 확인
+            </button>
+          </div>
+        </div>
 
-            <div css={s.field}>
-              <label css={s.label}>한줄 소개</label>
-              <input
-                css={s.input}
-                type="text"
-                placeholder="크루를 한줄로 소개해주세요"
-                value={registerCrew.title}
-                onChange={(e) => setRegisterCrew(prev => ({ ...prev, title: e.target.value }))}
-              />
-            </div>
+        {/* 한줄 소개 */}
+        <div css={s.field}>
+          <label css={s.label}>한줄 소개</label>
+          <input
+            type="text"
+            value={registerCrew.title}
+            onChange={(e) => setRegisterCrew(prev => ({ ...prev, title: e.target.value }))}
+            css={s.input}
+            placeholder="크루를 한줄로 소개해주세요"
+          />
+        </div>
 
-            <div css={s.field}>
-              <label css={s.label}>최대 인원</label>
-              <div css={s.numberInputRow}>
-                <input
-                  css={s.numberInput}
-                  type="number"
-                  min={10}
-                  max={100}
-                  value={registerCrew.limitedPeople}
-                  onChange={(e) => setRegisterCrew(prev => ({ ...prev, limitedPeople: e.target.value }))}
-                  onBlur={(e) => {
-                    const ok = /^(?:[1-9]\d|100)$/.test(e.target.value);
-                    if (!ok) { alert("정원은 10~100명으로 설정해주세요."); setRegisterCrew(p => ({ ...p, limitedPeople: "" })); }
-                  }}
-                />
-                <span css={s.hint}>예: 50</span>
-              </div>
-            </div>
+        {/* 최대 인원 */}
+        <div css={s.field}>
+          <label css={s.label}>최대 인원</label>
+          <div css={s.numberInputContainer}>
+            <input
+              type="number"
+              value={registerCrew.limitedPeople}
+              onChange={(e) => setRegisterCrew(prev => ({ ...prev, limitedPeople: e.target.value }))}
+              css={s.numberInput}
+              min={1}
+              max={100}
+            />
+          </div>
+        </div>
 
-            <div css={s.field}>
-              <label css={s.label}>크루 소개</label>
-              <div css={s.quill}>
-                <ReactQuill
-                  value={registerCrew.content}
-                  onChange={handleQuillOnChange}
-                  modules={{ toolbar: toolbarOptions }}
-                  placeholder="크루에 대해 자세히 소개해주세요"
-                />
-              </div>
-            </div>
+        {/* 지역 선택 */}
+        <div css={s.field}>
+          <label css={s.label}>지역 선택</label>
+          <select
+            value={registerCrew.gunguId}
+            onChange={(e) => setRegisterCrew(prev => ({ ...prev, gunguId: e.target.value }))}
+            css={s.input}
+          >
+            <option value="">지역을 선택해주세요</option>
+            {gunguList.map((g) => (
+              <option key={g.gunguId} value={g.gunguId}>{g.gunguName}</option>
+            ))}
+          </select>
+        </div>
 
-            {/* 하단 액션(선택) – 위의 '크루 등록' 버튼만 써도 OK */}
-            {/* <div css={s.buttonRow}> <button css={s.primaryButton} onClick={handleRegisterCrewOnClick}>크루 등록</button> </div> */}
+        {/* 크루 소개 */}
+        <div css={s.field}>
+          <label css={s.label}>크루 소개</label>
+          <div css={s.quillWrapper}>
+            <ReactQuill
+              value={registerCrew.content}
+              onChange={handleQuillOnChange}
+              modules={{ toolbar: toolbarOptions }}
+              placeholder="크루에 대해 자세히 소개해주세요"
+            />
           </div>
         </div>
       </div>
-    </MainContainer>
+    </div>
+  </MainContainer>
   );
 
 }

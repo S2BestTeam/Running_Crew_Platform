@@ -5,8 +5,7 @@ import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import { useCrewStore } from '../../../stores/useCrewStroes';
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
-import ContentLayout from '../../../components/ContentLayout/ContentLayout';
-import { reqCrewProfileUpdate, reqCrewThumbnailUpdate, reqCrewUpdate } from '../../../api/Crew/crewApi';
+import { reqCheckCrewName, reqCrewProfileUpdate, reqCrewThumbnailUpdate, reqCrewUpdate } from '../../../api/Crew/crewApi';
 import useCrewDetailQuery from '../../../queries/useCrewDetailQuery';
 
 function Setting(props) {
@@ -85,6 +84,20 @@ function Setting(props) {
     };
     fileInput.click();
   };
+
+  const handleCheckCrewNameOnClick = async () => {
+      if (!updateCrew.crewName.trim()) return;
+      try {
+        const response = await reqCheckCrewName(updateCrew.crewName);
+        if (response.data?.body) {
+          alert("사용 가능한 크루명 입니다!");
+        } else {
+          alert("중복된 크루명 입니다.");
+        }
+      } catch {
+        alert("중복확인 중 오류가 발생했습니다.");
+      }
+    };
 
   const validateField = (field, value) => {
     switch (field) {
@@ -246,14 +259,19 @@ function Setting(props) {
             
             <div css={s.field}>
               <label css={s.label}>크루명</label>
-              <input
-                type="text"
-                value={updateCrew.crewName}
-                onChange={handleCrewNameChange}
-                css={s.input}
-                placeholder="크루명을 입력하세요"
-              />
-              {errors.crewName && <p css={s.errorMsg}>{errors.crewName}</p>}
+              <div css={s.checkName}>
+                <input
+                  type="text"
+                  value={updateCrew.crewName}
+                  onChange={handleCrewNameChange}
+                  css={s.input}
+                  placeholder="크루명을 입력하세요"
+                  />
+                <button css={s.subButton} onClick={handleCheckCrewNameOnClick}>
+                  중복 확인
+                </button>
+                {errors.crewName && <p css={s.errorMsg}>{errors.crewName}</p>}
+              </div>
             </div>
 
             <div css={s.field}>
