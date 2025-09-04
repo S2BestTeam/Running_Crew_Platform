@@ -15,7 +15,11 @@ import com.korit.running_back_s2.service.CrewService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+<<<<<<< HEAD
 import java.util.List;
+=======
+import java.util.Map;
+>>>>>>> 110-new-기능-구현-도전
 
 @RestController
 @RequestMapping("/api/crews")
@@ -38,6 +42,7 @@ public class CrewController {
 
     @GetMapping("/duplicate/name")
     public ResponseEntity<ResponseDto<?>> checkCrewName(@RequestParam String crewName) {
+        System.out.println(crewName);
         return ResponseEntity.ok(ResponseDto.success(crewService.checkCrewNames(crewName)));
     }
 
@@ -74,6 +79,7 @@ public class CrewController {
         return ResponseEntity.ok(ResponseDto.success("크루 정보 수정 성공"));
     }
 
+<<<<<<< HEAD
     @GetMapping("/{crewId}/albums")
     public ResponseEntity<ResponseDto<List<CrewAlbumImageDto>>> getCrewAlbumImages(
             @PathVariable int crewId
@@ -81,4 +87,14 @@ public class CrewController {
         List<CrewAlbumImageDto> list = crewAlbumService.getCrewAlbumImages(crewId);
         return ResponseEntity.ok(ResponseDto.success(list));
     }
+=======
+    @GetMapping("/{crewId}/meta/latest")  // ✅ 메서드 레벨
+    public ResponseEntity<?> latest(@PathVariable Integer crewId) {
+        CrewService.SectionsLatestDto body = crewService.getSectionsLatest(crewId);
+        return ResponseEntity.ok(ResponseDto.success(body)); // {code,message,body}
+    }
+
+
+
+>>>>>>> 110-new-기능-구현-도전
 }

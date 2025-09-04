@@ -40,3 +40,6 @@ export const reqCrewUpdate = (data) => api.patch(`/api/crews/update`, data);
 export const reqCrewWithdraw = (memberId) => api.patch(`api/crews/${memberId}/withdraw`);
 
 export const reqCrewAlbum = (crewId) => api.get(`/api/crews/${crewId}/albums`);
+
+export const reqGetSectionsLatest = (crewId) =>
+  api.get(`/api/crews/${crewId}/meta/latest`);

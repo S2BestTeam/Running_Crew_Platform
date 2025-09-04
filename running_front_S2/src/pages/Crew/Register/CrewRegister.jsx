@@ -43,6 +43,7 @@ function CrewRegister(props) {
     profilePicture: "",
     thumbnailPicture: "",
   });
+
   const [isDuplicated, setDuplicated] = useState(true);
 
   const [registerCrew, setRegisterCrew] = useState({
@@ -79,16 +80,25 @@ function CrewRegister(props) {
   };
 
   const handleCheckCrewNameOnClick = async () => {
-    if (!registerCrew.crewName.trim()) return;
+    const name = registerCrew?.crewName?.trim();
+    if (!name) {
+      alert("크루명을 입력해 주세요.");
+      return;
+    }
     try {
-      const response = await reqCheckCrewName(registerCrew.crewName);
-      setDuplicated(!response.data?.body);
-      if (response.data?.body) {
-        alert("사용 가능한 크루명 입니다!");
-      } else {
+      const { data } = await reqCheckCrewName(name);
+      const raw = data?.body;
+
+      const isDuplicated =
+        raw === true || raw === "true" || raw === 1 || raw === "1";
+      setDuplicated(isDuplicated);
+      if (isDuplicated) {
         alert("중복된 크루명 입니다.");
+      } else {
+        alert("사용 가능한 크루명 입니다!");
       }
-    } catch {
+    } catch (e) {
+      console.error("checkCrewName error:", e);
       alert("중복확인 중 오류가 발생했습니다.");
     }
   };

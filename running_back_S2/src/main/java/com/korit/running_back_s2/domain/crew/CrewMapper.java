@@ -3,12 +3,18 @@ package com.korit.running_back_s2.domain.crew;
 import com.korit.running_back_s2.domain.member.Member;
 import com.korit.running_back_s2.dto.crew.CrewRoleReqDto;
 import com.korit.running_back_s2.dto.crew.CrewUpdateReqDto;
+<<<<<<< HEAD
 import com.korit.running_back_s2.dto.image.CrewAlbumRow;
+=======
+import com.korit.running_back_s2.dto.crew.SectionsLatestRaw;
+>>>>>>> 110-new-기능-구현-도전
 import com.korit.running_back_s2.dto.ranking.CrewRankingRespDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface CrewMapper {
@@ -39,8 +45,12 @@ public interface CrewMapper {
 
     int updateCrew(CrewUpdateReqDto dto);
 
+<<<<<<< HEAD
     List<CrewAlbumRow> findContentsByCrewId(@Param("crewId") int crewId);
 
+=======
+    SectionsLatestRaw selectSectionsLatest(@Param("crewId") Integer crewId);
+>>>>>>> 110-new-기능-구현-도전
 
 
 //    int withDrawCrew(Integer crewId, Integer userId);

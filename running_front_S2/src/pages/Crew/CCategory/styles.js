@@ -77,6 +77,7 @@ export const getout = css`
   }
 `;
 
+<<<<<<< HEAD
 export const navButton = css`
   position: relative;
   display: flex;
@@ -158,4 +159,12 @@ export const numberBadge = css`
   border-radius: 9px;
   margin-left: 8px;
   padding: 0 4px;
+=======
+export const newBadge = css`
+  padding: 1px 6px;
+  font-size: 11px;
+  border: 1px solid #ff3b30;
+  border-radius: 999px;
+  line-height: 1;
+>>>>>>> 110-new-기능-구현-도전
 `;

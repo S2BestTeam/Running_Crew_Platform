@@ -3,9 +3,7 @@ package com.korit.running_back_s2.service;
 import com.korit.running_back_s2.domain.crew.Crew;
 import com.korit.running_back_s2.domain.crew.CrewMapper;
 import com.korit.running_back_s2.domain.crew.CrewSearchOption;
-import com.korit.running_back_s2.domain.member.Member;
 import com.korit.running_back_s2.domain.member.MemberMapper;
-import com.korit.running_back_s2.domain.user.User;
 import com.korit.running_back_s2.dto.crew.*;
 import com.korit.running_back_s2.dto.response.PaginationRespDto;
 import com.korit.running_back_s2.security.model.PrincipalUtil;
@@ -17,7 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -136,5 +137,29 @@ public class CrewService {
     public void updateCrew(CrewUpdateReqDto dto) {
         crewMapper.updateCrew(dto);
     }
+<<<<<<< HEAD
+=======
+
+
+
+    public record SectionsLatestDto(String members, String gatherings, String freeBoards, String notices) {}
+
+    public SectionsLatestDto getSectionsLatest(Integer crewId) {
+        SectionsLatestRaw r = crewMapper.selectSectionsLatest(crewId);
+        Function<Timestamp,String> toIso = ts -> ts == null ? null : ts.toInstant().toString();
+        return new SectionsLatestDto(
+                toIso.apply(r.getMembers()),
+                toIso.apply(r.getGatherings()),
+                toIso.apply(r.getFreeBoards()),
+                toIso.apply(r.getNotices())
+        );
+    }
+//    public void CrewWithDraw (Integer crewId) {
+//        Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
+//        crewMapper.withDraw(crewId, userId);
+//    }
+
+
+>>>>>>> 110-new-기능-구현-도전
 }
 
