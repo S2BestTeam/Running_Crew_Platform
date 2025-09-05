@@ -16,35 +16,34 @@ export const searchBox = css`
   justify-content: right;
   align-items: center;
   margin: 2rem 0 2rem 0;
-  flex: 1 1 auto;   /* 남는 공간 채우기 + 줄어들 수 있게 */
-  min-width: 0;     /* flex 자식이 부모 폭을 넘지 않게 */
+  flex: 1 1 auto;   
+  min-width: 0;   
 `;
 
 export const inputGroup = css`
   display: flex;
   min-width: 0;   /* 부모 폭 제한 */
 `;
-
 export const searchInput = css`
-  flex: 1 0 auto;  /* 남는 공간 채우기 + 줄어들기 허용 */
-  min-width: 0;    /* flex 자식이 부모 폭을 넘지 않게 */
   height: 3.425rem;
   box-sizing: border-box;
   padding: 0.8rem;
-  border: 0.1rem solid #ccc;
+  border: 0.1rem solid var(--main-color);
   border-right: none;
   border-radius: 0.6rem 0 0 0.6rem;
   outline: none;
 `;
 
 export const searchButton = css`
+  display: flex;
   height: 3.425rem;
   box-sizing: border-box;
-  padding: 0.8rem 1.2rem;
-  border: 0.1rem solid #dbdbdb;
+  padding: 0.5rem 0.5rem;
+  border: 0.1rem solid var(--main-color);
   border-left: none;
-  background: #000;
-  color: white;
+  background: #fff;
+  color: var(--main-color);
+  font-size: 1.8rem;
   border-radius: 0 0.6rem 0.6rem 0;
   cursor: pointer;
   align-items: center;

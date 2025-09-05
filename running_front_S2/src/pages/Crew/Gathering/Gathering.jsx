@@ -84,7 +84,7 @@ function Gathering() {
   };
 
   return (
-    <ContentLayout>
+    <>
       <div css={s.layout}>
         <header css={s.header}>
           <h2>정모 일정</h2>
@@ -173,7 +173,7 @@ function Gathering() {
         gathering={selectedGathering}
         onUpdateParticipants={handleUpdateParticipants}
       />
-    </ContentLayout>
+    </>
   );
 }
 

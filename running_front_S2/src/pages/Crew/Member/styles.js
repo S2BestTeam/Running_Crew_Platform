@@ -33,17 +33,17 @@ export const searchBar = css`
 
   > button {
     flex: 0 0 auto;
-    height: 36px;
-    padding: 0 12px;
-    font-size: 14px;
-    border: 1px solid #dbdbdb;
+    height: 3.6rem;
+    padding: 0 1.2rem;
+    font-size: 1.4rem;
+    border: 0.1rem solid var(--sub-color);
     border-radius: 0.5rem;
-    background: black;
+    background: var(--main-color);
     color: white;
     cursor: pointer;
     white-space: nowrap;
     &:hover { 
-      background: gray; 
+      background: var(--sub-color); 
     }
   }
 `;
@@ -71,8 +71,7 @@ export const memberItem = css`
   min-width: 0;
 
   &:hover {
-    background: #b4b4b4ff;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    background: var(--sub-color);
   }
 `;
 
@@ -95,19 +94,19 @@ export const profileImg = css`
 export const textBox = css`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* 위쪽 정렬 */
-  align-items: flex-start;     /* 왼쪽 정렬 */
+  justify-content: flex-start; 
+  align-items: flex-start;     
   min-width: 0;
   word-break: break-word;
-  gap: 2px; /* 닉네임과 실명 간격 */
+  gap: 0.2rem; 
 `;
 
 export const nickname = css`
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 0.6rem;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 1.5rem;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -117,7 +116,7 @@ export const nickname = css`
 export const fullName = css`
   align-self: flex-start;   /* 부모의 왼쪽에 붙도록 보장 */
   color: #888;
-  font-size: 13px;
+  font-size: 1.3rem;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;

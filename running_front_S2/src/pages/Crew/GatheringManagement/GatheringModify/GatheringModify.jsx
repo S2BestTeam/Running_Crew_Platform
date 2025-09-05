@@ -245,9 +245,14 @@ function GatheringModify() {
             onChange={handleInputOnChange}
           />
 
-          <button css={s.registerButton} onClick={handleUpdateOnClick}>
-            수정하기
-          </button>
+          <div css={s.buttonContainer}>
+            <button css={s.cancelButton} onClick={() => navigate(-1)}>
+              취소
+            </button>
+            <button css={s.registerButton} onClick={handleUpdateOnClick}>
+              저장
+            </button>
+          </div>
         </main>
       </div>
     </ContentLayout>

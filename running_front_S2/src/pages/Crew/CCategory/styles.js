@@ -22,7 +22,7 @@ export const crewImgBox = css`
   margin-right: 1rem;
   width: 4rem;
   height: 4rem;
-  background-color: black;
+  background-color: var(--main-color);
   overflow: hidden;
 
   & > img {
@@ -163,7 +163,7 @@ export const numberBadge = css`
 export const newBadge1 = css`
   padding: 1px 6px;
   font-size: 11px;
-  border: 1px solid #ff3b30;
+  border: 1px solid var(--point-color);
   border-radius: 999px;
   line-height: 1;
 `;

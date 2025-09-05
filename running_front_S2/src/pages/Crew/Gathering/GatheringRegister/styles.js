@@ -26,8 +26,7 @@ export const main = css`
 
     &:focus {
       outline: none;
-      border-color: #000;
-      box-shadow: 0 0 0 3px rgba(76, 175, 239, 0.2);
+      border-color: var(--main-color);
     }
   }
 `;
@@ -45,12 +44,9 @@ export const thumbnailContainer = css`
 
   & svg {
     font-size: 8rem;
-    color: #dbdbdb;
+    color: var(--sub-color);
   }
 
-  &:hover {
-    border-color: #000;
-  }
 `;
 
 export const thumbnailImg = css`
@@ -104,7 +100,7 @@ export const addressWrapper = css`
 
   & > button {
     padding: 0 1.6rem;
-    background: #000;
+    background: var(--main-color);
     color: #fff;
     border: none;
     border-radius: 0.8rem;
@@ -112,7 +108,7 @@ export const addressWrapper = css`
     transition: background 0.2s;
 
     &:hover {
-      background: #000;
+      background: var(--main-color);
     }
   }
 `;
@@ -127,10 +123,10 @@ export const registerButton = css`
   width: 12rem;
   height: 4rem;
   border-radius: 0.8rem;
-  background: #000;
+  background: var(--main-color);
   color: #fff;
   cursor: pointer;
-
+  border: none;
 `;
 
 export const cancelButton = css`
@@ -138,7 +134,7 @@ export const cancelButton = css`
   height: 4rem;
   border-radius: 0.8rem;
   background: #ffffff;
-  border: solid 0.1rem #000;
+  border: solid 0.1rem var(--main-color);
   color: #000;
   cursor: pointer;
   &:disabled {
