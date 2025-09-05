@@ -13,7 +13,7 @@ function Header() {
   const queryClient = useQueryClient();
   const userInfo = principalQuery?.data?.data?.body?.user;
 
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(true);
   const navigate = useNavigate();
 
   const handleNavigate = (path) => {
@@ -52,11 +52,21 @@ function Header() {
         onMouseLeave={() => setShowDropdown(true)}
       >
         <ul css={s.menu}>
-          <li><a>크루정보</a></li>
-          <li><a>랭킹정보</a></li>
-          <li><a>커뮤니티</a></li>
-          <li><a>대회일정</a></li>
-          <li><a>고객센터</a></li>
+          <li>
+            <a>크루정보</a>
+          </li>
+          <li>
+            <a>랭킹정보</a>
+          </li>
+          <li>
+            <a>커뮤니티</a>
+          </li>
+          <li>
+            <a>대회일정</a>
+          </li>
+          <li>
+            <a>고객센터</a>
+          </li>
         </ul>
       </nav>
 
@@ -99,18 +109,18 @@ function Header() {
             <Settings />
           </div>
         )}
+        <div css={s.icon} onClick={handleProfileClick}>
+          {userInfo?.picture ? (
+            <div css={s.profileImgBox}>
+              <img src={userInfo.picture} alt="프로필 이미지" />
+            </div>
+          ) : (
+            <FiUser />
+          )}
+        </div>
         <div css={s.icon} onClick={handleLogout}>
           <TbLogout />
         </div>
-        <div css={s.icon} onClick={handleProfileClick}>
-        {userInfo?.picture ? (
-          <div css={s.profileImgBox}>
-            <img src={userInfo.picture} alt="프로필 이미지" />
-          </div>
-        ) : (
-          <FiUser />
-        )}
-      </div>
       </div>
     </header>
   );
