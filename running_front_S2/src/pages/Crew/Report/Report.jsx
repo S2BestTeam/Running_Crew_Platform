@@ -1,9 +1,8 @@
-import { useState } from "react";
-import useGetReportListQuery from "../../../queries/useGetReportListQuery";
 /** @jsxImportSource @emotion/react */
 import * as s from "./styles";
+import { useState } from "react";
+import useGetReportListQuery from "../../../queries/useGetReportListQuery";
 import MemberModal from "../Member/MemberModal/MemberModal";
-import ContentLayout from "../../../components/ContentLayout/ContentLayout";
 import { useCrewStore } from "../../../stores/useCrewStroes";
 
 function Report({ isCrewLeader }) {
@@ -26,6 +25,9 @@ function Report({ isCrewLeader }) {
 
   return (
     <>
+      <div css={s.title}>
+        <h2>신고 사항</h2>
+      </div>
       <table css={s.table}>
         <thead>
           <tr>
@@ -38,7 +40,7 @@ function Report({ isCrewLeader }) {
         <tbody>
           {reportList.length === 0 ? (
             <tr>
-              <td>신고 내역이 없습니다.</td>
+              <td style={{ paddingLeft : "2rem"}}>신고 내역이 없습니다.</td>
             </tr>
           ) : (
             reportList.map((r) => (

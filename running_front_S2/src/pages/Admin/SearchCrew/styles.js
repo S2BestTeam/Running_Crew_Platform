@@ -1,5 +1,111 @@
 import { css } from "@emotion/react";
 
+export const container = css`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  padding: 3rem;
+  box-sizing: border-box;
+  font-size: 3rem;
+`;
+
+export const searchBox = css`
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+`;
+
+export const searchInput = css`
+  flex: 1;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1.6rem;
+`;
+
+export const searchButton = css`
+  padding: 0.8rem 2rem;
+  background: #000000ff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1.6rem;
+  &:hover {
+    background: gray;
+  }
+`;
+
+export const tableWrapper = css`
+  flex: 1;
+  overflow-y: auto;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+`;
+
+export const table = css`
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+  font-size: 1.6rem;
+
+  thead {
+    position: sticky;
+    top: 0;
+    background: #f8f9fa;
+    z-index: 1;
+  }
+
+  th {
+    padding: 1rem;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 2px solid #dee2e6;
+    text-align: center;
+    font-size: 1.6rem;
+  }
+
+  td {
+    padding: 1rem;
+    color: #555;
+    border-bottom: 1px solid #f1f3f5;
+    text-align: center;
+    line-height: 1.5; /* 행 간격 여유 */
+  }
+
+  tr:hover td {
+    background: #b9b9b9ff;
+  }
+`;
+
+export const thumbnail = css`
+  width: 70px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+  background: #f0f0f0;
+`;
+
+export const detailButton = css`
+  padding: 0.6rem 1.6rem;
+  cursor: pointer;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  background-color: black;
+  color: white;
+`;
+
+export const paginationWrapper = css`
+  margin-top: 1rem;
+  text-align: center;
+  flex-shrink: 0;
+  font-size: 1.1rem;
+`;
+
 export const overlay = css`
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -7,23 +113,25 @@ export const overlay = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
   padding: 2rem;
+  z-index: 9999;
 `;
 
 export const modal = css`
   background: #fff;
   border-radius: 0.8rem;
   width: 80%;
+  max-width: 1200px;
   max-height: 90%;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  font-size: 1.6rem; /* SearchCrew와 비슷한 크기 */
 `;
 
 export const header = css`
   padding: 2rem;
-  border-bottom: 0.1rem solid #eee;
+  border-bottom: 1px solid #eee;
 `;
 
 export const headerTop = css`
@@ -63,10 +171,9 @@ export const crewMeta = css`
   }
 `;
 
-// 탭
 export const tabs = css`
   display: flex;
-  border-bottom: 0.1rem solid #ddd;
+  border-bottom: 1px solid #ddd;
   background-color: #f8f9fa;
 `;
 
@@ -88,169 +195,9 @@ export const content = css`
   flex: 1;
 `;
 
-export const memberItem = (withBorder) => css`
-  display: flex;
-  align-items: center;
-  padding: 1.2rem 0;
-  border-bottom: ${withBorder ? "0.1rem solid #f0f0f0" : "none"};
-  gap: 1.2rem;
-  position: relative;
-`;
-
-export const memberAvatar = css`
-  width: 3.6rem;
-  height: 3.6rem;
-  border-radius: 50%;
-  object-fit: cover;
-  background-color: #f5f5f5;
-`;
-
-export const memberInfo = css`
-  flex: 1;
-`;
-
-export const memberName = css`
-  font-weight: 500;
-  font-size: 1.4rem;
-  color: #333;
-  margin-bottom: 0.2rem;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  span {
-    font-size: 1.2rem;
-  }
-`;
-
-export const memberFullName = css`
-  font-size: 1.2rem;
-  color: #666;
-`;
-
-export const memberActions = css`
-  display: flex;
-  align-items: center;
-  gap: 1rem; 
-`;
-
-export const memberDate = css`
-  font-size: 1.1rem; 
-  color: #999;
-`;
-
-export const settingsBtn = css`
-  cursor: pointer;
-  padding: 0.4rem;
-  border-radius: 0.4rem; 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s ease;
-  &:hover {
-    background-color: #f0f0f0;
-  }
-`;
-
-export const memberMenu = css`
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-  background: #fff;
-  border: 0.1rem solid #ddd; 
-  border-radius: 0.4rem;
-  box-shadow: 0 0.2rem 0.6rem rgba(0,0,0,0.1); 
-  z-index: 10;
-  min-width: 14rem;
-`;
-
-export const menuItem = css`
-  padding: 0.8rem 1.2rem;
-  cursor: pointer;
-  font-size: 1.3rem; 
-  border-bottom: 0.1rem solid #eee;
-  &:last-of-type {
-    border-bottom: none;
-  }
-  &:hover {
-    background: #f9f9f9;
-  }
-`;
-
-export const menuPrimary = css`
-  color: #007bff;
-  font-weight: 500;
-`;
-
-export const menuDanger = css`
-  color: red;
-  font-weight: 500;
-`;
-
-export const emptyState = css`
-  text-align: center;
-  padding: 4rem; 
-  color: #666;
-`;
-
-export const loadMoreWrapper = css`
-  text-align: center;
-  margin-top: 2rem;
-`;
-
-export const loadMoreBtn = css`
-  padding: 0.8rem 1.6rem; 
-  border: 0.1rem solid #ddd;
-  border-radius: 0.4rem;
-  background: #fff;
-  color: #666;
-  cursor: pointer;
-  font-size: 1.3rem;
-`;
-
-export const gatheringItem = (withBorder) => css`
-  padding: 1.5rem 0;
-  border-bottom: ${withBorder ? "0.1rem solid #f0f0f0" : "none"};
-`;
-
-export const gatheringTitle = css`
-  font-weight: 500;
-  font-size: 1.5rem; 
-  color: #333;
-  margin-bottom: 0.8rem; 
-`;
-
-export const gatheringContent = css`
-  font-size: 1.3rem;
-  color: #666;
-  line-height: 1.4;
-  div {
-    margin-bottom: 0.4rem;
-  }
-`;
-
-export const gatheringMeta = css`
-  display: flex;
-  gap: 1.5rem; 
-  margin-top: 0.6rem; 
-`;
-
-export const notice = css`
-  text-align: center;
-  padding: 2rem;
-`;
-
-export const noticeImg = css`
-  width: 15rem;
-  height: 15rem;
-  border-radius: 50%;
-  object-fit: cover;
-  background-color: #f5f5f5;
-`;
-
 export const footer = css`
   padding: 1.5rem 2rem;
-  border-top: 0.1rem solid #eee;
+  border-top: 1px solid #eee;
   text-align: right;
 `;
 
@@ -262,94 +209,7 @@ export const closeBtn = css`
   color: #fff;
   cursor: pointer;
   font-size: 1.4rem;
-`;
-
-export const container = css`
-    text-align: center;
-    margin: 0 auto;
-    width: 80%;
-`;
-
-export const tabActive = css`
-  color: #000;
-  font-weight: 500;
-`;
-
-export const searchBox = css`
-  display: flex;
-  justify-content: right;
-  align-items: center;
-  margin: 2rem 0 2rem 0;
-`;
-
-export const inputGroup = css`
-    display: flex;
-`;
-
-export const searchInput = css`
-    height: 3.425rem;
-    box-sizing: border-box;
-  padding: 0.8rem;
-  border: 0.1rem solid #ccc;
-  border-right: none;
-border-radius: 0.6rem 0 0 0.6rem;
-  outline: none;
-`;
-
-export const searchButton = css`
-    height: 3.425rem;
-    box-sizing: border-box;
-  padding: 0.8rem 1.2rem;
-  border: 0.1rem solid #000;
-  border-left: none;
-  background: #000;
-  color: white;
-  border-radius: 0 0.6rem 0.6rem 0;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  margin-right: 0.5rem;
-`;
-
-
-export const registerButton = css`
-  width: 12rem;
-  padding: 0.6rem 1.2rem;
-  background: #000;
-  color: white;
-  border-radius: 0.6rem;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-`;
-
-
-export const table = css`
-  width: 100%;
-  border-collapse: collapse;
-  text-align: center;
-`;
-
-export const tr = css`
-  cursor: pointer;
-
-  :hover {
-    background-color: #cececeff;
+  &:hover {
+    background: #0056b3;
   }
-`;
-
-export const th = css`
-  padding: 1.2rem;
-  border-bottom: 0.2rem solid #000;
-  font-weight: 600;
-`;
-
-export const td = css`
-  padding: 1rem;
-  border-bottom: 1px solid #eee;
-`;
-
-export const tdTitle = css`
-  ${td};
-  text-align: left;
 `;

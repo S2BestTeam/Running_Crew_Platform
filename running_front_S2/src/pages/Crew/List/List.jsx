@@ -10,11 +10,8 @@ import { FiHeart } from "react-icons/fi";
 import { motion } from "framer-motion";
 import usePrincipalQuery from "../../../queries/usePrincipalQuery";
 import { useCrewStore } from "../../../stores/useCrewStroes";
-import {
-  addWishlist,
-  getUserWishlist,
-  removeWishlist,
-} from "../../../api/Crew/wishlistApi";
+import { Select, MenuItem } from "@mui/material";
+import { addWishlist, getUserWishlist, removeWishlist } from "../../../api/Crew/wishlistApi";
 import { IoSearch } from "react-icons/io5";
 import useGetCrewRankingQuery from "../../../queries/useGetCrewRankingQuery";
 
@@ -165,18 +162,23 @@ function List() {
       <div css={s.layout}>
         <h2>지역별 크루</h2>
         <div css={s.headerBox}>
-          <select
+          <Select
+            css={s.selectBox}
             value={selectedGunguId}
             onChange={handleGunguChange}
-            css={s.selectBox}
+            displayEmpty
           >
-            <option value="">전체</option>
+            <MenuItem value="" css={s.menuItem}>전체</MenuItem>
             {gunguList.map((gungu) => (
-              <option key={gungu.gunguId} value={gungu.gunguId}>
+              <MenuItem
+                key={gungu.gunguId}
+                value={gungu.gunguId}
+                css={s.menuItem}
+              >
                 {gungu.gunguName}
-              </option>
+              </MenuItem>
             ))}
-          </select>
+          </Select>
 
           <div css={s.inputGroup}>
             <input

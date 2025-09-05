@@ -8,6 +8,7 @@ import usePrincipalQuery from "../../../queries/usePrincipalQuery";
 import useGetMyCrewsQuery from "../../../queries/useGetMyCrewsQuery";
 import useGetMyPostQuery from "../../../queries/useGetMyPostQuery";
 import Pagination from "../../../components/Pagination/Pagination";
+import { MenuItem, Select } from "@mui/material";
 
 const SRC_OPTIONS = [
   { value: "", label: "전체" },
@@ -141,30 +142,56 @@ export default function Post() {
   return (
     <div css={s.container}>
       <h2>내가 쓴 글</h2>
-      <div css={s.searchBox} >
+      <div css={s.searchBox}>
         <div css={s.inputGroup}>
-          <div>
-            <select value={src} onChange={handleSrcChange} css={s.select}>
-              {SRC_OPTIONS.map((op) => (
-                <option key={op.value} value={op.value}>
-                  {op.label}
-                </option>
-              ))}
-            </select>
-            <select value={crewId} onChange={handleCrewChange} css={s.select}>
-              <option value="">내 크루: 전체</option>
+          <div css={s.selectGroup}>
+            <Select
+              css={s.selectBox}
+              value={src}
+              onChange={handleSrcChange}
+              displayEmpty
+            >
+                {SRC_OPTIONS.map((op) => (
+                  <MenuItem
+                    key={op.value}
+                    value={op.value}
+                    css={s.menuItem}
+                  >
+                    {op.label}
+                  </MenuItem>
+                ))}
+            </Select>
+            <Select
+              css={s.selectBox}
+              value={crewId}
+              onChange={handleCrewChange}
+              displayEmpty
+            >
+              <MenuItem value="" css={s.menuItem}>내 크루: 전체</MenuItem>
               {myCrews.map((c) => (
-                <option key={c.crewId} value={String(c.crewId)}>
-                  {c.crewName ?? `Crew #${c.crewId}`}
-                </option>
-              ))}
-            </select>
+                  <MenuItem
+                    key={c.crewId}
+                    value={String(c.crewId)}
+                    css={s.menuItem}
+                  >
+                    {c.crewName ?? `Crew #${c.crewId}`}
+                  </MenuItem>
+                ))}
+            </Select>
           </div>
 
-          <input type="text" placeholder="제목/내용 검색" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} css={s.searchInput} />
-          <button css={s.searchButton} onClick={handleSearchOnClick}>
-            <IoSearch />
-          </button>
+          <div css={s.searchGroup}>
+            <input 
+              type="text" 
+              placeholder="제목/내용 검색" 
+              value={searchInput} 
+              onChange={(e) => setSearchInput(e.target.value)} 
+              css={s.searchInput} 
+            />
+            <button css={s.searchButton} onClick={handleSearchOnClick}>
+              <IoSearch />
+            </button>
+          </div>
         </div>
       </div>
 

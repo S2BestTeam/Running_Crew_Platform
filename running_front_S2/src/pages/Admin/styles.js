@@ -4,11 +4,13 @@ import { css } from "@emotion/react";
 export const container = css`
   display: flex;
   height: 100vh;
-  background-color: #f3f4f6;
+  background-color: white;
 `;
 
 export const sidebar = css`
-  width: 256px;
+  width: 240px;
+  flex-shrink: 0;
+
   background-color: white;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   display: flex;
@@ -190,7 +192,8 @@ export const userAvatar = css`
 
 export const contentArea = css`
   flex: 1;
-  overflow: auto;
+  overflow-y: auto;
+
   background-color: #f9fafb;
   padding: 24px;
 `;

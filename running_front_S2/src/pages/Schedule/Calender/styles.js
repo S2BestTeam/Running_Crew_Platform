@@ -6,6 +6,7 @@ export const mainLayout = css`
   height: 100%;
   align-items: flex-start;
   width: 100%;
+  padding-bottom: 3rem;
 `;
 
 export const calendarWrapper = css`

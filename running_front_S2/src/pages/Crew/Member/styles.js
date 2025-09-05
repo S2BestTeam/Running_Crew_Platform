@@ -1,8 +1,11 @@
 import { css } from "@emotion/react";
 
 export const layout = css`
+  text-align: center;
+  margin: 0 auto;
   width: 100%;
   min-width: 0;
+  padding-bottom: 3rem;
 `;
 
 export const asd = css`
@@ -92,7 +95,8 @@ export const profileImg = css`
 export const textBox = css`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start; /* 위쪽 정렬 */
+  align-items: flex-start;     /* 왼쪽 정렬 */
   min-width: 0;
   word-break: break-word;
   gap: 2px; /* 닉네임과 실명 간격 */
@@ -104,7 +108,6 @@ export const nickname = css`
   gap: 6px;
   font-weight: 700;
   font-size: 15px;
-  line-height: 1.2;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -112,6 +115,7 @@ export const nickname = css`
 `;
 
 export const fullName = css`
+  align-self: flex-start;   /* 부모의 왼쪽에 붙도록 보장 */
   color: #888;
   font-size: 13px;
   min-width: 0;

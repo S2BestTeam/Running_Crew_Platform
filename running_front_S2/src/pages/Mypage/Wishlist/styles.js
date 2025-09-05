@@ -1,9 +1,10 @@
 import { css } from "@emotion/react";
 
 export const container = css`
+  text-align: center;
+  margin: 0 auto;
   width: 100%;
-  padding: 2rem;
-  box-sizing: border-box;
+  padding-bottom: 3rem;
 `;
 
 export const headerBox = css`
@@ -11,7 +12,6 @@ export const headerBox = css`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 1.5rem;
   border-bottom: 1px solid #eee;
 `;
 
@@ -40,7 +40,7 @@ export const card = css`
 export const thumbnailBox = css`
   position: relative;
   width: 100%;
-  padding-top: 70%; /* 비율 유지 */
+  padding-top: 70%;
   overflow: hidden;
 
   & > img {

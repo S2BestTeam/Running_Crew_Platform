@@ -96,7 +96,7 @@ export const content = css`
     border-radius: 8px;
   }
   a {
-    color: #2563eb;
+    color: #575757ff;
     text-decoration: underline;
   }
 `;
@@ -117,7 +117,7 @@ export const answerMeta = css`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: #0c4a6e;
+  color: #474747ff;
   font-size: 13px;
   margin-bottom: 10px;
 `;

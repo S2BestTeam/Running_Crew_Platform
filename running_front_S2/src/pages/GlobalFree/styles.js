@@ -6,11 +6,6 @@ export const container = css`
     width: 80%;
 `;
 
-export const tabActive = css`
-  color: #000;
-  font-weight: 500;
-`;
-
 export const searchBox = css`
   display: flex;
   justify-content: right;

@@ -1,9 +1,10 @@
+/** @jsxImportSource @emotion/react */
 import { useState } from "react";
-import { BiSolidChevronLeftSquare, BiSolidChevronRightSquare } from "react-icons/bi";
 import { useSearchParams } from "react-router-dom";
 import useGetCrewListQuery from "../../../queries/useGetCrewListQuery";
 import CrewDetailModal from "./CrewDetailModal";
 import Pagination from "../../../components/Pagination/Pagination";
+import * as s from "./styles";
 
 function SearchCrew() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -22,8 +23,10 @@ function SearchCrew() {
   if (crewListQuery.isLoading) return <div>Loading...</div>;
   if (crewListQuery.isError) return <div>Error: {crewListQuery.error.message}</div>;
 
-  const crews = crewListQuery.data?.pages?.flatMap(p => p?.data?.body?.contents || []) || [];
-  const totalPages = crewListQuery.data?.pages?.[0]?.data?.body?.totalPages || 1;
+  const crews =
+    crewListQuery.data?.pages?.flatMap((p) => p?.data?.body?.contents || []) || [];
+  const totalPages =
+    crewListQuery.data?.pages?.[0]?.data?.body?.totalPages || 1;
 
   const handleSearchOnChange = (e) => setSearchInput(e.target.value);
   const handleSearchOnKeyDown = (e) => e.key === "Enter" && handleSearchOnClick();
@@ -38,69 +41,76 @@ function SearchCrew() {
   };
 
   return (
-    <div style={{ padding: "1rem" }}>
-      <div style={{ marginBottom: "1rem" }}>
+    <div css={s.container}>
+      {/* 검색 영역 */}
+      <div css={s.searchBox}>
         <input
           type="text"
           value={searchInput}
           onChange={handleSearchOnChange}
           onKeyDown={handleSearchOnKeyDown}
           placeholder="크루명 검색"
+          css={s.searchInput}
         />
-        <button onClick={handleSearchOnClick}>검색</button>
+        <button onClick={handleSearchOnClick} css={s.searchButton}>
+          검색
+        </button>
       </div>
 
-      <table border="1" cellPadding="6" cellSpacing="0" width="100%">
-        <thead>
-          <tr>
-            <th>크루 ID</th>
-            <th>썸네일</th>
-            <th>크루 이름</th>
-            <th>제목</th>
-            <th>군구</th>
-            <th>상세보기</th>
-          </tr>
-        </thead>
-        <tbody>
-          {crews.length === 0 ? (
+      {/* 테이블 */}
+      <div css={s.tableWrapper}>
+        <table css={s.table}>
+          <thead>
             <tr>
-              <td colSpan="6">검색 결과가 없습니다.</td>
+              <th>크루 ID</th>
+              <th>썸네일</th>
+              <th>크루 이름</th>
+              <th>제목</th>
+              <th>군구</th>
+              <th>상세보기</th>
             </tr>
-          ) : (
-            crews.map((crew) => (
-              <tr key={crew.crewId}>
-                <td>{crew.crewId}</td>
-                <td style={{ width: "80px" }}>
-                  <img
-                    src={crew.thumbnailPicture}
-                    alt={crew.crewName}
-                    style={{
-                      width: "80px",
-                      height: "60px",
-                      objectFit: "cover",
-                      display: "block",
-                    }}
-                    onError={(e) => { e.target.style.display = "none"; }}
-                  />
-                </td>
-                <td>{crew.crewName}</td>
-                <td>{crew.title}</td>
-                <td>{crew.gunguName}</td>
-                <td>
-                  <button onClick={() => setSelectedCrew(crew)}>상세보기</button>
-                </td>
+          </thead>
+          <tbody>
+            {crews.length === 0 ? (
+              <tr>
+                <td colSpan="6">검색 결과가 없습니다.</td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+            ) : (
+              crews.map((crew) => (
+                <tr key={crew.crewId}>
+                  <td>{crew.crewId}</td>
+                  <td>
+                    <img
+                      src={crew.thumbnailPicture}
+                      alt={crew.crewName}
+                      css={s.thumbnail}
+                      onError={(e) => {
+                        e.target.style.display = "none";
+                      }}
+                    />
+                  </td>
+                  <td>{crew.crewName}</td>
+                  <td>{crew.title}</td>
+                  <td>{crew.gunguName}</td>
+                  <td>
+                    <button css={s.detailButton} onClick={() => setSelectedCrew(crew)}>상세보기</button>
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
 
-       <Pagination
-              page={page}                // 1-base 현재 페이지
-              totalPages={totalPages}    // 총 페이지 수
-              onChange={(p) => goPage(p)}// 페이지 변경 핸들러
-               windowSize={1} 
-            />
+      {/* 페이지네이션 */}
+      <div css={s.paginationWrapper}>
+        <Pagination
+          page={page}
+          totalPages={totalPages}
+          onChange={(p) => goPage(p)}
+          windowSize={1}
+        />
+      </div>
 
       {selectedCrew && (
         <CrewDetailModal crew={selectedCrew} onClose={() => setSelectedCrew(null)} />

@@ -99,9 +99,14 @@ function Header() {
             <Settings />
           </div>
         )}
-        <div css={s.icon} onClick={handleLogout}>
-          <TbLogout />
-        </div>
+        {
+          userInfo && 
+          (
+            <div css={s.icon} onClick={handleLogout}>
+              <TbLogout />
+            </div>
+          )
+        }
         <div css={s.icon} onClick={handleProfileClick}>
         {userInfo?.picture ? (
           <div css={s.profileImgBox}>

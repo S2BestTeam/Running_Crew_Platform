@@ -1,5 +1,11 @@
 import { css } from "@emotion/react";
 
+export const title = css`
+  text-align: center;
+  margin: 0 auto;
+  width: 100%;
+`;
+
 export const table = css`
   width: 100%;
   border-collapse: collapse;
