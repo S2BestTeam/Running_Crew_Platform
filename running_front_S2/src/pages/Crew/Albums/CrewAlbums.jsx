@@ -56,6 +56,7 @@ export default function CrewAlbums() {
 
   return (
     <div css={s.wrap}>
+      <h2>사진첩</h2>
       <div css={s.grid}>
         {showing.map((p, i) => (
           <div key={`${p.freeId ?? "noid"}-${i}`} css={s.card}>

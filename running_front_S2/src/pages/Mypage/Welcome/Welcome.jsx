@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+import * as s from './styles';
 import { useEffect, useState } from "react";
 import { reqDeleteMyWelcome, reqMyWelcome, reqUpdateMyWelcome } from "../../../api/Crew/welcomeApi";
 import usePrincipalQuery from "../../../queries/usePrincipalQuery";
@@ -48,55 +50,84 @@ function Welcome() {
   };
 
   return (
-    <div>
-      <table>
+    <div css={s.container}>
+      <h2>크루 신청 내역</h2>
+      <table css={s.table}>
         <thead>
           <tr>
-            <th>No.</th>
-            <th>크루</th>
-            <th>가입 인사</th>
-            <th>요청 상태</th>
-            <th>작성일</th>
-            <th>변경</th>
+            <th css={s.th}>No.</th>
+            <th css={s.th}>크루</th>
+            <th css={s.th}>가입 인사</th>
+            <th css={s.th}>요청 상태</th>
+            <th css={s.th}>작성일</th>
+            <th css={s.th}>변경</th>
           </tr>
         </thead>
         <tbody>
           {myWelcomes.map((welcome, index) => (
             <tr key={welcome.welcomeId}>
-              <td>{index + 1}</td>
-              <td>
-                <img
-                  src={welcome.profilePicture}
-                  alt="크루 프로필 이미지"
-                  style={{ width: "40px", borderRadius: "50%", marginRight: "8px" }}
-                />
-                {welcome.crewName}
+              <td css={s.td}>{index + 1}</td>
+              <td css={s.td}>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                  <img
+                    src={welcome.profilePicture}
+                    alt="크루 프로필 이미지"
+                    style={{ width: "40px", borderRadius: "50%" }}
+                  />
+                  {welcome.crewName}
+                </div>
               </td>
-              <td>
+              <td css={s.td}>
                 {editingId === welcome.welcomeId ? (
                   <input
                     type="text"
                     placeholder={welcome.content}
                     value={editContent}
                     onChange={(e) => setEditContent(e.target.value)}
+                    style={{
+                      width: "100%",
+                      padding: "6px 10px",
+                      borderRadius: "6px",
+                      border: "1px solid #ccc",
+                    }}
                   />
                 ) : (
                   welcome.content
                 )}
               </td>
-              <td>{welcome.status}</td>
-              <td>{new Date(welcome.createdAt).toLocaleDateString("ko-KR")}</td>
-              <td>
+              <td css={s.td}>{welcome.status}</td>
+              <td css={s.td}>
+                {new Date(welcome.createdAt).toLocaleDateString("ko-KR")}
+              </td>
+              <td css={s.td}>
                 {welcome.status === "거절" ? null : (
                   editingId === welcome.welcomeId ? (
                     <>
-                      <button onClick={() => handleModifyMyWelcomeOnClick(welcome.welcomeId)}>저장</button>
-                      <button onClick={() => setEditingId(null)}>취소</button>
+                      <button
+                        css={s.button}
+                        onClick={() => handleModifyMyWelcomeOnClick(welcome.welcomeId)}
+                        disabled={welcome.status === "승인"}
+                      >
+                        저장
+                      </button>
+                      <button css={s.button} onClick={() => setEditingId(null)}>취소</button>
                     </>
                   ) : (
                     <>
-                      <button onClick={() => handleEdit(welcome)}>수정</button>
-                      <button onClick={() => handleDeleteMyWelcomeOnClick(welcome.welcomeId)}>삭제</button>
+                      <button
+                        css={s.button}
+                        onClick={() => handleEdit(welcome)}
+                        disabled={welcome.status === "승인"}
+                      >
+                        수정
+                      </button>
+                      <button
+                        css={s.button}
+                        onClick={() => handleDeleteMyWelcomeOnClick(welcome.welcomeId)}
+                        disabled={welcome.status === "승인"}
+                      >
+                        삭제
+                      </button>
                     </>
                   )
                 )}

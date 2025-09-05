@@ -119,7 +119,7 @@ function Ask() {
                     <span>{board.title}</span>
                   </td>
                   <td css={s.td}>{nickname}</td>
-                  <td css={s.td}>{board.createdAt}</td>
+                  <td css={s.td}>{new Date(board.createdAt).toLocaleString("ko-KR")}</td>
                   <td css={s.td}>{board.isAnswer ? 'Y' : 'N'}</td>
                 </tr>
               );

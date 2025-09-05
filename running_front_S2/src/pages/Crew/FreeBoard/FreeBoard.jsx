@@ -121,7 +121,11 @@ function FreeBoard() {
         page={page}                // 1-base 현재 페이지
         totalPages={totalPages}    // 총 페이지 수
         onChange={(p) => goPage(p)}// 페이지 변경 핸들러
+<<<<<<< HEAD
         windowSize={1}
+=======
+        windowSize={1} 
+>>>>>>> origin/118-css-수정본
       />
     </div>
   );

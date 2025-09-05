@@ -4,6 +4,7 @@ export const container = css`
     text-align: center;
     margin: 0 auto;
     width: 80%;
+    padding-bottom: 3rem;
 `;
 
 

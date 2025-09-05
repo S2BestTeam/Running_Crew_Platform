@@ -4,6 +4,7 @@ export const layout = css`
   display: flex;
   width: 100%;
   background: #ffffff;
+  padding-bottom: 3rem;
 `;
 
 export const userInfoContainer = css`

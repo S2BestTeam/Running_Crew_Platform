@@ -2,16 +2,17 @@
 import { css } from "@emotion/react";
 
 export const wrap = css`
+  text-align: center;
+  margin: 0 auto;
   width: 100%;
+  padding-bottom: 3rem;
 `;
 
 export const grid = css`
   display: grid;
   grid-template-columns: repeat(4, 280px);
   gap: 12px;
-  justify-content: center;   
-  margin-top: 3rem;
-  margin-left: 4rem;
+  justify-content: flex-start;
 
   @media (max-width: 1100px) {
     grid-template-columns: repeat(3, 180px);
@@ -34,7 +35,7 @@ export const card = css`
 export const thumbBox = css`
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;   /* 정사각 (지원 안 되면 padding-top:100% 유지해도 OK) */
+  aspect-ratio: 1 / 1;
   background: #f3f4f6;
 `;
 

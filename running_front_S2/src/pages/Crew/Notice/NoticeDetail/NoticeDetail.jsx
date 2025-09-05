@@ -58,30 +58,27 @@ export default function NoticeDetail() {
   };
 
   return (
-    <div>
-      <div css={s.layout}>
-        <div css={s.topBar}>
-          <button onClick={() => navigate(-1)}>← 목록</button>
-          <span style={{ color: "#94a3b8", fontSize: 14 }}>
-            크루 #{crewId} · 글번호 #{post.noticeId}
-          </span>
-        </div>
-        <h1 css={s.titleCss}>{post.title}</h1>
-        <div css={s.metaCss}>
-          <span>{post.user?.nickname ?? "익명"}</span>
-          <span className="dot" />
-          <span>{post.createdAt ? new Date(post.createdAt).toLocaleString() : "-"}</span>
-          {isAuthor && (
-            <>
-              <span className="dot" />
-              <button onClick={goEdit}>수정</button>
-              <button onClick={handleDeleteOnClick}>삭제</button>
-            </>
-          )}
-        </div>
-        <div css={s.contentCss} dangerouslySetInnerHTML={{ __html: cleanHtml }} />
+    <div css={s.layout}>
+      <div css={s.topBar}>
+        <button onClick={() => navigate(-1)}>← 목록</button>
       </div>
-    </div>
 
+      <h1 css={s.titleCss}>{post.title}</h1>
+
+      <div css={s.metaCss}>
+        <span>{post.user?.nickname ?? "익명"}</span>
+        <span className="dot" />
+        <span>{post.createdAt ? new Date(post.createdAt).toLocaleString() : "-"}</span>
+        {isAuthor && (
+          <>
+            <span className="dot" />
+            <button onClick={goEdit}>수정</button>
+            <button onClick={handleDeleteOnClick}>삭제</button>
+          </>
+        )}
+      </div>
+
+      <div css={s.contentCss} dangerouslySetInnerHTML={{ __html: cleanHtml }} />
+    </div>
   );
 }
