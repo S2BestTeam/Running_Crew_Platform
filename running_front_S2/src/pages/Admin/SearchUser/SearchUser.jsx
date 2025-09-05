@@ -13,15 +13,8 @@ function SearchUser() {
   const [searchInput, setSearchInput] = useState(searchText);
   const [selectedUser, setSelectedUser] = useState(null);
 
-<<<<<<< HEAD
-  const handleSearchOnChange = (e) => {
-    setSearchInput(e.target.value);
-  };
-
-=======
   const handleSearchOnChange = (e) => setSearchInput(e.target.value);
   const handleSearchOnKeyDown = (e) => e.key === "Enter" && handleSearchOnClick();
->>>>>>> 118-css-수정본
   const handleSearchOnClick = () => {
     setSearchParams({ page: 1, searchText: searchInput });
   };

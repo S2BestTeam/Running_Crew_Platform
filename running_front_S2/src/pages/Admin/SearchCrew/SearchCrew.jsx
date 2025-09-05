@@ -2,12 +2,7 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import useGetCrewListQuery from "../../../queries/useGetCrewListQuery";
-<<<<<<< HEAD
-
-=======
->>>>>>> 118-css-수정본
 import Pagination from "../../../components/Pagination/Pagination";
-import CrewDetailModal from "./CrewDetailModal";
 import * as s from "./styles";
 import CrewDetailModal from "./CrewDetailModal/CrewDetailModal";
 

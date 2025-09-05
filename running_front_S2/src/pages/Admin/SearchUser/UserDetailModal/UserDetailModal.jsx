@@ -532,7 +532,6 @@ function UserDetailModal({ user, onClose, onSave }) {
                         </Select>
                       </div>
 
-<<<<<<< HEAD:running_front_S2/src/pages/Admin/SearchUser/UserDetailModal.jsx
                       <input
                         type="text"
                         placeholder="제목/내용 검색"
@@ -544,20 +543,6 @@ function UserDetailModal({ user, onClose, onSave }) {
                       <button css={s.searchButton} onClick={handleSearchOnClick}>
                         <IoSearch />
                       </button>
-=======
-                      <div css={s.searchGroup}>
-                        <input
-                          type="text"
-                          placeholder="제목/내용 검색"
-                          value={searchInput}
-                          onChange={(e) => setSearchInput(e.target.value)}
-                          css={s.searchInput}
-                          />
-                        <button css={s.searchButton} onClick={handleSearchOnClick}>
-                          <IoSearch />
-                        </button>
-                      </div>
->>>>>>> 118-css-수정본:running_front_S2/src/pages/Admin/SearchUser/UserDetailModal/UserDetailModal.jsx
                     </div>
                   </div>
 
