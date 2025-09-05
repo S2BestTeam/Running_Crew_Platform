@@ -7,6 +7,7 @@ import { useCrewStore } from '../../../stores/useCrewStroes';
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
 import { reqCheckCrewName, reqCrewProfileUpdate, reqCrewThumbnailUpdate, reqCrewUpdate } from '../../../api/Crew/crewApi';
 import useCrewDetailQuery from '../../../queries/useCrewDetailQuery';
+import { reqGetMemberCount } from '../../../api/Crew/memberApi';
 
 function Setting(props) {
   const principal = usePrincipalQuery();
@@ -41,6 +42,19 @@ function Setting(props) {
       });
     }
   }, [crew]);
+
+  useEffect(() => {
+      if (!crewId) return;               
+      (async () => {
+        try {
+          const res = await reqGetMemberCount(crewId);
+          const count = res?.data?.body ?? res?.body;
+          setCountMember(Number(count));   
+        } catch (e) {
+          console.error("getMemberCount error", e);
+        }
+      })();
+    }, [crewId]);
 
   const handleThumbnailImgUpdateClick = () => {
     const fileInput = document.createElement("input");

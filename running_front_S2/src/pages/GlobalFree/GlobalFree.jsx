@@ -1,10 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import * as s from './styles';
-import React, { useEffect, useMemo, useState } from 'react';
+import {  useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import usePrincipalQuery from '../../queries/usePrincipalQuery';
 import useGetGlobalBoardQuery from '../../queries/useGetGlobalFreeBoardQuery';
-import { BiSolidChevronLeftSquare, BiSolidChevronRightSquare } from 'react-icons/bi';
 import { IoSearch } from 'react-icons/io5';
 import MainContainer from '../../components/MainContainer/MainContainer';
 import Pagination from '../../components/Pagination/Pagination';

@@ -3,23 +3,20 @@ import * as s from "./styles";
 import { useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
-import { BiSolidChevronLeftSquare, BiSolidChevronRightSquare } from "react-icons/bi";
 import { Settings } from "lucide-react";
-
-import { useGetGatheringsQuery } from "../../../queries/useGetGatheringsQuery";
-import useMembersQuery from "../../../queries/useMembersQuery";
-import useGetCrewFreeBoardQuery from "../../../queries/useGetCrewFreeBoardQuery";
-import useGetCrewNoticeQuery from "../../../queries/useGetCrewNoticeQuery";
-
-import { reqExpelMember, reqUpdateMemberRole } from "../../../api/Crew/memberApi";
-import Pagination from "../../../components/Pagination/Pagination";
+import useMembersQuery from "../../../../queries/useMembersQuery";
+import { reqExpelMember, reqUpdateMemberRole } from "../../../../api/Crew/memberApi";
+import { useGetGatheringsQuery } from "../../../../queries/useGetGatheringsQuery";
+import useGetCrewFreeBoardQuery from "../../../../queries/useGetCrewFreeBoardQuery";
+import useGetCrewNotoiceQuery from "../../../../queries/useGetCrewNoticeQuery";
+import Pagination from "../../../../components/Pagination/Pagination";
 
 function CrewDetailModal({ crew, onClose }) {
   if (!crew) return null;
   const navigate = useNavigate();
   const crewId = Number(crew?.crewId);
 
-  const [activeTab, setActiveTab] = useState("members"); // members | gatherings | freeBoard | notice
+  const [activeTab, setActiveTab] = useState("members");
   const [openMemberMenu, setOpenMemberMenu] = useState(null);
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -85,12 +82,11 @@ function CrewDetailModal({ crew, onClose }) {
     });
   };
 
-  /** 공지 탭 **/
   const {
     data: noticeData,
     isLoading: noticeLoading,
     isError: noticeError,
-  } = useGetCrewNoticeQuery({ crewId, page, size, searchText, enabled: activeTab === "notice" });
+  } = useGetCrewNotoiceQuery({ crewId, page, size, searchText, enabled: activeTab === "notice" });
 
   const noticeBody = noticeData?.data?.body;
   const noticeTotalPages = noticeBody?.totalPages ?? 1;
@@ -98,7 +94,6 @@ function CrewDetailModal({ crew, onClose }) {
   const noticeList = useMemo(() => noticeBody?.contents ?? [], [noticeBody]);
   const noticeStart = (page - 1) * size;
 
-  // 공용 페이지 이동
   const goPage = (next) => {
     const maxPages = activeTab === "freeBoard" ? freeTotalPages : noticeTotalPages;
     const nextPage = Math.min(Math.max(1, next), maxPages);
@@ -231,7 +226,6 @@ function CrewDetailModal({ crew, onClose }) {
 
           {activeTab === "freeBoard" && (
             <div css={s.container}>
-              <h2>자유게시판</h2>
               <div css={s.searchBox}>
                 <div css={s.inputGroup}>
                   <input
@@ -242,7 +236,7 @@ function CrewDetailModal({ crew, onClose }) {
                     css={s.searchInput}
                   />
                   <button css={s.searchButton} onClick={handleSearchOnClick}>
-                    <IoSearch />
+                    <IoSearch size={17}/>
                   </button>
 
                 </div>
@@ -265,21 +259,21 @@ function CrewDetailModal({ crew, onClose }) {
                     </thead>
                     <tbody>
                       {freeLists.map((board, index) => (
-                        <tr key={board.freeId} className={s.tr} onClick={() => handlePostOnClick(board.freeId)}>
+                        <tr key={board.freeId} css={s.tr} onClick={() => handlePostOnClick(board.freeId)}>
                           <td css={s.td}>{freeTotalElements - (freeStart + index)}</td>
                           <td css={s.tdTitle}>{board.title}</td>
                           <td css={s.td}>{board?.user?.nickname}</td>
-                          <td css={s.td}>{board.createdAt}</td>
+                          <td css={s.td}>{new Date(board.createdAt).toLocaleString("ko-KR")}</td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
 
-                   <Pagination
+                  <Pagination
                           page={page}                // 1-base 현재 페이지
                           totalPages={freeTotalPages}    // 총 페이지 수
                           onChange={(p) => goPage(p)}// 페이지 변경 핸들러
-                           windowSize={1} 
+                          windowSize={1} 
                         />
                 </>
               )}
@@ -288,8 +282,6 @@ function CrewDetailModal({ crew, onClose }) {
 
           {activeTab === "notice" && (
             <div css={s.container}>
-              <h2>공지사항</h2>
-
               <div css={s.searchBox}>
                 <div css={s.inputGroup}>
                   <input
@@ -300,12 +292,7 @@ function CrewDetailModal({ crew, onClose }) {
                     css={s.searchInput}
                   />
                   <button css={s.searchButton} onClick={handleSearchOnClick}>
-                    <IoSearch />
-                  </button>
-
-                  {/* 관리자 전용: 항상 보임 */}
-                  <button css={s.registerButton} onClick={() => navigate(`/crews/${crewId}/notice/register`)}>
-                    공지글 등록
+                    <IoSearch size={17}/>
                   </button>
                 </div>
               </div>
@@ -330,12 +317,12 @@ function CrewDetailModal({ crew, onClose }) {
                         <tr
                           key={notice.noticeId}
                           onClick={() => navigate(`/crews/${crewId}/notices/${notice.noticeId}`)}
-                          className={s.tr}
+                          css={s.tr}
                         >
                           <td css={s.td}>{noticeTotalElements - (noticeStart + index)}</td>
                           <td css={s.tdTitle}>{notice.title}</td>
                           <td css={s.td}>{notice?.user?.nickname}</td>
-                          <td css={s.td}>{notice.createdAt}</td>
+                          <td css={s.td}>{new Date(notice.createdAt).toLocaleString("ko-KR")}</td>
                         </tr>
                       ))}
                     </tbody>

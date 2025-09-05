@@ -221,7 +221,7 @@ export default function Post() {
               <td css={s.td}>{srcLabel(item.src)}</td>
               <td css={s.tdTitle}>{item.title}</td>
               <td css={s.td}>{item.crewId ?? "-"}</td>
-              <td css={s.td}>{item.createdAt}</td>
+              <td css={s.td}>{new Date(item.createdAt).toLocaleDateString("ko-KR")}</td>
             </tr>
           ))}
         </tbody>
