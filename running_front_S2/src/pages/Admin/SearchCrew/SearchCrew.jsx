@@ -2,8 +2,9 @@ import { useState } from "react";
 import { BiSolidChevronLeftSquare, BiSolidChevronRightSquare } from "react-icons/bi";
 import { useSearchParams } from "react-router-dom";
 import useGetCrewListQuery from "../../../queries/useGetCrewListQuery";
-import CrewDetailModal from "./CrewDetailModal";
+
 import Pagination from "../../../components/Pagination/Pagination";
+import CrewDetailModal from "./CrewDetailModal";
 
 function SearchCrew() {
   const [searchParams, setSearchParams] = useSearchParams();

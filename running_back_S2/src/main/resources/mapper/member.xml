@@ -33,10 +33,20 @@
         values ( #{crewId}, #{userId}, 3)
     </insert>
 
-    <delete id="deleteMember">
-        delete from member_tb
-        where
-        member_id = #{memberId}
+    <delete id="deleteWelcomeByMemberId" parameterType="int">
+        DELETE w
+        FROM welcome_tb w
+        JOIN member_tb m
+        ON m.member_id = #{memberId}
+        AND w.crew_id = m.crew_id
+        AND w.user_id = m.user_id
+    </delete>
+
+    <!-- 멤버 삭제: 리더(role_id=1)는 삭제 못 하게 차단 -->
+    <delete id="deleteMember" parameterType="int">
+        DELETE FROM member_tb
+        WHERE member_id = #{memberId}
+        AND role_id != 1
     </delete>
 
     <select id="findAllMembersBySearchOption"

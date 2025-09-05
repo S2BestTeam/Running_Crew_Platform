@@ -64,6 +64,7 @@ public class MemberService {
     }
 
     public void expel(Integer memberId) {
+        memberMapper.deleteWelcomeByMemberId(memberId);
         int deleted = memberMapper.deleteMember(memberId);
         if (deleted == 0) {
             throw new IllegalStateException("리더는 추방할 수 없거나 대상이 존재하지 않습니다.");
@@ -85,8 +86,11 @@ public class MemberService {
     }
 
     public void withDrawMember (Integer memberId) {
-        welcomeMapper.deleteWithDrawAfter14Days();
-        memberMapper.deleteMember(memberId);
+        memberMapper.deleteWelcomeByMemberId(memberId);
+        int deleted = memberMapper.deleteMember(memberId);
+        if (deleted == 0) {
+            throw new IllegalStateException("리더는 탈퇴할 수 없거나 대상이 존재하지 않습니다.");
+        }
     }
 
     public List<Member> getMembers(Integer crewId) {

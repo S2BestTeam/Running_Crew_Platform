@@ -5,6 +5,7 @@ import * as s from "./styles";
 import MemberModal from "../Member/MemberModal/MemberModal";
 import ContentLayout from "../../../components/ContentLayout/ContentLayout";
 import { useCrewStore } from "../../../stores/useCrewStroes";
+import ReportModal from "./ReportModal/ReportModal";
 
 function Report({ isCrewLeader }) {
   const { crewId } = useCrewStore();
@@ -22,6 +23,20 @@ function Report({ isCrewLeader }) {
   const handlePickMember = (memberId) => {
     if (!memberId) return;
     setSelectedMemberId(memberId);
+  };
+
+  const [reportOpen, setReportOpen] = useState(false);
+  const [reportTarget, setReportTarget] = useState({
+    memberId: null,
+    nickname: "",
+    crewId,
+  });
+
+  const handleReport = (payload) => {
+    const { memberId, nickname } = payload || {};
+    setReportTarget({ memberId, nickname: nickname || "", crewId });
+    setSelectedMemberId(null);
+    setReportOpen(true);
   };
 
   return (
@@ -59,16 +74,23 @@ function Report({ isCrewLeader }) {
 
       {selectedMemberId && (
         <MemberModal
-        memberId={selectedMemberId}
-        isOpen={!!selectedMemberId}
-        isLeader={isCrewLeader}
-        onClose={() => setSelectedMemberId(null)}
-        onChanged={() => {
-          setSelectedMemberId(null);
-        }}
-        onReport={() => {}}
+          memberId={selectedMemberId}
+          isOpen={!!selectedMemberId}
+          isLeader={isCrewLeader}
+          onClose={() => setSelectedMemberId(null)}
+          onChanged={() => {
+            setSelectedMemberId(null);
+          }}
+          onReport={(payload) => handleReport(payload)}
         />
       )}
+      <ReportModal
+        isOpen={reportOpen}
+        onClose={() => setReportOpen(false)}
+        memberId={reportTarget.memberId}
+        nickname={reportTarget.nickname}
+        crewId={reportTarget.crewId}
+      />
     </>
   );
 }

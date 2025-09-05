@@ -7,4 +7,6 @@ import java.util.List;
 @Mapper
 public interface MessageMapper {
     List<Message> getCrewMessage(Integer crewId);
+
+    void insertCrewMessage(Message message);
 }

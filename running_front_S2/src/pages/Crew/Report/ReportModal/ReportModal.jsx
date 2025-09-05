@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import ReactModal from "react-modal";
 import { reqReportMember } from "../../../../api/Crew/reportApi";
 
-function ReportModal({ isOpen, onClose, memberId, nickname, crewId }) {
+function ReportModal({ isOpen, onClose, memberId, nickname, crewId}) {
   const [reason, setReason] = useState("");
 
   const modalStyles = useMemo(

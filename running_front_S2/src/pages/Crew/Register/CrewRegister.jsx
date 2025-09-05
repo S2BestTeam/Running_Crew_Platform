@@ -158,7 +158,6 @@ function CrewRegister(props) {
             </div>
           </div>
 
-          {/* 프로필 + 크루 정보 */}
           <div css={s.crewInfoSection}>
             <div css={s.profilePicture} onClick={(e) => handleImgAddOnClick(e, "profilePicture")}>
               {preview.profilePicture && <img src={preview.profilePicture} alt="크루 프로필" />}
@@ -185,7 +184,6 @@ function CrewRegister(props) {
         <div css={s.mainLine}>
           <p css={s.fontBold}>크루 정보 입력</p>
 
-          {/* 크루명 */}
           <div css={s.field}>
 
             <label css={s.label}>크루명</label>
