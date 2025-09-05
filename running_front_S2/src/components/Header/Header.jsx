@@ -109,25 +109,6 @@ function Header() {
             <Settings />
           </div>
         )}
-<<<<<<< HEAD
-        {
-          userInfo && 
-          (
-            <div css={s.icon} onClick={handleLogout}>
-              <TbLogout />
-            </div>
-          )
-        }
-        <div css={s.icon} onClick={handleProfileClick}>
-        {userInfo?.picture ? (
-          <div css={s.profileImgBox}>
-            <img src={userInfo.picture} alt="프로필 이미지" />
-          </div>
-        ) : (
-          <FiUser />
-        )}
-      </div>
-=======
         <div css={s.icon} onClick={handleProfileClick}>
           {userInfo?.picture ? (
             <div css={s.profileImgBox}>
@@ -140,7 +121,6 @@ function Header() {
         <div css={s.icon} onClick={handleLogout}>
           <TbLogout />
         </div>
->>>>>>> origin/117-정모일정-등록-css
       </div>
     </header>
   );
