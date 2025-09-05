@@ -1,5 +1,23 @@
 import { css } from "@emotion/react";
 
+export const header = css`
+  text-align: center;
+`;
+
+export const registerBtn = css`
+  display: flex;
+  justify-content: flex-end;
+
+   & > button {
+      width: 12rem;
+  padding: 0.6rem;
+  background: #000;
+  color: white;
+  border-radius: 0.6rem;
+  cursor: pointer;
+   }
+`;
+
 export const gatheringMain = css`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -110,8 +128,7 @@ export const closedOverlay = css`
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.3); 
-    border-radius: 0.5rem; 
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 0.5rem;
   }
-
 `;

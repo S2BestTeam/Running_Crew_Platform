@@ -91,6 +91,7 @@ function BoardDetail() {
 
   // 댓글 목록
   const commentList = cdata?.data?.data?.body ?? cdata?.data?.body ?? cdata?.body ?? [];
+  const cleanHtml = useSanitizedHtml(post?.content);
 
   if (isLoading) return <div css={s.layout}>로딩중…</div>;
   if (error) return <div css={s.layout}>에러가 발생했어요: {String(error)}</div>;
@@ -104,7 +105,6 @@ function BoardDetail() {
   const displayedComments = showAll ? commentList : commentList.slice(0, INITIAL_COUNT);
 
   // 본문 HTML(내용이 바뀔 때에만 재계산 & 재렌더)
-  const cleanHtml = useSanitizedHtml(post?.content);
 
   // 이동/삭제/댓글 관련 핸들러
   const goEdit = () => navigate(`/free/${freeId}/edit`);

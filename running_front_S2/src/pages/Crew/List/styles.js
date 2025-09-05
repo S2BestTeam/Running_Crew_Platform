@@ -82,7 +82,7 @@ export const gridBox = css`
   display: grid;
   width: 100%;
   grid-template-columns: repeat(4, 1fr);
-  gap: 3rem 1.8rem;
+  gap: 3rem 3rem;
   margin: 3rem 0;
 `;
 

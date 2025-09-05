@@ -182,25 +182,10 @@ export default function Post() {
             </Select>
           </div>
 
-<<<<<<< HEAD
           <input type="text" placeholder="제목/내용 검색" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} css={s.searchInput} onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()} />
           <button css={s.searchButton} onClick={handleSearchOnClick}>
             <IoSearch />
           </button>
-=======
-          <div css={s.searchGroup}>
-            <input 
-              type="text" 
-              placeholder="제목/내용 검색" 
-              value={searchInput} 
-              onChange={(e) => setSearchInput(e.target.value)} 
-              css={s.searchInput} 
-            />
-            <button css={s.searchButton} onClick={handleSearchOnClick}>
-              <IoSearch />
-            </button>
-          </div>
->>>>>>> origin/118-css-수정본
         </div>
       </div>
 

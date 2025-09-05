@@ -4,11 +4,8 @@ import { useSearchParams } from "react-router-dom";
 import useGetCrewListQuery from "../../../queries/useGetCrewListQuery";
 
 import Pagination from "../../../components/Pagination/Pagination";
-<<<<<<< HEAD
 import CrewDetailModal from "./CrewDetailModal";
-=======
 import * as s from "./styles";
->>>>>>> origin/118-css-수정본
 
 function SearchCrew() {
   const [searchParams, setSearchParams] = useSearchParams();
