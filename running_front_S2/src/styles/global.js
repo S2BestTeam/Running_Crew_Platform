@@ -25,4 +25,10 @@ export const global = css`
   #root {
     font-size: 1.4rem;
   }
+
+  :root {
+    --main-color: #1f1f21;
+    --sub-color: #ebebeb;
+    --point-color: #fa2847;
+  }
 `;
