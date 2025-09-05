@@ -1,10 +1,10 @@
-import { useState } from "react";
-import useGetReportListQuery from "../../../queries/useGetReportListQuery";
 /** @jsxImportSource @emotion/react */
 import * as s from "./styles";
+import { useState } from "react";
+import useGetReportListQuery from "../../../queries/useGetReportListQuery";
 import MemberModal from "../Member/MemberModal/MemberModal";
-import ContentLayout from "../../../components/ContentLayout/ContentLayout";
 import { useCrewStore } from "../../../stores/useCrewStroes";
+import ReportModal from "./ReportModal/ReportModal";
 
 function Report({ isCrewLeader }) {
   const { crewId } = useCrewStore();
@@ -24,8 +24,25 @@ function Report({ isCrewLeader }) {
     setSelectedMemberId(memberId);
   };
 
+  const [reportOpen, setReportOpen] = useState(false);
+  const [reportTarget, setReportTarget] = useState({
+    memberId: null,
+    nickname: "",
+    crewId,
+  });
+
+  const handleReport = (payload) => {
+    const { memberId, nickname } = payload || {};
+    setReportTarget({ memberId, nickname: nickname || "", crewId });
+    setSelectedMemberId(null);
+    setReportOpen(true);
+  };
+
   return (
     <>
+      <div css={s.title}>
+        <h2>신고 사항</h2>
+      </div>
       <table css={s.table}>
         <thead>
           <tr>
@@ -38,7 +55,7 @@ function Report({ isCrewLeader }) {
         <tbody>
           {reportList.length === 0 ? (
             <tr>
-              <td>신고 내역이 없습니다.</td>
+              <td style={{ paddingLeft : "2rem"}}>신고 내역이 없습니다.</td>
             </tr>
           ) : (
             reportList.map((r) => (
@@ -59,16 +76,23 @@ function Report({ isCrewLeader }) {
 
       {selectedMemberId && (
         <MemberModal
-        memberId={selectedMemberId}
-        isOpen={!!selectedMemberId}
-        isLeader={isCrewLeader}
-        onClose={() => setSelectedMemberId(null)}
-        onChanged={() => {
-          setSelectedMemberId(null);
-        }}
-        onReport={() => {}}
+          memberId={selectedMemberId}
+          isOpen={!!selectedMemberId}
+          isLeader={isCrewLeader}
+          onClose={() => setSelectedMemberId(null)}
+          onChanged={() => {
+            setSelectedMemberId(null);
+          }}
+          onReport={(payload) => handleReport(payload)}
         />
       )}
+      <ReportModal
+        isOpen={reportOpen}
+        onClose={() => setReportOpen(false)}
+        memberId={reportTarget.memberId}
+        nickname={reportTarget.nickname}
+        crewId={reportTarget.crewId}
+      />
     </>
   );
 }

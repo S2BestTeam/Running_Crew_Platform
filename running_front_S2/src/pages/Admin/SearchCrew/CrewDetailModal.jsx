@@ -13,13 +13,14 @@ import useGetCrewNoticeQuery from "../../../queries/useGetCrewNoticeQuery";
 
 import { reqExpelMember, reqUpdateMemberRole } from "../../../api/Crew/memberApi";
 import Pagination from "../../../components/Pagination/Pagination";
+import MessageSendModal from "./MessageModal/MessageSendModal";
 
 function CrewDetailModal({ crew, onClose }) {
   if (!crew) return null;
   const navigate = useNavigate();
   const crewId = Number(crew?.crewId);
 
-  const [activeTab, setActiveTab] = useState("members"); // members | gatherings | freeBoard | notice
+  const [activeTab, setActiveTab] = useState("members");
   const [openMemberMenu, setOpenMemberMenu] = useState(null);
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -27,7 +28,7 @@ function CrewDetailModal({ crew, onClose }) {
   const searchText = searchParams.get("searchText") || "";
   const [searchInput, setSearchInput] = useState(searchText);
   const size = 10;
-
+  const [msgOpen, setMsgOpen] = useState(false);
   const membersQuery = useMembersQuery({ crewId, searchText: "", size: 50, enabled: activeTab === "members" });
   const members = useMemo(() => {
     const pages = membersQuery?.data?.pages || [];
@@ -85,7 +86,6 @@ function CrewDetailModal({ crew, onClose }) {
     });
   };
 
-  /** 공지 탭 **/
   const {
     data: noticeData,
     isLoading: noticeLoading,
@@ -98,7 +98,7 @@ function CrewDetailModal({ crew, onClose }) {
   const noticeList = useMemo(() => noticeBody?.contents ?? [], [noticeBody]);
   const noticeStart = (page - 1) * size;
 
-  // 공용 페이지 이동
+
   const goPage = (next) => {
     const maxPages = activeTab === "freeBoard" ? freeTotalPages : noticeTotalPages;
     const nextPage = Math.min(Math.max(1, next), maxPages);
@@ -111,255 +111,263 @@ function CrewDetailModal({ crew, onClose }) {
   };
 
   return (
-    <div css={s.overlay}>
-      <div css={s.modal}>
-        <div css={s.header}>
-          <div css={s.headerTop}>
-            <img
-              src={crew.thumbnailPicture}
-              alt={crew.crewName}
-              css={s.crewThumbnail}
-              onError={(e) => {
-                e.currentTarget.style.display = "none";
-              }}
-            />
-            <div css={s.crewTitleBox}>
-              <h3>{crew.crewName}</h3>
-              <p>{crew.title}</p>
+    <>
+      <div css={s.overlay}>
+        <div css={s.modal}>
+          <div css={s.header}>
+            <div css={s.headerTop}>
+              <img
+                src={crew.thumbnailPicture}
+                alt={crew.crewName}
+                css={s.crewThumbnail}
+                onError={(e) => {
+                  e.currentTarget.style.display = "none";
+                }}
+              />
+              <div css={s.crewTitleBox}>
+                <h3>{crew.crewName}</h3>
+                <p>{crew.title}</p>
+              </div>
+            </div>
+
+            <div css={s.crewMeta}>
+              <span>창설자: {crew.fullName}</span>
+              <span>정원: {crew.limitedPeople}명</span>
+              <span>총거리: {crew.totalKm}km</span>
+              <span>지역: {crew.gunguName}</span>
+              <button onClick={() => setMsgOpen(true)}>메세지 보내기</button>
             </div>
           </div>
 
-          <div css={s.crewMeta}>
-            <span>창설자: {crew.fullName}</span>
-            <span>정원: {crew.limitedPeople}명</span>
-            <span>총거리: {crew.totalKm}km</span>
-            <span>지역: {crew.gunguName}</span>
+          <div css={s.tabs}>
+            {[
+              { key: "members", label: "멤버" },
+              { key: "gatherings", label: "정모" },
+              { key: "freeBoard", label: "자유게시판" },
+              { key: "notice", label: "공지사항" },
+            ].map((tab) => (
+              <div key={tab.key} onClick={() => setActiveTab(tab.key)} css={s.tab(activeTab === tab.key)}>
+                {tab.label}
+              </div>
+            ))}
           </div>
-        </div>
 
-        <div css={s.tabs}>
-          {[
-            { key: "members", label: "멤버" },
-            { key: "gatherings", label: "정모" },
-            { key: "freeBoard", label: "자유게시판" },
-            { key: "notice", label: "공지사항" },
-          ].map((tab) => (
-            <div key={tab.key} onClick={() => setActiveTab(tab.key)} css={s.tab(activeTab === tab.key)}>
-              {tab.label}
-            </div>
-          ))}
-        </div>
-
-        <div css={s.content}>
-          {/* 멤버 */}
-          {activeTab === "members" &&
-            (membersQuery.isLoading ? (
-              <div css={s.emptyState}>멤버 목록을 불러오는 중...</div>
-            ) : members.length > 0 ? (
-              <div>
-                {members.map((member, index) => (
-                  <div key={member.memberId} css={s.memberItem(index < members.length - 1)}>
-                    <img src={member.user?.picture || "/default-avatar.png"} alt={member.user?.nickname} css={s.memberAvatar} />
-                    <div css={s.memberInfo}>
-                      <div css={s.memberName}>
-                        {member.user?.nickname}
-                        {member.roleId === 1 && <span>👑</span>}
-                        {member.roleId === 2 && <span>⭐</span>}
-                      </div>
-                      <div css={s.memberFullName}>{member.user?.fullName}</div>
-                    </div>
-
-                    <div css={s.memberActions}>
-                      {member.createdAt && <div css={s.memberDate}>{new Date(member.createdAt).toLocaleDateString("ko-KR")}</div>}
-                      <div css={s.settingsBtn} onClick={() => handleMemberMenuToggle(member.memberId)}>
-                        <Settings />
-                      </div>
-                    </div>
-
-                    {openMemberMenu === member.memberId && (
-                      <div css={s.memberMenu}>
-                        <div css={s.menuItem} onClick={() => handleRoleChange(member.memberId, 2)}>
-                          ⭐ 매니저로 변경
+          <div css={s.content}>
+            {/* 멤버 */}
+            {activeTab === "members" &&
+              (membersQuery.isLoading ? (
+                <div css={s.emptyState}>멤버 목록을 불러오는 중...</div>
+              ) : members.length > 0 ? (
+                <div>
+                  {members.map((member, index) => (
+                    <div key={member.memberId} css={s.memberItem(index < members.length - 1)}>
+                      <img src={member.user?.picture || "/default-avatar.png"} alt={member.user?.nickname} css={s.memberAvatar} />
+                      <div css={s.memberInfo}>
+                        <div css={s.memberName}>
+                          {member.user?.nickname}
+                          {member.roleId === 1 && <span>👑</span>}
+                          {member.roleId === 2 && <span>⭐</span>}
                         </div>
-                        <div css={s.menuItem} onClick={() => handleRoleChange(member.memberId, 3)}>
-                          👤 일반 멤버로 변경
+                        <div css={s.memberFullName}>{member.user?.fullName}</div>
+                      </div>
+
+                      <div css={s.memberActions}>
+                        {member.createdAt && <div css={s.memberDate}>{new Date(member.createdAt).toLocaleDateString("ko-KR")}</div>}
+                        <div css={s.settingsBtn} onClick={() => handleMemberMenuToggle(member.memberId)}>
+                          <Settings />
                         </div>
-                        {member.roleId === 2 && (
-                          <div css={[s.menuItem, s.menuPrimary]} onClick={() => handleRoleChange(member.memberId, 1)}>
-                            👑 크루장으로 승격
+                      </div>
+
+                      {openMemberMenu === member.memberId && (
+                        <div css={s.memberMenu}>
+                          <div css={s.menuItem} onClick={() => handleRoleChange(member.memberId, 2)}>
+                            ⭐ 매니저로 변경
                           </div>
-                        )}
-                        <div css={[s.menuItem, s.menuDanger]} onClick={() => handleExpelMember(member.memberId)}>
-                          ❌ 추방하기
+                          <div css={s.menuItem} onClick={() => handleRoleChange(member.memberId, 3)}>
+                            👤 일반 멤버로 변경
+                          </div>
+                          {member.roleId === 2 && (
+                            <div css={[s.menuItem, s.menuPrimary]} onClick={() => handleRoleChange(member.memberId, 1)}>
+                              👑 크루장으로 승격
+                            </div>
+                          )}
+                          <div css={[s.menuItem, s.menuDanger]} onClick={() => handleExpelMember(member.memberId)}>
+                            ❌ 추방하기
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div css={s.emptyState}>멤버가 없습니다.</div>
+              ))}
+
+            {/* 정모 */}
+            {activeTab === "gatherings" &&
+              (gatherings?.length > 0 ? (
+                <div>
+                  {gatherings.map((g, index) => (
+                    <div key={g?.gatheringId} css={s.gatheringItem(index < gatherings.length - 1)}>
+                      <div css={s.gatheringTitle}>{g?.title}</div>
+                      <div css={s.gatheringContent}>
+                        <div>{g?.content}</div>
+                        <div>
+                          📅 {g?.runningDate} {g?.runningTime}
+                        </div>
+                        <div>
+                          📍 {g?.placeName} ({g?.address})
+                        </div>
+                        <div css={s.gatheringMeta}>
+                          <span>💰 {g?.cost}</span>
+                          <span>🏃 {g?.km}km</span>
+                          <span>👤 {g?.user?.fullName}</span>
                         </div>
                       </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div css={s.emptyState}>멤버가 없습니다.</div>
-            ))}
-
-          {/* 정모 */}
-          {activeTab === "gatherings" &&
-            (gatherings?.length > 0 ? (
-              <div>
-                {gatherings.map((g, index) => (
-                  <div key={g?.gatheringId} css={s.gatheringItem(index < gatherings.length - 1)}>
-                    <div css={s.gatheringTitle}>{g?.title}</div>
-                    <div css={s.gatheringContent}>
-                      <div>{g?.content}</div>
-                      <div>
-                        📅 {g?.runningDate} {g?.runningTime}
-                      </div>
-                      <div>
-                        📍 {g?.placeName} ({g?.address})
-                      </div>
-                      <div css={s.gatheringMeta}>
-                        <span>💰 {g?.cost}</span>
-                        <span>🏃 {g?.km}km</span>
-                        <span>👤 {g?.user?.fullName}</span>
-                      </div>
                     </div>
+                  ))}
+                </div>
+              ) : (
+                <div css={s.emptyState}>등록된 정모가 없습니다.</div>
+              ))}
+
+            {activeTab === "freeBoard" && (
+              <div css={s.container}>
+                <h2>자유게시판</h2>
+                <div css={s.searchBox}>
+                  <div css={s.inputGroup}>
+                    <input
+                      type="text"
+                      placeholder="검색어를 입력하세요."
+                      value={searchInput}
+                      onChange={(e) => setSearchInput(e.target.value)}
+                      css={s.searchInput}
+                    />
+                    <button css={s.searchButton} onClick={handleSearchOnClick}>
+                      <IoSearch />
+                    </button>
+
                   </div>
-                ))}
-              </div>
-            ) : (
-              <div css={s.emptyState}>등록된 정모가 없습니다.</div>
-            ))}
-
-          {activeTab === "freeBoard" && (
-            <div css={s.container}>
-              <h2>자유게시판</h2>
-              <div css={s.searchBox}>
-                <div css={s.inputGroup}>
-                  <input
-                    type="text"
-                    placeholder="검색어를 입력하세요."
-                    value={searchInput}
-                    onChange={(e) => setSearchInput(e.target.value)}
-                    css={s.searchInput}
-                  />
-                  <button css={s.searchButton} onClick={handleSearchOnClick}>
-                    <IoSearch />
-                  </button>
-
                 </div>
-              </div>
 
-              {freeLoading ? (
-                <div>불러오는 중…</div>
-              ) : freeError ? (
-                <div>문제가 발생했어요.</div>
-              ) : (
-                <>
-                  <table css={s.table}>
-                    <thead>
-                      <tr>
-                        <th css={s.th}>번호</th>
-                        <th css={s.th}>제목</th>
-                        <th css={s.th}>작성자</th>
-                        <th css={s.th}>등록일</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {freeLists.map((board, index) => (
-                        <tr key={board.freeId} className={s.tr} onClick={() => handlePostOnClick(board.freeId)}>
-                          <td css={s.td}>{freeTotalElements - (freeStart + index)}</td>
-                          <td css={s.tdTitle}>{board.title}</td>
-                          <td css={s.td}>{board?.user?.nickname}</td>
-                          <td css={s.td}>{board.createdAt}</td>
+                {freeLoading ? (
+                  <div>불러오는 중…</div>
+                ) : freeError ? (
+                  <div>문제가 발생했어요.</div>
+                ) : (
+                  <>
+                    <table css={s.table}>
+                      <thead>
+                        <tr>
+                          <th css={s.th}>번호</th>
+                          <th css={s.th}>제목</th>
+                          <th css={s.th}>작성자</th>
+                          <th css={s.th}>등록일</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {freeLists.map((board, index) => (
+                          <tr key={board.freeId} className={s.tr} onClick={() => handlePostOnClick(board.freeId)}>
+                            <td css={s.td}>{freeTotalElements - (freeStart + index)}</td>
+                            <td css={s.tdTitle}>{board.title}</td>
+                            <td css={s.td}>{board?.user?.nickname}</td>
+                            <td css={s.td}>{board.createdAt}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
 
-                   <Pagination
-                          page={page}                // 1-base 현재 페이지
-                          totalPages={freeTotalPages}    // 총 페이지 수
-                          onChange={(p) => goPage(p)}// 페이지 변경 핸들러
-                           windowSize={1} 
-                        />
-                </>
-              )}
-            </div>
-          )}
+                    <Pagination
+                      page={page}                // 1-base 현재 페이지
+                      totalPages={freeTotalPages}    // 총 페이지 수
+                      onChange={(p) => goPage(p)}// 페이지 변경 핸들러
+                      windowSize={1}
+                    />
+                  </>
+                )}
+              </div>
+            )}
 
-          {activeTab === "notice" && (
-            <div css={s.container}>
-              <h2>공지사항</h2>
+            {activeTab === "notice" && (
+              <div css={s.container}>
+                <h2>공지사항</h2>
 
-              <div css={s.searchBox}>
-                <div css={s.inputGroup}>
-                  <input
-                    type="text"
-                    placeholder="검색어를 입력하세요."
-                    value={searchInput}
-                    onChange={(e) => setSearchInput(e.target.value)}
-                    css={s.searchInput}
-                  />
-                  <button css={s.searchButton} onClick={handleSearchOnClick}>
-                    <IoSearch />
-                  </button>
+                <div css={s.searchBox}>
+                  <div css={s.inputGroup}>
+                    <input
+                      type="text"
+                      placeholder="검색어를 입력하세요."
+                      value={searchInput}
+                      onChange={(e) => setSearchInput(e.target.value)}
+                      css={s.searchInput}
+                    />
+                    <button css={s.searchButton} onClick={handleSearchOnClick}>
+                      <IoSearch />
+                    </button>
 
-                  {/* 관리자 전용: 항상 보임 */}
-                  <button css={s.registerButton} onClick={() => navigate(`/crews/${crewId}/notice/register`)}>
-                    공지글 등록
-                  </button>
+                    {/* 관리자 전용: 항상 보임 */}
+                    <button css={s.registerButton} onClick={() => navigate(`/crews/${crewId}/notice/register`)}>
+                      공지글 등록
+                    </button>
+                  </div>
                 </div>
-              </div>
 
-              {noticeLoading ? (
-                <div>불러오는 중…</div>
-              ) : noticeError ? (
-                <div>문제가 발생했어요.</div>
-              ) : (
-                <>
-                  <table css={s.table}>
-                    <thead>
-                      <tr>
-                        <th css={s.th}>번호</th>
-                        <th css={s.th}>제목</th>
-                        <th css={s.th}>작성자</th>
-                        <th css={s.th}>등록일</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {noticeList.map((notice, index) => (
-                        <tr
-                          key={notice.noticeId}
-                          onClick={() => navigate(`/crews/${crewId}/notices/${notice.noticeId}`)}
-                          className={s.tr}
-                        >
-                          <td css={s.td}>{noticeTotalElements - (noticeStart + index)}</td>
-                          <td css={s.tdTitle}>{notice.title}</td>
-                          <td css={s.td}>{notice?.user?.nickname}</td>
-                          <td css={s.td}>{notice.createdAt}</td>
+                {noticeLoading ? (
+                  <div>불러오는 중…</div>
+                ) : noticeError ? (
+                  <div>문제가 발생했어요.</div>
+                ) : (
+                  <>
+                    <table css={s.table}>
+                      <thead>
+                        <tr>
+                          <th css={s.th}>번호</th>
+                          <th css={s.th}>제목</th>
+                          <th css={s.th}>작성자</th>
+                          <th css={s.th}>등록일</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {noticeList.map((notice, index) => (
+                          <tr
+                            key={notice.noticeId}
+                            onClick={() => navigate(`/crews/${crewId}/notices/${notice.noticeId}`)}
+                            className={s.tr}
+                          >
+                            <td css={s.td}>{noticeTotalElements - (noticeStart + index)}</td>
+                            <td css={s.tdTitle}>{notice.title}</td>
+                            <td css={s.td}>{notice?.user?.nickname}</td>
+                            <td css={s.td}>{notice.createdAt}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
 
-                  <Pagination
-                    page={page}                // 1-base 현재 페이지
-                    totalPages={noticeTotalPages}    // 총 페이지 수
-                    onChange={(p) => goPage(p)}// 페이지 변경 핸들러
-                    windowSize={1}
-                  />
-                </>
-              )}
-            </div>
-          )}
-        </div>
+                    <Pagination
+                      page={page}                // 1-base 현재 페이지
+                      totalPages={noticeTotalPages}    // 총 페이지 수
+                      onChange={(p) => goPage(p)}// 페이지 변경 핸들러
+                      windowSize={1}
+                    />
+                  </>
+                )}
+              </div>
+            )}
+          </div>
 
-        <div css={s.footer}>
-          <button css={s.closeBtn} onClick={onClose}>
-            닫기
-          </button>
+          <div css={s.footer}>
+            <button css={s.closeBtn} onClick={onClose}>
+              닫기
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+      <MessageSendModal
+        open={msgOpen}
+        onClose={() => setMsgOpen(false)}
+        crewId={crewId /* 또는 crew.crewId */}
+      />
+    </>
   );
 }
 

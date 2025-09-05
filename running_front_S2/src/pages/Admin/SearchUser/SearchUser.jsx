@@ -16,12 +16,6 @@ function SearchUser() {
     setSearchInput(e.target.value);
   };
 
-  const handleSearchOnKeyDown = (e) => {
-    if (e.keyCode === 13) {
-      handleSearchOnClick();
-    }
-  };
-
   const handleSearchOnClick = () => {
     setSearchParams((prev) => {
       const newParams = new URLSearchParams(prev.toString());
@@ -61,7 +55,7 @@ function SearchUser() {
           type="text"
           value={searchInput}
           onChange={handleSearchOnChange}
-          onKeyDown={handleSearchOnKeyDown}
+          onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()}
           placeholder="검색어 입력"
           autoFocus
         />

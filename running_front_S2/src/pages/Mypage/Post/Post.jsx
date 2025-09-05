@@ -8,6 +8,7 @@ import usePrincipalQuery from "../../../queries/usePrincipalQuery";
 import useGetMyCrewsQuery from "../../../queries/useGetMyCrewsQuery";
 import useGetMyPostQuery from "../../../queries/useGetMyPostQuery";
 import Pagination from "../../../components/Pagination/Pagination";
+import { MenuItem, Select } from "@mui/material";
 
 const SRC_OPTIONS = [
   { value: "", label: "전체" },
@@ -72,6 +73,8 @@ export default function Post() {
     const base = body?.contents ?? body?.items ?? [];
     return (Array.isArray(base) ? base : []).filter((p) => p && p.postId != null);
   }, [body]);
+
+  console.log(data)
 
   const start = (page - 1) * size;
 
@@ -141,27 +144,45 @@ export default function Post() {
   return (
     <div css={s.container}>
       <h2>내가 쓴 글</h2>
-      <div css={s.searchBox} >
+      <div css={s.searchBox}>
         <div css={s.inputGroup}>
-          <div>
-            <select value={src} onChange={handleSrcChange} css={s.select}>
-              {SRC_OPTIONS.map((op) => (
-                <option key={op.value} value={op.value}>
-                  {op.label}
-                </option>
-              ))}
-            </select>
-            <select value={crewId} onChange={handleCrewChange} css={s.select}>
-              <option value="">내 크루: 전체</option>
+          <div css={s.selectGroup}>
+            <Select
+              css={s.selectBox}
+              value={src}
+              onChange={handleSrcChange}
+              displayEmpty
+            >
+                {SRC_OPTIONS.map((op) => (
+                  <MenuItem
+                    key={op.value}
+                    value={op.value}
+                    css={s.menuItem}
+                  >
+                    {op.label}
+                  </MenuItem>
+                ))}
+            </Select>
+            <Select
+              css={s.selectBox}
+              value={crewId}
+              onChange={handleCrewChange}
+              displayEmpty
+            >
+              <MenuItem value="" css={s.menuItem}>내 크루: 전체</MenuItem>
               {myCrews.map((c) => (
-                <option key={c.crewId} value={String(c.crewId)}>
-                  {c.crewName ?? `Crew #${c.crewId}`}
-                </option>
-              ))}
-            </select>
+                  <MenuItem
+                    key={c.crewId}
+                    value={String(c.crewId)}
+                    css={s.menuItem}
+                  >
+                    {c.crewName ?? `Crew #${c.crewId}`}
+                  </MenuItem>
+                ))}
+            </Select>
           </div>
 
-          <input type="text" placeholder="제목/내용 검색" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} css={s.searchInput} />
+          <input type="text" placeholder="제목/내용 검색" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} css={s.searchInput} onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()} />
           <button css={s.searchButton} onClick={handleSearchOnClick}>
             <IoSearch />
           </button>
@@ -193,7 +214,7 @@ export default function Post() {
               <td css={s.td}>{totalElements - (start + index)}</td>
               <td css={s.td}>{srcLabel(item.src)}</td>
               <td css={s.tdTitle}>{item.title}</td>
-              <td css={s.td}>{item.crewId ?? "-"}</td>
+              <td css={s.td}>{item.crew?.crewName}</td>
               <td css={s.td}>{item.createdAt}</td>
             </tr>
           ))}
@@ -204,7 +225,7 @@ export default function Post() {
         page={page}                // 1-base 현재 페이지
         totalPages={totalPages}    // 총 페이지 수
         onChange={(p) => goPage(p)}// 페이지 변경 핸들러
-        windowSize={1} 
+        windowSize={1}
       />
     </div>
   );

@@ -1,4 +1,5 @@
 
+import { ExportPrint } from "@mui/x-data-grid";
 import api from "../axios";
 
 export const reqCrewDetail = (crewId) => api.get(`/api/crews/${crewId}`);
@@ -43,3 +44,5 @@ export const reqCrewAlbum = (crewId) => api.get(`/api/crews/${crewId}/albums`);
 
 export const reqGetSectionsLatest = (crewId) =>
   api.get(`/api/crews/${crewId}/meta/latest`);
+
+export const reqGetMessage = (crewId) => api.get(`/api/crews/${crewId}/message`);

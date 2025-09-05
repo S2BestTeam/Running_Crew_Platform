@@ -30,3 +30,7 @@ export const reqGetUserPosts = ({
   });
 
   export const reqRegisterAnswer = ({ askId, content }) => api.post(`/api/ask/${askId}`, { content });
+
+  
+export const reqPostCrewMessage = (crewId, content) =>
+  api.post(`/api/admin/message/${crewId}`, { content });

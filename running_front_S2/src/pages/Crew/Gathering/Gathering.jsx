@@ -86,12 +86,14 @@ function Gathering() {
   return (
     <ContentLayout>
       <div css={s.layout}>
-        <header>
+        <header css={s.header}>
           <h2>정모 일정</h2>
+        </header>
+        <div css={s.registerBtn}>
           {isCrewMember && (
             <button onClick={() => navigate(`/crews/${crewId}/gathering/register`)}>일정 등록</button>
           )}
-        </header>
+        </div>
         <main css={s.gatheringMain}>
           {gatherings.map((g, index) => {
             const dateObj = new Date(`${g.runningDate}T${g.runningTime}`);

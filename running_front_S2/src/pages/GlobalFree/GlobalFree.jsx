@@ -64,7 +64,7 @@ function GlobalFree(props) {
         <h2>자유게시판</h2>
         <div css={s.searchBox}>
           <div css={s.inputGroup}>
-            <input type="text" placeholder="검색어를 입력하세요." value={searchInput} onChange={(e) => setSearchInput(e.target.value)} css={s.searchInput} />
+            <input type="text" placeholder="검색어를 입력하세요." value={searchInput} onChange={(e) => setSearchInput(e.target.value)} css={s.searchInput} onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()} />
             <button css={s.searchButton} onClick={handleSearchOnClick}>
               <IoSearch />
             </button>
@@ -98,7 +98,7 @@ function GlobalFree(props) {
           page={page}                // 1-base 현재 페이지
           totalPages={totalPages}    // 총 페이지 수
           onChange={(p) => goPage(p)}// 페이지 변경 핸들러
-          windowSize={1} 
+          windowSize={1}
         />
       </div>
     </MainContainer>

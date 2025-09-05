@@ -158,7 +158,6 @@ function CrewRegister(props) {
             </div>
           </div>
 
-          {/* 프로필 + 크루 정보 */}
           <div css={s.crewInfoSection}>
             <div css={s.profilePicture} onClick={(e) => handleImgAddOnClick(e, "profilePicture")}>
               {preview.profilePicture && <img src={preview.profilePicture} alt="크루 프로필" />}
@@ -168,7 +167,7 @@ function CrewRegister(props) {
             <div css={s.crewTextBox}>
               <h2>{registerCrew.crewName || "크루명 입력"}</h2>
               <div css={s.crewText}>
-                <p css={s.gungu}>{gunguList.find(g => g.gunguId === registerCrew.gunguId)?.gunguName || "지역 선택"}</p>
+                <p css={s.gungu}>{gunguList.find(g => String(g.gunguId) === String(registerCrew.gunguId))?.gunguName || "지역 미선택"}</p>
                 <p>멤버수 1 / {registerCrew.limitedPeople || 10}</p>
               </div>
             </div>
@@ -185,7 +184,6 @@ function CrewRegister(props) {
         <div css={s.mainLine}>
           <p css={s.fontBold}>크루 정보 입력</p>
 
-          {/* 크루명 */}
           <div css={s.field}>
 
             <label css={s.label}>크루명</label>

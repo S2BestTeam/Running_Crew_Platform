@@ -141,20 +141,17 @@ export default function FeedDetail() {
 
 
   return (
-    <div>
-      <div css={s.layout}>
+    <div css={s.layout}>
+      <div>
         <div css={s.topBar}>
           <button onClick={() => navigate(-1)}>← 목록</button>
-          <span style={{ color: "#94a3b8", fontSize: 14 }}>
-            크루 #{crewId} · 글번호 #{post.freeId}
-          </span>
         </div>
 
         <h1 css={s.titleCss}>{post.title}</h1>
         <div css={s.metaCss}>
           <span>{post.user?.nickname ?? "익명"}</span>
           <span className="dot" />
-          <span>{new Date(post.createdAt).toLocaleString("ko-KR")}</span>
+          <span>{post.createdAt ? new Date(post.createdAt).toLocaleString("ko-KR") : "-"}</span>
           {isAuthor && (
             <>
               <span className="dot" />
@@ -167,85 +164,80 @@ export default function FeedDetail() {
         <div css={s.contentCss} dangerouslySetInnerHTML={{ __html: cleanHtml }} />
       </div>
 
-      <div style={{ marginTop: 16, display: "flex", gap: 8 }}>
-        <input
-          type="text"
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-          style={{ flex: 1 }}
-        />
-        <button onClick={handleCommentOnClick}>등록하기</button>
-      </div>
+      <div>
+        <div css={s.inputRow}>
+          <input
+            css={s.input}
+            type="text"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            placeholder="댓글을 입력하세요"
+          />
+          <button css={s.btnPrimary} onClick={handleCommentOnClick}>
+            등록
+          </button>
+        </div>
 
-      <div style={{ marginTop: 16 }}>
-        {cLoading && <div>댓글 불러오는 중…</div>}
-        {cError && <div>댓글을 불러오지 못했습니다.</div>}
+        {/* 댓글 목록 */}
+        <div css={s.commentList}>
+          {cLoading && <div>댓글 불러오는 중…</div>}
+          {cError && <div>댓글을 불러오지 못했습니다.</div>}
 
-        {displayedComments.map((c) => {
-          const cAuthorId = c?.user?.userId ?? c?.userId;
-          const isMyComment =
-            principalId != null &&
-            cAuthorId != null &&
-            Number(principalId) === Number(cAuthorId);
+          {displayedComments.map((c) => {
+            const cAuthorId = c?.user?.userId ?? c?.userId;
+            const isMyComment =
+              principalId != null && cAuthorId != null && Number(principalId) === Number(cAuthorId);
+            const isEditingThis = editingCommentId === c.freeCommentId;
 
-          const isEditingThis = editingCommentId === c.freeCommentId;
+            return (
+              <div key={c.freeCommentId} css={s.commentItem}>
+                <div css={s.avatar}>
+                  <img src={c?.user?.picture} alt="" />
+                </div>
+                <div css={s.commentBody}>
+                  <div className="head">
+                    <strong>{c?.user?.nickname ?? "익명"}</strong>
+                    <time>{c?.createdAt ? new Date(c.createdAt).toLocaleString() : ""}</time>
+                    <span css={s.headSpacer} />
+                    {isMyComment && !isEditingThis && (
+                      <>
+                        <button onClick={() => startEditComment(c)}>수정</button>
+                        <button onClick={() => deleteComment(c.freeCommentId)}>삭제</button>
+                      </>
+                    )}
+                  </div>
 
-          return (
-            <div
-              key={c.freeCommentId}
-              style={{
-                display: "flex",
-                gap: 12,
-                padding: "12px 0",
-                borderBottom: "1px solid #eee",
-              }}
-            >
-              <img
-                src={c?.user?.picture}
-                alt=""
-                width={36}
-                height={36}
-                style={{ borderRadius: "50%", objectFit: "cover" }}
-              />
-              <div style={{ flex: 1 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <strong>{c?.user?.nickname ?? "익명"}</strong>
-                  <span style={{ color: "#94a3b8", fontSize: 12 }}>
-                    {c?.createdAt ? new Date(c.createdAt).toLocaleString() : ""}
-                  </span>
-
-                  {isMyComment && !isEditingThis && (
-                    <>
-                      <button onClick={() => startEditComment(c)}>수정</button>
-                      <button onClick={() => deleteComment(c.freeCommentId)}>삭제</button>
-                    </>
+                  {isEditingThis ? (
+                    <div css={s.editRow}>
+                      <input
+                        value={editCommentValue}
+                        onChange={(e) => setEditCommentValue(e.target.value)}
+                        placeholder="수정할 내용을 입력하세요"
+                      />
+                      <button css={s.btnPrimary} onClick={saveEditComment}>
+                        수정 완료
+                      </button>
+                      <button css={s.btnOutline} onClick={cancelEditComment}>
+                        취소
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="content">{c.content}</div>
                   )}
                 </div>
-
-                {isEditingThis ? (
-                  <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
-                    <input
-                      style={{ flex: 1, padding: 8 }}
-                      value={editCommentValue}
-                      onChange={(e) => setEditCommentValue(e.target.value)}
-                      placeholder="수정할 내용을 입력하세요"
-                    />
-                    <button onClick={saveEditComment}>수정 완료</button>
-                    <button onClick={cancelEditComment}>취소</button>
-                  </div>
-                ) : (
-                  <div style={{ whiteSpace: "pre-wrap" }}>{c.content}</div>
-                )}
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
 
-        {commentList.length > INITIAL_COUNT && (
-          <button style={{ marginTop: 8 }} onClick={() => setShowAll((v) => !v)}>
-            {showAll ? "접기" : `댓글 더 보기 (${commentList.length - INITIAL_COUNT}개)`}
-          </button>
-        )}
+          {/* 댓글 더 보기 */}
+          {commentList.length > INITIAL_COUNT && (
+            <div css={s.moreRow}>
+              <button css={s.moreBtn} onClick={() => setShowAll((v) => !v)}>
+                {showAll ? "접기" : `댓글 더 보기 (${commentList.length - INITIAL_COUNT}개)`}
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

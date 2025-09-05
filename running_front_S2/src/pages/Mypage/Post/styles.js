@@ -1,9 +1,9 @@
 import { css } from "@emotion/react";
 
 export const container = css`
-    text-align: center;
-    margin: 0 auto;
-    width: 80%;
+  text-align: center;
+  margin: 0 auto;
+  width: 100%;
 `;
 
 export const tabActive = css`
@@ -19,23 +19,67 @@ export const searchBox = css`
 `;
 
 export const inputGroup = css`
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+`;
+
+export const selectGroup = css`
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+`;
+
+export const selectBox = css`
+  width: 14rem;
+  height: 3.425rem;
+  padding: 0.24rem 0.48rem;
+  font-size: 0.76rem;
+  border-radius: 0.4rem;
+  background-color: #fff;
+  color: #333;
+  font-size: 1.4rem;
+
+  .MuiOutlinedInput-notchedOutline {
+    border-color: #ccc;
+  }
+  &:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #333;
+  }
+  &.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #000 !important;
+  }
+`;
+
+export const menuItem = css`
+  font-size: 1.4rem;
+`;
+
+export const searchGroup = css`
+  display: flex;
+  align-items: center;
 `;
 
 export const searchInput = css`
-    height: 3.425rem;
-    box-sizing: border-box;
+  height: 3.425rem;
+  box-sizing: border-box;
   padding: 0.8rem;
   border: 0.1rem solid #ccc;
   border-right: none;
   border-radius: 0.6rem 0 0 0.6rem;
   outline: none;
+  min-width: 20rem;
+
+  &:focus {
+    border-color: #666;
+  }
 `;
 
 export const searchButton = css`
-    height: 3.425rem;
-    box-sizing: border-box;
+  height: 3.425rem;
+  box-sizing: border-box;
   padding: 0.8rem 1.2rem;
   border: 0.1rem solid #000;
   border-left: none;
@@ -43,11 +87,14 @@ export const searchButton = css`
   color: white;
   border-radius: 0 0.6rem 0.6rem 0;
   cursor: pointer;
+  display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 0.5rem;
-`;
 
+  &:hover {
+    background: #333;
+  }
+`;
 
 export const registerButton = css`
   width: 12rem;
@@ -59,7 +106,6 @@ export const registerButton = css`
   align-items: center;
   justify-content: center;
 `;
-
 
 export const table = css`
   width: 100%;

@@ -10,35 +10,50 @@ export const headerBox = css`
   align-items: center;
   justify-content: space-between;
   gap: 0.8rem;
-  padding: 1rem 1.6rem;
 `;
 
 export const selectBox = css`
-  height: 3.6rem;
-  padding: 0 1rem;
-  border: 1px solid #ccc;
+  width: 11rem;
+  height: 3.425rem;
+  padding: 0.24rem 0.48rem;
+  font-size: 0.76rem;
   border-radius: 0.4rem;
+  background-color: #fff;
+  color: #333;
   font-size: 1.4rem;
-  background-color: white;
+
+  .MuiOutlinedInput-notchedOutline {
+    border-color: #ccc;
+  }
+  &:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #333;
+  }
+  &.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #000 !important;
+  }
+`;
+
+export const menuItem = css`
+  font-size: 1.4rem;
 `;
 
 export const inputGroup = css`
-    display: flex;
+  display: flex;
 `;
 
 export const searchInput = css`
-    height: 3.425rem;
-    box-sizing: border-box;
+  height: 3.425rem;
+  box-sizing: border-box;
   padding: 0.8rem;
   border: 0.1rem solid #ccc;
   border-right: none;
-border-radius: 0.6rem 0 0 0.6rem;
+  border-radius: 0.6rem 0 0 0.6rem;
   outline: none;
 `;
 
 export const searchButton = css`
-    height: 3.425rem;
-    box-sizing: border-box;
+  height: 3.425rem;
+  box-sizing: border-box;
   padding: 0.8rem 1.2rem;
   border: 0.1rem solid #000;
   border-left: none;
@@ -67,7 +82,7 @@ export const gridBox = css`
   display: grid;
   width: 100%;
   grid-template-columns: repeat(4, 1fr);
-  gap: 3rem 1.8rem;
+  gap: 3rem 3rem;
   margin: 3rem 0;
 `;
 

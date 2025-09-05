@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 
 export const mainBox = css`
+  text-align: center;
+  margin: 0 auto;
   width: 100%;
 `;
 

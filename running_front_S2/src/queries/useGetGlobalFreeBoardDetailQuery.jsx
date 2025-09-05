@@ -11,8 +11,9 @@ export default function useGetGlobalFreeBoardDetailQuery({ freeId, enabled = tru
       const res = await reqGetGlobalFreeFeedDetail(fid);
       return res.data;
     },
-    staleTime: 0,              
-    refetchOnMount: "always",   
+    staleTime: 5 * 60 * 1000,
     refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    refetchOnMount: false,
   });
 }
