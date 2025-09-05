@@ -3,20 +3,18 @@ import * as s from "./styles";
 import { useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
-import { BiSolidChevronLeftSquare, BiSolidChevronRightSquare } from "react-icons/bi";
 import { Settings } from "lucide-react";
-
-import { useGetGatheringsQuery } from "../../../queries/useGetGatheringsQuery";
-import useMembersQuery from "../../../queries/useMembersQuery";
-import useGetCrewFreeBoardQuery from "../../../queries/useGetCrewFreeBoardQuery";
-import useGetCrewNoticeQuery from "../../../queries/useGetCrewNoticeQuery";
-
-import { reqExpelMember, reqUpdateMemberRole } from "../../../api/Crew/memberApi";
-import Pagination from "../../../components/Pagination/Pagination";
-import MessageSendModal from "./MessageModal/MessageSendModal";
+import useMembersQuery from "../../../../queries/useMembersQuery";
+import { reqExpelMember, reqUpdateMemberRole } from "../../../../api/Crew/memberApi";
+import { useGetGatheringsQuery } from "../../../../queries/useGetGatheringsQuery";
+import useGetCrewFreeBoardQuery from "../../../../queries/useGetCrewFreeBoardQuery";
+import useGetCrewNoticeQuery from "../../../../queries/useGetCrewNoticeQuery";
+import Pagination from "../../../../components/Pagination/Pagination";
+import MessageSendModal from "../MessageModal/MessageSendModal";
 
 function CrewDetailModal({ crew, onClose }) {
   if (!crew) return null;
+  
   const navigate = useNavigate();
   const crewId = Number(crew?.crewId);
 
@@ -29,12 +27,21 @@ function CrewDetailModal({ crew, onClose }) {
   const [searchInput, setSearchInput] = useState(searchText);
   const size = 10;
   const [msgOpen, setMsgOpen] = useState(false);
-  const membersQuery = useMembersQuery({ crewId, searchText: "", size: 50, enabled: activeTab === "members" });
+
+  // Members Query
+  const membersQuery = useMembersQuery({ 
+    crewId, 
+    searchText: "", 
+    size: 50, 
+    enabled: activeTab === "members" 
+  });
+  
   const members = useMemo(() => {
     const pages = membersQuery?.data?.pages || [];
     return pages.flatMap((p) => p?.data?.body?.contents || []);
   }, [membersQuery.data]);
 
+  // Member Actions
   const handleMemberMenuToggle = (memberId) => {
     setOpenMemberMenu(openMemberMenu === memberId ? null : memberId);
   };
@@ -62,14 +69,22 @@ function CrewDetailModal({ crew, onClose }) {
     }
   };
 
+  // Gatherings Query
   const gatheringsQuery = useGetGatheringsQuery(crewId, { enabled: activeTab === "gatherings" });
   const gatherings = gatheringsQuery?.data?.data?.body || [];
 
+  // Free Board Query
   const {
     data: freeData,
     isLoading: freeLoading,
     isError: freeError,
-  } = useGetCrewFreeBoardQuery({ crewId, page, size, searchText, enabled: activeTab === "freeBoard" });
+  } = useGetCrewFreeBoardQuery({ 
+    crewId, 
+    page, 
+    size, 
+    searchText, 
+    enabled: activeTab === "freeBoard" 
+  });
 
   const freeBody = freeData?.data?.body;
   const freeTotalPages = freeBody?.totalPages ?? 1;
@@ -77,6 +92,26 @@ function CrewDetailModal({ crew, onClose }) {
   const freeLists = useMemo(() => freeBody?.contents ?? [], [freeBody]);
   const freeStart = (page - 1) * size;
 
+  // Notice Query
+  const {
+    data: noticeData,
+    isLoading: noticeLoading,
+    isError: noticeError,
+  } = useGetCrewNoticeQuery({ 
+    crewId, 
+    page, 
+    size, 
+    searchText, 
+    enabled: activeTab === "notice" 
+  });
+
+  const noticeBody = noticeData?.data?.body;
+  const noticeTotalPages = noticeBody?.totalPages ?? 1;
+  const noticeTotalElements = noticeBody?.totalElements ?? 0;
+  const noticeList = useMemo(() => noticeBody?.contents ?? [], [noticeBody]);
+  const noticeStart = (page - 1) * size;
+
+  // Search Handler
   const handleSearchOnClick = () => {
     setSearchParams((prev) => {
       const p = new URLSearchParams(prev);
@@ -86,25 +121,14 @@ function CrewDetailModal({ crew, onClose }) {
     });
   };
 
-  const {
-    data: noticeData,
-    isLoading: noticeLoading,
-    isError: noticeError,
-  } = useGetCrewNoticeQuery({ crewId, page, size, searchText, enabled: activeTab === "notice" });
-
-  const noticeBody = noticeData?.data?.body;
-  const noticeTotalPages = noticeBody?.totalPages ?? 1;
-  const noticeTotalElements = noticeBody?.totalElements ?? 0;
-  const noticeList = useMemo(() => noticeBody?.contents ?? [], [noticeBody]);
-  const noticeStart = (page - 1) * size;
-
-
+  // Pagination Handler
   const goPage = (next) => {
     const maxPages = activeTab === "freeBoard" ? freeTotalPages : noticeTotalPages;
     const nextPage = Math.min(Math.max(1, next), maxPages);
     setSearchParams({ page: String(nextPage), searchText });
   };
 
+  // Post Click Handler
   const handlePostOnClick = (freeId) => {
     if (!freeId) return;
     navigate(`/crews/${crewId}/freeBoards/${freeId}`);
@@ -114,6 +138,7 @@ function CrewDetailModal({ crew, onClose }) {
     <>
       <div css={s.overlay}>
         <div css={s.modal}>
+          {/* Header */}
           <div css={s.header}>
             <div css={s.headerTop}>
               <img
@@ -139,6 +164,7 @@ function CrewDetailModal({ crew, onClose }) {
             </div>
           </div>
 
+          {/* Tabs */}
           <div css={s.tabs}>
             {[
               { key: "members", label: "멤버" },
@@ -146,14 +172,19 @@ function CrewDetailModal({ crew, onClose }) {
               { key: "freeBoard", label: "자유게시판" },
               { key: "notice", label: "공지사항" },
             ].map((tab) => (
-              <div key={tab.key} onClick={() => setActiveTab(tab.key)} css={s.tab(activeTab === tab.key)}>
+              <div 
+                key={tab.key} 
+                onClick={() => setActiveTab(tab.key)} 
+                css={s.tab(activeTab === tab.key)}
+              >
                 {tab.label}
               </div>
             ))}
           </div>
 
+          {/* Content */}
           <div css={s.content}>
-            {/* 멤버 */}
+            {/* Members Tab */}
             {activeTab === "members" &&
               (membersQuery.isLoading ? (
                 <div css={s.emptyState}>멤버 목록을 불러오는 중...</div>
@@ -161,7 +192,11 @@ function CrewDetailModal({ crew, onClose }) {
                 <div>
                   {members.map((member, index) => (
                     <div key={member.memberId} css={s.memberItem(index < members.length - 1)}>
-                      <img src={member.user?.picture || "/default-avatar.png"} alt={member.user?.nickname} css={s.memberAvatar} />
+                      <img 
+                        src={member.user?.picture || "/default-avatar.png"} 
+                        alt={member.user?.nickname} 
+                        css={s.memberAvatar} 
+                      />
                       <div css={s.memberInfo}>
                         <div css={s.memberName}>
                           {member.user?.nickname}
@@ -172,7 +207,11 @@ function CrewDetailModal({ crew, onClose }) {
                       </div>
 
                       <div css={s.memberActions}>
-                        {member.createdAt && <div css={s.memberDate}>{new Date(member.createdAt).toLocaleDateString("ko-KR")}</div>}
+                        {member.createdAt && (
+                          <div css={s.memberDate}>
+                            {new Date(member.createdAt).toLocaleDateString("ko-KR")}
+                          </div>
+                        )}
                         <div css={s.settingsBtn} onClick={() => handleMemberMenuToggle(member.memberId)}>
                           <Settings />
                         </div>
@@ -203,7 +242,7 @@ function CrewDetailModal({ crew, onClose }) {
                 <div css={s.emptyState}>멤버가 없습니다.</div>
               ))}
 
-            {/* 정모 */}
+            {/* Gatherings Tab */}
             {activeTab === "gatherings" &&
               (gatherings?.length > 0 ? (
                 <div>
@@ -231,6 +270,7 @@ function CrewDetailModal({ crew, onClose }) {
                 <div css={s.emptyState}>등록된 정모가 없습니다.</div>
               ))}
 
+            {/* Free Board Tab */}
             {activeTab === "freeBoard" && (
               <div css={s.container}>
                 <h2>자유게시판</h2>
@@ -244,9 +284,8 @@ function CrewDetailModal({ crew, onClose }) {
                       css={s.searchInput}
                     />
                     <button css={s.searchButton} onClick={handleSearchOnClick}>
-                      <IoSearch />
+                      <IoSearch size={17} />
                     </button>
-
                   </div>
                 </div>
 
@@ -267,20 +306,20 @@ function CrewDetailModal({ crew, onClose }) {
                       </thead>
                       <tbody>
                         {freeLists.map((board, index) => (
-                          <tr key={board.freeId} className={s.tr} onClick={() => handlePostOnClick(board.freeId)}>
+                          <tr key={board.freeId} css={s.tr} onClick={() => handlePostOnClick(board.freeId)}>
                             <td css={s.td}>{freeTotalElements - (freeStart + index)}</td>
                             <td css={s.tdTitle}>{board.title}</td>
                             <td css={s.td}>{board?.user?.nickname}</td>
-                            <td css={s.td}>{board.createdAt}</td>
+                            <td css={s.td}>{new Date(board.createdAt).toLocaleString("ko-KR")}</td>
                           </tr>
                         ))}
                       </tbody>
                     </table>
 
                     <Pagination
-                      page={page}                // 1-base 현재 페이지
-                      totalPages={freeTotalPages}    // 총 페이지 수
-                      onChange={(p) => goPage(p)}// 페이지 변경 핸들러
+                      page={page}
+                      totalPages={freeTotalPages}
+                      onChange={(p) => goPage(p)}
                       windowSize={1}
                     />
                   </>
@@ -288,10 +327,9 @@ function CrewDetailModal({ crew, onClose }) {
               </div>
             )}
 
+            {/* Notice Tab */}
             {activeTab === "notice" && (
               <div css={s.container}>
-                <h2>공지사항</h2>
-
                 <div css={s.searchBox}>
                   <div css={s.inputGroup}>
                     <input
@@ -302,12 +340,7 @@ function CrewDetailModal({ crew, onClose }) {
                       css={s.searchInput}
                     />
                     <button css={s.searchButton} onClick={handleSearchOnClick}>
-                      <IoSearch />
-                    </button>
-
-                    {/* 관리자 전용: 항상 보임 */}
-                    <button css={s.registerButton} onClick={() => navigate(`/crews/${crewId}/notice/register`)}>
-                      공지글 등록
+                      <IoSearch size={17} />
                     </button>
                   </div>
                 </div>
@@ -332,21 +365,21 @@ function CrewDetailModal({ crew, onClose }) {
                           <tr
                             key={notice.noticeId}
                             onClick={() => navigate(`/crews/${crewId}/notices/${notice.noticeId}`)}
-                            className={s.tr}
+                            css={s.tr}
                           >
                             <td css={s.td}>{noticeTotalElements - (noticeStart + index)}</td>
                             <td css={s.tdTitle}>{notice.title}</td>
                             <td css={s.td}>{notice?.user?.nickname}</td>
-                            <td css={s.td}>{notice.createdAt}</td>
+                            <td css={s.td}>{new Date(notice.createdAt).toLocaleString("ko-KR")}</td>
                           </tr>
                         ))}
                       </tbody>
                     </table>
 
                     <Pagination
-                      page={page}                // 1-base 현재 페이지
-                      totalPages={noticeTotalPages}    // 총 페이지 수
-                      onChange={(p) => goPage(p)}// 페이지 변경 핸들러
+                      page={page}
+                      totalPages={noticeTotalPages}
+                      onChange={(p) => goPage(p)}
                       windowSize={1}
                     />
                   </>
@@ -355,6 +388,7 @@ function CrewDetailModal({ crew, onClose }) {
             )}
           </div>
 
+          {/* Footer */}
           <div css={s.footer}>
             <button css={s.closeBtn} onClick={onClose}>
               닫기
@@ -362,10 +396,11 @@ function CrewDetailModal({ crew, onClose }) {
           </div>
         </div>
       </div>
+
       <MessageSendModal
         open={msgOpen}
         onClose={() => setMsgOpen(false)}
-        crewId={crewId /* 또는 crew.crewId */}
+        crewId={crewId}
       />
     </>
   );

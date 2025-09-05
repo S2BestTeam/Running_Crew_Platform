@@ -1,32 +1,20 @@
 /** @jsxImportSource @emotion/react */
+import * as s from "./styles";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
-
-import * as s from "./styles";
-
 import { FaPen } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { IoSearch } from "react-icons/io5";
-import { BiSolidChevronLeftSquare, BiSolidChevronRightSquare } from "react-icons/bi";
+import useGetMyCrewsQuery from "../../../../queries/useGetMyCrewsQuery";
+import useGetMyGatheringQuery from "../../../../queries/useGetMyGatheringQuery";
+import { reqCheckNickname, reqDeleteUser, reqUserInfoUpdate, reqUserProfileUpdate } from "../../../../api/User/UserApi";
+import { SIGNUP_REGEX, SIGNUP_REGEX_ERROR_MESSAGE } from "../../../../constants/signupRegex";
+import { reqReportDelete, reqUserReported } from "../../../../api/Admin/adminApi";
+import useGetUserPostQuery from "../../../../queries/Admin/useGetUserPostQuery";
+import Pagination from "../../../../components/Pagination/Pagination";
+import { MenuItem, Select } from "@mui/material";
 
-import useGetMyCrewsQuery from "../../../queries/useGetMyCrewsQuery";
-import useGetMyGatheringQuery from "../../../queries/useGetMyGatheringQuery";
-
-
-import {
-  reqCheckNickname,
-  reqDeleteUser,
-  reqUserInfoUpdate,
-  reqUserProfileUpdate,
-} from "../../../api/User/UserApi";
-import { reqReportDelete, reqUserReported } from "../../../api/Admin/adminApi";
-
-import { SIGNUP_REGEX, SIGNUP_REGEX_ERROR_MESSAGE } from "../../../constants/signupRegex";
-import useGetUserPostQuery from "../../../queries/Admin/useGetUserPostQuery";
-import Pagination from "../../../components/Pagination/Pagination";
-
-/* ----------------------- util ----------------------- */
 const SRC_OPTIONS = [
   { value: "", label: "전체" },
   { value: "global_free", label: "전체 자유" },
@@ -55,7 +43,6 @@ function srcLabel(v) {
   return SRC_OPTIONS.find((o) => o.value === v)?.label ?? v ?? "";
 }
 
-/* ----------------------- component ----------------------- */
 function UserDetailModal({ user, onClose, onSave }) {
   if (!user) return null;
 
@@ -91,13 +78,11 @@ function UserDetailModal({ user, onClose, onSave }) {
   const [isNicknameChecked, setIsNicknameChecked] = useState(true);
   const [errors, setErrors] = useState({ nickname: "", phoneNumber: "" });
 
-  // 내 크루/일정
   const userCrewsQuery = useGetMyCrewsQuery(user.userId);
   const userGatheringQuery = useGetMyGatheringQuery(user.userId);
   const myCrews = userCrewsQuery?.data?.body || [];
   const myGatherings = userGatheringQuery?.data?.body || [];
 
-  /* ---------- 프로필 이미지 변경 ---------- */
   const handleProfileImgUpdateClick = () => {
     const input = document.createElement("input");
     input.type = "file";
@@ -153,7 +138,7 @@ function UserDetailModal({ user, onClose, onSave }) {
     }
     try {
       const res = await reqCheckNickname(nickname);
-      const isAvailable = res?.data?.body === "false"; // 서버 규약(중복 아님이 "false")
+      const isAvailable = res?.data?.body === "false";
       if (isAvailable) {
         setIsNicknameChecked(true);
         alert("사용 가능한 닉네임입니다.");
@@ -217,7 +202,6 @@ function UserDetailModal({ user, onClose, onSave }) {
     setIsEditing(false);
   };
 
-  /* ---------- 신고 삭제 ---------- */
   const handleReportDeleteOnClick = async (reportId) => {
     try {
       await reqReportDelete(reportId);
@@ -230,7 +214,6 @@ function UserDetailModal({ user, onClose, onSave }) {
     }
   };
 
-  /* ---------- 유저 추방 ---------- */
   const handleUserDeleteOnClick = async (e, userId) => {
     e.stopPropagation();
     if (!window.confirm("정말 추방시겠습니까?")) return;
@@ -244,7 +227,6 @@ function UserDetailModal({ user, onClose, onSave }) {
     }
   };
 
-  /* ---------- 작성 글 탭: 검색/페이지 ---------- */
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get("page") || "1", 10);
   const size = 10;
@@ -259,7 +241,7 @@ function UserDetailModal({ user, onClose, onSave }) {
     searchText,
     src,
     crewId: crewId || "",
-    userId: user.userId, // ← 중요!
+    userId: user.userId,
   });
 
   const body = data?.data?.body ?? data?.body ?? data ?? {};
@@ -324,7 +306,6 @@ function UserDetailModal({ user, onClose, onSave }) {
     });
   };
 
-  /* ---------- 렌더 ---------- */
   return (
     <div css={s.overlay}>
       <div css={s.modal}>
@@ -503,23 +484,52 @@ function UserDetailModal({ user, onClose, onSave }) {
                 <>
                   <div css={s.searchBox}>
                     <div css={s.inputGroup}>
-                      <div>
-                        <select value={src} onChange={handleSrcChange} css={s.select}>
-                          {SRC_OPTIONS.map((op) => (
-                            <option key={op.value} value={op.value}>
-                              {op.label}
-                            </option>
-                          ))}
-                        </select>
-
-                        <select value={crewId} onChange={handleCrewChange} css={s.select}>
-                          <option value="">내 크루: 전체</option>
+                      <div css={s.selectGroup}>
+                        <Select
+                          css={s.selectBox}
+                          value={src}
+                          onChange={handleSrcChange}
+                          displayEmpty
+                          MenuProps={{
+                            disablePortal: true,
+                            PaperProps: {
+                              sx: { maxHeight: 300, zIndex: 2000 }
+                            }
+                          }}
+                        >
+                            {SRC_OPTIONS.map((op) => (
+                              <MenuItem
+                                key={op.value}
+                                value={op.value}
+                                css={s.menuItem}
+                              >
+                                {op.label}
+                              </MenuItem>
+                            ))}
+                        </Select>
+                        <Select
+                          css={s.selectBox}
+                          value={crewId}
+                          onChange={handleCrewChange}
+                          displayEmpty
+                          MenuProps={{
+                            disablePortal: true,
+                            PaperProps: {
+                              sx: { maxHeight: 300, zIndex: 2000 }
+                            }
+                          }}
+                        >
+                          <MenuItem value="" css={s.menuItem}>내 크루: 전체</MenuItem>
                           {myCrews.map((c) => (
-                            <option key={c.crewId} value={String(c.crewId)}>
-                              {c.crewName ?? `Crew #${c.crewId}`}
-                            </option>
-                          ))}
-                        </select>
+                              <MenuItem
+                                key={c.crewId}
+                                value={String(c.crewId)}
+                                css={s.menuItem}
+                              >
+                                {c.crewName ?? `Crew #${c.crewId}`}
+                              </MenuItem>
+                            ))}
+                        </Select>
                       </div>
 
                       <input

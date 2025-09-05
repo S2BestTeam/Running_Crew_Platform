@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -49,7 +50,11 @@ public class GatheringService {
     }
 
     public List<User> getGatheringParticipants(int gatheringId) {
-        return gatheringMapper.findParticipantsByGatheringId(gatheringId);
+        List<User> participants = gatheringMapper.findParticipantsByGatheringId(gatheringId).stream().map(p -> {
+            p.setPicture(imageUrlUtil.buildImageUrl(p.getPicture(), "profile"));
+            return p;
+        }).collect(Collectors.toList());
+        return participants;
     }
 
     @Transactional(rollbackFor = Exception.class)

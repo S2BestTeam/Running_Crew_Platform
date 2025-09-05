@@ -25,4 +25,13 @@ export const global = css`
   #root {
     font-size: 1.4rem;
   }
+
+<<<<<<< HEAD
+=======
+  :root {
+    --main-color: #1f1f21;
+    --sub-color: #ebebeb;
+    --point-color: #fa2847;
+  }
+>>>>>>> origin/121-정모일정-수정-css
 `;

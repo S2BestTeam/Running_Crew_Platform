@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+/** @jsxImportSource @emotion/react */
+import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { BiSolidChevronLeftSquare, BiSolidChevronRightSquare } from "react-icons/bi";
-import UserDetailModal from "./UserDetailModal";
 import useSearchUserQuery from "../../../queries/Admin/useSearchUserQuery";
 import Pagination from "../../../components/Pagination/Pagination";
+import * as s from "./styles";
+import UserDetailModal from "./UserDetailModal/UserDetailModal";
 
 function SearchUser() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -12,35 +13,18 @@ function SearchUser() {
   const [searchInput, setSearchInput] = useState(searchText);
   const [selectedUser, setSelectedUser] = useState(null);
 
-  const handleSearchOnChange = (e) => {
-    setSearchInput(e.target.value);
-  };
-
+  const handleSearchOnChange = (e) => setSearchInput(e.target.value);
+  const handleSearchOnKeyDown = (e) => e.key === "Enter" && handleSearchOnClick();
   const handleSearchOnClick = () => {
-    setSearchParams((prev) => {
-      const newParams = new URLSearchParams(prev.toString());
-      newParams.set("page", 1);
-      newParams.set("searchText", searchInput);
-      return newParams;
-    });
+    setSearchParams({ page: 1, searchText: searchInput });
   };
 
-  const searchUserQuery = useSearchUserQuery({
-    page,
-    size: 20,
-    searchText,
-  });
+  const searchUserQuery = useSearchUserQuery({ page, size: 9, searchText });
 
-  if (searchUserQuery.isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (searchUserQuery.isError) {
-    return <div>Error: {searchUserQuery.error.message}</div>;
-  }
+  if (searchUserQuery.isLoading) return <div>Loading...</div>;
+  if (searchUserQuery.isError) return <div>Error: {searchUserQuery.error.message}</div>;
 
   const users = searchUserQuery.data?.data?.body?.contents || [];
-
   const totalPages = searchUserQuery.data?.data?.body?.totalPages || 1;
 
   const goPage = (next) => {
@@ -49,81 +33,87 @@ function SearchUser() {
   };
 
   return (
-    <div style={{ padding: "1rem" }}>
-      <div style={{ marginBottom: "1rem" }}>
+    <div css={s.container}>
+      {/* 검색 영역 */}
+      <div css={s.searchBox}>
         <input
           type="text"
           value={searchInput}
           onChange={handleSearchOnChange}
           onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()}
           placeholder="검색어 입력"
-          autoFocus
+          css={s.searchInput}
         />
-        <button onClick={handleSearchOnClick}>검색</button>
+        <button onClick={handleSearchOnClick} css={s.searchButton}>
+          검색
+        </button>
       </div>
 
-      <table border="1" cellPadding="6" cellSpacing="0" width="100%">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>성명</th>
-            <th>프로필 사진</th>
-            <th>사용자이름</th>
-            <th>이메일</th>
-            <th>주소</th>
-            <th>전화번호</th>
-            <th>상세보기</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.length === 0 ? (
+      {/* 테이블 */}
+      <div css={s.tableWrapper}>
+        <table css={s.table}>
+          <thead>
             <tr>
-              <td colSpan="5">검색 결과가 없습니다.</td>
+              <th>No</th>
+              <th>성명</th>
+              <th>프로필 사진</th>
+              <th>사용자이름</th>
+              <th>이메일</th>
+              <th>주소</th>
+              <th>전화번호</th>
+              <th>상세보기</th>
             </tr>
-          ) : (
-            users.map((user, index) => (
-              <tr key={user.userId}>
-                <td>{user.userId}</td>
-                <td>{user.fullName}</td>
-                <td style={{ width: "80px" }}>
-                  <img
-                    src={user.picture}
-                    alt={user.fullName}
-                    style={{
-                      width: "80px",
-                      height: "60px",
-                      objectFit: "cover",
-                      display: "block",
-                    }}
-                    onError={(e) => {
-                      e.target.style.display = "none";
-                    }}
-                  />
-                </td>
-                <td>{user.nickname}</td>
-                <td>{user.email}</td>
-                <td>{user.address}</td>
-                <td>{user.phoneNumber}</td>
-                <td>
-                  <button onClick={() => setSelectedUser(user)}>상세보기</button>
-                </td>
+          </thead>
+          <tbody>
+            {users.length === 0 ? (
+              <tr>
+                <td colSpan="8">검색 결과가 없습니다.</td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+            ) : (
+              users.map((user) => (
+                <tr key={user.userId}>
+                  <td>{user.userId}</td>
+                  <td>{user.fullName}</td>
+                  <td>
+                    <img
+                      src={user.picture}
+                      alt={user.fullName}
+                      css={s.thumbnail}
+                      onError={(e) => { e.currentTarget.style.display = "none"; }}
+                    />
+                  </td>
+                  <td>{user.nickname}</td>
+                  <td>{user.email}</td>
+                  <td>{user.address}</td>
+                  <td>{user.phoneNumber}</td>
+                  <td>
+                    <button css={s.detailButton} onClick={() => setSelectedUser(user)}>
+                      상세보기
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
 
-      <Pagination
-        page={page}                // 1-base 현재 페이지
-        totalPages={totalPages}    // 총 페이지 수
-        onChange={(p) => goPage(p)}// 페이지 변경 핸들러
-        windowSize={1}
-      />
+      {/* 페이지네이션 */}
+      <div css={s.paginationWrapper}>
+        <Pagination
+          page={page}
+          totalPages={totalPages}
+          onChange={(p) => goPage(p)}
+          windowSize={1}
+        />
+      </div>
+
       {selectedUser && (
         <UserDetailModal
           user={selectedUser}
           onClose={() => setSelectedUser(null)}
-          onSave={(newUser) => setSelectedUser(newUser)} />
+          onSave={(newUser) => setSelectedUser(newUser)}
+        />
       )}
     </div>
   );

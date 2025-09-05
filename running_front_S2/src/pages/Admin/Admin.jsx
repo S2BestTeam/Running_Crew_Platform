@@ -1,13 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import * as s from './styles';
 import { useQueryClient } from "@tanstack/react-query";
-import { Outlet, useNavigate, useLocation, Routes, Route } from "react-router-dom";
-import { Database, BarChart3, MessageSquare, Headphones, LogOut, Settings } from "lucide-react";
+import { useNavigate, useLocation, Routes, Route } from "react-router-dom";
+import { Database, Headphones, LogOut, Settings } from "lucide-react";
 import { FaUserCog } from "react-icons/fa";
 import SearchUser from './SearchUser/SearchUser';
 import SearchCrew from './SearchCrew/SearchCrew';
 import usePrincipalQuery from '../../queries/usePrincipalQuery';
-import Ask from './Ask/AskAnswer';
 import AskAnswer from './Ask/AskAnswer';
 
 function Admin() {

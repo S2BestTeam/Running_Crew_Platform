@@ -25,23 +25,25 @@ export const inputGroup = css`
 `;
 
 export const searchInput = css`
-    height: 3.425rem;
-    box-sizing: border-box;
+  height: 3.425rem;
+  box-sizing: border-box;
   padding: 0.8rem;
-  border: 0.1rem solid #ccc;
+  border: 0.1rem solid var(--main-color);
   border-right: none;
-border-radius: 0.6rem 0 0 0.6rem;
+  border-radius: 0.6rem 0 0 0.6rem;
   outline: none;
 `;
 
 export const searchButton = css`
-    height: 3.425rem;
-    box-sizing: border-box;
-  padding: 0.8rem 1.2rem;
-  border: 0.1rem solid #000;
+  display: flex;
+  height: 3.425rem;
+  box-sizing: border-box;
+  padding: 0.5rem 0.5rem;
+  border: 0.1rem solid var(--main-color);
   border-left: none;
-  background: #000;
-  color: white;
+  background: #fff;
+  color: var(--main-color);
+  font-size: 1.8rem;
   border-radius: 0 0.6rem 0.6rem 0;
   cursor: pointer;
   align-items: center;

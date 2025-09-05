@@ -2,6 +2,8 @@ import { css } from "@emotion/react";
 
 export const container = css`
   text-align: center;
+  margin: 0 auto;
+  width: 100%;
 `;
 
 export const tabActive = css`

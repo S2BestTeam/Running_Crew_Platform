@@ -66,71 +66,68 @@ function MyAsk() {
     if (isError) return <MainContainer><div>문제가 발생했어요.</div></MainContainer>;
 
     return (
-        <MainContainer>
-            <div css={s.container}>
-                <h2>문의사항</h2>
+        <div css={s.container}>
+            <h2>문의사항</h2>
 
-                <div css={s.searchBox}>
-                    <div css={s.inputGroup}>
-                        <input
-                            type="text"
-                            placeholder="검색어를 입력하세요."
-                            value={searchInput}
-                            onChange={(e) => setSearchInput(e.target.value)}
-                            css={s.searchInput}
-                            onKeyDown={(e) => e.key === 'Enter' && handleSearchOnClick()}
-                        />
-                        <button css={s.searchButton} onClick={handleSearchOnClick}>
-                            <IoSearch />
-                        </button>
+            <div css={s.searchBox}>
+                <div css={s.inputGroup}>
+                    <input
+                        type="text"
+                        placeholder="검색어를 입력하세요."
+                        value={searchInput}
+                        onChange={(e) => setSearchInput(e.target.value)}
+                        css={s.searchInput}
+                        onKeyDown={(e) => e.key === 'Enter' && handleSearchOnClick()}
+                    />
+                    <button css={s.searchButton} onClick={handleSearchOnClick}>
+                        <IoSearch />
+                    </button>
 
-                    </div>
                 </div>
-
-                <table css={s.table}>
-                    <thead>
-                        <tr>
-                            <th css={s.th}>번호</th>
-                            <th css={s.th}>제목</th>
-                            <th css={s.th}>작성자</th>
-                            <th css={s.th}>등록일</th>
-                            <th css={s.th}>답변 유/무</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {askLists.map((board, index) => (
-                            <tr
-                                key={board.askId}
-                                css={s.tr}
-                                onClick={() => handlePostOnClick(board)}
-                                style={{ cursor: 'pointer' }}
-                            >
-                                <td css={s.td}>{totalElements - (start + index)}</td>
-                                <td css={s.tdTitle}>{board.title}</td>
-                                <td css={s.td}>{board?.user?.nickname ?? board?.nickname ?? '-'}</td>
-                                <td css={s.td}>{board.createdAt}</td>
-                                <td css={s.td}>{board.isAnswer ? 'Y' : 'N'}</td>
-                            </tr>
-                        ))}
-                        {askLists.length === 0 && (
-                            <tr>
-                                <td className={s.td} colSpan={5} style={{ textAlign: 'center', color: '#888' }}>
-                                    내 문의가 없습니다.
-                                </td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-
-                <Pagination
-                    page={page}                // 1-base 현재 페이지
-                    totalPages={totalPages}    // 총 페이지 수
-                    onChange={(p) => goPage(p)}// 페이지 변경 핸들러
-                    windowSize={1} 
-                />
             </div>
 
-        </MainContainer>
+            <table css={s.table}>
+                <thead>
+                    <tr>
+                        <th css={s.th}>번호</th>
+                        <th css={s.th}>제목</th>
+                        <th css={s.th}>작성자</th>
+                        <th css={s.th}>등록일</th>
+                        <th css={s.th}>답변 유/무</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {askLists.map((board, index) => (
+                        <tr
+                            key={board.askId}
+                            css={s.tr}
+                            onClick={() => handlePostOnClick(board)}
+                            style={{ cursor: 'pointer' }}
+                        >
+                            <td css={s.td}>{totalElements - (start + index)}</td>
+                            <td css={s.tdTitle}>{board.title}</td>
+                            <td css={s.td}>{board?.user?.nickname ?? board?.nickname ?? '-'}</td>
+                            <td css={s.td}>{board.createdAt}</td>
+                            <td css={s.td}>{board.isAnswer ? 'Y' : 'N'}</td>
+                        </tr>
+                    ))}
+                    {askLists.length === 0 && (
+                        <tr>
+                            <td className={s.td} colSpan={5} style={{ textAlign: 'center', color: '#888' }}>
+                                내 문의가 없습니다.
+                            </td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
+
+            <Pagination
+                page={page}                // 1-base 현재 페이지
+                totalPages={totalPages}    // 총 페이지 수
+                onChange={(p) => goPage(p)}// 페이지 변경 핸들러
+                windowSize={1} 
+            />
+        </div>
     );
 }
 

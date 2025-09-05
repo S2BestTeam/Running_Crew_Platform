@@ -6,7 +6,8 @@ import java.time.LocalDate;
 
 @Data
 public class UserGatheringsReqDto {
-
+    private Integer crewId;
+    private String thumbnailPicture;
     private String crewName;
     private String title;
     private String runningDate;
