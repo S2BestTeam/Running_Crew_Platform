@@ -214,8 +214,13 @@ export default function Post() {
               <td css={s.td}>{totalElements - (start + index)}</td>
               <td css={s.td}>{srcLabel(item.src)}</td>
               <td css={s.tdTitle}>{item.title}</td>
+<<<<<<< HEAD
               <td css={s.td}>{item.crew?.crewName}</td>
               <td css={s.td}>{item.createdAt}</td>
+=======
+              <td css={s.td}>{item.crewId ?? "-"}</td>
+              <td css={s.td}>{new Date(item.createdAt).toLocaleDateString("ko-KR")}</td>
+>>>>>>> 118-css-수정본
             </tr>
           ))}
         </tbody>

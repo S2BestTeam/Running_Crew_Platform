@@ -19,7 +19,6 @@ export const banner = css`
   height: 20rem;
   overflow: hidden;
   position: relative;
-  cursor: pointer;
 
   & > div {
     width: 100%;
@@ -28,9 +27,6 @@ export const banner = css`
     display: block;
     position: relative;
 
-    &:hover .overlay {
-      opacity: 1;
-    }
 
     & > img {
       width: 100%;
@@ -39,9 +35,6 @@ export const banner = css`
       transition: transform 0.2s ease;
     }
 
-    &:hover > img {
-      transform: scale(1.05);
-    }
   }
 `;
 
@@ -67,16 +60,7 @@ export const profilePicture = css`
   border: 0.3rem solid #fff;
   overflow: hidden;
   background-color: #f0f0f0;
-  cursor: pointer;
   transition: transform 0.2s ease;
-
-  &:hover {
-    transform: translateY(-2px);
-  }
-
-  &:hover .overlay {
-    opacity: 1;
-  }
 
   & > img {
     width: 100%;

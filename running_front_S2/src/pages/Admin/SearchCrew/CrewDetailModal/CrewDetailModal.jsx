@@ -3,8 +3,8 @@ import * as s from "./styles";
 import { useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
-import { BiSolidChevronLeftSquare, BiSolidChevronRightSquare } from "react-icons/bi";
 import { Settings } from "lucide-react";
+<<<<<<< HEAD:running_front_S2/src/pages/Admin/SearchCrew/CrewDetailModal.jsx
 
 import { useGetGatheringsQuery } from "../../../queries/useGetGatheringsQuery";
 import useMembersQuery from "../../../queries/useMembersQuery";
@@ -14,6 +14,14 @@ import useGetCrewNoticeQuery from "../../../queries/useGetCrewNoticeQuery";
 import { reqExpelMember, reqUpdateMemberRole } from "../../../api/Crew/memberApi";
 import Pagination from "../../../components/Pagination/Pagination";
 import MessageSendModal from "./MessageModal/MessageSendModal";
+=======
+import useMembersQuery from "../../../../queries/useMembersQuery";
+import { reqExpelMember, reqUpdateMemberRole } from "../../../../api/Crew/memberApi";
+import { useGetGatheringsQuery } from "../../../../queries/useGetGatheringsQuery";
+import useGetCrewFreeBoardQuery from "../../../../queries/useGetCrewFreeBoardQuery";
+import useGetCrewNotoiceQuery from "../../../../queries/useGetCrewNoticeQuery";
+import Pagination from "../../../../components/Pagination/Pagination";
+>>>>>>> 118-css-수정본:running_front_S2/src/pages/Admin/SearchCrew/CrewDetailModal/CrewDetailModal.jsx
 
 function CrewDetailModal({ crew, onClose }) {
   if (!crew) return null;
@@ -90,7 +98,7 @@ function CrewDetailModal({ crew, onClose }) {
     data: noticeData,
     isLoading: noticeLoading,
     isError: noticeError,
-  } = useGetCrewNoticeQuery({ crewId, page, size, searchText, enabled: activeTab === "notice" });
+  } = useGetCrewNotoiceQuery({ crewId, page, size, searchText, enabled: activeTab === "notice" });
 
   const noticeBody = noticeData?.data?.body;
   const noticeTotalPages = noticeBody?.totalPages ?? 1;
@@ -98,7 +106,10 @@ function CrewDetailModal({ crew, onClose }) {
   const noticeList = useMemo(() => noticeBody?.contents ?? [], [noticeBody]);
   const noticeStart = (page - 1) * size;
 
+<<<<<<< HEAD:running_front_S2/src/pages/Admin/SearchCrew/CrewDetailModal.jsx
 
+=======
+>>>>>>> 118-css-수정본:running_front_S2/src/pages/Admin/SearchCrew/CrewDetailModal/CrewDetailModal.jsx
   const goPage = (next) => {
     const maxPages = activeTab === "freeBoard" ? freeTotalPages : noticeTotalPages;
     const nextPage = Math.min(Math.max(1, next), maxPages);
@@ -248,8 +259,33 @@ function CrewDetailModal({ crew, onClose }) {
                     </button>
 
                   </div>
+<<<<<<< HEAD:running_front_S2/src/pages/Admin/SearchCrew/CrewDetailModal.jsx
+=======
+                ))}
+              </div>
+            ) : (
+              <div css={s.emptyState}>등록된 정모가 없습니다.</div>
+            ))}
+
+          {activeTab === "freeBoard" && (
+            <div css={s.container}>
+              <div css={s.searchBox}>
+                <div css={s.inputGroup}>
+                  <input
+                    type="text"
+                    placeholder="검색어를 입력하세요."
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                    css={s.searchInput}
+                  />
+                  <button css={s.searchButton} onClick={handleSearchOnClick}>
+                    <IoSearch size={17}/>
+                  </button>
+
+>>>>>>> 118-css-수정본:running_front_S2/src/pages/Admin/SearchCrew/CrewDetailModal/CrewDetailModal.jsx
                 </div>
 
+<<<<<<< HEAD:running_front_S2/src/pages/Admin/SearchCrew/CrewDetailModal.jsx
                 {freeLoading ? (
                   <div>불러오는 중…</div>
                 ) : freeError ? (
@@ -263,6 +299,30 @@ function CrewDetailModal({ crew, onClose }) {
                           <th css={s.th}>제목</th>
                           <th css={s.th}>작성자</th>
                           <th css={s.th}>등록일</th>
+=======
+              {freeLoading ? (
+                <div>불러오는 중…</div>
+              ) : freeError ? (
+                <div>문제가 발생했어요.</div>
+              ) : (
+                <>
+                  <table css={s.table}>
+                    <thead>
+                      <tr>
+                        <th css={s.th}>번호</th>
+                        <th css={s.th}>제목</th>
+                        <th css={s.th}>작성자</th>
+                        <th css={s.th}>등록일</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {freeLists.map((board, index) => (
+                        <tr key={board.freeId} css={s.tr} onClick={() => handlePostOnClick(board.freeId)}>
+                          <td css={s.td}>{freeTotalElements - (freeStart + index)}</td>
+                          <td css={s.tdTitle}>{board.title}</td>
+                          <td css={s.td}>{board?.user?.nickname}</td>
+                          <td css={s.td}>{new Date(board.createdAt).toLocaleString("ko-KR")}</td>
+>>>>>>> 118-css-수정본:running_front_S2/src/pages/Admin/SearchCrew/CrewDetailModal/CrewDetailModal.jsx
                         </tr>
                       </thead>
                       <tbody>
@@ -277,6 +337,7 @@ function CrewDetailModal({ crew, onClose }) {
                       </tbody>
                     </table>
 
+<<<<<<< HEAD:running_front_S2/src/pages/Admin/SearchCrew/CrewDetailModal.jsx
                     <Pagination
                       page={page}                // 1-base 현재 페이지
                       totalPages={freeTotalPages}    // 총 페이지 수
@@ -310,8 +371,36 @@ function CrewDetailModal({ crew, onClose }) {
                       공지글 등록
                     </button>
                   </div>
+=======
+                  <Pagination
+                          page={page}                // 1-base 현재 페이지
+                          totalPages={freeTotalPages}    // 총 페이지 수
+                          onChange={(p) => goPage(p)}// 페이지 변경 핸들러
+                          windowSize={1} 
+                        />
+                </>
+              )}
+            </div>
+          )}
+
+          {activeTab === "notice" && (
+            <div css={s.container}>
+              <div css={s.searchBox}>
+                <div css={s.inputGroup}>
+                  <input
+                    type="text"
+                    placeholder="검색어를 입력하세요."
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                    css={s.searchInput}
+                  />
+                  <button css={s.searchButton} onClick={handleSearchOnClick}>
+                    <IoSearch size={17}/>
+                  </button>
+>>>>>>> 118-css-수정본:running_front_S2/src/pages/Admin/SearchCrew/CrewDetailModal/CrewDetailModal.jsx
                 </div>
 
+<<<<<<< HEAD:running_front_S2/src/pages/Admin/SearchCrew/CrewDetailModal.jsx
                 {noticeLoading ? (
                   <div>불러오는 중…</div>
                 ) : noticeError ? (
@@ -325,6 +414,34 @@ function CrewDetailModal({ crew, onClose }) {
                           <th css={s.th}>제목</th>
                           <th css={s.th}>작성자</th>
                           <th css={s.th}>등록일</th>
+=======
+              {noticeLoading ? (
+                <div>불러오는 중…</div>
+              ) : noticeError ? (
+                <div>문제가 발생했어요.</div>
+              ) : (
+                <>
+                  <table css={s.table}>
+                    <thead>
+                      <tr>
+                        <th css={s.th}>번호</th>
+                        <th css={s.th}>제목</th>
+                        <th css={s.th}>작성자</th>
+                        <th css={s.th}>등록일</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {noticeList.map((notice, index) => (
+                        <tr
+                          key={notice.noticeId}
+                          onClick={() => navigate(`/crews/${crewId}/notices/${notice.noticeId}`)}
+                          css={s.tr}
+                        >
+                          <td css={s.td}>{noticeTotalElements - (noticeStart + index)}</td>
+                          <td css={s.tdTitle}>{notice.title}</td>
+                          <td css={s.td}>{notice?.user?.nickname}</td>
+                          <td css={s.td}>{new Date(notice.createdAt).toLocaleString("ko-KR")}</td>
+>>>>>>> 118-css-수정본:running_front_S2/src/pages/Admin/SearchCrew/CrewDetailModal/CrewDetailModal.jsx
                         </tr>
                       </thead>
                       <tbody>

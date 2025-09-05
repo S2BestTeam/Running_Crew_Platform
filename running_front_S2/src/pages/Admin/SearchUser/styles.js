@@ -1,373 +1,107 @@
 import { css } from "@emotion/react";
 
-export const overlay = css`
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-color: rgba(0,0,0,0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  padding: 20px;
-`;
-
-export const modal = css`
-  background: #fff;
-  border-radius: 12px;
-  width: 80%;
-  max-height: 90%;
-  overflow: hidden;
+export const container = css`
   display: flex;
   flex-direction: column;
-  position: relative;
-`;
-
-export const editIcon = css`
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  cursor: pointer;
-  color: #007bff;
-`;
-
-export const profileSection = css`
-  display: flex;
-  gap: 20px;
-  padding: 20px;
-`;
-
-export const profileImageWrapper = css`
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid #e5e5e5;
-  width: 12rem;
-  height: 12rem;
-  overflow: hidden;
-  background: #f9f9f9;
-  transition: all 0.3s ease;
-
-  & > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  &:hover::after {
-    position: absolute;
-    content: "프로필 변경";
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.55);
-    color: #ffffff;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    width: 100%;
-    height: 100%;
-  }
-`;
-
-export const profileImage = css`
-  width: 140px;
-  height: 140px;
-  object-fit: cover;
-  border-radius: 8px;
-  background-color: #eee;
-`;
-
-export const noImage = css`
-  width: 140px;
-  height: 140px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #ccc;
-  color: #fff;
-  border-radius: 8px;
-  font-size: 14px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`;
-
-export const editButtons = css`
-  margin-top: 10px;
-`;
-
-export const saveButton = css`
-  padding: 6px 12px;
-  margin-right: 8px;
-  border-radius: 6px;
-  border: none;
-  background-color: #28a745;
-  color: #fff;
-  cursor: pointer;
-`;
-
-export const cancelButton = css`
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: none;
-  background-color: #dc3545;
-  color: #fff;
-  cursor: pointer;
-`;
-
-export const tabMenu = css`
-  display: flex;
-  border-bottom: 1px solid #ddd;
-`;
-
-export const tab = css`
-  flex: 1;
-  text-align: center;
-  padding: 10px 0;
-  cursor: pointer;
-  font-weight: normal;
-`;
-
-export const activeTab = css`
-  font-weight: bold;
-  border-bottom: 2px solid #007bff;
-`;
-
-export const tabContent = css`
-  padding: 20px;
-  overflow-y: auto;
-  flex: 1;
-`;
-
-export const cardWrapper = css`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-`;
-
-export const card = css`
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 10px;
-  min-width: 180px;
-  max-width: 220px;
-  background: #f9f9f9;
-  flex: 1 1 auto;
-`;
-
-export const gatheringWrapper = css`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
-
-export const gatheringCard = css`
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 10px;
-  background: #f5f5f5;
-`;
-
-export const postWrapper = css`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
-
-export const postCard = css`
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 10px;
-  background: #fefefe;
-`;
-
-export const footer = css`
-  padding: 10px 20px;
-  border-top: 1px solid #ddd;
-  text-align: right;
-`;
-
-export const closeButton = css`
-  padding: 10px 20px;
-  border-radius: 6px;
-  border: none;
-  background-color: #007bff;
-  color: #fff;
-  cursor: pointer;
-`;
-
-export const nicknameErrMsg = css`
-  position: absolute;
-  bottom: -2.8rem;
-  left: 1rem;
-  font-size: 1rem;
-  color: red;
-  white-space: nowrap;
-`;
-
-export const errMsg = css`
-  position: absolute;
-  bottom: -2.8rem;
-  left: 1rem;
-  font-size: 1rem;
-  color: red;
-  white-space: nowrap;
-`;
-
-export const reportList = css`
-  list-style: none;
-  padding: 0;
-  margin: 10px 0 20px 0;
-  max-height: 150px;
-  overflow-y: auto;
-`;
-
-export const reportItem = css`
-  padding: 8px 12px;
-  margin-bottom: 4px;
-  background-color: #f8f9fa;
-  border-left: 3px solid #007bff;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-  
-  &:hover {
-    background-color: #e3f2fd;
-    border-left-color: #0056b3;
-  }
-  
-  &:last-child {
-    margin-bottom: 0;
-  }
-`;
-
-export const reportContent = css`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-export const reportMain = css`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-`;
-
-export const reportReason = css`
-  font-weight: 600;
-  color: #495057;
-  font-size: 13px;
-`;
-
-export const reportTarget = css`
-  color: #6c757d;
-  font-size: 12px;
-  font-style: italic;
-`;
-
-export const reportDate = css`
-  color: #868e96;
-  font-size: 11px;
-  white-space: nowrap;
-`;
-
-export const ModifyButton = css`
-  font-size: 1.6rem;
-  padding-left: 2rem;
-  cursor: pointer;
-
-  :hover {
-    color: #34f944ff;
-  }
-`;
-
-
-export const deleteButton = css`
-  font-size: 1.6rem;
-  padding-left: 2rem;
-  cursor: pointer;
-
-  :hover {
-    color: red;
-  }
+  height: 100%;
+  width: 100%;
+  padding: 3rem;
+  box-sizing: border-box;
+  font-size: 3rem;
 `;
 
 export const searchBox = css`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 2rem 0 2rem 0;
-`;
-
-export const inputGroup = css`
-    display: flex;
-    justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 2rem;
 `;
 
 export const searchInput = css`
-    height: 3.425rem;
-    box-sizing: border-box;
-  padding: 0.8rem;
-  border: 0.1rem solid #ccc;
-  border-right: none;
-  border-radius: 0.6rem 0 0 0.6rem;
-  outline: none;
+  flex: 1;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1.6rem;
 `;
 
 export const searchButton = css`
-    height: 3.425rem;
-    box-sizing: border-box;
-  padding: 0.8rem 1.2rem;
-  border: 0.1rem solid #000;
-  border-left: none;
-  background: #000;
-  color: white;
-  border-radius: 0 0.6rem 0.6rem 0;
+  padding: 0.8rem 2rem;
+  background: #000000ff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  margin-right: 0.5rem;
+  font-weight: 500;
+  font-size: 1.6rem;
+  &:hover {
+    background: gray;
+  }
 `;
 
-
-export const registerButton = css`
-  width: 12rem;
-  padding: 0.6rem 1.2rem;
-  background: #000;
-  color: white;
-  border-radius: 0.6rem;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
+export const tableWrapper = css`
+  flex: 1;
+  overflow-y: auto;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
 `;
-
 
 export const table = css`
   width: 100%;
   border-collapse: collapse;
-  text-align: center;
-`;
+  min-width: 800px;
+  font-size: 1.6rem;
 
-export const tr = css`
-  cursor: pointer;
+  thead {
+    position: sticky;
+    top: 0;
+    background: #f8f9fa;
+    z-index: 1;
+  }
 
-  :hover {
-    background-color: #cececeff;
+  th {
+    padding: 1rem;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 2px solid #dee2e6;
+    text-align: center;
+    font-size: 1.6rem;
+  }
+
+  td {
+    padding: 1rem;
+    color: #555;
+    border-bottom: 1px solid #f1f3f5;
+    text-align: center;
+    line-height: 1.5; /* 행 간격 여유 */
+  }
+
+  tr:hover td {
+    background: #b9b9b9ff;
   }
 `;
 
-export const th = css`
-  padding: 1.2rem;
-  border-bottom: 0.2rem solid #000;
-  font-weight: 600;
+export const thumbnail = css`
+  width: 70px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+  background: #f0f0f0;
 `;
 
-export const td = css`
-  padding: 1rem;
-  border-bottom: 1px solid #eee;
+export const detailButton = css`
+  padding: 0.6rem 1.6rem;
+  cursor: pointer;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  background-color: black;
+  color: white;
 `;
 
-export const tdTitle = css`
-  ${td};
-  text-align: left;
+export const paginationWrapper = css`
+  margin-top: 1rem;
+  text-align: center;
+  flex-shrink: 0;
+  font-size: 1.1rem;
 `;

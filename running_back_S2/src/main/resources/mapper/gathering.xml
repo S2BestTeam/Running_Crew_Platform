@@ -141,6 +141,8 @@
 
     <select id="findGatheringByUserId" resultType="com.korit.running_back_s2.dto.user.UserGatheringsReqDto">
         select
+            ct.crew_id,
+            gt.thumbnail_picture,
             ct.crew_name,
             gt.title,
             gt.running_date,

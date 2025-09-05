@@ -2,10 +2,14 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import useGetCrewListQuery from "../../../queries/useGetCrewListQuery";
+<<<<<<< HEAD
 
+=======
+>>>>>>> 118-css-수정본
 import Pagination from "../../../components/Pagination/Pagination";
 import CrewDetailModal from "./CrewDetailModal";
 import * as s from "./styles";
+import CrewDetailModal from "./CrewDetailModal/CrewDetailModal";
 
 function SearchCrew() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -16,7 +20,7 @@ function SearchCrew() {
 
   const crewListQuery = useGetCrewListQuery({
     page,
-    size: 20,
+    size: 9,
     searchText,
     gunguId: "",
   });

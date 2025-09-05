@@ -6,6 +6,7 @@ import MainContainer from '../../../components/MainContainer/MainContainer';
 import useGetCrewRoleQuery from '../../../queries/useGetCrewRoleQuery';
 import usePrincipalQuery from '../../../queries/usePrincipalQuery';
 import { useCrewStore } from '../../../stores/useCrewStroes';
+import MyGathering from '../Gathering/MyGathering';
 import MypageModify from '../Modify/MypageModify';
 import MyAsk from '../MyAsk/MyAsk';
 import Post from '../Post/Post';
@@ -60,7 +61,7 @@ function MCategory(props) {
       <button onClick={() => navigate("/mypage/welcome")}>크루 신청 내역</button>
       <button onClick={() => navigate("/mypage/wish")}>나의 크루</button>
       <button onClick={() => navigate("/mypage/post")}>내가 쓴 글</button>
-      <button>나의 정모일정</button>
+      <button onClick={() => navigate("/mypage/gathering")}>나의 정모일정</button>
       <button onClick={() => navigate("/mypage/ask")}>나의 문의 사항</button>
     </>
   );
@@ -90,6 +91,7 @@ function MCategory(props) {
             <Route path='/post' element={<Post />}/>
             <Route path='/welcome' element={<Welcome />} />
             <Route path='/ask' element={<MyAsk />} />
+            <Route path='/gathering' element={<MyGathering />} />
           </Routes>
         </ContentLayout>
       </LeftSideBarLayout>

@@ -129,7 +129,11 @@ public class UserService {
     }
 
     public List<UserGatheringsReqDto> getMyGathering (Integer userId) {
-        return gatheringMapper.findGatheringByUserId(userId);
+        List<UserGatheringsReqDto> gatherings = gatheringMapper.findGatheringByUserId(userId).stream().map(gathering -> {
+            gathering.setThumbnailPicture(imageUrlUtil.buildImageUrl(gathering.getThumbnailPicture(), "crewGathering"));
+            return gathering;
+        }).collect(Collectors.toList());
+        return gatherings;
     }
 
 }
