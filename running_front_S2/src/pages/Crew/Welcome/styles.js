@@ -6,25 +6,10 @@ export const mainBox = css`
   width: 100%;
 `;
 
-export const instruction = css`
-  color: #666;
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
-  font-style: italic;
-`;
-
 export const table = css`
   width: 100%;
   border-collapse: collapse;
   text-align: center;
-`;
-
-export const tr = css`
-  cursor: pointer;
-
-  :hover {
-    background-color: #cececeff;
-  }
 `;
 
 export const th = css`
@@ -45,10 +30,9 @@ export const tdTitle = css`
 
 export const clickableRow = css`
   cursor: pointer;
-  transition: background-color 0.2s ease;
 
-  &:hover {
-    background-color: #e3f2fd !important;
+  :hover {
+    background-color: var(--hB-color);
   }
 `;
 

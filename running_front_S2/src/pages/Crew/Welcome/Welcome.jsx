@@ -88,9 +88,7 @@ function Welcome({ isCrewLeader }) {
 
   return (
       <div css={s.mainBox}>
-          <h2>가입 인사 </h2>
-          <p css={s.instruction}>행을 클릭하면 상세 정보를 볼 수 있습니다.</p>
-        
+        <h2>가입 인사 </h2>
         <table css={s.table}>
           <thead>
             <tr>

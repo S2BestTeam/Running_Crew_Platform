@@ -101,6 +101,7 @@ function GlobalNotice() {
               <tr
                 key={notice.noticeId}
                 onClick={() => navigate(`./${notice.noticeId}`)}
+                css={s.tr}
               >
                 <td css={s.td}>{totalElements - (start + index)}</td>
                 <td css={s.tdTitle}>{notice.title}</td>

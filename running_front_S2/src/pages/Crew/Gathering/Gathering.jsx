@@ -86,7 +86,7 @@ function Gathering() {
   return (
     <>
       <div css={s.layout}>
-        <header css={s.header}>
+        <header>
           <h2>정모 일정</h2>
         </header>
         <div css={s.registerBtn}>

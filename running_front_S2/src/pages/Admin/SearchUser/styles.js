@@ -5,43 +5,49 @@ export const container = css`
   flex-direction: column;
   height: 100%;
   width: 100%;
-  padding: 3rem;
+  padding: 2rem 3rem;
   box-sizing: border-box;
   font-size: 3rem;
 `;
 
 export const searchBox = css`
   display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  font-size: 2rem;
+  justify-content: right;
+  align-items: center;
+  margin: 2rem 0 2rem 0;
+  min-width: 0;   
 `;
 
 export const searchInput = css`
-  flex: 1;
-  padding: 0.8rem 1rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1.6rem;
+  height: 3.425rem;
+  box-sizing: border-box;
+  padding: 0.8rem;
+  border: 0.1rem solid var(--main-color);
+  border-right: none;
+  border-radius: 0.6rem 0 0 0.6rem;
+  outline: none;
 `;
 
 export const searchButton = css`
-  padding: 0.8rem 2rem;
-  background: #000000ff;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
+  display: flex;
+  height: 3.425rem;
+  box-sizing: border-box;
+  padding: 0.5rem 0.5rem;
+  border: 0.1rem solid var(--main-color);
+  border-left: none;
+  background: #fff;
+  color: var(--main-color);
+  font-size: 1.8rem;
+  border-radius: 0 0.6rem 0.6rem 0;
   cursor: pointer;
-  font-weight: 500;
-  font-size: 1.6rem;
-  &:hover {
-    background: gray;
-  }
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
 `;
 
 export const tableWrapper = css`
   flex: 1;
-  overflow-y: auto;
+  overflow-y: hidden;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
 `;
@@ -50,7 +56,7 @@ export const table = css`
   width: 100%;
   border-collapse: collapse;
   min-width: 800px;
-  font-size: 1.6rem;
+  font-size: 1.2rem;
 
   thead {
     position: sticky;
@@ -73,11 +79,11 @@ export const table = css`
     color: #555;
     border-bottom: 1px solid #f1f3f5;
     text-align: center;
-    line-height: 1.5; /* 행 간격 여유 */
+    line-height: 1.5;
   }
 
   tr:hover td {
-    background: #b9b9b9ff;
+    background-color: var(--hB-color);
   }
 `;
 

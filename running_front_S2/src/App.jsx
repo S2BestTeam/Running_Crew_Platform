@@ -30,7 +30,6 @@ import SearchUser from "./pages/Admin/SearchUser/SearchUser";
 
 function App() {
   ReactModal.setAppElement("#root");
-
   const location = useLocation();
   const [isAdminPage, setIsAdminPage] = useState(false);
 

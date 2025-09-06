@@ -214,7 +214,7 @@
         SET
             email = NULL,
             picture = NULL,
-            full_name = CONCAT('탈퇴회원_', '***'),
+            full_name = CONCAT('탈퇴회원', ''),
             nickname = CONCAT('탈퇴회원_', user_id),
             phone_number = NULL,
             gungu_id = NULL,

@@ -10,7 +10,6 @@ export const container = css`
 export const sidebar = css`
   width: 240px;
   flex-shrink: 0;
-
   background-color: white;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   display: flex;
@@ -78,7 +77,7 @@ export const menuItem = css`
   font-weight: 500;
   
   &:hover {
-    background-color: #dbeafe;
+    background-color: var(--hB-color);
     color: black;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     
@@ -137,8 +136,8 @@ export const logoutButton = css`
   transition: all 0.2s;
   
   &:hover {
-    background-color: #fee2e2;
-    color: #b91c1c;
+    background-color: rgba(251, 72, 72, 0.4);
+    color: white;
     
     svg {
       transform: scale(1.1);

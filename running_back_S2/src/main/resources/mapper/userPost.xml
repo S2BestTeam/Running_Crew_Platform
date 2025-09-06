@@ -70,8 +70,8 @@
                 </if>
                 <if test="searchText != null and searchText != ''">
                     and (
-                    title   like concat('%', #{searchText}, '%')
-                    or content like concat('%', #{searchText}, '%')
+                    v.title   like concat('%', #{searchText}, '%')
+                    or v.content like concat('%', #{searchText}, '%')
                     )
                 </if>
             </where>

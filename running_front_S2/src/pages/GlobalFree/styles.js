@@ -67,7 +67,7 @@ export const tr = css`
   cursor: pointer;
 
   :hover {
-    background-color: #cececeff;
+    background-color: var(--hB-color);
   }
 `;
 

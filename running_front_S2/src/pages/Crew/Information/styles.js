@@ -1,12 +1,9 @@
 import { css } from "@emotion/react";
 
-
-// 1. 페이지 레이아웃 & 공통
 export const layout = css`
   width: 100%;
 `;
 
-// 2. 타이틀/배너 영역
 export const titleBox = css`
   border: 0.1rem solid #dbdbdb;
   border-radius: 0.5rem;
@@ -38,8 +35,6 @@ export const banner = css`
   }
 `;
 
-
-// 3. 크루 정보 영역
 export const crewInfoSection = css`
   position: relative;
   padding: 3rem 2rem 0.2rem;
@@ -130,7 +125,6 @@ export const Button = css`
   }
 `;
 
-// 4. 본문 섹션 공통
 export const section = css`
   margin-bottom: 2rem;
 `;
@@ -141,7 +135,6 @@ export const sectionHeader = css`
   align-items: center;
 `;
 
-// 5. 정모 일정 카드
 export const gatheringRow = css`
   position: relative;
   display: flex;

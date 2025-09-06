@@ -118,9 +118,14 @@ function Header() {
             <FiUser />
           )}
         </div>
-        <div css={s.icon} onClick={handleLogout}>
-          <TbLogout />
-        </div>
+        {
+          userInfo && 
+          (
+            <div css={s.icon} onClick={handleLogout}>
+              <TbLogout />
+            </div>
+          )
+        }
       </div>
     </header>
   );

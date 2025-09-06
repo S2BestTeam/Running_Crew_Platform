@@ -474,7 +474,6 @@ function UserDetailModal({ user, onClose, onSave }) {
             </div>
           )}
 
-          {/* 작성 글 */}
           {activeTab === "posts" && (
             <>
               {isLoading && <div>불러오는 중…</div>}
@@ -532,17 +531,19 @@ function UserDetailModal({ user, onClose, onSave }) {
                         </Select>
                       </div>
 
-                      <input
-                        type="text"
-                        placeholder="제목/내용 검색"
-                        value={searchInput}
-                        onChange={(e) => setSearchInput(e.target.value)}
-                        css={s.searchInput}
-                        onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()}
-                      />
-                      <button css={s.searchButton} onClick={handleSearchOnClick}>
-                        <IoSearch />
-                      </button>
+                      <div css={s.asd}>
+                        <input
+                          type="text"
+                          placeholder="제목/내용 검색"
+                          value={searchInput}
+                          onChange={(e) => setSearchInput(e.target.value)}
+                          css={s.searchInput}
+                          onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()}
+                        />
+                        <button css={s.searchButton} onClick={handleSearchOnClick}>
+                          <IoSearch />
+                        </button>
+                      </div>
                     </div>
                   </div>
 
@@ -571,7 +572,7 @@ function UserDetailModal({ user, onClose, onSave }) {
                           <td css={s.td}>{srcLabel(item.src)}</td>
                           <td css={s.tdTitle}>{item.title}</td>
                           <td css={s.td}>{item.crewId ?? "-"}</td>
-                          <td css={s.td}>{item.createdAt}</td>
+                          <td css={s.td}>{new Date(item.createdAt).toLocaleDateString("ko-KR")}</td>
                         </tr>
                       ))}
                     </tbody>

@@ -5,6 +5,7 @@ import useSearchUserQuery from "../../../queries/Admin/useSearchUserQuery";
 import Pagination from "../../../components/Pagination/Pagination";
 import * as s from "./styles";
 import UserDetailModal from "./UserDetailModal/UserDetailModal";
+import { IoSearch } from "react-icons/io5";
 
 function SearchUser() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -37,16 +38,16 @@ function SearchUser() {
       {/* 검색 영역 */}
       <div css={s.searchBox}>
         <input
-          type="text"
-          value={searchInput}
-          onChange={handleSearchOnChange}
-          onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()}
-          placeholder="검색어 입력"
-          css={s.searchInput}
-        />
-        <button onClick={handleSearchOnClick} css={s.searchButton}>
-          검색
-        </button>
+            type="text"
+            placeholder="검색어를 입력하세요."
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            css={s.searchInput}
+            onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()}
+          />
+          <button css={s.searchButton} onClick={handleSearchOnClick}>
+            <IoSearch />
+          </button>
       </div>
 
       {/* 테이블 */}

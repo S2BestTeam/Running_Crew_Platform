@@ -1,4 +1,3 @@
-
 import { css } from "@emotion/react";
 
 /* Light Mono */
@@ -30,7 +29,6 @@ export const layout = css`
   }
 `;
 
-/* 상단 바 */
 export const topBar = css`
   display: flex;
   align-items: center;
@@ -84,7 +82,7 @@ export const metaCss = css`
 `;
 
 export const metaSpacer = css`
-  margin-left: auto;   /* 이 아이템 이후로는 우측 끝으로 */
+  margin-left: auto;
 `;
 
 export const contentCss = css`
@@ -125,7 +123,6 @@ export const input = css`
   &:focus { border-color: ${C.focus}; background: ${C.white}; box-shadow: ${S.ring}; }
 `;
 
-/* 버튼들 */
 export const btnPrimary = css`
   padding: 12px 18px;
   border-radius: 1rem;
@@ -151,7 +148,6 @@ export const btnOutline = css`
   &:hover { transform: translateY(-1px); }
 `;
 
-/* 댓글 리스트 */
 export const commentList = css`
   margin-top: 16px;
 `;
@@ -197,7 +193,7 @@ export const editRow = css`
 
 export const moreRow = css`
   display: flex;
-  justify-content: flex-end; /* 오른쪽 정렬 */
+  justify-content: flex-end;
   margin-top: 10px;
 `;
 

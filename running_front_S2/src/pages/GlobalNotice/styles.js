@@ -74,7 +74,7 @@ export const tr = (isCrewMember) => css`
   cursor: ${isCrewMember ? "pointer" : "default"};
 
   &:hover {
-    background-color: ${isCrewMember ? "#cececeff" : "transparent"};
+    background-color: ${isCrewMember ? "var(--hB-color)" : "transparent"};
   }
 `;
 

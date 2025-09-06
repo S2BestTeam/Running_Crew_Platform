@@ -1,10 +1,10 @@
-/** @jsxImportSource @emotion/react */
-import * as s from "./styles";
 import { useState } from "react";
 import useGetReportListQuery from "../../../queries/useGetReportListQuery";
+/** @jsxImportSource @emotion/react */
+import * as s from "./styles";
 import MemberModal from "../Member/MemberModal/MemberModal";
+import ContentLayout from "../../../components/ContentLayout/ContentLayout";
 import { useCrewStore } from "../../../stores/useCrewStroes";
-import ReportModal from "./ReportModal/ReportModal";
 
 function Report({ isCrewLeader }) {
   const { crewId } = useCrewStore();
@@ -24,25 +24,9 @@ function Report({ isCrewLeader }) {
     setSelectedMemberId(memberId);
   };
 
-  const [reportOpen, setReportOpen] = useState(false);
-  const [reportTarget, setReportTarget] = useState({
-    memberId: null,
-    nickname: "",
-    crewId,
-  });
-
-  const handleReport = (payload) => {
-    const { memberId, nickname } = payload || {};
-    setReportTarget({ memberId, nickname: nickname || "", crewId });
-    setSelectedMemberId(null);
-    setReportOpen(true);
-  };
-
   return (
-    <>
-      <div css={s.title}>
-        <h2>신고 사항</h2>
-      </div>
+    <div css={s.mainBox}>
+      <h2>신고 사항</h2>
       <table css={s.table}>
         <thead>
           <tr>
@@ -55,15 +39,23 @@ function Report({ isCrewLeader }) {
         <tbody>
           {reportList.length === 0 ? (
             <tr>
-              <td style={{ paddingLeft : "2rem"}}>신고 내역이 없습니다.</td>
+              <td css={s.td} colSpan={4}>신고 내역이 없습니다.</td>
             </tr>
           ) : (
             reportList.map((r) => (
               <tr key={r.reportId}>
-                <td css={s.td} onClick={() => handlePickMember(r.reportMemberId)} title="신고자 정보 보기">
+                <td 
+                  css={[s.td, s.clickableRow]} 
+                  onClick={() => handlePickMember(r.reportMemberId)} 
+                  title="신고자 정보 보기"
+                >
                   {r.reporterUser === null ? "탈퇴한 유저입니다." : r.reporterUser?.fullName}
                 </td>
-                <td css={s.td} onClick={() => handlePickMember(r.reportedMemberId)} title="피신고자 정보 보기">
+                <td 
+                  css={[s.td, s.clickableRow]} 
+                  onClick={() => handlePickMember(r.reportedMemberId)} 
+                  title="피신고자 정보 보기"
+                >
                   {r.reportedUser?.fullName}
                 </td>
                 <td css={s.td}>{r.reason}</td>
@@ -76,24 +68,17 @@ function Report({ isCrewLeader }) {
 
       {selectedMemberId && (
         <MemberModal
-          memberId={selectedMemberId}
-          isOpen={!!selectedMemberId}
-          isLeader={isCrewLeader}
-          onClose={() => setSelectedMemberId(null)}
-          onChanged={() => {
-            setSelectedMemberId(null);
-          }}
-          onReport={(payload) => handleReport(payload)}
+        memberId={selectedMemberId}
+        isOpen={!!selectedMemberId}
+        isLeader={isCrewLeader}
+        onClose={() => setSelectedMemberId(null)}
+        onChanged={() => {
+          setSelectedMemberId(null);
+        }}
+        onReport={() => {}}
         />
       )}
-      <ReportModal
-        isOpen={reportOpen}
-        onClose={() => setReportOpen(false)}
-        memberId={reportTarget.memberId}
-        nickname={reportTarget.nickname}
-        crewId={reportTarget.crewId}
-      />
-    </>
+    </div>
   );
 }
 export default Report;

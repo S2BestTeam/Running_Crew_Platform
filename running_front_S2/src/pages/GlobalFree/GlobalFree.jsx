@@ -84,7 +84,7 @@ function GlobalFree(props) {
           </thead>
           <tbody>
             {freeLists.map((board, index) => (
-              <tr key={board.freeId} className={s.tr} onClick={() => handlePostOnClick(board.freeId)}>
+              <tr key={board.freeId} css={s.tr} onClick={() => handlePostOnClick(board.freeId)}>
                 <td css={s.td}>{totalElements - (start + index)}</td>
                 <td css={s.tdTitle}>{board.title}</td>
                 <td css={s.td}>{board?.user?.nickname}</td>

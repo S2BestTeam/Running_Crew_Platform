@@ -6,7 +6,6 @@ export const container = css`
   width: 100%;
 `;
 
-
 export const tabActive = css`
   color: #000;
   font-weight: 500;
@@ -17,13 +16,13 @@ export const searchBox = css`
   justify-content: right;
   align-items: center;
   margin: 2rem 0 2rem 0;
-  flex: 1 1 auto;   /* 남는 공간 채우기 + 줄어들 수 있게 */
-  min-width: 0;     /* flex 자식이 부모 폭을 넘지 않게 */
+  flex: 1 1 auto;
+  min-width: 0;
 `;
 
 export const inputGroup = css`
   display: flex;
-  min-width: 0;   /* 부모 폭 제한 */
+  min-width: 0;
 `;
 
 export const searchInput = css`
@@ -77,7 +76,7 @@ export const tr = css`
   cursor: pointer;
 
   :hover {
-    background-color: #cececeff;
+    background-color: var(--hB-color);
   }
 `;
 

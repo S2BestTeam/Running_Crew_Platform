@@ -12,6 +12,7 @@ export const overlay = css`
 `;
 
 export const modal = css`
+  position: relative;
   background: #fff;
   border-radius: 0.8rem;
   width: 80%;
@@ -20,7 +21,34 @@ export const modal = css`
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
+`;
+
+export const messageSendBtn = css`
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  padding: 0.8rem 1.6rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  font-size: 1.4rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+
+  &:hover {
+    background: #0056b3;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
 `;
 
 export const header = css`
@@ -242,21 +270,29 @@ export const inputGroup = css`
 
 export const searchInput = css`
   height: 3.425rem;
-  padding: 0.3rem;
-  border: 0.1rem solid #ccc;
+  box-sizing: border-box;
+  padding: 0.8rem;
+  border: 0.1rem solid var(--main-color);
   border-right: none;
   border-radius: 0.6rem 0 0 0.6rem;
   outline: none;
 `;
 
 export const searchButton = css`
-  padding: 0.8rem 1.5rem;
-  border: 0.1rem solid #000;
+  display: flex;
+  height: 3.425rem;
+  box-sizing: border-box;
+  padding: 0.5rem 0.5rem;
+  border: 0.1rem solid var(--main-color);
   border-left: none;
-  background: #000;
-  color: white;
+  background: #fff;
+  color: var(--main-color);
+  font-size: 1.8rem;
   border-radius: 0 0.6rem 0.6rem 0;
   cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
 `;
 
 export const registerButton = css`

@@ -5,6 +5,7 @@ import useGetCrewListQuery from "../../../queries/useGetCrewListQuery";
 import Pagination from "../../../components/Pagination/Pagination";
 import * as s from "./styles";
 import CrewDetailModal from "./CrewDetailModal/CrewDetailModal";
+import { IoSearch } from "react-icons/io5";
 
 function SearchCrew() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -45,14 +46,14 @@ function SearchCrew() {
       <div css={s.searchBox}>
         <input
           type="text"
+          placeholder="검색어를 입력하세요."
           value={searchInput}
-          onChange={handleSearchOnChange}
-          onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()}
-          placeholder="크루명 검색"
+          onChange={(e) => setSearchInput(e.target.value)}
           css={s.searchInput}
+          onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()}
         />
-        <button onClick={handleSearchOnClick} css={s.searchButton}>
-          검색
+        <button css={s.searchButton} onClick={handleSearchOnClick}>
+          <IoSearch />
         </button>
       </div>
 

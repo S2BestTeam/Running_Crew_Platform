@@ -92,7 +92,7 @@ function GatheringManagement() {
         <header>
           <h2>정모 관리</h2>
         </header>
-        <main css={s.gatheringMain}>
+        <main>
           <Box css={s.dataGridWrapper}>
             <DataGrid
               rows={rows}

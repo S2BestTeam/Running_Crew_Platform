@@ -1,21 +1,26 @@
 import { css } from "@emotion/react";
 
-export const header = css`
+export const layout = css`
   text-align: center;
+  margin: 0 auto;
+  width: 100%;
+  min-width: 0;
+  padding-bottom: 3rem;
 `;
 
 export const registerBtn = css`
   display: flex;
   justify-content: flex-end;
 
-   & > button {
-      width: 12rem;
-  padding: 0.6rem;
-  background: #000;
-  color: white;
-  border-radius: 0.6rem;
-  cursor: pointer;
-   }
+  & > button {
+    width: 12rem;
+    padding: 0.6rem;
+    background: #000;
+    color: white;
+    border: none;
+    border-radius: 0.6rem;
+    cursor: pointer;
+  }
 `;
 
 export const gatheringMain = css`

@@ -138,7 +138,7 @@ function CrewDetailModal({ crew, onClose }) {
     <>
       <div css={s.overlay}>
         <div css={s.modal}>
-          {/* Header */}
+          <button css={s.messageSendBtn} onClick={() => setMsgOpen(true)}>메세지 보내기</button>
           <div css={s.header}>
             <div css={s.headerTop}>
               <img
@@ -160,7 +160,6 @@ function CrewDetailModal({ crew, onClose }) {
               <span>정원: {crew.limitedPeople}명</span>
               <span>총거리: {crew.totalKm}km</span>
               <span>지역: {crew.gunguName}</span>
-              <button onClick={() => setMsgOpen(true)}>메세지 보내기</button>
             </div>
           </div>
 
@@ -270,7 +269,6 @@ function CrewDetailModal({ crew, onClose }) {
                 <div css={s.emptyState}>등록된 정모가 없습니다.</div>
               ))}
 
-            {/* Free Board Tab */}
             {activeTab === "freeBoard" && (
               <div css={s.container}>
                 <h2>자유게시판</h2>
@@ -327,7 +325,6 @@ function CrewDetailModal({ crew, onClose }) {
               </div>
             )}
 
-            {/* Notice Tab */}
             {activeTab === "notice" && (
               <div css={s.container}>
                 <div css={s.searchBox}>
