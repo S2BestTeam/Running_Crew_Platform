@@ -5,7 +5,7 @@ import api from "../axios";
 export const reqCrewDetail = (crewId) => api.get(`/api/crews/${crewId}`);
 
 export const reqCheckCrewName = (crewName) =>
-  api.get("/api/crews/duplicate/name", {
+  api.get("/api/crews", {
   params: { crewName },
 });
 
@@ -36,7 +36,7 @@ export const reqCrewProfileUpdate = (crewId, formData) => api.post(`/api/crews/$
   }
 })
 
-export const reqCrewUpdate = (data) => api.patch(`/api/crews/update`, data);
+export const reqCrewUpdate = (crewId, data) => api.patch(`/api/crews/${crewId}`, data);
 
 export const reqCrewWithdraw = (memberId) => api.patch(`api/crews/${memberId}/withdraw`);
 
@@ -45,4 +45,4 @@ export const reqCrewAlbum = (crewId) => api.get(`/api/crews/${crewId}/albums`);
 export const reqGetSectionsLatest = (crewId) =>
   api.get(`/api/crews/${crewId}/meta/latest`);
 
-export const reqGetMessage = (crewId) => api.get(`/api/crews/${crewId}/message`);
+export const reqGetMessage = (crewId) => api.get(`/api/crews/${crewId}/messages`);

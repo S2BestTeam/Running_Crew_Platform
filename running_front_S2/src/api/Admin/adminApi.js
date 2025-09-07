@@ -1,4 +1,4 @@
-import { data } from "react-router-dom";
+
 import api from "../axios"
 
 // user
@@ -33,4 +33,4 @@ export const reqGetUserPosts = ({
 
   
 export const reqPostCrewMessage = (crewId, content) =>
-  api.post(`/api/admin/message/${crewId}`, { content });
+  api.post(`/api/admin/${crewId}/messages`, { content });
