@@ -24,9 +24,11 @@ import Ask from "./pages/Ask/Ask";
 import AskDetail from "./pages/Ask/AskDetail/AskDetail";
 import AskReg from "./pages/Ask/AskReg/AskReg";
 import Competition from "./pages/Schedule/Competition/Competition";
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Admin from "./pages/Admin/Admin";
 import SearchUser from "./pages/Admin/SearchUser/SearchUser";
+import MarathonDetail from "./pages/marathon/detail/MarathonDetail";
+import MarathonList from "./pages/marathon/Marathon";
 
 function App() {
   ReactModal.setAppElement("#root");
@@ -35,14 +37,14 @@ function App() {
   const [isAdminPage, setIsAdminPage] = useState(false);
 
   useEffect(() => {
-    const adminPageCheck = location.pathname.startsWith('/admin');
+    const adminPageCheck = location.pathname.startsWith("/admin");
     setIsAdminPage(adminPageCheck);
   }, [location.pathname]);
 
   return (
     <>
       {!isAdminPage && <Header />}
-      
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/auth/oauth2/signin" element={<Signin />} />
@@ -63,17 +65,19 @@ function App() {
         <Route path="/notice/:noticeId" element={<NoticeDetail />} />
         <Route path="/notice/:noticeId/edit" element={<NoticeEdit />} />
 
+        <Route path="/marathons" element={<MarathonList />} />
+        <Route path="/marathons/:marathonId" element={<MarathonDetail />} />
+
         <Route path="/ask" element={<Ask />} />
         <Route path="/ask/register" element={<AskReg />} />
         <Route path="/ask/:askId" element={<AskDetail />} />
 
         <Route path="/calender" element={<Calender />} />
         <Route path="/competition" element={<Competition />} />
-        
-        
+
         <Route path="/admin/*" element={<Admin />} />
       </Routes>
-      
+
       {!isAdminPage && <Footer />}
     </>
   );

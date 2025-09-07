@@ -24,3 +24,13 @@ export const reqDeleteGlobalNotice = (noticeId) => {
 }
 
 export const reqGetGlobalRoleAdmin = () => api.get(`/api/notice/role`)
+
+export const reqGetMarathons = ({
+  page = 1,
+  size = 12,
+  searchText = "",
+  month = "",
+} = {}) =>
+  api.get("/api/marathons", {
+    params: { page, size, searchText, month },
+  });

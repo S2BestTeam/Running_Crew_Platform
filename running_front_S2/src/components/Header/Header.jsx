@@ -92,7 +92,7 @@ function Header() {
           </div>
           <div css={s.menuDetail}>
             <div>대회정보</div>
-            <div onClick={() => handleNavigate("/competition")}>대회일정</div>
+            <div onClick={() => handleNavigate("/marathons")}>대회일정</div>
             <div onClick={() => handleNavigate("/calender")}>캘린더</div>
           </div>
           <div css={s.menuDetail}>
