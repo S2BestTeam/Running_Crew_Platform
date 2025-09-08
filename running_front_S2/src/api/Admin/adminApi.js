@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/125-대회-가져오기
 import api from "../axios"
 
 // user
@@ -36,8 +32,4 @@ export const reqGetUserPosts = ({
 
   
 export const reqPostCrewMessage = (crewId, content) =>
-<<<<<<< HEAD
-  api.post(`/api/admin/message/${crewId}`, { content });
-=======
   api.post(`/api/admin/${crewId}/messages`, { content });
->>>>>>> origin/125-대회-가져오기

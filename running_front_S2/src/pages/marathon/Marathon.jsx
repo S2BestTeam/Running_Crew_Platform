@@ -3,6 +3,8 @@ import * as s from "./styles";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useGetMarathonsInfiniteQuery from "../../queries/useGetMarathonsInfiniteQuery";
+import { IoSearch } from "react-icons/io5";
+import { MenuItem, Select } from "@mui/material";
 
 const pick = (obj, ...keys) => keys.map((k) => obj?.[k]).find((v) => v !== undefined);
 const fmtDate = (iso) => {
@@ -10,6 +12,13 @@ const fmtDate = (iso) => {
   const m = String(iso).match(/^(\d{4})-(\d{2})-(\d{2})/);
   return m ? `${m[1]}.${m[2]}.${m[3]}` : iso;
 };
+
+const months = [
+  { value: "", label: "전체" },
+  { value: "9", label: "9월" },
+  { value: "10", label: "10월" },
+  { value: "11", label: "11월" },
+];
 
 export default function MarathonList() {
   const navigate = useNavigate();
@@ -25,8 +34,6 @@ export default function MarathonList() {
       return b?.contents ?? b?.content ?? b?.items ?? [];
     });
   }, [data]);
-
-  console.log(data)
 
   const sentinelRef = useRef(null);
   useEffect(() => {
@@ -55,17 +62,24 @@ export default function MarathonList() {
     <div css={s.page}>
       <h2 css={s.sectionTitle}>마라톤 대회 일정</h2>
       <div css={s.headerRow}>
-        <select css={s.monthSelect} value={month} onChange={(e) => setMonth(e.target.value)} aria-label="월 선택">
-          <option value="">전체</option>
-          <option value="9">9월</option>
-          <option value="10">10월</option>
-          <option value="11">11월</option>
-        </select>
+        <Select
+          css={s.selectBox}
+          value={month}
+          onChange={(e) => setMonth(e.target.value)}
+          displayEmpty
+          aria-label="월 선택"
+        >
+          {months.map((m) => (
+            <MenuItem key={m.value} value={m.value} css={s.menuItem}>
+              {m.label}
+            </MenuItem>
+          ))}
+        </Select>
 
-        <div css={s.searchWrap}>
+        <div css={s.searchBox}>
           <input css={s.searchInput} placeholder="검색어를 입력하세요." value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={onKeyDown} />
           <button css={s.searchButton} onClick={doSearch}>
-            검색
+            <IoSearch />
           </button>
         </div>
       </div>

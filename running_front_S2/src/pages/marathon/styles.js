@@ -14,7 +14,7 @@ export const headerRow = css`
   margin-bottom: 16px;
 `;
 
-export const monthSelect = css`
+export const selectBox = css`
   width: 11rem;
   height: 3.425rem;
   padding: 0.24rem 0.48rem;
@@ -35,14 +35,20 @@ export const monthSelect = css`
   }
 `;
 
-export const searchWrap = css`
+export const menuItem = css`
+  font-size: 1.4rem;
+`;
+
+export const searchBox = css`
   display: flex;
+  justify-content: right;
   align-items: center;
-  gap: 8px;
+  margin: 2rem 0 2rem 0;
+  min-width: 0;   
 `;
 
 export const searchInput = css`
-   height: 3.425rem;
+  height: 3.425rem;
   box-sizing: border-box;
   padding: 0.8rem;
   border: 0.1rem solid var(--main-color);
@@ -52,14 +58,20 @@ export const searchInput = css`
 `;
 
 export const searchButton = css`
- width: auto;
-  padding: 0.6rem 1.2rem;
-  background: #000;
-  color: white;
-  border-radius: 0.6rem;
+  display: flex;
+  height: 3.425rem;
+  box-sizing: border-box;
+  padding: 0.5rem 0.5rem;
+  border: 0.1rem solid var(--main-color);
+  border-left: none;
+  background: #fff;
+  color: var(--main-color);
+  font-size: 1.8rem;
+  border-radius: 0 0.6rem 0.6rem 0;
   cursor: pointer;
   align-items: center;
   justify-content: center;
+  margin-right: 0.5rem;
 `;
 
 

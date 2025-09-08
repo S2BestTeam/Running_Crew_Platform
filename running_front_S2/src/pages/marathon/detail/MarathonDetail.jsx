@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import * as s from "./styles";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import * as s from "./styles";
 
 const fmtDate = (iso) => {
   if (!iso) return "";
