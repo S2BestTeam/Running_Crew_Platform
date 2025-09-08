@@ -5,8 +5,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import useGetCrewListQuery from "../../../queries/Crew/List/useGetCrewListQuery";
 import useGetGunguListQuery from "../../../queries/User/useGetGunguListQuery";
 import MainContainer from "../../../components/MainContainer/MainContainer";
-import { FaHeart } from "react-icons/fa";
-import { FiHeart } from "react-icons/fi";
+import { PiHeartFill, PiHeart } from "react-icons/pi";
 import { motion } from "framer-motion";
 import usePrincipalQuery from "../../../queries/User/usePrincipalQuery";
 import { useCrewStore } from "../../../stores/useCrewStroes";
@@ -221,9 +220,9 @@ function List() {
                       transition={{ duration: 0.3 }}
                     >
                       {isLiked ? (
-                        <FaHeart color="#fc2848" />
+                        <PiHeartFill color="#fc2848" />
                       ) : (
-                        <FiHeart color="fff" />
+                        <PiHeart color="#fafafa" />
                       )}
                     </motion.div>
                   </div>

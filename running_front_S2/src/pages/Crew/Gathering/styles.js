@@ -13,31 +13,68 @@ export const registerBtn = css`
   justify-content: flex-end;
 
   & > button {
-    width: 12rem;
-    padding: 0.6rem;
-    background: #000;
+    width: auto;
+    padding: 0.6rem 1.2rem;
+    background: var(--main-color);
     color: white;
     border: none;
-    border-radius: 0.6rem;
+    border-radius: 0.5rem;
     cursor: pointer;
   }
 `;
 
+export const headerContainer = css`
+  display: flex;
+  justify-content: right;
+  margin: 3rem 0;
+`;
+
+export const searchBar = css`
+  display: flex;
+`;
+
+export const searchInput = css`
+  height: 3.425rem;
+  box-sizing: border-box;
+  padding: 0.8rem;
+  border: 0.1rem solid var(--main-color);
+  border-right: none;
+  border-radius: 0.6rem 0 0 0.6rem;
+  outline: none;
+`;
+
+export const searchButton = css`
+  display: flex;
+  height: 3.425rem;
+  box-sizing: border-box;
+  padding: 0.5rem 0.5rem;
+  border: 0.1rem solid var(--main-color);
+  border-left: none;
+  background: #fff;
+  color: var(--main-color);
+  font-size: 1.8rem;
+  border-radius: 0 0.6rem 0.6rem 0;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+`;
+
 export const gatheringMain = css`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 3rem 2rem;
   padding-bottom: 4rem;
 `;
 
 export const gatheringContainer = css`
-  width: 20rem;
+  width: 25rem;
   border: 0.1rem solid #aaa;
   border-radius: 0.5rem;
 `;
 
 export const thumbnailImg = css`
-  width: 20rem;
+  width: 100%;
   height: 15rem;
   background-color: #ebebeb;
   border-radius: 0.4rem 0.4rem 0 0;
@@ -53,17 +90,17 @@ export const thumbnailImg = css`
 
 export const gatheringInfoContainer = css`
   padding: 2rem;
-  height: 17rem;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   font-size: 1.3rem;
 
-  & > div {
+  & > div > div {
     display: flex;
   }
 
-  & > div > div {
+  & > div > div > div {
     align-items: center;
   }
 
@@ -73,9 +110,17 @@ export const gatheringInfoContainer = css`
   }
 
   & > div:nth-of-type(1) {
+    text-align: left;
+    padding-bottom: 1rem;
     font-size: 1.8rem;
     font-weight: 700;
   }
+`;
+
+export const gatheringDetailContainer = css`
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
 `;
 
 export const profileImg = css`
@@ -94,7 +139,9 @@ export const profileImg = css`
 `;
 
 export const statusContainer = css`
+  display: flex;
   justify-content: space-between;
+  padding-top: 1rem;
 
   & div:nth-of-type(1) {
     display: flex;
@@ -103,8 +150,7 @@ export const statusContainer = css`
 
 export const status = css`
   & > div {
-    width: 5rem;
-    height: 2.5rem;
+    padding: 0.5rem 0.8rem;
     color: #fff;
     font-weight: bold;
     border-radius: 0.2rem;
@@ -120,20 +166,29 @@ export const recruiting = css`
 `;
 
 export const closed = css`
-  background-color: #969696;
+  background-color: #676767;
 `;
 
-export const closedOverlay = css`
-  position: relative;
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 0.5rem;
-  }
+export const noGatheringMessage = css`
+  color: #888;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
 `;
+
+// export const closedOverlay = css`
+//   position: relative;
+
+//   &::after {
+//     content: "";
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     width: 100%;
+//     height: 100%;
+//     background-color: rgba(0, 0, 0, 0.3);
+//     border-radius: 0.5rem;
+//   }
+// `;

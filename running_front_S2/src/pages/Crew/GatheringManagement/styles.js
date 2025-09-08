@@ -11,7 +11,7 @@ export const layout = css`
 export const dataGridWrapper = css`
   height: 100%;
   width: 100%;
-    .MuiDataGrid-cell {
+  .MuiDataGrid-cell {
     font-size: 1.5rem;
   }
 
@@ -46,4 +46,12 @@ export const profileImg = css`
   width: 3.2rem;
   height: 3.2rem;
   border-radius: 50%;
+`;
+
+export const attendanceButton = css`
+  background: var(--main-color);
+  color: #fff;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.8rem;
+  cursor: pointer;
 `;

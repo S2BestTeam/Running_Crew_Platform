@@ -68,25 +68,26 @@ export const infoItemStyle = css`
 
 export const actionsStyle = css`
   display: flex;
+  text-align: center;
   gap: 8px;
   padding: 12px 16px;
   border-top: 1px solid #eee;
-  justify-content: flex-end;
+  justify-content: center;
 `;
 
 export const actionButtonStyle = css`
-  padding: 8px 16px;
-  border: 1px solid #ddd;
+  padding: 0.8rem 1.6rem;
+  border: 0.1rem solid var(--main-color);
   background: #fff;
-  border-radius: 4px;
+  border-radius: 0.5rem;
   cursor: pointer;
   font-size: 1.4rem;
   transition: all 0.2s ease;
 
-  &:hover:not(:disabled) {
+  /* &:hover:not(:disabled) {
     background: #f8f9fa;
     border-color: #adb5bd;
-  }
+  } */
 
   &:disabled {
     opacity: 0.5;
@@ -96,12 +97,12 @@ export const actionButtonStyle = css`
 
 export const expelButtonStyle = css`
   ${actionButtonStyle};
-  background: #dc3545;
+  background: var(--main-color);
   color: white;
-  border-color: #dc3545;
+  border: none;
 
-  &:hover:not(:disabled) {
+  /* &:hover:not(:disabled) {
     background: #c82333;
     border-color: #bd2130;
-  }
+  } */
 `;

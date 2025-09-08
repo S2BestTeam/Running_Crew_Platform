@@ -83,8 +83,8 @@ export const registerButton = css`
 export const gridBox = css`
   display: grid;
   width: 100%;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 3rem 3rem;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 3rem 2rem;
   margin: 3rem 0;
 `;
 
@@ -113,9 +113,9 @@ export const tumbnailBox = css`
 
 export const heartIcon = css`
   position: absolute;
-  bottom: 0.6rem;
-  right: 2rem;
-  font-size: 3.5rem;
+  bottom: 0;
+  right: 1rem;
+  font-size: 4rem;
   cursor: pointer;
 
   &:hover {

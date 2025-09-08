@@ -5,7 +5,11 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import * as s from "./styles";
-import { reqGatheringParticipants, reqUpdateParticipantsAttendance } from "../../../../api/Crew/gatheringApi";
+import {
+  reqGatheringParticipants,
+  reqUpdateParticipantsAttendance,
+} from "../../../../api/Crew/gatheringApi";
+import { cancelButton } from "../GatheringModify/styles";
 
 function GatheringManagementModal({ isOpen, onClose, crewId, gatheringId }) {
   const [participants, setParticipants] = useState([]);
@@ -18,7 +22,7 @@ function GatheringManagementModal({ isOpen, onClose, crewId, gatheringId }) {
       try {
         const res = await reqGatheringParticipants(crewId, gatheringId);
         setParticipants(res.data);
-        setCheckedState(res.data.map(p => p.attendanceStatus === 1));
+        setCheckedState(res.data.map((p) => p.attendanceStatus === 1));
       } catch (err) {
         console.error("참석자 불러오기 실패:", err);
       }
@@ -39,7 +43,7 @@ function GatheringManagementModal({ isOpen, onClose, crewId, gatheringId }) {
       attendanceStatus: checkedState[index] ? 1 : 0,
     }));
 
-    console.error("저장용 payload:", payload); 
+    console.error("저장용 payload:", payload);
 
     try {
       await reqUpdateParticipantsAttendance(crewId, gatheringId, payload);
@@ -69,7 +73,9 @@ function GatheringManagementModal({ isOpen, onClose, crewId, gatheringId }) {
                 <td>{index + 1}</td>
                 <td css={s.participantCell}>
                   <img src={p.picture} alt="" css={s.participantImg} />
-                  <span>{p.nickname} ({p.fullName})</span>
+                  <span>
+                    {p.nickname} ({p.fullName})
+                  </span>
                 </td>
                 <td>
                   <Checkbox
@@ -82,12 +88,14 @@ function GatheringManagementModal({ isOpen, onClose, crewId, gatheringId }) {
           </tbody>
         </table>
 
-        <Button onClick={handleSave} variant="contained" sx={{ mt: 2, mr: 1 }}>
-          저장
-        </Button>
-        <Button onClick={onClose} variant="outlined" sx={{ mt: 2 }}>
-          닫기
-        </Button>
+        <div css={s.buttonContainer}>
+          <Button css={s.cancelButton} onClick={onClose}>
+            취소
+          </Button>
+          <Button css={s.saveButton} onClick={handleSave}>
+            저장
+          </Button>
+        </div>
       </Box>
     </Modal>
   );
