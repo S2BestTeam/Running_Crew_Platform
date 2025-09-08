@@ -52,6 +52,7 @@
             v.src,
             v.post_id,
             v.crew_id,
+            c.crew_name,
             v.title,
             v.content,
             v.created_at,
@@ -63,10 +64,10 @@
             <where>
                 v.user_id = #{userId}
                 <if test="src != null and src != ''">
-                    and src = #{src}
+                    and v.src = #{src}
                 </if>
                 <if test="crewId != null">
-                    and crew_id = #{crewId}
+                    and v.crew_id = #{crewId}
                 </if>
                 <if test="searchText != null and searchText != ''">
                     and (
