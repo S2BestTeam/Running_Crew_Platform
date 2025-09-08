@@ -1,12 +1,12 @@
-import React, { useEffect, useMemo, useRef, useState, useCallback } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import usePrincipalQuery from "../../../queries/usePrincipalQuery";
-import useGetGlobalFreeBoardDetailQuery from "../../../queries/useGetGlobalFreeBoardDetailQuery";
-import { reqUpdateGlobalFreeBoard } from "../../../api/GlobalFree/globalFreeApi";
-import ReactQuill from "react-quill-new";
-import api from "../../../api/axios";
-import MainContainer from "../../../components/MainContainer/MainContainer";
 /** @jsxImportSource @emotion/react */
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import ReactQuill from "react-quill-new";
+import { useNavigate, useParams } from "react-router-dom";
+import api from "../../../api/axios";
+import { reqUpdateGlobalFreeBoard } from "../../../api/GlobalFree/globalFreeApi";
+import MainContainer from "../../../components/MainContainer/MainContainer";
+import useGetGlobalFreeBoardDetailQuery from "../../../queries/Global/FreeBoard/useGetGlobalFreeBoardDetailQuery";
+import usePrincipalQuery from "../../../queries/User/usePrincipalQuery";
 import * as s from './styles';
 
 function BoardEdit() {

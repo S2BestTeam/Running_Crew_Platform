@@ -1,5 +1,6 @@
 package com.korit.running_back_s2.service;
 
+import com.korit.running_back_s2.domain.crew.CrewMapper;
 import com.korit.running_back_s2.domain.member.Member;
 import com.korit.running_back_s2.domain.member.MemberMapper;
 import com.korit.running_back_s2.domain.member.MemberSearchOption;
@@ -20,8 +21,9 @@ public class MemberService {
 
     private final MemberMapper memberMapper;
     private final WelcomeMapper welcomeMapper;
-    private final PrincipalUtil principalUtil;
+    private final CrewMapper crewMapper;
     private final ImageUrlUtil imageUrlUtil;
+    private final PrincipalUtil principalUtil;
 
     public PaginationRespDto<Member> getMembers(Integer page, Integer size, Integer crewId, String searchText) {
         MemberSearchOption opt = MemberSearchOption.builder()
@@ -61,6 +63,10 @@ public class MemberService {
         if (updated == 0) {
             throw new IllegalStateException("권한 변경 중 오류");
         }
+        if (dto.getRoleId() == 1) {
+            Member member = memberMapper.findById(dto.getMemberId());
+            crewMapper.updateCrewLeader(dto.getCrewId(), member.getUserId());
+        }
     }
 
     public void expel(Integer memberId) {
@@ -80,9 +86,9 @@ public class MemberService {
         return memberMapper.countMember(crewId);
     }
 
-    public List<Integer> getMemberId (Integer crewId) {
-//        Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
-        return memberMapper.findMemberIdByUserId(crewId);
+    public Integer getMemberId (Integer crewId) {
+        Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
+        return memberMapper.findMemberIdByCrewIdAndUserId(crewId, userId);
     }
 
     public void withDrawMember (Integer memberId) {

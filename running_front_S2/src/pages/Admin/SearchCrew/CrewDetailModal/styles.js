@@ -29,7 +29,7 @@ export const messageSendBtn = css`
   top: 1.5rem;
   right: 1.5rem;
   padding: 0.8rem 1.6rem;
-  background: #007bff;
+  background: var(--main-color);
   color: white;
   border: none;
   border-radius: 0.6rem;
@@ -38,13 +38,6 @@ export const messageSendBtn = css`
   font-weight: 500;
   transition: all 0.2s ease;
   z-index: 10;
-  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
-
-  &:hover {
-    background: #0056b3;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
-  }
 
   &:active {
     transform: translateY(0);
@@ -123,7 +116,6 @@ export const emptyState = css`
   color: #666;
 `;
 
-/* 멤버 리스트 */
 export const memberItem = (withBorder) => css`
   display: flex;
   align-items: center;
@@ -223,7 +215,6 @@ export const menuDanger = css`
   font-weight: 500;
 `;
 
-/* 정모 */
 export const gatheringItem = (withBorder) => css`
   padding: 1.5rem 0;
   border-bottom: ${withBorder ? "0.1rem solid #f0f0f0" : "none"};
@@ -255,44 +246,6 @@ export const container = css`
   text-align: center;
   margin: 0 auto;
   width: 100%;
-`;
-
-export const searchBox = css`
-  display: flex;
-  justify-content: right;
-  align-items: center;
-  margin: 1rem 0;
-`;
-
-export const inputGroup = css`
-  display: flex;
-`;
-
-export const searchInput = css`
-  height: 3.425rem;
-  box-sizing: border-box;
-  padding: 0.8rem;
-  border: 0.1rem solid var(--main-color);
-  border-right: none;
-  border-radius: 0.6rem 0 0 0.6rem;
-  outline: none;
-`;
-
-export const searchButton = css`
-  display: flex;
-  height: 3.425rem;
-  box-sizing: border-box;
-  padding: 0.5rem 0.5rem;
-  border: 0.1rem solid var(--main-color);
-  border-left: none;
-  background: #fff;
-  color: var(--main-color);
-  font-size: 1.8rem;
-  border-radius: 0 0.6rem 0.6rem 0;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  margin-right: 0.5rem;
 `;
 
 export const registerButton = css`
@@ -333,7 +286,6 @@ export const tr = css`
   }
 `;
 
-/* 푸터 */
 export const footer = css`
   padding: 1.5rem 2rem;
   border-top: 1px solid #eee;

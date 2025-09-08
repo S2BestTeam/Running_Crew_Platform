@@ -1,14 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import { reqRegisterCrewMember } from '../../../api/Crew/memberApi';
-import { useCrewStore } from '../../../stores/useCrewStroes';
-import useGetCrewWelcomeListQuery from '../../../queries/useGetCrewWelcomeListQuery';
-import * as s from './styles';
 import { useEffect, useState } from 'react';
-import { reqRejectWelcome } from '../../../api/Crew/welcomeApi';
-import ContentLayout from '../../../components/ContentLayout/ContentLayout';
 import { useNavigate } from 'react-router-dom';
-import usePrincipalQuery from '../../../queries/usePrincipalQuery';
+import { reqRegisterCrewMember } from '../../../api/Crew/memberApi';
+import { reqRejectWelcome } from '../../../api/Crew/welcomeApi';
 import { reqGetReportByUserId } from '../../../api/User/UserApi';
+import useGetCrewWelcomeListQuery from '../../../queries/Crew/Welcome/useGetCrewWelcomeListQuery';
+import usePrincipalQuery from '../../../queries/User/usePrincipalQuery';
+import { useCrewStore } from '../../../stores/useCrewStroes';
+import * as s from './styles';
 
 function Welcome({ isCrewLeader }) {
   const { crewId } = useCrewStore();

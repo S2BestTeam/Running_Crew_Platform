@@ -1,20 +1,19 @@
 /** @jsxImportSource @emotion/react */
-import { useState, useEffect } from "react";
-import * as s from "./styles";
-import { MdAccessTimeFilled } from "react-icons/md";
+import { useEffect, useState } from "react";
 import {
   FaCalendar,
   FaMapMarkerAlt,
   FaRunning,
   FaWonSign,
 } from "react-icons/fa";
-import { useGetGatheringsQuery } from "../../../queries/useGetGatheringsQuery";
-import GatheringDetailModal from "./GatheringDetailModal/GatheringDetailModal";
-import ContentLayout from "../../../components/ContentLayout/ContentLayout";
+import { MdAccessTimeFilled } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import usePrincipalQuery from "../../../queries/usePrincipalQuery";
-import useGetCrewRoleQuery from "../../../queries/useGetCrewRoleQuery";
+import { useGetGatheringsQuery } from "../../../queries/Crew/Gathering/useGetGatheringsQuery";
+import useGetCrewRoleQuery from "../../../queries/Crew/useGetCrewRoleQuery";
+import usePrincipalQuery from "../../../queries/User/usePrincipalQuery";
 import { useCrewStore } from "../../../stores/useCrewStroes";
+import GatheringDetailModal from "./GatheringDetailModal/GatheringDetailModal";
+import * as s from "./styles";
 
 function Gathering() {
   const { crewId } = useCrewStore();

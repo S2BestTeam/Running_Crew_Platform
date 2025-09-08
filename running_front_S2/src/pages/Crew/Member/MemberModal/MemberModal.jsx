@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { useMemo } from "react";
 import ReactModal from "react-modal";
-
 import { reqExpelMember, reqUpdateMemberRole } from "../../../../api/Crew/memberApi";
-import useUserDetailQuery from "../../../../queries/useUserDetailQuery";
+import useUserDetailQuery from "../../../../queries/User/useUserDetailQuery";
 import * as s from "./styles";
 
 export default function MemberModal({ memberId, isOpen, onClose, isLeader = false, onChanged, onReport }) {

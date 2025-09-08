@@ -3,7 +3,6 @@ package com.korit.running_back_s2.service;
 import com.korit.running_back_s2.domain.globalFreeBoard.GlobalFree;
 import com.korit.running_back_s2.domain.globalFreeBoard.GlobalFreeMapper;
 import com.korit.running_back_s2.domain.globalFreeBoard.GlobalFreeSearchOption;
-import com.korit.running_back_s2.dto.crewFree.FreeBoardReqDto;
 import com.korit.running_back_s2.dto.globalFree.GlobalFreeBoardReqDto;
 import com.korit.running_back_s2.dto.response.PaginationRespDto;
 import com.korit.running_back_s2.security.model.PrincipalUtil;

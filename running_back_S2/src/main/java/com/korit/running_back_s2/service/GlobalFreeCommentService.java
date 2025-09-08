@@ -4,11 +4,13 @@ import com.korit.running_back_s2.domain.globalFreeComment.GlobalFreeComment;
 import com.korit.running_back_s2.domain.globalFreeComment.GlobalFreeCommentMapper;
 import com.korit.running_back_s2.dto.globalFree.GlobalFreeCommentReqDto;
 import com.korit.running_back_s2.security.model.PrincipalUtil;
+import com.korit.running_back_s2.util.ImageUrlUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -16,6 +18,7 @@ import java.util.List;
 public class GlobalFreeCommentService {
     private final PrincipalUtil principalUtil;
     private final GlobalFreeCommentMapper globalFreeCommentMapper;
+    private final ImageUrlUtil imageUrlUtil;
 
     public void registerComment(GlobalFreeCommentReqDto dto) {
         Integer userId = principalUtil.getPrincipalUser().getUser().getUserId();
@@ -28,7 +31,11 @@ public class GlobalFreeCommentService {
     }
 
     public List<GlobalFreeComment> getFreeCommentList(Integer freeId) {
-        return globalFreeCommentMapper.getCommentList(freeId);
+        List<GlobalFreeComment> comments = globalFreeCommentMapper.getCommentList(freeId).stream().map(comment -> {
+            comment.getUser().setPicture(imageUrlUtil.buildImageUrl(comment.getUser().getPicture(), "profile"));
+            return comment;
+        }).collect(Collectors.toList());
+        return comments;
     }
 
     public void updateComment(Integer freeCommentId, String content) {

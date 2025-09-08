@@ -2,7 +2,7 @@
 import * as s from './styles';
 import { useEffect, useState } from "react";
 import { reqDeleteMyWelcome, reqMyWelcome, reqUpdateMyWelcome } from "../../../api/Crew/welcomeApi";
-import usePrincipalQuery from "../../../queries/usePrincipalQuery";
+import usePrincipalQuery from "../../../queries/User/usePrincipalQuery";
 
 function Welcome() {
   const [myWelcomes, setMyWelcomes] = useState([]);
@@ -72,7 +72,7 @@ function Welcome() {
                   <img
                     src={welcome.profilePicture}
                     alt="크루 프로필 이미지"
-                    style={{ width: "40px", borderRadius: "50%" }}
+                    css={s.crewImg}
                   />
                   {welcome.crewName}
                 </div>
@@ -100,13 +100,12 @@ function Welcome() {
                 {new Date(welcome.createdAt).toLocaleDateString("ko-KR")}
               </td>
               <td css={s.td}>
-                {welcome.status === "거절" ? null : (
+                {welcome.status === "대기중" && (
                   editingId === welcome.welcomeId ? (
                     <>
                       <button
                         css={s.button}
                         onClick={() => handleModifyMyWelcomeOnClick(welcome.welcomeId)}
-                        disabled={welcome.status === "승인"}
                       >
                         저장
                       </button>
@@ -117,14 +116,12 @@ function Welcome() {
                       <button
                         css={s.button}
                         onClick={() => handleEdit(welcome)}
-                        disabled={welcome.status === "승인"}
                       >
                         수정
                       </button>
                       <button
                         css={s.button}
                         onClick={() => handleDeleteMyWelcomeOnClick(welcome.welcomeId)}
-                        disabled={welcome.status === "승인"}
                       >
                         삭제
                       </button>

@@ -1,8 +1,6 @@
 package com.korit.running_back_s2.controller;
 
 
-import com.korit.running_back_s2.dto.crewFree.FreeBoardReqDto;
-import com.korit.running_back_s2.dto.crewFree.FreeCommentReqDto;
 import com.korit.running_back_s2.dto.globalFree.GlobalFreeBoardReqDto;
 import com.korit.running_back_s2.dto.globalFree.GlobalFreeCommentReqDto;
 import com.korit.running_back_s2.dto.response.ResponseDto;

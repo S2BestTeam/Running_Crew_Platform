@@ -1,14 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import * as s from "./styles";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { IoSearch } from "react-icons/io5";
-import { BiSolidChevronLeftSquare, BiSolidChevronRightSquare } from "react-icons/bi";
-import usePrincipalQuery from "../../queries/usePrincipalQuery";
-import useGetGlobalNotoiceQuery from "../../queries/useGetGlobalNoticeQuery";
-import useGetGlobalRoleAdminQuery from "../../queries/useGetGlobalRoleAdminQuery";
 import MainContainer from "../../components/MainContainer/MainContainer";
 import Pagination from "../../components/Pagination/Pagination";
+import SearchBox from "../../components/SearchBox/SearchBox";
+import useGetGlobalRoleAdminQuery from "../../queries/Admin/useGetGlobalRoleAdminQuery";
+import useGetGlobalNotoiceQuery from "../../queries/Global/Notice/useGetGlobalNoticeQuery";
+import usePrincipalQuery from "../../queries/User/usePrincipalQuery";
+import * as s from "./styles";
 
 
 function GlobalNotice() {
@@ -67,25 +66,15 @@ function GlobalNotice() {
       <div css={s.container}>
         <h2>공지사항</h2>
 
-        <div css={s.searchBox}>
-          <div css={s.inputGroup}>
-            <input
-              type="text"
-              placeholder="검색어를 입력하세요."
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-              css={s.searchInput}
-              onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()}
-            />
-            <button css={s.searchButton} onClick={handleSearchOnClick}>
-              <IoSearch />
-            </button>
-
-            {isAdmin && (
-              <button css={s.registerButton} onClick={() => navigate('/notice/register')}>공지 등록</button>
-            )}
-          </div>
-        </div>
+        <SearchBox
+          value={searchInput}
+          onChange={setSearchInput}
+          onSearch={handleSearchOnClick}
+        >
+          {isAdmin && (
+            <button css={s.registerButton} onClick={() => navigate('/notice/register')}>공지 등록</button>
+          )}
+        </SearchBox>
 
         <table css={s.table}>
           <thead>

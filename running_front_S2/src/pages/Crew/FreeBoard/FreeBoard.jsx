@@ -2,10 +2,10 @@
 import * as s from "./styles";
 import { useMemo, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import useGetCrewFreeBoardQuery from "../../../queries/useGetCrewFreeBoardQuery";
+import useGetCrewFreeBoardQuery from "../../../queries/Crew/FreeBoard/useGetCrewFreeBoardQuery";
 import { IoSearch } from "react-icons/io5";
-import usePrincipalQuery from "../../../queries/usePrincipalQuery";
-import useGetCrewRoleQuery from "../../../queries/useGetCrewRoleQuery";
+import usePrincipalQuery from "../../../queries/User/usePrincipalQuery";
+import useGetCrewRoleQuery from "../../../queries/Crew/useGetCrewRoleQuery";
 import { useCrewStore } from "../../../stores/useCrewStroes";
 import Pagination from "../../../components/Pagination/Pagination";
 

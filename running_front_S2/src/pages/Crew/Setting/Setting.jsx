@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import { useCrewStore } from '../../../stores/useCrewStroes';
-import usePrincipalQuery from '../../../queries/usePrincipalQuery';
+import usePrincipalQuery from '../../../queries/User/usePrincipalQuery';
 import { reqCheckCrewName, reqCrewProfileUpdate, reqCrewThumbnailUpdate, reqCrewUpdate } from '../../../api/Crew/crewApi';
-import useCrewDetailQuery from '../../../queries/useCrewDetailQuery';
+import useCrewDetailQuery from '../../../queries/Crew/List/useCrewDetailQuery';
 import { reqGetMemberCount } from '../../../api/Crew/memberApi';
 
 function Setting(props) {

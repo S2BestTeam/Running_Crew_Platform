@@ -1,20 +1,19 @@
 /** @jsxImportSource @emotion/react */
-import * as s from './styles';
-import React, { useMemo, useState, memo, useRef, useEffect } from 'react';
+import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import usePrincipalQuery from '../../../queries/usePrincipalQuery';
+import sanitizeHtml from 'sanitize-html';
 import {
   reqDeleteGlobalComment,
   reqDeleteGlobalFree,
   reqRegisterGlobalComment,
   reqUpdateGlobalFreeComment,
 } from '../../../api/GlobalFree/globalFreeApi';
-import sanitizeHtml from 'sanitize-html';
-import useGetGlobalFreeBoardDetailQuery from '../../../queries/useGetGlobalFreeBoardDetailQuery';
-import useGetGlobalFreeCommentQuery from '../../../queries/useGetGlobalFreeCommentQuery';
 import MainContainer from '../../../components/MainContainer/MainContainer';
+import useGetGlobalFreeBoardDetailQuery from '../../../queries/Global/FreeBoard/useGetGlobalFreeBoardDetailQuery';
+import useGetGlobalFreeCommentQuery from '../../../queries/Global/FreeBoard/useGetGlobalFreeCommentQuery';
+import usePrincipalQuery from '../../../queries/User/usePrincipalQuery';
+import * as s from './styles';
 
-/* ------------------------- utils: sanitize + static html ------------------------- */
 const useSanitizedHtml = (html) =>
   useMemo(
     () =>
@@ -44,7 +43,6 @@ const useSanitizedHtml = (html) =>
     [html]
   );
 
-/** html이 바뀔 때만 innerHTML을 갱신. 부모 리렌더(댓글 타이핑 등)로 인한 이미지 재요청 방지 */
 const StaticHtml = memo(function StaticHtml({ html, ...rest }) {
   const ref = useRef(null);
   useEffect(() => {
@@ -53,7 +51,6 @@ const StaticHtml = memo(function StaticHtml({ html, ...rest }) {
   return <div ref={ref} {...rest} />;
 });
 
-/* ---------------------------------- component ---------------------------------- */
 function BoardDetail() {
   const { freeId } = useParams();
   const navigate = useNavigate();
@@ -61,7 +58,6 @@ function BoardDetail() {
   const principalQuery = usePrincipalQuery();
   const principalId = principalQuery?.data?.data?.body?.user?.userId;
 
-  // 상세/댓글 조회
   const { data, isLoading, error, refetch: refetchDetail } =
     useGetGlobalFreeBoardDetailQuery({ freeId });
   const {
@@ -69,13 +65,7 @@ function BoardDetail() {
     isLoading: cLoading,
     isError: cError,
     refetch: refetchComments,
-  } = useGetGlobalFreeCommentQuery(freeId /*, {
-        // (훅이 옵션 받도록 되어 있으면 켜줘도 좋음)
-        staleTime: 30_000,
-        refetchOnWindowFocus: false,
-        refetchOnReconnect: false,
-        refetchOnMount: false,
-      }*/);
+  } = useGetGlobalFreeCommentQuery(freeId);
 
   // 상태
   const [comment, setComment] = useState('');

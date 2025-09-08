@@ -1,12 +1,12 @@
-import React, { useEffect, useMemo, useState, useRef, useCallback } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import ReactQuill from 'react-quill-new';
-import useGetGlobalNoticeDetailQuery from '../../../queries/useGetGlobalNoticeDetailQuery';
-import { reqUpdateGlobalNotice } from '../../../api/GlobalNotice/globalNoticeApi';
-import usePrincipalQuery from '../../../queries/usePrincipalQuery';
-import MainContainer from '../../../components/MainContainer/MainContainer';
-import api from '../../../api/axios';
 /** @jsxImportSource @emotion/react */
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import ReactQuill from 'react-quill-new';
+import { useNavigate, useParams } from 'react-router-dom';
+import api from '../../../api/axios';
+import { reqUpdateGlobalNotice } from '../../../api/GlobalNotice/globalNoticeApi';
+import MainContainer from '../../../components/MainContainer/MainContainer';
+import useGetGlobalNoticeDetailQuery from '../../../queries/Global/Notice/useGetGlobalNoticeDetailQuery';
+import usePrincipalQuery from '../../../queries/User/usePrincipalQuery';
 import * as s from './styles';
 
 function NoticeEdit() {

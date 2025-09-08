@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import * as s from './styles';
-import MainContainer from "../../../components/MainContainer/MainContainer";
-import useGetUserRankingQuery from '../../../queries/useGetUserRankingQuery';
-import RankingCard from '../CrewRanking/RankingCard';
-import usePrincipalQuery from '../../../queries/usePrincipalQuery';
-import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { FaStar } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
+import MainContainer from "../../../components/MainContainer/MainContainer";
+import useGetUserRankingQuery from '../../../queries/Ranking/useGetUserRankingQuery';
+import usePrincipalQuery from '../../../queries/User/usePrincipalQuery';
+import RankingCard from '../CrewRanking/RankingCard';
+import * as s from './styles';
 
 function UserRanking(props) {
   const { data: rankings } = useGetUserRankingQuery();

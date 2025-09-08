@@ -2,15 +2,15 @@
 import * as s from "./styles";
 import { useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { IoSearch } from "react-icons/io5";
 import { Settings } from "lucide-react";
-import useMembersQuery from "../../../../queries/useMembersQuery";
+import useMembersQuery from "../../../../queries/User/useMembersQuery";
 import { reqExpelMember, reqUpdateMemberRole } from "../../../../api/Crew/memberApi";
-import { useGetGatheringsQuery } from "../../../../queries/useGetGatheringsQuery";
-import useGetCrewFreeBoardQuery from "../../../../queries/useGetCrewFreeBoardQuery";
-import useGetCrewNoticeQuery from "../../../../queries/useGetCrewNoticeQuery";
+import { useGetGatheringsQuery } from "../../../../queries/Crew/Gathering/useGetGatheringsQuery";
+import useGetCrewFreeBoardQuery from "../../../../queries/Crew/FreeBoard/useGetCrewFreeBoardQuery";
+import useGetCrewNoticeQuery from "../../../../queries/Crew/Notice/useGetCrewNoticeQuery";
 import Pagination from "../../../../components/Pagination/Pagination";
 import MessageSendModal from "../MessageModal/MessageSendModal";
+import SearchBox from "../../../../components/SearchBox/SearchBox";
 
 function CrewDetailModal({ crew, onClose }) {
   if (!crew) return null;
@@ -28,9 +28,8 @@ function CrewDetailModal({ crew, onClose }) {
   const size = 10;
   const [msgOpen, setMsgOpen] = useState(false);
 
-  // Members Query
   const membersQuery = useMembersQuery({ 
-    crewId, 
+    crewId : crewId, 
     searchText: "", 
     size: 50, 
     enabled: activeTab === "members" 
@@ -41,14 +40,13 @@ function CrewDetailModal({ crew, onClose }) {
     return pages.flatMap((p) => p?.data?.body?.contents || []);
   }, [membersQuery.data]);
 
-  // Member Actions
   const handleMemberMenuToggle = (memberId) => {
     setOpenMemberMenu(openMemberMenu === memberId ? null : memberId);
   };
 
   const handleRoleChange = async (memberId, roleId) => {
     try {
-      await reqUpdateMemberRole({ memberId, roleId });
+      await reqUpdateMemberRole({ memberId, roleId, crewId });
       alert(`권한이 변경되었습니다. (roleId: ${roleId})`);
       setOpenMemberMenu(null);
       membersQuery.refetch?.();
@@ -69,11 +67,9 @@ function CrewDetailModal({ crew, onClose }) {
     }
   };
 
-  // Gatherings Query
   const gatheringsQuery = useGetGatheringsQuery(crewId, { enabled: activeTab === "gatherings" });
   const gatherings = gatheringsQuery?.data?.data?.body || [];
 
-  // Free Board Query
   const {
     data: freeData,
     isLoading: freeLoading,
@@ -92,7 +88,6 @@ function CrewDetailModal({ crew, onClose }) {
   const freeLists = useMemo(() => freeBody?.contents ?? [], [freeBody]);
   const freeStart = (page - 1) * size;
 
-  // Notice Query
   const {
     data: noticeData,
     isLoading: noticeLoading,
@@ -111,7 +106,6 @@ function CrewDetailModal({ crew, onClose }) {
   const noticeList = useMemo(() => noticeBody?.contents ?? [], [noticeBody]);
   const noticeStart = (page - 1) * size;
 
-  // Search Handler
   const handleSearchOnClick = () => {
     setSearchParams((prev) => {
       const p = new URLSearchParams(prev);
@@ -121,14 +115,12 @@ function CrewDetailModal({ crew, onClose }) {
     });
   };
 
-  // Pagination Handler
   const goPage = (next) => {
     const maxPages = activeTab === "freeBoard" ? freeTotalPages : noticeTotalPages;
     const nextPage = Math.min(Math.max(1, next), maxPages);
     setSearchParams({ page: String(nextPage), searchText });
   };
 
-  // Post Click Handler
   const handlePostOnClick = (freeId) => {
     if (!freeId) return;
     navigate(`/crews/${crewId}/freeBoards/${freeId}`);
@@ -156,14 +148,13 @@ function CrewDetailModal({ crew, onClose }) {
             </div>
 
             <div css={s.crewMeta}>
-              <span>창설자: {crew.fullName}</span>
+              <span>리더: {crew.fullName}</span>
               <span>정원: {crew.limitedPeople}명</span>
               <span>총거리: {crew.totalKm}km</span>
               <span>지역: {crew.gunguName}</span>
             </div>
           </div>
 
-          {/* Tabs */}
           <div css={s.tabs}>
             {[
               { key: "members", label: "멤버" },
@@ -181,9 +172,7 @@ function CrewDetailModal({ crew, onClose }) {
             ))}
           </div>
 
-          {/* Content */}
           <div css={s.content}>
-            {/* Members Tab */}
             {activeTab === "members" &&
               (membersQuery.isLoading ? (
                 <div css={s.emptyState}>멤버 목록을 불러오는 중...</div>
@@ -241,7 +230,6 @@ function CrewDetailModal({ crew, onClose }) {
                 <div css={s.emptyState}>멤버가 없습니다.</div>
               ))}
 
-            {/* Gatherings Tab */}
             {activeTab === "gatherings" &&
               (gatherings?.length > 0 ? (
                 <div>
@@ -272,20 +260,11 @@ function CrewDetailModal({ crew, onClose }) {
             {activeTab === "freeBoard" && (
               <div css={s.container}>
                 <h2>자유게시판</h2>
-                <div css={s.searchBox}>
-                  <div css={s.inputGroup}>
-                    <input
-                      type="text"
-                      placeholder="검색어를 입력하세요."
-                      value={searchInput}
-                      onChange={(e) => setSearchInput(e.target.value)}
-                      css={s.searchInput}
-                    />
-                    <button css={s.searchButton} onClick={handleSearchOnClick}>
-                      <IoSearch size={17} />
-                    </button>
-                  </div>
-                </div>
+                <SearchBox
+                  value={searchInput}
+                  onChange={setSearchInput}
+                  onSearch={handleSearchOnClick}
+                />
 
                 {freeLoading ? (
                   <div>불러오는 중…</div>
@@ -327,20 +306,11 @@ function CrewDetailModal({ crew, onClose }) {
 
             {activeTab === "notice" && (
               <div css={s.container}>
-                <div css={s.searchBox}>
-                  <div css={s.inputGroup}>
-                    <input
-                      type="text"
-                      placeholder="검색어를 입력하세요."
-                      value={searchInput}
-                      onChange={(e) => setSearchInput(e.target.value)}
-                      css={s.searchInput}
-                    />
-                    <button css={s.searchButton} onClick={handleSearchOnClick}>
-                      <IoSearch size={17} />
-                    </button>
-                  </div>
-                </div>
+                <SearchBox
+                  value={searchInput}
+                  onChange={setSearchInput}
+                  onSearch={handleSearchOnClick}
+                />
 
                 {noticeLoading ? (
                   <div>불러오는 중…</div>
@@ -385,7 +355,6 @@ function CrewDetailModal({ crew, onClose }) {
             )}
           </div>
 
-          {/* Footer */}
           <div css={s.footer}>
             <button css={s.closeBtn} onClick={onClose}>
               닫기

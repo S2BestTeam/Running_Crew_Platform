@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import { useState } from "react";
-import * as s from "./styles";
-import { FiUser } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
-import usePrincipalQuery from "../../queries/usePrincipalQuery";
 import { useQueryClient } from "@tanstack/react-query";
-import { TbLogout } from "react-icons/tb";
 import { Settings } from "lucide-react";
+import { useState } from "react";
+import { FiUser } from "react-icons/fi";
+import { TbLogout } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
+import * as s from "./styles";
+import usePrincipalQuery from "../../queries/User/usePrincipalQuery";
 
 function Header() {
   const principalQuery = usePrincipalQuery();

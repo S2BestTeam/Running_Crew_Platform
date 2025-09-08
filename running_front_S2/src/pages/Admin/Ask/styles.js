@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 export const container = css`
   display: flex;
   flex-direction: column;
+  text-align: center;
   height: 100%;
   width: 100%;
   padding: 3rem;
@@ -14,51 +15,12 @@ export const tabActive = css`
   font-weight: 500;
 `;
 
-export const searchBox = css`
-  display: flex;
-  justify-content: right;
-  align-items: center;
-  margin: 2rem 0 2rem 0;
-`;
-
-export const inputGroup = css`
-  display: flex;
-`;
-
-export const searchInput = css`
-  height: 3.425rem;
-  box-sizing: border-box;
-  padding: 0.8rem;
-  border: 0.1rem solid var(--main-color);
-  border-right: none;
-  border-radius: 0.6rem 0 0 0.6rem;
-  outline: none;
-`;
-
-export const searchButton = css`
-  display: flex;
-  height: 3.425rem;
-  box-sizing: border-box;
-  padding: 0.5rem 0.5rem;
-  border: 0.1rem solid var(--main-color);
-  border-left: none;
-  background: #fff;
-  color: var(--main-color);
-  font-size: 1.8rem;
-  border-radius: 0 0.6rem 0.6rem 0;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  margin-right: 0.5rem;
-`;
-
-
 export const registerButton = css`
-  width: 12rem;
-  padding: 0.6rem 1.2rem;
+  padding: 0.3rem 1.2rem;
   background: #000;
   color: white;
-  border-radius: 0.6rem;
+  border-radius: 0.5rem;
+  border: none;
   cursor: pointer;
   align-items: center;
   justify-content: center;
@@ -88,6 +50,22 @@ export const th = css`
 export const td = css`
   padding: 1rem;
   border-bottom: 1px solid #eee;
+`;
+
+export const tdInputGroup = css`
+  display: flex;
+  align-items: center;
+  padding: 0.7rem;
+  gap: 1rem;
+
+  input {
+    flex: 1;
+    height: 2.6rem;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    border: 0.1rem solid #dbdbdb;
+    border-radius: 0.5rem;
+  }
 `;
 
 export const tdTitle = css`

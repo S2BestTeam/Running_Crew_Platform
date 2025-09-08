@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import * as s from "./styles";              // ← 스타일은 여기서
+import * as s from "./styles";
 import { reqPostCrewMessage } from "../../../../api/Admin/adminApi";
 
 

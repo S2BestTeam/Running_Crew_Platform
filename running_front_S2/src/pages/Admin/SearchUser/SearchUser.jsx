@@ -5,7 +5,7 @@ import useSearchUserQuery from "../../../queries/Admin/useSearchUserQuery";
 import Pagination from "../../../components/Pagination/Pagination";
 import * as s from "./styles";
 import UserDetailModal from "./UserDetailModal/UserDetailModal";
-import { IoSearch } from "react-icons/io5";
+import SearchBox from "../../../components/SearchBox/SearchBox";
 
 function SearchUser() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -14,8 +14,6 @@ function SearchUser() {
   const [searchInput, setSearchInput] = useState(searchText);
   const [selectedUser, setSelectedUser] = useState(null);
 
-  const handleSearchOnChange = (e) => setSearchInput(e.target.value);
-  const handleSearchOnKeyDown = (e) => e.key === "Enter" && handleSearchOnClick();
   const handleSearchOnClick = () => {
     setSearchParams({ page: 1, searchText: searchInput });
   };
@@ -35,22 +33,12 @@ function SearchUser() {
 
   return (
     <div css={s.container}>
-      {/* 검색 영역 */}
-      <div css={s.searchBox}>
-        <input
-            type="text"
-            placeholder="검색어를 입력하세요."
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            css={s.searchInput}
-            onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()}
-          />
-          <button css={s.searchButton} onClick={handleSearchOnClick}>
-            <IoSearch />
-          </button>
-      </div>
+      <SearchBox
+        value={searchInput}
+        onChange={setSearchInput}
+        onSearch={handleSearchOnClick}
+      />
 
-      {/* 테이블 */}
       <div css={s.tableWrapper}>
         <table css={s.table}>
           <thead>
@@ -99,7 +87,6 @@ function SearchUser() {
         </table>
       </div>
 
-      {/* 페이지네이션 */}
       <div css={s.paginationWrapper}>
         <Pagination
           page={page}

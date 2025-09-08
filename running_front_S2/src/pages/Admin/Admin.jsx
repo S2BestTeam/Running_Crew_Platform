@@ -1,13 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import * as s from './styles';
 import { useQueryClient } from "@tanstack/react-query";
-import { useNavigate, useLocation, Routes, Route } from "react-router-dom";
-import { Database, Headphones, LogOut, Settings } from "lucide-react";
+import { Database, Headphones, Home, LogOut, Settings } from "lucide-react";
 import { FaUserCog } from "react-icons/fa";
-import SearchUser from './SearchUser/SearchUser';
-import SearchCrew from './SearchCrew/SearchCrew';
-import usePrincipalQuery from '../../queries/usePrincipalQuery';
-import AskAnswer from './Ask/AskAnswer';
+import { useLocation, useNavigate } from "react-router-dom";
+import usePrincipalQuery from '../../queries/User/usePrincipalQuery';
+import AdminRoute from '../../routes/AdminRoute';
+import * as s from './styles';
 
 function Admin() {
   const navigate = useNavigate();
@@ -93,11 +91,7 @@ function Admin() {
         </div>
       </div>
 
-      <Routes>
-        <Route path="/user-info" element={<SearchUser />} />
-        <Route path="/crew-info" element={<SearchCrew />} />
-        <Route path="/ask" element={<AskAnswer />} />
-      </Routes>
+      {AdminRoute()}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useGetReportListQuery from "../../../queries/useGetReportListQuery";
+import useGetReportListQuery from "../../../queries/User/useGetReportListQuery";
 /** @jsxImportSource @emotion/react */
 import * as s from "./styles";
 import MemberModal from "../Member/MemberModal/MemberModal";

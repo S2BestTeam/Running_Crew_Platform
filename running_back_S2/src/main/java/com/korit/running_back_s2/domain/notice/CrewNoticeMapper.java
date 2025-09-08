@@ -1,6 +1,5 @@
 package com.korit.running_back_s2.domain.notice;
 
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

@@ -1,7 +1,6 @@
 package com.korit.running_back_s2.domain.gathering;
 
 import com.korit.running_back_s2.domain.user.User;
-import com.korit.running_back_s2.util.AppProperties;
 import com.korit.running_back_s2.util.ImageUrlUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,13 +1,11 @@
 package com.korit.running_back_s2.domain.crewFreeComment;
 
-import com.korit.running_back_s2.domain.crewFreeBoard.CrewFree;
 import com.korit.running_back_s2.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data

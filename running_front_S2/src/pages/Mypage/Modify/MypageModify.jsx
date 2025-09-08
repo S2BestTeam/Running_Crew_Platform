@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./styles";
 import { useEffect, useState } from "react";
-import usePrincipalQuery from "../../../queries/usePrincipalQuery";
+import usePrincipalQuery from "../../../queries/User/usePrincipalQuery";
 import { SIGNUP_REGEX, SIGNUP_REGEX_ERROR_MESSAGE } from "../../../constants/signupRegex";
 import { reqCheckNickname, reqUserInfoUpdate, reqUserProfileUpdate } from "../../../api/User/UserApi";
-import useGetUserRankingQuery from "../../../queries/useGetUserRankingQuery";
+import useGetUserRankingQuery from "../../../queries/Ranking/useGetUserRankingQuery";
 
 function MypageModify() {
   const { data: rankings } = useGetUserRankingQuery();

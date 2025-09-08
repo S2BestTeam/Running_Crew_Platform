@@ -1,9 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import * as s from "./styles";
-import React, { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import useGetCrewFreeBoardDetailQuery from "../../../../queries/useGetCrewFreeBoardDetailQuery";
-import useGetCrewFreeCommentQuery from "../../../../queries/useGetCrewFreeCommentQuery";
 import sanitizeHtml from "sanitize-html";
 import {
   reqDeleteComment,
@@ -11,8 +8,11 @@ import {
   reqRegisterComment,
   reqUpdateFreeComment,
 } from "../../../../api/Crew/freeboardApi";
-import usePrincipalQuery from "../../../../queries/usePrincipalQuery";
+import useGetCrewFreeBoardDetailQuery from "../../../../queries/Crew/FreeBoard/useGetCrewFreeBoardDetailQuery";
+import useGetCrewFreeCommentQuery from "../../../../queries/Crew/FreeBoard/useGetCrewFreeCommentQuery";
+import usePrincipalQuery from "../../../../queries/User/usePrincipalQuery";
 import { useCrewStore } from "../../../../stores/useCrewStroes";
+import * as s from "./styles";
 
 export default function FeedDetail() {
   const { crewId } = useCrewStore();

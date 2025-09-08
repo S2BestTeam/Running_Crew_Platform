@@ -1,13 +1,12 @@
+/** @jsxImportSource @emotion/react */
 import { useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import usePrincipalQuery from "../../../queries/usePrincipalQuery";
-import useGetAskBoardQuery from "../../../queries/useGetAskBoardQuery";
 import MainContainer from "../../../components/MainContainer/MainContainer";
-/** @jsxImportSource @emotion/react */
-import * as s from './styles';
-import { BiSolidChevronLeftSquare, BiSolidChevronRightSquare } from "react-icons/bi";
-import { IoSearch } from "react-icons/io5";
 import Pagination from "../../../components/Pagination/Pagination";
+import SearchBox from "../../../components/SearchBox/SearchBox";
+import usePrincipalQuery from "../../../queries/User/usePrincipalQuery";
+import useGetAskBoardQuery from "../../../queries/Global/Ask/useGetAskBoardQuery";
+import * as s from './styles';
 
 function MyAsk() {
     const navigate = useNavigate();
@@ -68,24 +67,11 @@ function MyAsk() {
     return (
         <div css={s.container}>
             <h2>문의사항</h2>
-
-            <div css={s.searchBox}>
-                <div css={s.inputGroup}>
-                    <input
-                        type="text"
-                        placeholder="검색어를 입력하세요."
-                        value={searchInput}
-                        onChange={(e) => setSearchInput(e.target.value)}
-                        css={s.searchInput}
-                        onKeyDown={(e) => e.key === 'Enter' && handleSearchOnClick()}
-                    />
-                    <button css={s.searchButton} onClick={handleSearchOnClick}>
-                        <IoSearch />
-                    </button>
-
-                </div>
-            </div>
-
+            <SearchBox
+                value={searchInput}
+                onChange={setSearchInput}
+                onSearch={handleSearchOnClick}
+            />
             <table css={s.table}>
                 <thead>
                     <tr>

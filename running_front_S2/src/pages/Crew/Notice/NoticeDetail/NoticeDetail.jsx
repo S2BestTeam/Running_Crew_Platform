@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import * as s from './styles';
-import React, { useMemo, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useMemo } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import sanitizeHtml from "sanitize-html";
-import useGetCrewNoticeDetailQuery from '../../../../queries/useGetCrewNoticeDetailQuery';
-import usePrincipalQuery from '../../../../queries/usePrincipalQuery';
 import { reqDeleteNotice } from '../../../../api/Crew/noticeApi';
+import useGetCrewNoticeDetailQuery from '../../../../queries/Crew/Notice/useGetCrewNoticeDetailQuery';
+import usePrincipalQuery from '../../../../queries/User/usePrincipalQuery';
 import { useCrewStore } from '../../../../stores/useCrewStroes';
+import * as s from './styles';
 
 
 export default function NoticeDetail() {

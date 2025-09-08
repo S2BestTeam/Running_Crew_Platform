@@ -62,39 +62,38 @@ export const searchGroup = css`
   align-items: center;
 `;
 
+export const asd = css`
+  display: flex;
+  flex-direction: row;
+`;
+
 export const searchInput = css`
   height: 3.425rem;
   box-sizing: border-box;
   padding: 0.8rem;
-  border: 0.1rem solid #ccc;
+  border: 0.1rem solid var(--main-color);
   border-right: none;
   border-radius: 0.6rem 0 0 0.6rem;
   outline: none;
-  min-width: 20rem;
-
-  &:focus {
-    border-color: #666;
-  }
 `;
 
 export const searchButton = css`
+  display: flex;
   height: 3.425rem;
   box-sizing: border-box;
-  padding: 0.8rem 1.2rem;
-  border: 0.1rem solid #000;
+  padding: 0.5rem 0.5rem;
+  border: 0.1rem solid var(--main-color);
   border-left: none;
-  background: #000;
-  color: white;
+  background: #fff;
+  color: var(--main-color);
+  font-size: 1.8rem;
   border-radius: 0 0.6rem 0.6rem 0;
   cursor: pointer;
-  display: flex;
   align-items: center;
   justify-content: center;
-
-  &:hover {
-    background: #333;
-  }
+  margin-right: 0.5rem;
 `;
+
 
 export const registerButton = css`
   width: 12rem;

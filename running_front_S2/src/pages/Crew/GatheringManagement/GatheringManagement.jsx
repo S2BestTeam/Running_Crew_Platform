@@ -1,13 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import { useState, useEffect } from "react";
-import * as s from "./styles";
-import ContentLayout from "../../../components/ContentLayout/ContentLayout";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
-import { useGetGatheringsQuery } from "../../../queries/useGetGatheringsQuery";
-import GatheringManagementModal from "./GatheringManagementModal/GatheringManagementModal";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useGetGatheringsQuery } from "../../../queries/Crew/Gathering/useGetGatheringsQuery";
 import { useCrewStore } from "../../../stores/useCrewStroes";
+import GatheringManagementModal from "./GatheringManagementModal/GatheringManagementModal";
+import * as s from "./styles";
 
 function GatheringManagement() {
   const { crewId } = useCrewStore();

@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import * as s from './styles';
-import React, { useMemo, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useMemo } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import sanitizeHtml from "sanitize-html";
-import useGetGlobalNoticeDetailQuery from '../../../queries/useGetGlobalNoticeDetailQuery';
 import { reqDeleteGlobalNotice } from '../../../api/GlobalNotice/globalNoticeApi';
-import usePrincipalQuery from '../../../queries/usePrincipalQuery';
 import MainContainer from '../../../components/MainContainer/MainContainer';
+import useGetGlobalNoticeDetailQuery from '../../../queries/Global/Notice/useGetGlobalNoticeDetailQuery';
+import usePrincipalQuery from '../../../queries/User/usePrincipalQuery';
+import * as s from './styles';
 
 export default function NoticeDetail() {
   const { noticeId } = useParams();

@@ -246,7 +246,7 @@ export const memberRow = css`
   position: relative;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 0.6rem;
   margin-bottom: 5rem;
 `;
 
@@ -257,7 +257,7 @@ export const memberItem = css`
   align-items: center;
   box-sizing: border-box;
   max-width: 15rem;
-  flex: 1 1 calc(20% - 1.6rem); 
+  flex: 1 1 calc(20% - 1.6rem);
   min-width: 160px;
 `;
 

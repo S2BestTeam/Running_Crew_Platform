@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import * as s from './styles';
-import useGetCrewMessage from '../../../queries/useGetCrewMessageQuery';
 import { useCrewStore } from '../../../stores/useCrewStroes';
+import useGetCrewMessage from '../../../queries/Crew/Message/useGetCrewMessageQuery';
 
 export default function Message() {
   const { crewId } = useCrewStore();
@@ -19,7 +19,6 @@ export default function Message() {
     return (
       <div css={s.mainBox}>
         <div css={s.errorMessage}>메시지 로드 실패: {String(error?.message ?? "알 수 없는 오류")}</div>
-        <button css={s.refreshButton} onClick={() => refetch()}>새로고침</button>
       </div>
     );
   }
@@ -29,7 +28,6 @@ export default function Message() {
       <div css={s.mainBox}>
         <h2>관리자 메시지</h2>
         <div css={s.emptyMessage}>수신한 메시지가 없습니다.</div>
-        <button css={s.refreshButton} onClick={() => refetch()}>새로고침</button>
       </div>
     );
   }

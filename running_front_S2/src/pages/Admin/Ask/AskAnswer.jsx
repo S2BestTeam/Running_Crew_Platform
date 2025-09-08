@@ -1,15 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import * as s from "./styles";
 import { useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { BiSolidChevronLeftSquare, BiSolidChevronRightSquare } from "react-icons/bi";
-import { IoSearch } from "react-icons/io5";
-import { IoIosLock } from "react-icons/io";
-import MainContainer from "../../../components/MainContainer/MainContainer";
-
-import useGetAskBoardQuery from "../../../queries/useGetAskBoardQuery";
 import { reqRegisterAnswer } from "../../../api/Admin/adminApi";
 import Pagination from "../../../components/Pagination/Pagination";
+import SearchBox from "../../../components/SearchBox/SearchBox";
+import useGetAskBoardQuery from "../../../queries/Global/Ask/useGetAskBoardQuery";
+import * as s from "./styles";
+import MainContainer from "../../../components/MainContainer/MainContainer";
 
 function AskAnswer() {
   const navigate = useNavigate();
@@ -67,22 +64,11 @@ function AskAnswer() {
   return (
     <div css={s.container}>
       <h2>문의 관리 (Admin)</h2>
-
-      <div css={s.searchBox}>
-        <div css={s.inputGroup}>
-          <input
-            type="text"
-            placeholder="검색어를 입력하세요."
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            css={s.searchInput}
-            onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()}
-          />
-          <button css={s.searchButton} onClick={handleSearchOnClick}>
-            <IoSearch />
-          </button>
-        </div>
-      </div>
+      <SearchBox
+        value={searchInput}
+        onChange={setSearchInput}
+        onSearch={handleSearchOnClick}
+      />
 
       <table css={s.table}>
         <thead>
@@ -100,14 +86,12 @@ function AskAnswer() {
             const number = totalElements - (start + index);
             const askId = board.askId;
 
-            // ✅ 작성자 이름 (fullName → 닉네임 → fallback)
             const authorName =
               board?.user?.fullName ??
               board?.user?.nickname ??
               board?.nickname ??
               "-";
 
-            // ✅ 등록일 포맷 (예: 2025. 9. 3. 오후 2:58)
             const createdAtText = board?.createdAt
               ? new Date(board.createdAt).toLocaleString("ko-KR", {
                 dateStyle: "medium",
@@ -130,29 +114,20 @@ function AskAnswer() {
                   {board.title}
                 </td>
 
-                {/* ✅ 작성자 / 시간 */}
                 <td css={s.td}>{authorName}</td>
                 <td css={s.td}>{createdAtText}</td>
 
-                {/* 답변 입력/등록 */}
-                <td css={s.td} style={{ minWidth: 320 }}>
+                <td css={s.tdInputGroup}>
                   <input
                     type="text"
                     placeholder="답변 내용을 입력하세요"
                     value={value}
                     onChange={(e) => onChangeAnswer(askId, e.target.value)}
-                    style={{ width: "100%" }}
                   />
-                  <div style={{ marginTop: 8, display: "flex", gap: 8 }}>
-                    <button onClick={() => handleRegister(askId)}>등록</button>
-                    {board.isAnswer && (
-                      <span style={{ fontSize: 12, color: "#888" }}>
-                        (기존 답변 있음)
-                      </span>
-                    )}
-                  </div>
+                  <button css={s.registerButton} onClick={() => handleRegister(askId)}>
+                    등록
+                  </button>
                 </td>
-
                 <td css={s.td}>{board.isAnswer ? "답변완료" : "대기"}</td>
               </tr>
             );
@@ -169,9 +144,9 @@ function AskAnswer() {
       </table>
 
       <Pagination
-        page={page}                // 1-base 현재 페이지
-        totalPages={totalPages}    // 총 페이지 수
-        onChange={(p) => goPage(p)}// 페이지 변경 핸들러
+        page={page}
+        totalPages={totalPages}
+        onChange={(p) => goPage(p)}
         windowSize={1}
       />
     </div>
