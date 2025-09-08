@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./styles";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import sanitizeHtml from "sanitize-html";
 import MainContainer from "../../../components/MainContainer/MainContainer";
-import useGetAskDetailQuery from "../../../queries/useGetAskDetailQuery";
+import useGetAskDetailQuery from "../../../queries/Global/Ask/useGetAskDetailQuery";
 
 function AskDetail() {
   const { askId } = useParams();
@@ -78,7 +78,6 @@ function AskDetail() {
   return (
     <MainContainer>
       <div css={s.layout}>
-        {/* 상단 바 */}
         <div css={s.topBar}>
           <button css={s.backBtn} onClick={() => navigate(-1)} aria-label="목록으로">
             ← 목록
@@ -91,19 +90,16 @@ function AskDetail() {
           </div>
         </div>
 
-        {/* 제목 & 작성 메타 */}
         <h1 css={s.title}>{post.title}</h1>
         <div css={s.metaRow}>
           <span>{writerName}</span>
           <span>{format(askCreated)}</span>
         </div>
 
-        {/* 본문 */}
         <div css={s.card}>
           <div css={s.content} dangerouslySetInnerHTML={{ __html: cleanHtml }} />
         </div>
 
-        {/* 관리자 답변 (있을 때만 표시) */}
         {answerContent && (
           <>
             <div css={s.sectionTitle}>관리자 답변</div>

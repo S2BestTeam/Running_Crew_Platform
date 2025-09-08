@@ -1,14 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import React, { useMemo, useState } from 'react';
-import MainContainer from '../../components/MainContainer/MainContainer';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import usePrincipalQuery from '../../queries/usePrincipalQuery';
-import useGetAskBoardQuery from '../../queries/useGetAskBoardQuery';
-import * as s from './styles';
-import { BiSolidChevronLeftSquare, BiSolidChevronRightSquare } from 'react-icons/bi';
-import { IoSearch } from 'react-icons/io5';
+import { useMemo, useState } from 'react';
 import { IoIosLock } from 'react-icons/io';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import MainContainer from '../../components/MainContainer/MainContainer';
 import Pagination from '../../components/Pagination/Pagination';
+import SearchBox from '../../components/SearchBox/SearchBox';
+import useGetAskBoardQuery from '../../queries/Global/Ask/useGetAskBoardQuery';
+import usePrincipalQuery from '../../queries/User/usePrincipalQuery';
+import * as s from './styles';
 
 function Ask() {
   const navigate = useNavigate();
@@ -63,32 +62,22 @@ function Ask() {
       <div css={s.container}>
         <h2>문의사항</h2>
 
-        <div css={s.searchBox}>
-          <div css={s.inputGroup}>
-            <input
-              type="text"
-              placeholder="검색어를 입력하세요."
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-              css={s.searchInput}
-              onKeyDown={(e) => e.key === 'Enter' && handleSearchOnClick()}
-            />
-            <button css={s.searchButton} onClick={handleSearchOnClick}>
-              <IoSearch />
-            </button>
-            <button css={s.registerButton} onClick={() => {
-              if (!userId) {
-                alert('회원가입한 유저만 등록할 수 있습니다.');
-                navigate('/');
-                return;
-              }
-              navigate('/ask/register');
-            }}>
-              문의사항 등록
-            </button>
-          </div>
-        </div>
-
+        <SearchBox
+          value={searchInput}
+          onChange={setSearchInput}
+          onSearch={handleSearchOnClick}
+          >
+          <button css={s.registerButton} onClick={() => {
+            if (!userId) {
+              alert('회원가입한 유저만 등록할 수 있습니다.');
+              navigate('/');
+              return;
+            }
+            navigate('/ask/register');
+          }}>
+            문의사항 등록
+          </button>
+        </SearchBox>
         <table css={s.table}>
           <thead>
             <tr>

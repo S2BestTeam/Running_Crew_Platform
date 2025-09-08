@@ -21,7 +21,7 @@ export default function CrewAlbums() {
         const res = await reqCrewAlbum(crewId);
         const payload = res?.data?.body ?? res?.data ?? [];
         setAll(Array.isArray(payload) ? payload : []);
-        setVisible(STEP); // 크루 변경 시 리셋
+        setVisible(STEP);
       } catch (e) {
         setError("앨범을 불러오지 못했습니다.");
         console.error(e);
@@ -29,7 +29,7 @@ export default function CrewAlbums() {
         setLoading(false);
       }
     })();
-  }, [crewId]); // 의존성 추가
+  }, [crewId]);
 
   const showing = useMemo(() => {
     const list = Array.isArray(all) ? all : [];

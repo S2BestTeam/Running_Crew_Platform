@@ -1,6 +1,5 @@
 import { css } from "@emotion/react";
 
-/* 라이트 모노톤 */
 export const C = {
   bg: "#f6f7fb",
   card: "#ffffff",
@@ -8,7 +7,7 @@ export const C = {
   sub: "#7b8190",
   border: "#dfe3ea",
   activeBorder: "#222222",
-  activeBg: "#ffffff",  // 현재 페이지의 은은한 회색 배경
+  activeBg: "#ffffff",
 };
 
 export const wrap = css`
@@ -26,7 +25,7 @@ const baseBtn = css`
   height: 3rem;
   padding: 0 0.8rem;
   border-radius: 0.6rem;
-  background: transparent;     /* 비활성(일반 페이지)은 배경/테두리 없음 */
+  background: transparent;
   border: none;
   color: ${C.text};
   font-weight: 700;
@@ -40,7 +39,7 @@ const baseBtn = css`
 
   &:hover:not(:disabled) {
     transform: translateY(-1px);
-    background: #f6f7fb;      /* 호버 시만 아주 옅게 */
+    background: #f6f7fb;
   }
   &:disabled {
     opacity: .35;

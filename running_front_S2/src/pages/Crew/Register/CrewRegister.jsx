@@ -1,16 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import * as s from "./styles";
 import { useEffect, useState } from "react";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
-import { FiPlus } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import usePrincipalQuery from "../../../queries/usePrincipalQuery";
-import MainContainer from "../../../components/MainContainer/MainContainer";
 import { reqCheckCrewName, reqRegisterCrew } from "../../../api/Crew/crewApi";
-import useGetGunguListQuery from "../../../queries/useGetGunguListQuery";
-import { useCrewStore } from "../../../stores/useCrewStroes";
-import useGetCrewRoleQuery from "../../../queries/useGetCrewRoleQuery";
+import MainContainer from "../../../components/MainContainer/MainContainer";
+import useGetCrewRoleQuery from "../../../queries/Crew/useGetCrewRoleQuery";
+import useGetGunguListQuery from "../../../queries/User/useGetGunguListQuery";
+import usePrincipalQuery from "../../../queries/User/usePrincipalQuery";
+import * as s from "./styles";
 
 function CrewRegister(props) {
   const navigate = useNavigate();

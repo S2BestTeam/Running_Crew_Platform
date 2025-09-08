@@ -5,5 +5,6 @@ import lombok.Data;
 @Data
 public class MemberRoleUpdateReqDto {
     private Integer memberId;
+    private Integer crewId;
     private Integer roleId;
 }

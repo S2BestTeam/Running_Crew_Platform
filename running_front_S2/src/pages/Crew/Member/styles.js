@@ -17,35 +17,34 @@ export const asd = css`
 export const searchBar = css`
   display: flex;
   justify-content: flex-end;
-  gap: 1rem;
   margin-left: auto;
+`;
 
-  > input {
-    flex: 1 1 auto;
-    width: 50%;
-    height: 36px;
-    padding: 0 12px;
-    font-size: 14px;
-    border: 1px solid #dbdbdb;
-    border-radius: 0.5rem;
-    outline: none;
-  }
+export const searchInput = css`
+  height: 3.425rem;
+  box-sizing: border-box;
+  padding: 0.8rem;
+  border: 0.1rem solid var(--main-color);
+  border-right: none;
+  border-radius: 0.6rem 0 0 0.6rem;
+  outline: none;
+`;
 
-  > button {
-    flex: 0 0 auto;
-    height: 3.6rem;
-    padding: 0 1.2rem;
-    font-size: 1.4rem;
-    border: 0.1rem solid var(--sub-color);
-    border-radius: 0.5rem;
-    background: var(--main-color);
-    color: white;
-    cursor: pointer;
-    white-space: nowrap;
-    &:hover { 
-      background: var(--sub-color); 
-    }
-  }
+export const searchButton = css`
+  display: flex;
+  height: 3.425rem;
+  box-sizing: border-box;
+  padding: 0.5rem 0.5rem;
+  border: 0.1rem solid var(--main-color);
+  border-left: none;
+  background: #fff;
+  color: var(--main-color);
+  font-size: 1.8rem;
+  border-radius: 0 0.6rem 0.6rem 0;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
 `;
 
 export const scrollBox = css`
@@ -71,7 +70,7 @@ export const memberItem = css`
   min-width: 0;
 
   &:hover {
-    background: var(--sub-color);
+    background: var(--hB-color);
   }
 `;
 
@@ -114,7 +113,7 @@ export const nickname = css`
 `;
 
 export const fullName = css`
-  align-self: flex-start;   /* 부모의 왼쪽에 붙도록 보장 */
+  align-self: flex-start;
   color: #888;
   font-size: 1.3rem;
   min-width: 0;

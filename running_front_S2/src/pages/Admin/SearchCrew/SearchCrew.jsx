@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
+import * as s from "./styles";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import useGetCrewListQuery from "../../../queries/useGetCrewListQuery";
+import useGetCrewListQuery from "../../../queries/Crew/List/useGetCrewListQuery";
 import Pagination from "../../../components/Pagination/Pagination";
-import * as s from "./styles";
 import CrewDetailModal from "./CrewDetailModal/CrewDetailModal";
+import SearchBox from "../../../components/SearchBox/SearchBox";
 
 function SearchCrew() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -41,22 +42,12 @@ function SearchCrew() {
 
   return (
     <div css={s.container}>
-      {/* 검색 영역 */}
-      <div css={s.searchBox}>
-        <input
-          type="text"
-          value={searchInput}
-          onChange={handleSearchOnChange}
-          onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()}
-          placeholder="크루명 검색"
-          css={s.searchInput}
-        />
-        <button onClick={handleSearchOnClick} css={s.searchButton}>
-          검색
-        </button>
-      </div>
+      <SearchBox
+        value={searchInput}
+        onChange={setSearchInput}
+        onSearch={handleSearchOnClick}
+      />
 
-      {/* 테이블 */}
       <div css={s.tableWrapper}>
         <table css={s.table}>
           <thead>
@@ -101,7 +92,6 @@ function SearchCrew() {
         </table>
       </div>
 
-      {/* 페이지네이션 */}
       <div css={s.paginationWrapper}>
         <Pagination
           page={page}

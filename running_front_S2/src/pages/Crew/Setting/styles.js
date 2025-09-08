@@ -37,12 +37,12 @@ export const settingTitle = css`
 `;
 
 export const saveButton = css`
-  padding: 1rem 2rem;
+  padding: 0.5rem 1.6rem;
   background-color: #000;
   color: white;
   border: none;
   border-radius: 0.5rem;
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;

@@ -6,14 +6,12 @@ export default function Pagination({ page = 1, totalPages = 1, onChange, windowS
   const clamp = (p) => Math.min(Math.max(1, p), totalPages);
   const go = (p) => onChange?.(clamp(p));
 
-  // 표시할 페이지 계산: 1, ... (page-window ~ page+window), ..., totalPages
   const bucket = new Set([1, totalPages]);
   for (let p = page - windowSize; p <= page + windowSize; p++) {
     if (p >= 1 && p <= totalPages) bucket.add(p);
   }
   const list = [...bucket].sort((a, b) => a - b);
 
-  // 간격이 1보다 크면 '…' 삽입
   const withDots = [];
   for (let i = 0; i < list.length; i++) {
     withDots.push(list[i]);

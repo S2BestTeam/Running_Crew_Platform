@@ -24,33 +24,32 @@ export const buttons = css`
   align-items: center;
   gap: 1.5rem;
 
-    & > button {
-        display: flex; 
-        align-items: center; 
-        justify-content: center;
-        font-weight: 600;
-        font-size: 1.2rem;
-        width: 32rem;
-        height: 5rem;
-        border: 0.1rem solid #000;
-        border-radius: 0.2rem;
-        background-color: transparent;
+  & > button {
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1.2rem;
+    width: 32rem;
+    height: 5rem;
+    border: 0.1rem solid #000;
+    border-radius: 0.2rem;
+    background-color: transparent;
 
-        &:nth-of-type(1) > svg {
-        font-size: 2rem;
-        margin-right: 0.5rem;
-
-        }
-
-        &:nth-of-type(2) > svg {
-        font-size: 2rem;
-            color: #ffe603;
-                    margin-right: 0.5rem;
-        }
-
-        &:nth-of-type(3) > svg {
-            color: #04c75c;
-                    margin-right: 0.5rem;
-        }
+    &:nth-of-type(1) > svg {
+      font-size: 2rem;
+      margin-right: 0.5rem;
     }
+
+    &:nth-of-type(2) > svg {
+      font-size: 2rem;
+      color: #ffe603;
+      margin-right: 0.5rem;
+    }
+
+    &:nth-of-type(3) > svg {
+      color: #04c75c;
+      margin-right: 0.5rem;
+    }
+  }
 `;

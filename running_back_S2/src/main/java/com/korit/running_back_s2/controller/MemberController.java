@@ -47,7 +47,6 @@ public class MemberController {
     @PutMapping("/{memberId}/role")
     public ResponseEntity<?> updateRole(@PathVariable Integer memberId,
                                            @RequestBody MemberRoleUpdateReqDto dto) {
-        System.out.println(dto);
         memberService.updateRole(dto);
         return ResponseEntity.ok(ResponseDto.success("권한 변경 완료."));
     }

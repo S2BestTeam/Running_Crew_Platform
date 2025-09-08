@@ -1,12 +1,11 @@
-import { useMemo, useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import useGetCrewFreeBoardQuery from "../../../queries/useGetCrewFreeBoardQuery";
-import { IoSearch } from "react-icons/io5";
 /** @jsxImportSource @emotion/react */
 import * as s from "./styles";
-import { BiSolidChevronRightSquare, BiSolidChevronLeftSquare } from "react-icons/bi";
-import usePrincipalQuery from "../../../queries/usePrincipalQuery";
-import useGetCrewRoleQuery from "../../../queries/useGetCrewRoleQuery";
+import { useMemo, useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import useGetCrewFreeBoardQuery from "../../../queries/Crew/FreeBoard/useGetCrewFreeBoardQuery";
+import { IoSearch } from "react-icons/io5";
+import usePrincipalQuery from "../../../queries/User/usePrincipalQuery";
+import useGetCrewRoleQuery from "../../../queries/Crew/useGetCrewRoleQuery";
 import { useCrewStore } from "../../../stores/useCrewStroes";
 import Pagination from "../../../components/Pagination/Pagination";
 
@@ -107,7 +106,7 @@ function FreeBoard() {
         </thead>
         <tbody>
           {freeLists.map((board, index) => (
-            <tr key={board.freeId} className={s.tr} onClick={() => handlePostOnClick(board.freeId)}>
+            <tr key={board.freeId} css={s.tr} onClick={() => handlePostOnClick(board.freeId)}>
               <td css={s.td}>{totalElements - (start + index)}</td>
               <td css={s.tdTitle}>{board.title}</td>
               <td css={s.td}>{board?.user?.nickname}</td>

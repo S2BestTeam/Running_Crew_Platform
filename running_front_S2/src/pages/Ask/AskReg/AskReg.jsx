@@ -1,11 +1,11 @@
-import React, { useCallback, useRef, useState } from 'react';
+/** @jsxImportSource @emotion/react */
+import { useCallback, useRef, useState } from 'react';
+import ReactQuill from 'react-quill-new';
 import { useNavigate } from 'react-router-dom';
 import api from '../../../api/axios';
-import ReactQuill from 'react-quill-new';
-/** @jsxImportSource @emotion/react */
-import * as s from './styles';
-import MainContainer from '../../../components/MainContainer/MainContainer';
 import { reqRegisterAskBoard } from '../../../api/Ask/askApi';
+import MainContainer from '../../../components/MainContainer/MainContainer';
+import * as s from './styles';
 
 function AskReg(props) {
     const navigate = useNavigate();

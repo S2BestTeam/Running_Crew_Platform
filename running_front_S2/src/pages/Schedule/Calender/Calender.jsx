@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import * as s from './styles';
 import { ChevronLeft, ChevronRight, Circle } from 'lucide-react';
 import MainContainer from '../../../components/MainContainer/MainContainer';
-import useGetMyGatheringQuery from '../../../queries/useGetMyGatheringQuery';
-import usePrincipalQuery from '../../../queries/usePrincipalQuery';
+import usePrincipalQuery from '../../../queries/User/usePrincipalQuery';
+import useGetMyGatheringQuery from '../../../queries/User/useGetMyGatheringQuery';
 
 function Calendar() {
   const [currentDate, setCurrentDate] = useState(new Date());

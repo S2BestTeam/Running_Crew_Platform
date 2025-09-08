@@ -6,8 +6,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import { FaPen } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { IoSearch } from "react-icons/io5";
-import useGetMyCrewsQuery from "../../../../queries/useGetMyCrewsQuery";
-import useGetMyGatheringQuery from "../../../../queries/useGetMyGatheringQuery";
+import useGetMyCrewsQuery from "../../../../queries/User/useGetMyCrewsQuery";
+import useGetMyGatheringQuery from "../../../../queries/User/useGetMyGatheringQuery";
 import { reqCheckNickname, reqDeleteUser, reqUserInfoUpdate, reqUserProfileUpdate } from "../../../../api/User/UserApi";
 import { SIGNUP_REGEX, SIGNUP_REGEX_ERROR_MESSAGE } from "../../../../constants/signupRegex";
 import { reqReportDelete, reqUserReported } from "../../../../api/Admin/adminApi";
@@ -309,7 +309,6 @@ function UserDetailModal({ user, onClose, onSave }) {
   return (
     <div css={s.overlay}>
       <div css={s.modal}>
-        {/* 우상단 아이콘 */}
         <div css={s.editIcon}>
           <FaPen css={s.ModifyButton} size={18} onClick={() => setIsEditing(true)} />
           <MdDelete
@@ -319,7 +318,6 @@ function UserDetailModal({ user, onClose, onSave }) {
           />
         </div>
 
-        {/* 프로필/기본정보 */}
         <div css={s.profileSection}>
           <div css={s.profileImageWrapper} onClick={handleProfileImgUpdateClick}>
             <img src={user.picture} alt={user.fullName} css={s.profileImage} />
@@ -375,7 +373,6 @@ function UserDetailModal({ user, onClose, onSave }) {
           </div>
         </div>
 
-        {/* 탭 */}
         <div css={s.tabMenu}>
           {["crews", "gatherings", "report", "posts"].map((tab) => (
             <div
@@ -391,9 +388,7 @@ function UserDetailModal({ user, onClose, onSave }) {
           ))}
         </div>
 
-        {/* 탭 컨텐츠 */}
         <div css={s.tabContent}>
-          {/* 가입 크루 */}
           {activeTab === "crews" &&
             (myCrews.length > 0 ? (
               <div css={s.cardWrapper}>
@@ -408,7 +403,6 @@ function UserDetailModal({ user, onClose, onSave }) {
               <p>가입된 크루가 없습니다.</p>
             ))}
 
-          {/* 참여 일정 */}
           {activeTab === "gatherings" &&
             (myGatherings.length > 0 ? (
               <div css={s.gatheringWrapper}>
@@ -425,7 +419,6 @@ function UserDetailModal({ user, onClose, onSave }) {
               <p>참여한 일정이 없습니다.</p>
             ))}
 
-          {/* 신고 이력 */}
           {activeTab === "report" && (
             <div>
               <h3>📌 내가 신고한 내역</h3>
@@ -474,7 +467,6 @@ function UserDetailModal({ user, onClose, onSave }) {
             </div>
           )}
 
-          {/* 작성 글 */}
           {activeTab === "posts" && (
             <>
               {isLoading && <div>불러오는 중…</div>}
@@ -532,17 +524,19 @@ function UserDetailModal({ user, onClose, onSave }) {
                         </Select>
                       </div>
 
-                      <input
-                        type="text"
-                        placeholder="제목/내용 검색"
-                        value={searchInput}
-                        onChange={(e) => setSearchInput(e.target.value)}
-                        css={s.searchInput}
-                        onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()}
-                      />
-                      <button css={s.searchButton} onClick={handleSearchOnClick}>
-                        <IoSearch />
-                      </button>
+                      <div css={s.asd}>
+                        <input
+                          type="text"
+                          placeholder="제목/내용 검색"
+                          value={searchInput}
+                          onChange={(e) => setSearchInput(e.target.value)}
+                          css={s.searchInput}
+                          onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()}
+                        />
+                        <button css={s.searchButton} onClick={handleSearchOnClick}>
+                          <IoSearch />
+                        </button>
+                      </div>
                     </div>
                   </div>
 
@@ -571,16 +565,16 @@ function UserDetailModal({ user, onClose, onSave }) {
                           <td css={s.td}>{srcLabel(item.src)}</td>
                           <td css={s.tdTitle}>{item.title}</td>
                           <td css={s.td}>{item.crewId ?? "-"}</td>
-                          <td css={s.td}>{item.createdAt}</td>
+                          <td css={s.td}>{new Date(item.createdAt).toLocaleDateString("ko-KR")}</td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
 
                   <Pagination
-                    page={page}                // 1-base 현재 페이지
-                    totalPages={totalPages}    // 총 페이지 수
-                    onChange={(p) => goPage(p)}// 페이지 변경 핸들러
+                    page={page}
+                    totalPages={totalPages}
+                    onChange={(p) => goPage(p)}
                     windowSize={1}
                   />
                   {contents.length === 0 && <p>작성한 글이 없습니다.</p>}

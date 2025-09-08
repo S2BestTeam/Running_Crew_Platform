@@ -39,6 +39,4 @@ public class AdminController {
                                                      @RequestParam Integer userId) {
         return ResponseEntity.ok(ResponseDto.success(adminService.getUserPosts(page, size, searchText, src, crewId, userId)));
     }
-
-
 }

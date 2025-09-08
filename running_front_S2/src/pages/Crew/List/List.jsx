@@ -2,18 +2,18 @@
 import * as s from "./styles";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import useGetCrewListQuery from "../../../queries/useGetCrewListQuery";
-import useGetGunguListQuery from "../../../queries/useGetGunguListQuery";
+import useGetCrewListQuery from "../../../queries/Crew/List/useGetCrewListQuery";
+import useGetGunguListQuery from "../../../queries/User/useGetGunguListQuery";
 import MainContainer from "../../../components/MainContainer/MainContainer";
 import { FaHeart } from "react-icons/fa";
 import { FiHeart } from "react-icons/fi";
 import { motion } from "framer-motion";
-import usePrincipalQuery from "../../../queries/usePrincipalQuery";
+import usePrincipalQuery from "../../../queries/User/usePrincipalQuery";
 import { useCrewStore } from "../../../stores/useCrewStroes";
 import { Select, MenuItem } from "@mui/material";
 import { addWishlist, getUserWishlist, removeWishlist } from "../../../api/Crew/wishlistApi";
 import { IoSearch } from "react-icons/io5";
-import useGetCrewRankingQuery from "../../../queries/useGetCrewRankingQuery";
+import useGetCrewRankingQuery from "../../../queries/Ranking/useGetCrewRankingQuery";
 
 function List() {
   const navigate = useNavigate();

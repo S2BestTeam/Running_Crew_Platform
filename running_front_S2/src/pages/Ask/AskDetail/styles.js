@@ -48,15 +48,13 @@ export const stateChip = css`
 `;
 
 export const chipAnswered = css`
-  color: #155e75;
-  background: #cffafe;
-  border-color: #a5f3fc;
+  color: var(--sub-color);
+  background: var(--main-color);
 `;
 
 export const chipWaiting = css`
-  color: #92400e;
-  background: #ffedd5;
-  border-color: #fed7aa;
+  color: var(--sub-color);
+  background: var(--point-color);
 `;
 
 export const title = css`
@@ -109,8 +107,7 @@ export const sectionTitle = css`
 `;
 
 export const answerCard = css`
-  border-color: #bae6fd;
-  background: #f0f9ff;
+  background: var(--hB-color);
 `;
 
 export const answerMeta = css`
@@ -128,7 +125,6 @@ export const answerContent = css`
   line-height: 1.6;
 `;
 
-/* Skeletons */
 export const skeletonHeader = css`
   height: 36px;
   border-radius: 10px;

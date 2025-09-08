@@ -8,12 +8,11 @@ import com.korit.running_back_s2.domain.user.User;
 import com.korit.running_back_s2.domain.user.UserMapper;
 import com.korit.running_back_s2.domain.welcome.WelcomeMapper;
 import com.korit.running_back_s2.dto.crew.CrewsByUserIdResDto;
-import com.korit.running_back_s2.dto.report.ReportReqDto;
 import com.korit.running_back_s2.dto.user.UserGatheringsReqDto;
 import com.korit.running_back_s2.dto.user.UserMyPageUpdateReqDto;
+import com.korit.running_back_s2.dto.user.UserRegisterReqDto;
 import com.korit.running_back_s2.dto.welcome.UpdateMyWelcomeReqDto;
 import com.korit.running_back_s2.dto.welcome.WelcomeByUserIdResDto;
-import com.korit.running_back_s2.dto.user.UserRegisterReqDto;
 import com.korit.running_back_s2.security.jwt.JwtUtil;
 import com.korit.running_back_s2.security.model.PrincipalUtil;
 import com.korit.running_back_s2.util.ImageUrlUtil;
@@ -25,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -129,10 +129,12 @@ public class UserService {
     }
 
     public List<UserGatheringsReqDto> getMyGathering (Integer userId) {
-        List<UserGatheringsReqDto> gatherings = gatheringMapper.findGatheringByUserId(userId).stream().map(gathering -> {
-            gathering.setThumbnailPicture(imageUrlUtil.buildImageUrl(gathering.getThumbnailPicture(), "crewGathering"));
-            return gathering;
-        }).collect(Collectors.toList());
+        List<UserGatheringsReqDto> gatherings = gatheringMapper.findGatheringByUserId(userId).stream().filter(Objects::nonNull)
+                .peek(g -> g.setThumbnailPicture(
+                        imageUrlUtil.buildImageUrl(g.getThumbnailPicture(), "crewGathering")
+                ))
+                .collect(Collectors.toList());
+
         return gatherings;
     }
 

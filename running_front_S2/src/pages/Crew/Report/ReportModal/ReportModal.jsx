@@ -2,34 +2,12 @@
 import { useMemo, useState } from "react";
 import ReactModal from "react-modal";
 import { reqReportMember } from "../../../../api/Crew/reportApi";
+import * as s from "./styles";
 
 function ReportModal({ isOpen, onClose, memberId, nickname, crewId}) {
   const [reason, setReason] = useState("");
 
-  const modalStyles = useMemo(
-    () => ({
-      overlay: {
-        backgroundColor: "#000000aa",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        zIndex: 1000,
-      },
-      content: {
-        position: "static",
-        inset: "unset",
-        border: "none",
-        borderRadius: "12px",
-        padding: 0,
-        overflow: "hidden",
-        background: "#fff",
-        width: 360,
-        maxWidth: "calc(100% - 24px)",
-        boxShadow: "0 10px 30px rgba(0,0,0,.2)",
-      },
-    }),
-    []
-  );
+  const modalStyles = useMemo(() => s.modalStyles, []);
 
   const [submitting, setSubmitting] = useState(false);
 
@@ -58,27 +36,21 @@ function ReportModal({ isOpen, onClose, memberId, nickname, crewId}) {
 
   return (
     <ReactModal isOpen={!!isOpen} onRequestClose={onClose} shouldCloseOnOverlayClick style={modalStyles}>
-      <div
-        style={{
-          padding: "12px 16px",
-          borderBottom: "1px solid #eee",
-          fontWeight: 700,
-        }}
-      >
+      <div css={s.headerStyle}>
         신고하기
       </div>
 
-      <div style={{ padding: 16 }}>
-        <div style={{ marginBottom: 8 }}> 닉네임: {nickname}</div>
+      <div css={s.contentStyle}>
+        <div css={s.nicknameStyle}>닉네임: {nickname}</div>
         <textarea
           value={reason}
           onChange={(e) => setReason(e.target.value)}
           placeholder="신고 사유를 입력하세요"
-          style={{ width: "100%", height: 120, resize: "none" }}
+          css={s.textareaStyle}
         />
-        <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, marginTop: 12 }}>
-          <button onClick={onClose}>취소</button>
-          <button onClick={ReportOnClick}>제출</button>
+        <div css={s.buttonContainerStyle}>
+          <button css={s.cancleButton}onClick={onClose}>취소</button>
+          <button css={s.reportButton}onClick={ReportOnClick}>제출</button>
         </div>
       </div>
     </ReactModal>

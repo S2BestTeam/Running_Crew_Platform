@@ -3,10 +3,10 @@ import { useCallback, useRef, useState } from "react";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import { useNavigate } from "react-router-dom";
-import * as s from "./styles";
 import { reqRegisterGlobalNotice } from "../../../api/GlobalNotice/globalNoticeApi";
 import api from "../../../api/axios";
 import MainContainer from "../../../components/MainContainer/MainContainer";
+import * as s from "./styles";
 
 function NoticeReg() {
   const navigate = useNavigate();

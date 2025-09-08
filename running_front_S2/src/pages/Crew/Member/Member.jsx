@@ -1,15 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import * as s from "./styles";
-
-import MainContainer from "../../../components/MainContainer/MainContainer";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import usePrincipalQuery from "../../../queries/usePrincipalQuery";
-import useCrewDetailQuery from "../../../queries/useCrewDetailQuery";
-import useMembersQuery from "../../../queries/useMembersQuery";
 import { useEffect, useMemo, useRef, useState } from "react";
-import MemberModal from "./MemberModal/MemberModal";
+import { IoSearch } from "react-icons/io5";
+import { useParams, useSearchParams } from "react-router-dom";
+import MainContainer from "../../../components/MainContainer/MainContainer";
+import useCrewDetailQuery from "../../../queries/Crew/List/useCrewDetailQuery";
+import useMembersQuery from "../../../queries/User/useMembersQuery";
+import usePrincipalQuery from "../../../queries/User/usePrincipalQuery";
 import ReportModal from "../Report/ReportModal/ReportModal";
-import ContentLayout from "../../../components/ContentLayout/ContentLayout";
+import MemberModal from "./MemberModal/MemberModal";
+import * as s from "./styles";
 
 function Member() {
   const { crewId } = useParams();
@@ -91,13 +90,11 @@ function Member() {
         <h2>크루 멤버</h2>
         <div css={s.asd}>
           <div css={s.searchBar}>
-            <input
-              value={searchInput}
-              onChange={handleSearchOnChange}
-              onKeyDown={handleSearchOnKeyDown}
-              placeholder="닉네임/실명 검색"
-            />
-            <button onClick={handleSearchOnClick}>검색</button>
+            <input type="text" placeholder="닉네임/실명 검색" value={searchInput} onChange={handleSearchOnChange} css={s.searchInput}
+              onKeyDown={handleSearchOnKeyDown} />
+            <button css={s.searchButton} onClick={handleSearchOnClick}>
+              <IoSearch />
+            </button>
           </div>
           <div ref={scrollBoxRef} css={s.scrollBox}>
             {members.map((m) => (

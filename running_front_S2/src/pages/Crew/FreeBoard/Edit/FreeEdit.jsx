@@ -1,13 +1,12 @@
 /** @jsxImportSource @emotion/react */
-
-import { useNavigate, useParams } from "react-router-dom";
-import usePrincipalQuery from "../../../../queries/usePrincipalQuery";
-import useGetCrewFreeBoardDetailQuery from "../../../../queries/useGetCrewFreeBoardDetailQuery";
-import React, { useEffect, useMemo, useState, useRef, useCallback } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import ReactQuill from "react-quill-new";
-import { reqUpdateFreeBoard } from "../../../../api/Crew/freeboardApi";
-import { useCrewStore } from "../../../../stores/useCrewStroes";
+import { useNavigate, useParams } from "react-router-dom";
 import api from "../../../../api/axios";
+import { reqUpdateFreeBoard } from "../../../../api/Crew/freeboardApi";
+import useGetCrewFreeBoardDetailQuery from "../../../../queries/Crew/FreeBoard/useGetCrewFreeBoardDetailQuery";
+import usePrincipalQuery from "../../../../queries/User/usePrincipalQuery";
+import { useCrewStore } from "../../../../stores/useCrewStroes";
 
 export default function FreeEdit() {
   const { crewId } = useCrewStore();

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import * as s from "./styles";              // ← 스타일은 여기서
+import * as s from "./styles";
 import { reqPostCrewMessage } from "../../../../api/Admin/adminApi";
 
 
@@ -11,7 +11,6 @@ function MessageSendModal({ open, onClose, crewId, onSent }) {
 
   useEffect(() => { if (!open) setText(""); }, [open]);
 
-  // ESC로 닫기
   useEffect(() => {
     if (!open) return;
     const onKey = (e) => { if (e.key === "Escape") onClose?.(); };
@@ -41,7 +40,6 @@ function MessageSendModal({ open, onClose, crewId, onSent }) {
     if (e.target === e.currentTarget) onClose?.();
   };
 
-  // ⬇️ 포털로 body에 렌더 → 다른 모달 위에 확실히 올라옴
   return createPortal(
     <div css={s.backdrop} onClick={onBackdropClick} role="presentation">
       <div css={s.modal} role="dialog" aria-modal="true" aria-labelledby="msg-modal-title">

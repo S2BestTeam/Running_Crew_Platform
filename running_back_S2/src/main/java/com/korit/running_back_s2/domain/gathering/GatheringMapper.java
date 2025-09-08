@@ -11,7 +11,6 @@ import java.util.List;
 @Mapper
 public interface GatheringMapper {
     int insert(Gathering gathering);
-//    List<Gathering> findAllByCrewId(@Param("crewId") Integer crewId, @Param("userId") Integer userId);
     List<Gathering> findAllByCrewId(@Param("crewId") Integer crewId);
     List<User> findParticipantsByGatheringId(int gatheringId);
 

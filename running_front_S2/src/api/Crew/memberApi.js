@@ -12,7 +12,7 @@ export const reqGetMemberCount = (crewId) => api.get(`/api/members/${crewId}/cou
 
 export const reqGetMemberDetail = (memberId) => api.get(`/api/members/${memberId}`);
 
-export const reqUpdateMemberRole = ({ memberId, roleId }) => api.put(`/api/members/${memberId}/role`, { memberId, roleId });
+export const reqUpdateMemberRole = ({ memberId, roleId, crewId }) => api.put(`/api/members/${memberId}/role`, { memberId, roleId, crewId });
 
 export const reqExpelMember = ({ memberId }) => api.delete(`/api/members/${memberId}`);
 

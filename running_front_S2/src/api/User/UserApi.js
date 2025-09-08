@@ -34,6 +34,5 @@ export const reqDeleteUser = (userId) => api.delete(`/api/${userId}/delete`);
 
 export const reqMyCrews = (userId) => api.get(`/api/${userId}/crews`);
 
-
 export const reqMyGatherings = (userId) => api.get(`/api/users/${userId}/gatherings`);
 

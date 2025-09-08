@@ -1,12 +1,11 @@
-import React, { useMemo, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { BiSolidChevronLeftSquare, BiSolidChevronRightSquare } from "react-icons/bi";
-import { IoSearch } from "react-icons/io5";
 /** @jsxImportSource @emotion/react */
 import * as s from "./styles";
-import usePrincipalQuery from "../../../queries/usePrincipalQuery";
-import useGetMyCrewsQuery from "../../../queries/useGetMyCrewsQuery";
-import useGetMyPostQuery from "../../../queries/useGetMyPostQuery";
+import { useMemo, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { IoSearch } from "react-icons/io5";
+import usePrincipalQuery from "../../../queries/User/usePrincipalQuery";
+import useGetMyCrewsQuery from "../../../queries/User/useGetMyCrewsQuery";
+import useGetMyPostQuery from "../../../queries/User/useGetMyPostQuery";
 import Pagination from "../../../components/Pagination/Pagination";
 import { MenuItem, Select } from "@mui/material";
 
@@ -73,8 +72,6 @@ export default function Post() {
     const base = body?.contents ?? body?.items ?? [];
     return (Array.isArray(base) ? base : []).filter((p) => p && p.postId != null);
   }, [body]);
-
-  console.log(data)
 
   const start = (page - 1) * size;
 
@@ -153,15 +150,15 @@ export default function Post() {
               onChange={handleSrcChange}
               displayEmpty
             >
-                {SRC_OPTIONS.map((op) => (
-                  <MenuItem
-                    key={op.value}
-                    value={op.value}
-                    css={s.menuItem}
-                  >
-                    {op.label}
-                  </MenuItem>
-                ))}
+              {SRC_OPTIONS.map((op) => (
+                <MenuItem
+                  key={op.value}
+                  value={op.value}
+                  css={s.menuItem}
+                >
+                  {op.label}
+                </MenuItem>
+              ))}
             </Select>
             <Select
               css={s.selectBox}
@@ -182,10 +179,19 @@ export default function Post() {
             </Select>
           </div>
 
-          <input type="text" placeholder="제목/내용 검색" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} css={s.searchInput} onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()} />
-          <button css={s.searchButton} onClick={handleSearchOnClick}>
-            <IoSearch />
-          </button>
+          <div css={s.asd}>
+            <input
+              type="text"
+              placeholder="제목/내용 검색"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              css={s.searchInput}
+              onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()}
+            />
+            <button css={s.searchButton} onClick={handleSearchOnClick}>
+              <IoSearch />
+            </button>
+          </div>
         </div>
       </div>
 

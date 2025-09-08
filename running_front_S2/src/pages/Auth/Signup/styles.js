@@ -8,8 +8,8 @@ export const container = css`
     height: auto;
 
     & > div {
-        width: 40rem;
-        height: 60rem;
-        background-color: #ebebeb;
+    width: 40rem;
+    height: 60rem;
+    background-color: #ebebeb;
     }
 `;

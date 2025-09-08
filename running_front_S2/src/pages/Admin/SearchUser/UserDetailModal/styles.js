@@ -20,7 +20,7 @@ export const modal = css`
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   position: relative;
 `;
 
@@ -199,13 +199,12 @@ export const reportItem = css`
   padding: 1rem 1.4rem;
   margin-bottom: 0.8rem;
   background-color: #f9fafb;
-  border-left: 4px solid #007bff;
+  border-left: 4px solid #ff0000ff;
   border-radius: 0.6rem;
   transition: background-color 0.2s ease, border-left-color 0.2s ease;
 
   &:hover {
-    background-color: #eef5ff;
-    border-left-color: #0056b3;
+    background-color: var(--hB-color);
   }
 `;
 
@@ -290,38 +289,36 @@ export const searchGroup = css`
   align-items: center;
 `;
 
+export const asd = css`
+  display: flex;
+  flex-direction: row;
+`;
+
 export const searchInput = css`
   height: 3.425rem;
   box-sizing: border-box;
   padding: 0.8rem;
-  border: 0.1rem solid #ccc;
+  border: 0.1rem solid var(--main-color);
   border-right: none;
   border-radius: 0.6rem 0 0 0.6rem;
   outline: none;
-  min-width: 20rem;
-
-  &:focus {
-    border-color: #666;
-  }
 `;
 
 export const searchButton = css`
+  display: flex;
   height: 3.425rem;
   box-sizing: border-box;
-  padding: 0.8rem 1.2rem;
-  border: 0.1rem solid #000;
+  padding: 0.5rem 0.5rem;
+  border: 0.1rem solid var(--main-color);
   border-left: none;
-  background: #000;
-  color: white;
+  background: #fff;
+  color: var(--main-color);
+  font-size: 1.8rem;
   border-radius: 0 0.6rem 0.6rem 0;
   cursor: pointer;
-  display: flex;
   align-items: center;
   justify-content: center;
-
-  &:hover {
-    background: #333;
-  }
+  margin-right: 0.5rem;
 `;
 
 

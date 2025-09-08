@@ -1,10 +1,6 @@
 package com.korit.running_back_s2.domain.user;
 
-import com.korit.running_back_s2.dto.crew.CrewsByUserIdResDto;
-import com.korit.running_back_s2.dto.ranking.CrewRankingRespDto;
 import com.korit.running_back_s2.dto.ranking.UserRankingRespDto;
-import com.korit.running_back_s2.dto.report.ReportReqDto;
-import com.korit.running_back_s2.dto.user.UserGatheringsReqDto;
 import com.korit.running_back_s2.dto.welcome.WelcomeByUserIdResDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

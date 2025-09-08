@@ -5,7 +5,6 @@ import com.korit.running_back_s2.dto.user.UserMyPageUpdateReqDto;
 import com.korit.running_back_s2.dto.user.UserRegisterReqDto;
 import com.korit.running_back_s2.dto.welcome.UpdateMyWelcomeReqDto;
 import com.korit.running_back_s2.service.UserService;
-import com.korit.running_back_s2.service.WelcomeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

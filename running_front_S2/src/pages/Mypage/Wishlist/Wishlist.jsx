@@ -2,11 +2,11 @@
 import * as s from './styles';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import usePrincipalQuery from '../../../queries/usePrincipalQuery';
+import usePrincipalQuery from '../../../queries/User/usePrincipalQuery';
 import { FaHeart } from 'react-icons/fa';
 import { motion } from "framer-motion";
 import { getUserWishlist, removeWishlist } from '../../../api/Crew/wishlistApi';
-import useGetMyCrewsQuery from '../../../queries/useGetMyCrewsQuery';
+import useGetMyCrewsQuery from '../../../queries/User/useGetMyCrewsQuery';
 
 function Wishlist(props) {
   const navigate = useNavigate();

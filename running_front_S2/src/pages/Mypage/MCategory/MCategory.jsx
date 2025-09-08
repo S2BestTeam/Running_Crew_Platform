@@ -1,19 +1,14 @@
 /** @jsxImportSource @emotion/react */
+import { useNavigate } from 'react-router-dom';
 import { reqDeleteUser } from '../../../api/User/UserApi';
 import ContentLayout from '../../../components/ContentLayout/ContentLayout';
 import LeftSideBarLayout from '../../../components/LeftSideBarLayout/LeftSideBarLayout';
 import MainContainer from '../../../components/MainContainer/MainContainer';
-import useGetCrewRoleQuery from '../../../queries/useGetCrewRoleQuery';
-import usePrincipalQuery from '../../../queries/usePrincipalQuery';
+import useGetCrewRoleQuery from '../../../queries/Crew/useGetCrewRoleQuery';
+import usePrincipalQuery from '../../../queries/User/usePrincipalQuery';
+import MyPageRoute from '../../../routes/MyPageRoute';
 import { useCrewStore } from '../../../stores/useCrewStroes';
-import MyGathering from '../Gathering/MyGathering';
-import MypageModify from '../Modify/MypageModify';
-import MyAsk from '../MyAsk/MyAsk';
-import Post from '../Post/Post';
-import Welcome from '../Welcome/Welcome';
-import Wishlist from '../Wishlist/Wishlist';
 import * as s from './styles';
-import { Route, Routes, useNavigate } from 'react-router-dom';
 
 function MCategory(props) {
   const navigate = useNavigate();
@@ -85,14 +80,7 @@ function MCategory(props) {
         bottomSection={bottomSection}
       >
         <ContentLayout>
-          <Routes>
-            <Route path='/' element={<MypageModify />}/>
-            <Route path='/wish' element={<Wishlist />}/>
-            <Route path='/post' element={<Post />}/>
-            <Route path='/welcome' element={<Welcome />} />
-            <Route path='/ask' element={<MyAsk />} />
-            <Route path='/gathering' element={<MyGathering />} />
-          </Routes>
+          {MyPageRoute()}
         </ContentLayout>
       </LeftSideBarLayout>
     </MainContainer>

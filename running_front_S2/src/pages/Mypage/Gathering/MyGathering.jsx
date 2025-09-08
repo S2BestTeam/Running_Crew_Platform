@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import * as s from './styles';
 import { useNavigate } from 'react-router-dom';
-import usePrincipalQuery from '../../../queries/usePrincipalQuery';
-import useGetMyGatheringQuery from '../../../queries/useGetMyGatheringQuery';
+import usePrincipalQuery from '../../../queries/User/usePrincipalQuery';
+import useGetMyGatheringQuery from '../../../queries/User/useGetMyGatheringQuery';
 import { IoLocation, IoTimeSharp } from 'react-icons/io5';
 
 function MyGathering() {
@@ -12,8 +12,6 @@ function MyGathering() {
 
   const { data, isLoading, isError } = useGetMyGatheringQuery(userId);
   const gatherings = data?.body || [];
-  
-  console.log(gatherings);
   
   const handleNavigate = (crewId) => {
     navigate(`/crews/${crewId}`);

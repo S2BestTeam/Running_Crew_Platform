@@ -1,9 +1,9 @@
 import { css } from "@emotion/react";
 
 export const container = css`
-    text-align: center;
-    margin: 0 auto;
-    width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  width: 100%;
 `;
 
 export const table = css`
@@ -24,22 +24,33 @@ export const td = css`
   border-bottom: 1px solid #eee;
 `;
 
+export const crewImg = css`
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+`;
+
+
 export const tdTitle = css`
   ${td};
   text-align: left;
 `;
 
 export const button = css`
-  font-size: 1.3rem;
-  border-radius: 0.5rem;
+  font-size: 1rem;
+  padding: 0.8rem 1rem;
   margin-left: 1rem;
-  background: #000;
-  color: white;
+  background: var(--main-color);
+  color: var(--sub-color);
+  border: none;
+  border-radius: 0.6rem;
+  white-space: nowrap;
   cursor: pointer;
+  transition: all 0.3s ease;
 
-  &:disabled {
-    background: #ccc;
-    color: #666;
-    cursor: not-allowed;
+  :hover {
+    background: #acababff;
   }
 `;

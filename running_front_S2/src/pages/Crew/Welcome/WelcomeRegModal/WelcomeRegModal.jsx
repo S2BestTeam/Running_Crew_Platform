@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { useState } from 'react';
 import * as s from './styles';
-import usePrincipalQuery from '../../../../queries/usePrincipalQuery';
+import usePrincipalQuery from '../../../../queries/User/usePrincipalQuery';
 import { reqJoinCrew } from '../../../../api/Crew/welcomeApi';
 
 function WelcomeRegModal({setIsOpen, crewId, onSuccess }) {
@@ -38,8 +38,8 @@ function WelcomeRegModal({setIsOpen, crewId, onSuccess }) {
         <p>자기소개</p>
         <input type="text" placeholder='편하게 작성해주세요!' value={simpleInfo} onChange={(e) => setSimpleInfo(e.target.value)}/>
         <div css={s.buttons}>
-          <button onClick={() => setIsOpen(false)}>닫기</button>
-          <button onClick={handleJoinCrewOnClick}>확인</button>
+          <button css={s.cancleButton} onClick={() => setIsOpen(false)}>닫기</button>
+          <button css={s.okButton} onClick={handleJoinCrewOnClick}>확인</button>
         </div>
       </div>
     </div>

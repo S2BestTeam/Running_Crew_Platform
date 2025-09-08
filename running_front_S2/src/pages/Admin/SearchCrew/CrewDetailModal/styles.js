@@ -12,6 +12,7 @@ export const overlay = css`
 `;
 
 export const modal = css`
+  position: relative;
   background: #fff;
   border-radius: 0.8rem;
   width: 80%;
@@ -20,7 +21,27 @@ export const modal = css`
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
+`;
+
+export const messageSendBtn = css`
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  padding: 0.8rem 1.6rem;
+  background: var(--main-color);
+  color: white;
+  border: none;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  font-size: 1.4rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  z-index: 10;
+
+  &:active {
+    transform: translateY(0);
+  }
 `;
 
 export const header = css`
@@ -95,7 +116,6 @@ export const emptyState = css`
   color: #666;
 `;
 
-/* 멤버 리스트 */
 export const memberItem = (withBorder) => css`
   display: flex;
   align-items: center;
@@ -195,7 +215,6 @@ export const menuDanger = css`
   font-weight: 500;
 `;
 
-/* 정모 */
 export const gatheringItem = (withBorder) => css`
   padding: 1.5rem 0;
   border-bottom: ${withBorder ? "0.1rem solid #f0f0f0" : "none"};
@@ -227,36 +246,6 @@ export const container = css`
   text-align: center;
   margin: 0 auto;
   width: 100%;
-`;
-
-export const searchBox = css`
-  display: flex;
-  justify-content: right;
-  align-items: center;
-  margin: 1rem 0;
-`;
-
-export const inputGroup = css`
-  display: flex;
-`;
-
-export const searchInput = css`
-  height: 3.425rem;
-  padding: 0.3rem;
-  border: 0.1rem solid #ccc;
-  border-right: none;
-  border-radius: 0.6rem 0 0 0.6rem;
-  outline: none;
-`;
-
-export const searchButton = css`
-  padding: 0.8rem 1.5rem;
-  border: 0.1rem solid #000;
-  border-left: none;
-  background: #000;
-  color: white;
-  border-radius: 0 0.6rem 0.6rem 0;
-  cursor: pointer;
 `;
 
 export const registerButton = css`
@@ -297,7 +286,6 @@ export const tr = css`
   }
 `;
 
-/* 푸터 */
 export const footer = css`
   padding: 1.5rem 2rem;
   border-top: 1px solid #eee;

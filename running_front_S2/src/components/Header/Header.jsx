@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import { useState } from "react";
-import * as s from "./styles";
-import { FiUser } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
-import usePrincipalQuery from "../../queries/usePrincipalQuery";
 import { useQueryClient } from "@tanstack/react-query";
-import { TbLogout } from "react-icons/tb";
 import { Settings } from "lucide-react";
+import { useState } from "react";
+import { FiUser } from "react-icons/fi";
+import { TbLogout } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
+import * as s from "./styles";
+import usePrincipalQuery from "../../queries/User/usePrincipalQuery";
 
 function Header() {
   const principalQuery = usePrincipalQuery();
@@ -92,7 +92,7 @@ function Header() {
           </div>
           <div css={s.menuDetail}>
             <div>대회정보</div>
-            <div onClick={() => handleNavigate("/competition")}>대회일정</div>
+            <div onClick={() => handleNavigate("/marathons")}>대회일정</div>
             <div onClick={() => handleNavigate("/calender")}>캘린더</div>
           </div>
           <div css={s.menuDetail}>
@@ -118,9 +118,14 @@ function Header() {
             <FiUser />
           )}
         </div>
-        <div css={s.icon} onClick={handleLogout}>
-          <TbLogout />
-        </div>
+        {
+          userInfo && 
+          (
+            <div css={s.icon} onClick={handleLogout}>
+              <TbLogout />
+            </div>
+          )
+        }
       </div>
     </header>
   );

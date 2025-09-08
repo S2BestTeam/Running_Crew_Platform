@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import * as s from './styles';
 import MainContainer from "../../../components/MainContainer/MainContainer";
-import useGetCrewRankingQuery from "../../../queries/useGetCrewRankingQuery";
+import useGetCrewRankingQuery from "../../../queries/Ranking/useGetCrewRankingQuery";
 import RankingCard from "./RankingCard";
 import { useNavigate } from 'react-router-dom';
 import { FaStar } from "react-icons/fa";

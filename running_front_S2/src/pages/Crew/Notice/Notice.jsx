@@ -2,11 +2,11 @@
 import * as s from "./styles";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import usePrincipalQuery from "../../../queries/usePrincipalQuery";
+import usePrincipalQuery from "../../../queries/User/usePrincipalQuery";
 import { IoSearch } from "react-icons/io5";
-import useGetCrewRoleQuery from "../../../queries/useGetCrewRoleQuery";
+import useGetCrewRoleQuery from "../../../queries/Crew/useGetCrewRoleQuery";
 import { useCrewStore } from "../../../stores/useCrewStroes";
-import useGetCrewNotoiceQuery from "../../../queries/useGetCrewNoticeQuery";
+import useGetCrewNotoiceQuery from "../../../queries/Crew/Notice/useGetCrewNoticeQuery";
 import Pagination from "../../../components/Pagination/Pagination";
 
 function Notice() {

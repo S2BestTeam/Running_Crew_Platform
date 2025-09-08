@@ -26,12 +26,10 @@ export const global = css`
     font-size: 1.4rem;
   }
 
-<<<<<<< HEAD
-=======
   :root {
     --main-color: #1f1f21;
     --sub-color: #ebebeb;
     --point-color: #fa2847;
+    --hB-color: rgba(129, 126, 126, 0.1);
   }
->>>>>>> origin/121-정모일정-수정-css
 `;

@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo, useState, useRef, useCallback } from 'react';
-import useGetCrewNoticeDetailQuery from '../../../../queries/useGetCrewNoticeDetailQuery';
-import usePrincipalQuery from '../../../../queries/usePrincipalQuery';
-import { useNavigate, useParams } from 'react-router-dom';
-import { reqUpdateNotice } from '../../../../api/Crew/noticeApi';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import ReactQuill from 'react-quill-new';
-import { useCrewStore } from '../../../../stores/useCrewStroes';
+import { useNavigate, useParams } from 'react-router-dom';
 import api from '../../../../api/axios';
+import { reqUpdateNotice } from '../../../../api/Crew/noticeApi';
+import useGetCrewNoticeDetailQuery from '../../../../queries/Crew/Notice/useGetCrewNoticeDetailQuery';
+import usePrincipalQuery from '../../../../queries/User/usePrincipalQuery';
+import { useCrewStore } from '../../../../stores/useCrewStroes';
 
 function NoticeEdit() {
   const { crewId } = useCrewStore();
