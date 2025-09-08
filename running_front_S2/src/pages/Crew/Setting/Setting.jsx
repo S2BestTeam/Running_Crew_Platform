@@ -218,7 +218,7 @@ function Setting(props) {
         limitedPeople: updateCrew.limitedPeople,
       };
 
-      await reqCrewUpdate(updateData);
+      await reqCrewUpdate(crewId, updateData);
       alert("크루 정보가 성공적으로 저장되었습니다.");
       crewDetailQuery.refetch();
     } catch (error) {

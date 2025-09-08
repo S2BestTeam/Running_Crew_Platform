@@ -36,7 +36,7 @@ public class CrewController {
         return ResponseEntity.ok(ResponseDto.success("Crew 등록 성공"));
     }
 
-    @GetMapping("/duplicate/name")
+    @GetMapping(params = "crewName")
     public ResponseEntity<ResponseDto<?>> checkCrewName(@RequestParam String crewName) {
         return ResponseEntity.ok(ResponseDto.success(crewService.checkCrewNames(crewName)));
     }
@@ -68,7 +68,7 @@ public class CrewController {
         return ResponseEntity.ok(ResponseDto.success("수정 완료"));
     }
 
-    @PatchMapping("/update")
+    @PatchMapping("/{crewId}")
     public ResponseEntity<ResponseDto<?>> updateCrewData(@RequestBody CrewUpdateReqDto dto) {
         crewService.updateCrew(dto);
         return ResponseEntity.ok(ResponseDto.success("크루 정보 수정 성공"));

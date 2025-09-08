@@ -14,12 +14,12 @@ public class MessageController {
 
     private final MessageService messageService;
 
-    @GetMapping("/crews/{crewId}/message")
+    @GetMapping("/crews/{crewId}/messages")
     public ResponseEntity<ResponseDto<?>> getCrewMessage (@PathVariable Integer crewId) {
         return ResponseEntity.ok(ResponseDto.success(messageService.getCrewMessage(crewId)));
     }
 
-    @PostMapping("/admin/message/{crewId}")
+    @PostMapping("/admin/{crewId}/messages")
     public ResponseEntity<ResponseDto<?>> registerCrewMessage (@PathVariable Integer crewId, @RequestBody MessageReqDto dto) {
         messageService.registerCrewMessage(crewId, dto);
         return ResponseEntity.ok(ResponseDto.success("메세지 전송 성공"));
