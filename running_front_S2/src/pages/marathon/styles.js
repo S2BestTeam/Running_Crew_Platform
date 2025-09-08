@@ -1,9 +1,9 @@
 import { css } from "@emotion/react";
 
 export const page = css`
-  max-width: 1200px;
+  text-align: center;
   margin: 0 auto;
-  padding: 32px 16px 80px;
+  width: 80%;
 `;
 
 export const headerRow = css`
@@ -84,8 +84,8 @@ export const sectionTitle = css`
 
 export const grid = css`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2.5rem;
 
   @media (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);

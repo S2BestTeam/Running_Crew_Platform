@@ -14,6 +14,11 @@ export default function MemberModal({ memberId, isOpen, onClose, isLeader = fals
 
   const modalStyles = useMemo(() => s.modalStyles, []);
 
+    const handleReportOnClick = () => {
+    onClose();
+    onReport(memberId);
+  };
+
   const handleUpdateRoleOnClick = async (roleId) => {
     try {
       await reqUpdateMemberRole({ memberId, roleId });
@@ -41,6 +46,9 @@ export default function MemberModal({ memberId, isOpen, onClose, isLeader = fals
     <ReactModal isOpen={!!isOpen} onRequestClose={onClose} shouldCloseOnOverlayClick style={modalStyles} >
       <div css={s.headerStyle}>
         <span>멤버 정보</span>
+        <button onClick={handleReportOnClick} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 18 }} title="신고하기">
+          🚨
+        </button>
       </div>
 
       <div css={s.contentStyle}>

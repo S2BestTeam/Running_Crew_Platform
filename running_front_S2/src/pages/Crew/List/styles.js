@@ -73,18 +73,18 @@ export const registerButton = css`
   padding: 0.6rem 1.2rem;
   background: #000;
   color: white;
+  border: none;
   border-radius: 0.6rem;
   cursor: pointer;
   align-items: center;
   justify-content: center;
 `;
 
-
 export const gridBox = css`
   display: grid;
   width: 100%;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 3rem 3rem;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2.5rem;
   margin: 3rem 0;
 `;
 
@@ -92,6 +92,10 @@ export const cards = css`
   width: 100%;
   border-radius: 0.8rem;
   cursor: pointer;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
 `;
 
 export const tumbnailBox = css`

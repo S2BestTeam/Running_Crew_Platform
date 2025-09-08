@@ -2,7 +2,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { reqGetMarathons } from "../api/GlobalNotice/globalNoticeApi";
 
 
-export default function useGetMarathonsInfiniteQuery({ size = 12, searchText = "", month = ""}) {
+export default function useGetMarathonsInfiniteQuery({ size = 15, searchText = "", month = ""}) {
   return useInfiniteQuery({
     queryKey: ["marathons", { month, searchText, size }],
     queryFn: async ({ pageParam = 1 }) => {

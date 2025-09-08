@@ -32,7 +32,7 @@ function List() {
   const top5CreatedAt = rankingsQuery?.data?.newRanking.slice(0, 5).map(m => m.crewId);
   const crewListQuery = useGetCrewListQuery({
     page,
-    size: 12,
+    size: 15,
     searchText,
     gunguId: selectedGunguId,
   });
