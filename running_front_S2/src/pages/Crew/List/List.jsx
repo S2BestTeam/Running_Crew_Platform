@@ -176,18 +176,20 @@ function List() {
             ))}
           </Select>
 
-          <div css={s.inputGroup}>
-            <input
-              type="text"
-              placeholder="검색어를 입력하세요."
-              value={searchInput}
-              onChange={handleSearchOnChange}
-              onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()}
-              css={s.searchInput}
-            />
-            <button css={s.searchButton} onClick={handleSearchOnClick}>
-              <IoSearch />
-            </button>
+          <div css={s.headerContainer}>
+            <div css={s.inputGroup}>
+              <input
+                type="text"
+                placeholder="검색어를 입력하세요."
+                value={searchInput}
+                onChange={handleSearchOnChange}
+                onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()}
+                css={s.searchInput}
+              />
+              <button css={s.searchButton} onClick={handleSearchOnClick}>
+                <IoSearch />
+              </button>
+            </div>
             <button
               css={s.registerButton}
               onClick={() => navigate("/crew/register")}

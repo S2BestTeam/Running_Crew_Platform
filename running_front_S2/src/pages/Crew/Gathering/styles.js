@@ -68,7 +68,7 @@ export const gatheringMain = css`
 `;
 
 export const gatheringContainer = css`
-  width: 25rem;
+  width: auto;
   border: 0.1rem solid #aaa;
   border-radius: 0.5rem;
 `;

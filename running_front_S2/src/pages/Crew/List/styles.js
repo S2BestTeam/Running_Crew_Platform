@@ -29,16 +29,30 @@ export const selectBox = css`
     border-color: #333;
   }
   &.Mui-focused .MuiOutlinedInput-notchedOutline {
-    border-color: #000 !important;
+    border-color: var(--main-color) !important;
   }
 `;
 
 export const menuItem = css`
   font-size: 1.4rem;
+  background-color: #ffffff !important;
+  &:hover {
+    background-color: var(--hB-color) !important;
+  }
+`;
+
+export const headerContainer = css`
+  display: flex;
 `;
 
 export const inputGroup = css`
   display: flex;
+    margin-right: 0.5rem;
+  &:focus {
+    padding: 0.8rem;
+    border: 0.25rem solid var(--main-color);
+    border-right: none;
+  }
 `;
 
 export const searchInput = css`
@@ -65,7 +79,6 @@ export const searchButton = css`
   cursor: pointer;
   align-items: center;
   justify-content: center;
-  margin-right: 0.5rem;
 `;
 
 export const registerButton = css`
@@ -79,12 +92,11 @@ export const registerButton = css`
   justify-content: center;
 `;
 
-
 export const gridBox = css`
   display: grid;
   width: 100%;
   grid-template-columns: repeat(5, 1fr);
-  gap: 3rem 2rem;
+  gap: 3rem 3rem;
   margin: 3rem 0;
 `;
 
@@ -151,7 +163,7 @@ export const rankingBox = css`
   padding: 0.5rem;
   font-weight: 500;
   color: #fff;
-  gap: 0.5rem; 
+  gap: 0.5rem;
   margin-top: 0.5rem;
 
   & > div {
