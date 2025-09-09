@@ -15,7 +15,7 @@ export const topBar = css`
 export const back = css`
   border: none;
   background: transparent;
-  font-size: 14px;
+  // font-size: 14px;
   cursor: pointer;
   color: #666;
   &:hover {
@@ -63,14 +63,14 @@ export const headerRight = css`
 `;
 
 export const category = css`
-  font-size: 12px;
+  // font-size: 12px;
   color: #888;
   margin-bottom: 8px;
 `;
 
 export const title = css`
-  font-size: 28px;
-  font-weight: 800;
+  // font-size: 28px;
+  // font-weight: 800;
   line-height: 1.2;
   margin: 0 0 16px;
 `;
@@ -99,13 +99,13 @@ export const homeButton = css`
   color: #fff;
   padding: 10px 14px;
   border-radius: 10px;
-  font-weight: 700;
+  // font-weight: 700;
   cursor: pointer;
 `;
 
 export const sectionTitle = css`
-  font-size: 20px;
-  font-weight: 800;
+  // font-size: 20px;
+  // font-weight: 800;
   margin: 28px 0 14px;
 `;
 
@@ -127,11 +127,11 @@ export const metaRow = css`
 
 export const metaLabel = css`
   color: #666;
-  font-size: 14px;
+  // font-size: 14px;
 `;
 
 export const metaValue = css`
-  font-size: 14px;
+  // font-size: 14px;
   a {
     color: #0b5bd3;
     text-decoration: underline;

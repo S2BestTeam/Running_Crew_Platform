@@ -12,12 +12,12 @@ export const dataGridWrapper = css`
   height: 100%;
   width: 100%;
     .MuiDataGrid-cell {
-    font-size: 1.5rem;
+    // font-size: 1.5rem;
   }
 
   .MuiDataGrid-columnHeaderTitle {
-    font-size: 1.5rem;
-    font-weight: 600;
+    // font-size: 1.5rem;
+    // font-weight: 600;
   }
 `;
 

@@ -1,15 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { useCallback, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-// import { useQueryClient } from "@tanstack/react-query"; // 선택
-import useSearchUserQuery from "../../../queries/Admin/useSearchUserQuery";
 import Pagination from "../../../components/Pagination/Pagination";
+import SearchBox from "../../../components/SearchBox/SearchBox";
+import useSearchUserQuery from "../../../queries/Admin/useSearchUserQuery";
 import * as s from "./styles";
 import UserDetailModal from "./UserDetailModal/UserDetailModal";
-import SearchBox from "../../../components/SearchBox/SearchBox";
 
 function SearchUser() {
-  // ---- 모든 훅을 최상단에 (조건부 return 위) ----
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get("page") || "1", 10);
   const searchText = searchParams.get("searchText") || "";

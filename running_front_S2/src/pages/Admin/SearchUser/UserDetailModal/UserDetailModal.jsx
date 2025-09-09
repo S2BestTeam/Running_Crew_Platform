@@ -316,9 +316,9 @@ function UserDetailModal({ user, onClose, onSave }) {
     <div css={s.overlay}>
       <div css={s.modal}>
         <div css={s.editIcon}>
-          <FaPen css={s.ModifyButton} size={18} onClick={() => setIsEditing(true)} />
+          <FaPen css={s.IconButton} size={18} onClick={() => setIsEditing(true)} />
           <MdDelete
-            css={s.deleteButton}
+            css={s.IconButton}
             size={22}
             onClick={(e) => handleUserDeleteOnClick(e, user.userId)}
           />
@@ -361,10 +361,10 @@ function UserDetailModal({ user, onClose, onSave }) {
                 </p>
 
                 <div css={s.editButtons}>
+                  <button css={s.cancelButton} onClick={handleCancel}>취소</button>
                   <button css={s.saveButton} onClick={handleSave} disabled={isSaving}>
                     {isSaving ? "저장 중..." : "저장"}
                   </button>
-                  <button css={s.cancelButton} onClick={handleCancel}>취소</button>
                 </div>
               </>
             ) : (
@@ -439,7 +439,7 @@ function UserDetailModal({ user, onClose, onSave }) {
                         </div>
                         <span css={s.reportDate}>
                           {new Date(r.createdAt).toLocaleDateString("ko-KR")}
-                          <MdDelete css={s.deleteButton} onClick={() => handleReportDeleteOnClick(r.reportId)} />
+                          <MdDelete css={s.IconButton} onClick={() => handleReportDeleteOnClick(r.reportId)} />
                         </span>
                       </div>
                     </li>
@@ -499,7 +499,6 @@ function UserDetailModal({ user, onClose, onSave }) {
                               <MenuItem
                                 key={op.value}
                                 value={op.value}
-                                css={s.menuItem}
                               >
                                 {op.label}
                               </MenuItem>

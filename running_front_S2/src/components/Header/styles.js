@@ -13,7 +13,7 @@ export const header = css`
 
 export const logo = css`
   font-size: 2rem;
-  font-weight: 600;
+  // font-weight: 600;
   color: #fff;
   flex-shrink: 0;
   cursor: pointer;
@@ -33,8 +33,7 @@ export const menu = css`
   gap: 5rem;
   margin: 0;
   padding: 0;
-  font-size: 1.4rem;
-  font-weight: 400;
+  // font-weight: 400;
 
   li {
     position: relative;
@@ -74,7 +73,7 @@ export const menuDetail = css`
   }
 
   & > div:first-of-type {
-    font-weight: bold;
+    // font-weight: bold;
     cursor: default;
     color: #fff;
   }
@@ -90,16 +89,16 @@ export const fullDropdown = css`
   display: flex;
   justify-content: center;
   gap: 4rem;
-  padding: 16px 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 1.6rem 0;
+  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.1);
   z-index: 1000;
 `;
 
 export const icons = css`
   display: flex;
   gap: 0.8rem;
-  color: #fff;
-  font-size: 2.2rem;
+  color: #ffffffff;
+  font-size: 2rem;
   flex-shrink: 0;
 `;
 

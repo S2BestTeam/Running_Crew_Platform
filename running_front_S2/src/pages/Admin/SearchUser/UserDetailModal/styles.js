@@ -3,25 +3,23 @@ import { css } from "@emotion/react";
 export const overlay = css`
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-color: rgba(0,0,0,0.5);
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: rgba(0,0,0,0.5);
   padding: 2rem;
-  z-index: 9999;
+  z-index: 1000;
 `;
 
 export const modal = css`
-  background: #fff;
-  border-radius: 0.8rem;
-  width: 80%;
-  max-width: 1200px;
-  max-height: 90%;
+  position: relative;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  width: 95%;
+  height: 90%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  font-size: 1.4rem;
-  position: relative;
 `;
 
 export const editIcon = css`
@@ -32,34 +30,25 @@ export const editIcon = css`
   gap: 1rem;
 `;
 
-export const ModifyButton = css`
-  font-size: 1.8rem;
+export const IconButton = css`
   cursor: pointer;
-  &:hover { color: #34f944; }
-`;
-
-export const deleteButton = css`
-  font-size: 2rem;
-  cursor: pointer;
-  &:hover { color: red; }
 `;
 
 export const profileSection = css`
   display: flex;
   gap: 2rem;
   padding: 2rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 0.1rem solid #dbdbdb;
 `;
 
 export const profileImageWrapper = css`
-  width: 12rem;
-  height: 12rem;
-  border-radius: 0.8rem;
-  overflow: hidden;
-  background: #f5f5f5;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 0.5rem;
+  width: 12rem;
+  height: 12rem;
+  overflow: hidden;
   cursor: pointer;
 `;
 
@@ -70,45 +59,44 @@ export const profileImage = css`
 `;
 
 export const nicknameErrMsg = css`
-  font-size: 1.2rem;
+  // font-size: 1.2rem;
   color: red;
   margin-left: 0.5rem;
 `;
 
 export const errMsg = css`
-  font-size: 1.2rem;
+  // font-size: 1.2rem;
   color: red;
   margin-left: 0.5rem;
 `;
 
 export const editButtons = css`
-  margin-top: 1rem;
   display: flex;
   gap: 1rem;
+  margin-top: 1rem;
 `;
 
 export const saveButton = css`
   padding: 0.6rem 1.6rem;
-  border-radius: 0.4rem;
+  border-radius: 0.5rem;
   border: none;
-  background: #28a745;
-  color: #fff;
+  background: var(--main-color);
+  color: var(--sub-color);
   cursor: pointer;
 `;
 
 export const cancelButton = css`
   padding: 0.6rem 1.6rem;
-  border-radius: 0.4rem;
+  border-radius: 0.5rem;
   border: none;
-  background: #dc3545;
-  color: #fff;
+  background: var(--sub-color);
+  color: var(--main-color);
   cursor: pointer;
 `;
 
 export const tabMenu = css`
   display: flex;
-  border-bottom: 1px solid #ddd;
-  background-color: #f8f9fa;
+  border-bottom: 0.1rem solid #dbdbdb;
 `;
 
 export const tab = css`
@@ -116,15 +104,12 @@ export const tab = css`
   text-align: center;
   padding: 1.2rem 0.8rem;
   cursor: pointer;
-  font-size: 1.4rem;
-  color: #666;
 `;
 
 export const activeTab = css`
-  font-weight: 600;
-  color: #000000ff;
-  border-bottom: 0.2rem solid #000000ff;
-  background-color: #fff;
+  // font-weight: bold;
+  border-bottom: 0.2rem solid var(--main-color);
+  background-color: var(--hB-color);
 `;
 
 export const tabContent = css`
@@ -135,27 +120,21 @@ export const tabContent = css`
 
 export const cardWrapper = css`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(24rem, 1fr));
   gap: 1.5rem;
 `;
 
 export const card = css`
-  border: 1px solid #e0e0e0;
-  border-radius: 0.8rem;
+  border: 0.1rem solid #dbdbdb;
+  border-radius: 0.5rem;
   padding: 1.2rem 1.5rem;
-  background: #ffffff;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
 
   p {
     margin: 0.4rem 0;
-    font-size: 1.4rem;
-    color: #333;
   }
 
   &:hover {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    background-color: rgba(129, 126, 126, 0.1);
+    background-color:var(--hB-color);
     transform: translateY(-2px);
   }
 `;
@@ -167,22 +146,16 @@ export const gatheringWrapper = css`
 `;
 
 export const gatheringCard = css`
-  border: 1px solid #e0e0e0;
-  border-radius: 0.8rem;
+  border: 0.1rem solid #dbdbdb;
+  border-radius: 0.5rem;
   padding: 1.2rem 1.5rem;
-  background: #ffffff;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
 
   p {
     margin: 0.4rem 0;
-    font-size: 1.4rem;
-    color: #333;
   }
 
   &:hover {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    background-color: rgba(129, 126, 126, 0.1);
+    background-color:var(--hB-color);
     transform: translateY(-2px);
   }
 `;
@@ -191,17 +164,15 @@ export const reportList = css`
   list-style: none;
   padding: 0;
   margin: 1.5rem 0 2rem 0;
-  max-height: 200px;
+  max-height: 20rem;
   overflow-y: auto;
 `;
 
 export const reportItem = css`
   padding: 1rem 1.4rem;
-  margin-bottom: 0.8rem;
-  background-color: #f9fafb;
-  border-left: 4px solid #ff0000ff;
-  border-radius: 0.6rem;
-  transition: background-color 0.2s ease, border-left-color 0.2s ease;
+  margin-bottom: 0.5rem;
+  border-left: 0.4rem solid var(--point-color);
+  border-radius: 0.5rem;
 
   &:hover {
     background-color: var(--hB-color);
@@ -221,20 +192,15 @@ export const reportMain = css`
 `;
 
 export const reportReason = css`
-  font-weight: 600;
-  color: #333;
-  font-size: 1.4rem;
+  // font-weight: 600;
 `;
 
 export const reportTarget = css`
-  color: #6c757d;
-  font-size: 1.3rem;
+  // font-size: 1.2rem;
   font-style: italic;
 `;
 
 export const reportDate = css`
-  color: #868e96;
-  font-size: 1.2rem;
   white-space: nowrap;
 `;
 
@@ -262,26 +228,17 @@ export const selectGroup = css`
 export const selectBox = css`
   width: 14rem;
   height: 3.425rem;
-  padding: 0.24rem 0.48rem;
-  font-size: 0.76rem;
-  border-radius: 0.4rem;
-  background-color: #fff;
-  color: #333;
-  font-size: 1.4rem;
+  border-radius: 0.5rem;
 
   .MuiOutlinedInput-notchedOutline {
-    border-color: #ccc;
+    border-color: var(--sub-color);
   }
   &:hover .MuiOutlinedInput-notchedOutline {
-    border-color: #333;
+    border-color: var(--hB-color);
   }
   &.Mui-focused .MuiOutlinedInput-notchedOutline {
-    border-color: #000 !important;
+    border-color: var(--main-color) !important;
   }
-`;
-
-export const menuItem = css`
-  font-size: 1.4rem;
 `;
 
 export const searchGroup = css`
@@ -313,7 +270,6 @@ export const searchButton = css`
   border-left: none;
   background: #fff;
   color: var(--main-color);
-  font-size: 1.8rem;
   border-radius: 0 0.6rem 0.6rem 0;
   cursor: pointer;
   align-items: center;
@@ -330,13 +286,13 @@ export const table = css`
 
 export const th = css`
   padding: 1.2rem;
-  border-bottom: 0.2rem solid #000;
-  font-weight: 600;
+  border-bottom: 0.2rem solid var(--main-color);
+  // font-weight: 600;
 `;
 
 export const td = css`
   padding: 1rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 0.1rem solid #dbdbdb;
 `;
 
 export const tdTitle = css`
@@ -347,25 +303,21 @@ export const tdTitle = css`
 export const tr = css`
   cursor: pointer;
   &:hover {
-    background-color: #f0f0f0;
+    background-color: var(--hB-color);
   }
 `;
 
 export const footer = css`
   padding: 1.5rem 2rem;
-  border-top: 1px solid #eee;
+  border-top: 0.1rem solid #dbdbdb;
   text-align: right;
 `;
 
 export const closeButton = css`
   padding: 0.8rem 2rem;
-  border-radius: 0.4rem;
+  border-radius: 0.5rem;
   border: none;
-  background: #000000ff;
-  color: #fff;
+  background: var(--main-color);
+  color: var(--sub-color);
   cursor: pointer;
-  font-size: 1.4rem;
-  &:hover {
-    background: gray;
-  }
 `;

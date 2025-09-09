@@ -71,13 +71,10 @@ export const crewTextBox = css`
   justify-content: center;
 
   h2 {
-    font-size: 2rem;
-    font-weight: bold;
     margin: 0;
   }
 
   p {
-    font-size: 1.4rem;
     color: #555;
   }
 `;
@@ -106,8 +103,8 @@ export const mainLine = css`
 `;
 
 export const fontBold = css`
+  margin-top: 2rem;
   font-weight: bold;
-  font-size: 2rem;
 `;
 
 
@@ -174,7 +171,7 @@ export const timeOverlay = css`
   left: 6px;
   background: rgba(0, 0, 0, 0.65);
   color: #fff;
-  font-size: 11px;
+  // font-size: 11px;
   padding: 2px 6px;
   border-radius: 4px;
 `;
@@ -188,8 +185,7 @@ export const cardBody = css`
 `;
 
 export const title = css`
-  font-weight: 700;
-  font-size: 12px;
+  font-size: 1.2rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -203,7 +199,7 @@ export const time = css`
 `;
 
 export const place = css`
-  font-size: 10px;
+  font-size: 1rem;
   color: #4b5563;
   white-space: nowrap;
   overflow: hidden;
@@ -214,7 +210,7 @@ export const meta = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 12px;
+  font-size: 1rem;
 `;
 
 export const cost = css`
@@ -230,7 +226,7 @@ export const participants = css`
 
 export const fontSetting = css`
   padding-left: 0.4rem;
-  font-size: 1.2rem;
+  // font-size: 1.2rem;
   color: #4b5563;
 `;
 
@@ -241,7 +237,6 @@ export const participantImg = css`
   object-fit: cover;
 `;
 
-// 6. 멤버 목록
 export const memberRow = css`
   position: relative;
   display: flex;
@@ -279,7 +274,7 @@ export const avatar = css`
 export const badge = css`
   left: 4px;
   bottom: 4px;
-  font-size: 16px;
+  // font-size: 16px;
   line-height: 1;
 `;
 
@@ -289,13 +284,13 @@ export const textBox = css`
   line-height: 1.2;
 
   & > div:nth-of-type(1) > span:nth-of-type(2) {
-    font-size: 1.6rem;
-    font-weight: 700;
+    // font-size: 1.6rem;
+    // font-weight: 700;
   }
 `;
 
 export const fullName = css`
-  font-size: 12px;
+  // font-size: 12px;
   text-align: start;
   color: #6b7280;
 `;

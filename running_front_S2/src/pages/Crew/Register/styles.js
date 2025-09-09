@@ -11,8 +11,8 @@ export const imageOverlay = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.2rem;
-  font-weight: 500;
+  // font-size: 1.2rem;
+  // font-weight: 500;
   opacity: 0;
   transition: opacity 0.2s ease;
 `;
@@ -30,8 +30,8 @@ export const settingHeader = css`
 `;
 
 export const settingTitle = css`
-  font-size: 2.5rem;
-  font-weight: bold;
+  // font-size: 2.5rem;
+  // font-weight: bold;
   margin: 0;
   color: #333;
 `;
@@ -42,8 +42,8 @@ export const saveButton = css`
   color: white;
   border: none;
   border-radius: 0.5rem;
-  font-size: 1rem;
-  font-weight: 500;
+  // font-size: 1rem;
+  // font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
 
@@ -68,8 +68,8 @@ export const profileImageOverlay = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 0.9rem;
-  font-weight: 500;
+  // font-size: 0.9rem;
+  // font-weight: 500;
   opacity: 0;
   transition: opacity 0.2s ease;
   border-radius: 50%;
@@ -87,8 +87,8 @@ export const field = css`
 `;
 
 export const label = css`
-  font-size: 1.4rem;
-  font-weight: bold;
+  // font-size: 1.4rem;
+  // font-weight: bold;
   color: #333;
 `;
 
@@ -102,7 +102,7 @@ export const checkName = css`
 export const input = css`
   flex: 1;
   padding: 1rem;
-  font-size: 1.4rem;
+  // font-size: 1.4rem;
   border: 0.1rem solid #ddd;
   border-radius: 0.5rem;
   outline: none;
@@ -136,7 +136,7 @@ export const numberInputContainer = css`
 
 export const numberInput = css`
   padding: 1rem;
-  font-size: 1.4rem;
+  // font-size: 1.4rem;
   border: 0.1rem solid #ddd;
   border-radius: 0.5rem;
   outline: none;
@@ -149,13 +149,13 @@ export const numberInput = css`
 `;
 
 export const inputHint = css`
-  font-size: 1.2rem;
+  // font-size: 1.2rem;
   color: #666;
 `;
 
 export const errorMsg = css`
   color: #e74c3c;
-  font-size: 1.2rem;
+  // font-size: 1.2rem;
   margin-top: 0.5rem;
 `;
 
@@ -163,7 +163,7 @@ export const quillWrapper = css`
   padding-bottom: 3rem;
   .ql-editor {
     min-height: 15rem;
-    font-size: 1.4rem;
+    // font-size: 1.4rem;
   }
   
   .ql-toolbar {
@@ -192,8 +192,8 @@ export const memberSection = css`
 `;
 
 export const sectionTitle = css`
-  font-size: 1.8rem;
-  font-weight: bold;
+  // font-size: 1.8rem;
+  // font-weight: bold;
   color: #333;
   margin: 0 0 1.5rem 0;
 `;
@@ -247,8 +247,8 @@ export const memberInfo = css`
 `;
 
 export const memberName = css`
-  font-size: 1.4rem;
-  font-weight: bold;
+  // font-size: 1.4rem;
+  // font-weight: bold;
   color: #333;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -256,7 +256,7 @@ export const memberName = css`
 `;
 
 export const memberStatus = css`
-  font-size: 1.2rem;
+  // font-size: 1.2rem;
   color: #666;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -268,8 +268,8 @@ export const mainLine = css`
 `;
 
 export const fontBold = css`
-  font-weight: bold;
-  font-size: 2rem;
+  // font-weight: bold;
+  // font-size: 2rem;
 `;
 
 export const titleBox = css`
@@ -361,13 +361,13 @@ export const crewTextBox = css`
   justify-content: center;
 
   h2 {
-    font-size: 2rem;
-    font-weight: bold;
+    // font-size: 2rem;
+    // font-weight: bold;
     margin: 0;
   }
 
   p {
-    font-size: 1.4rem;
+    // font-size: 1.4rem;
     color: #555;
   }
 `;

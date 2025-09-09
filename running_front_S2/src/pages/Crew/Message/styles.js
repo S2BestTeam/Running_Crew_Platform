@@ -15,7 +15,7 @@ export const table = css`
 export const th = css`
   padding: 1.2rem;
   border-bottom: 0.2rem solid #000;
-  font-weight: 600;
+  // font-weight: 600;
 `;
 
 export const td = css`
@@ -26,14 +26,14 @@ export const td = css`
 export const loadingMessage = css`
   text-align: center;
   color: #666;
-  font-size: 1.6rem;
+  // font-size: 1.6rem;
   padding: 2rem;
 `;
 
 export const errorMessage = css`
   text-align: center;
   color: #dc3545;
-  font-size: 1.6rem;
+  // font-size: 1.6rem;
   padding: 2rem;
   margin-bottom: 2rem;
 `;
@@ -41,7 +41,7 @@ export const errorMessage = css`
 export const emptyMessage = css`
   text-align: center;
   color: #666;
-  font-size: 1.6rem;
+  // font-size: 1.6rem;
   padding: 2rem;
   margin-bottom: 2rem;
 `;

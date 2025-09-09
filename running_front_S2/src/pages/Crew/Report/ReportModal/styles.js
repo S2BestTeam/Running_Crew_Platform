@@ -25,7 +25,7 @@ export const modalStyles = {
 export const headerStyle = css`
   padding: 12px 16px;
   border-bottom: 1px solid #eee;
-  font-weight: 700;
+  // font-weight: 700;
 `;
 
 export const contentStyle = css`
@@ -56,7 +56,7 @@ export const cancleButton = css`
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
-  font-weight: 500;
+  // font-weight: 500;
   transition: background-color 0.2s ease;
 
   &:hover {
@@ -71,7 +71,7 @@ export const reportButton = css`
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
-  font-weight: 500;
+  // font-weight: 500;
   transition: background-color 0.2s ease;
 
   &:hover {

@@ -49,7 +49,7 @@ export const img = css`
 
 export const meta = css`
   padding: 8px;
-  font-size: 12px;
+  // font-size: 12px;
   color: #6b7280;
   white-space: nowrap;
   overflow: hidden;

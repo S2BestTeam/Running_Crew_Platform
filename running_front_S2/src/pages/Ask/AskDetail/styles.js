@@ -1,28 +1,25 @@
-/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 
 export const layout = css`
-  max-width: 860px;
+  max-width: 86rem;
   margin: 0 auto;
-  padding: 24px 20px 80px;
+  padding: 2.4rem 2rem 8rem;
 `;
 
 export const topBar = css`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 1.2rem;
 `;
 
 export const backBtn = css`
   appearance: none;
-  border: 1px solid #e2e8f0;
+  border: 0.1rem solid #dbdbdb;
   background: #fff;
-  border-radius: 10px;
-  padding: 8px 12px;
-  font-size: 14px;
+  border-radius: 0.5rem;
+  padding: 0.8rem 1.2rem;
   cursor: pointer;
-  transition: all 120ms ease-in-out;
   &:hover {
     background: #f8fafc;
   }
@@ -31,19 +28,14 @@ export const backBtn = css`
 export const metaRight = css`
   display: flex;
   align-items: center;
-  gap: 10px;
-`;
-
-export const idText = css`
-  color: #94a3b8;
-  font-size: 13px;
+  gap: 1rem;
 `;
 
 export const stateChip = css`
   padding: 4px 10px;
   border-radius: 999px;
-  font-size: 12px;
-  font-weight: 600;
+  // font-size: 12px;
+  // font-weight: 600;
   border: 1px solid transparent;
 `;
 
@@ -59,7 +51,7 @@ export const chipWaiting = css`
 
 export const title = css`
   margin: 14px 0 8px;
-  font-size: 28px;
+  // font-size: 28px;
   line-height: 1.25;
   letter-spacing: -0.01em;
 `;
@@ -69,7 +61,7 @@ export const metaRow = css`
   align-items: center;
   gap: 12px;
   color: #64748b;
-  font-size: 14px;
+  // font-size: 14px;
   margin-bottom: 16px;
 `;
 
@@ -101,8 +93,8 @@ export const content = css`
 
 export const sectionTitle = css`
   margin: 28px 2px 10px;
-  font-size: 18px;
-  font-weight: 700;
+  // font-size: 18px;
+  // font-weight: 700;
   color: #0f172a;
 `;
 
@@ -115,7 +107,7 @@ export const answerMeta = css`
   align-items: center;
   justify-content: space-between;
   color: #474747ff;
-  font-size: 13px;
+  // font-size: 13px;
   margin-bottom: 10px;
 `;
 

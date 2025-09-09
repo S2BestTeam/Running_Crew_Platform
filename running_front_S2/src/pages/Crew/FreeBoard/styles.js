@@ -8,7 +8,7 @@ export const container = css`
 
 export const tabActive = css`
   color: #000;
-  font-weight: 500;
+  // font-weight: 500;
 `;
 
 export const searchBox = css`
@@ -44,7 +44,7 @@ export const searchButton = css`
   border-left: none;
   background: #fff;
   color: var(--main-color);
-  font-size: 1.8rem;
+  // font-size: 1.8rem;
   border-radius: 0 0.6rem 0.6rem 0;
   cursor: pointer;
   align-items: center;
@@ -83,7 +83,7 @@ export const tr = css`
 export const th = css`
   padding: 1.2rem;
   border-bottom: 0.2rem solid #000;
-  font-weight: 600;
+  // font-weight: 600;
 `;
 
 export const td = css`

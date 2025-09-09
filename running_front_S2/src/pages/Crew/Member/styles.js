@@ -39,7 +39,7 @@ export const searchButton = css`
   border-left: none;
   background: #fff;
   color: var(--main-color);
-  font-size: 1.8rem;
+  // font-size: 1.8rem;
   border-radius: 0 0.6rem 0.6rem 0;
   cursor: pointer;
   align-items: center;
@@ -104,8 +104,8 @@ export const nickname = css`
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  font-weight: 700;
-  font-size: 1.5rem;
+  // font-weight: 700;
+  // font-size: 1.5rem;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -115,7 +115,7 @@ export const nickname = css`
 export const fullName = css`
   align-self: flex-start;
   color: #888;
-  font-size: 1.3rem;
+  // font-size: 1.3rem;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;

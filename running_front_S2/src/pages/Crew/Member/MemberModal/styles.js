@@ -26,7 +26,7 @@ export const modalStyles = {
 export const headerStyle = css`
   padding: 12px 16px;
   border-bottom: 1px solid #eee;
-  font-weight: 700;
+  // font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -58,10 +58,10 @@ export const profileImageStyle = css`
 `;
 
 export const infoItemStyle = css`
-  font-size: 1.4rem;
+  // font-size: 1.4rem;
   
   b {
-    font-weight: 600;
+    // font-weight: 600;
     color: #333;
   }
 `;
@@ -80,7 +80,7 @@ export const actionButtonStyle = css`
   background: #fff;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 1.4rem;
+  // font-size: 1.4rem;
   transition: all 0.2s ease;
 
   &:hover:not(:disabled) {

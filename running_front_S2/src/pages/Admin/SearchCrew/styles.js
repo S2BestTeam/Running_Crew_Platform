@@ -5,44 +5,40 @@ export const container = css`
   flex-direction: column;
   height: 100%;
   width: 100%;
-  padding: 3rem;
+  padding: 2rem 3rem;
   box-sizing: border-box;
-  font-size: 3rem;
 `;
 
 export const tableWrapper = css`
   flex: 1;
-  overflow-y: auto;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  overflow-y: hidden;
+  border: 0.1rem solid #dbdbdb;
+  border-radius: 0.5rem;
 `;
 
 export const table = css`
   width: 100%;
   border-collapse: collapse;
-  min-width: 800px;
-  font-size: 1.2rem;
 
   thead {
     position: sticky;
     top: 0;
-    background: #f8f9fa;
+    background:var(--hB-color);
     z-index: 1;
   }
 
   th {
     padding: 1rem;
-    font-weight: 600;
-    color: #333;
-    border-bottom: 2px solid #dee2e6;
+    // font-weight: bold;
+    color: var(--main-color);
+    border-bottom: 0.1rem solid #dbdbdb;
     text-align: center;
-    font-size: 1.6rem;
   }
 
   td {
     padding: 1rem;
-    color: #555;
-    border-bottom: 1px solid #f1f3f5;
+    color: var(--main-color);
+    border-bottom: 0.1rem solid #dbdbdb;
     text-align: center;
     line-height: 1.5;
   }
@@ -53,26 +49,22 @@ export const table = css`
 `;
 
 export const thumbnail = css`
-  width: 70px;
-  height: 50px;
+  width: 7rem;
+  height: 5rem;
   object-fit: cover;
-  border-radius: 4px;
-  background: #f0f0f0;
+  border-radius: 0.5rem;
 `;
 
 export const detailButton = css`
-  padding: 0.6rem 1.6rem;
+  padding: 0.6rem 1.2rem;
   cursor: pointer;
-  font-weight: 500;
   border: none;
-  border-radius: 6px;
-  background-color: black;
-  color: white;
+  border-radius: 0.5rem;
+  background-color: var(--main-color);
+  color: var(--sub-color);
 `;
 
 export const paginationWrapper = css`
   margin-top: 1rem;
   text-align: center;
-  flex-shrink: 0;
-  font-size: 1.1rem;
 `;

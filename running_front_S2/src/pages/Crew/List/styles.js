@@ -16,11 +16,11 @@ export const selectBox = css`
   width: 11rem;
   height: 3.425rem;
   padding: 0.24rem 0.48rem;
-  font-size: 0.76rem;
+  // font-size: 0.76rem;
   border-radius: 0.4rem;
   background-color: #fff;
   color: #333;
-  font-size: 1.4rem;
+  // font-size: 1.4rem;
 
   .MuiOutlinedInput-notchedOutline {
     border-color: #ccc;
@@ -34,7 +34,7 @@ export const selectBox = css`
 `;
 
 export const menuItem = css`
-  font-size: 1.4rem;
+  // font-size: 1.4rem;
 `;
 
 export const inputGroup = css`
@@ -60,7 +60,7 @@ export const searchButton = css`
   border-left: none;
   background: #fff;
   color: var(--main-color);
-  font-size: 1.8rem;
+  // font-size: 1.8rem;
   border-radius: 0 0.6rem 0.6rem 0;
   cursor: pointer;
   align-items: center;
@@ -119,7 +119,7 @@ export const heartIcon = css`
   position: absolute;
   bottom: 0.6rem;
   right: 2rem;
-  font-size: 3.5rem;
+  // font-size: 3.5rem;
   cursor: pointer;
 
   &:hover {
@@ -135,25 +135,25 @@ export const textBox = css`
 export const gungu = css`
   color: #7b7b7b;
   padding: 0.6rem 0 0.6rem 0;
-  font-size: 1.4rem;
-  font-weight: 500;
+  // font-size: 1.4rem;
+  // font-weight: 500;
 `;
 
 export const crewName = css`
-  font-weight: bold;
+  // font-weight: bold;
   margin-right: 0.5rem;
-  font-size: 1.7rem;
+  // font-size: 1.7rem;
 `;
 
 export const crewTitle = css`
-  font-size: 1.7rem;
+  // font-size: 1.7rem;
   color: #333;
 `;
 
 export const rankingBox = css`
   display: flex;
   padding: 0.5rem;
-  font-weight: 500;
+  // font-weight: 500;
   color: #fff;
   gap: 0.5rem; 
   margin-top: 0.5rem;

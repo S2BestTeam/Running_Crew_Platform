@@ -57,7 +57,7 @@ export const gatheringInfoContainer = css`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  font-size: 1.3rem;
+  // font-size: 1.3rem;
 
   & > div {
     display: flex;
@@ -73,8 +73,8 @@ export const gatheringInfoContainer = css`
   }
 
   & > div:nth-of-type(1) {
-    font-size: 1.8rem;
-    font-weight: 700;
+    // font-size: 1.8rem;
+    // font-weight: 700;
   }
 `;
 
@@ -106,12 +106,12 @@ export const status = css`
     width: 5rem;
     height: 2.5rem;
     color: #fff;
-    font-weight: bold;
+    // font-weight: bold;
     border-radius: 0.2rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-weight: 500;
+    // font-weight: 500;
   }
 `;
 

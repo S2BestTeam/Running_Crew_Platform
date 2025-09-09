@@ -86,7 +86,7 @@ function AskDetail() {
             <span css={[s.stateChip, isAnswered ? s.chipAnswered : s.chipWaiting]}>
               {isAnswered ? "답변완료" : "대기"}
             </span>
-            <span css={s.idText}>글번호 #{post.askId}</span>
+            <span>글번호 #{post.askId}</span>
           </div>
         </div>
 

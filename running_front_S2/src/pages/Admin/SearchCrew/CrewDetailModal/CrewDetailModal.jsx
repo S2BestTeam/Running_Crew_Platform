@@ -196,7 +196,7 @@ function CrewDetailModal({ crew, onClose }) {
 
                       <div css={s.memberActions}>
                         {member.createdAt && (
-                          <div css={s.memberDate}>
+                          <div>
                             {new Date(member.createdAt).toLocaleDateString("ko-KR")}
                           </div>
                         )}
@@ -259,7 +259,6 @@ function CrewDetailModal({ crew, onClose }) {
 
             {activeTab === "freeBoard" && (
               <div css={s.container}>
-                <h2>자유게시판</h2>
                 <SearchBox
                   value={searchInput}
                   onChange={setSearchInput}

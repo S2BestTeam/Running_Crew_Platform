@@ -16,7 +16,7 @@ export const table = css`
 export const th = css`
   padding: 1.2rem;
   border-bottom: 0.2rem solid #000;
-  font-weight: 600;
+  // font-weight: 600;
 `;
 
 export const td = css`
@@ -39,7 +39,7 @@ export const tdTitle = css`
 `;
 
 export const button = css`
-  font-size: 1rem;
+  // font-size: 1rem;
   padding: 0.8rem 1rem;
   margin-left: 1rem;
   background: var(--main-color);

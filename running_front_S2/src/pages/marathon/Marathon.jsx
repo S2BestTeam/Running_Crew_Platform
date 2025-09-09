@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import * as s from "./styles";
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import useGetMarathonsInfiniteQuery from "../../queries/useGetMarathonsInfiniteQuery";
-import { IoSearch } from "react-icons/io5";
 import { MenuItem, Select } from "@mui/material";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { IoSearch } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 import MainContainer from "../../components/MainContainer/MainContainer";
+import useGetMarathonsInfiniteQuery from "../../queries/useGetMarathonsInfiniteQuery";
+import * as s from "./styles";
 
 const pick = (obj, ...keys) => keys.map((k) => obj?.[k]).find((v) => v !== undefined);
 const fmtDate = (iso) => {

@@ -72,18 +72,18 @@ export const textBox = css`
 `;
 
 export const gungu = css`
-  font-size: 1rem;
+  // font-size: 1rem;
   color: #666;
 `;
 
 export const crewName = css`
-  font-weight: 600;
-  font-size: 1.1rem;
+  // font-weight: 600;
+  // font-size: 1.1rem;
   color: #333;
 `;
 
 export const crewTitle = css`
-  font-size: 1rem;
+  // font-size: 1rem;
   color: #444;
   line-height: 1.4;
 `;

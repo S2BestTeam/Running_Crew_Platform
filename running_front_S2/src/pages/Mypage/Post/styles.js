@@ -8,7 +8,7 @@ export const container = css`
 
 export const tabActive = css`
   color: #000;
-  font-weight: 500;
+  // font-weight: 500;
 `;
 
 export const searchBox = css`
@@ -36,11 +36,11 @@ export const selectBox = css`
   width: 14rem;
   height: 3.425rem;
   padding: 0.24rem 0.48rem;
-  font-size: 0.76rem;
+  // font-size: 0.76rem;
   border-radius: 0.4rem;
   background-color: #fff;
   color: #333;
-  font-size: 1.4rem;
+  // font-size: 1.4rem;
 
   .MuiOutlinedInput-notchedOutline {
     border-color: #ccc;
@@ -54,7 +54,7 @@ export const selectBox = css`
 `;
 
 export const menuItem = css`
-  font-size: 1.4rem;
+  // font-size: 1.4rem;
 `;
 
 export const searchGroup = css`
@@ -86,7 +86,7 @@ export const searchButton = css`
   border-left: none;
   background: #fff;
   color: var(--main-color);
-  font-size: 1.8rem;
+  // font-size: 1.8rem;
   border-radius: 0 0.6rem 0.6rem 0;
   cursor: pointer;
   align-items: center;
@@ -123,7 +123,7 @@ export const tr = css`
 export const th = css`
   padding: 1.2rem;
   border-bottom: 0.2rem solid #000;
-  font-weight: 600;
+  // font-weight: 600;
 `;
 
 export const td = css`

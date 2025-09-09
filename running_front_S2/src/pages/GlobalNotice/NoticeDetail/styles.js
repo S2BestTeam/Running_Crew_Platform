@@ -46,19 +46,19 @@ export const topBar = css`
     background: #ffffff;
     color: ${C.text};
     border: 0.2rem solid ${C.border};
-    font-weight: 700;
+    // font-weight: 700;
     cursor: pointer;
     transition: transform .08s ease, background .15s ease;
 
     &:hover { transform: translateY(-1px); background: #e9ecf3; }
   }
 
-  span { color: #94a3b8; font-size: 13px; }
+  span { color: #94a3b8; // font-size: 13px; }
 `;
 
 export const titleCss = css`
-  font-size: 28px;
-  font-weight: 800;
+  // font-size: 28px;
+  // font-weight: 800;
   margin: 4px 0 6px;
 `;
 
@@ -68,7 +68,7 @@ export const metaCss = css`
   flex-wrap: wrap;
   gap: 10px;
   color: #6b7280;
-  font-size: 1.6rem;
+  // font-size: 1.6rem;
   margin-bottom: 2rem;
 
   .dot {
@@ -82,7 +82,7 @@ export const metaCss = css`
     background: #f1f3f7;
     color: #141518;
     border: 1px solid #e7e9f0;
-    font-weight: 700; cursor: pointer;
+    // font-weight: 700; cursor: pointer;
   }
 `;
 
@@ -91,7 +91,7 @@ export const metaSpacer = css`
 `;
 
 export const contentCss = css`
-  font-size: 1.6rem;
+  // font-size: 1.6rem;
   line-height: 1.7;
   word-break: break-word;
 
