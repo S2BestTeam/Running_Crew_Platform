@@ -205,32 +205,40 @@ export const modalActions = css`
 
 export const approveBtn = css`
   padding: 1rem 2rem;
-  background: #28a745;
+  background: var(--main-color);
   color: white;
   border: none;
-  border-radius: 0.4rem;
+  border-radius: 0.5rem;
   cursor: pointer;
+<<<<<<< HEAD
   // font-weight: 500;
   transition: background-color 0.2s ease;
 
   &:hover {
     background: #218838;
   }
+=======
+  font-weight: 500;
+>>>>>>> origin/128-세부내용-수정
 `;
 
 export const rejectBtn = css`
   padding: 1rem 2rem;
-  background: #dc3545;
-  color: white;
-  border: none;
-  border-radius: 0.4rem;
+  background: #fff;
+  color: var(--main-color);
+  border: 0.1rem solid var(--main-color);
+  border-radius: 0.5rem;
   cursor: pointer;
+<<<<<<< HEAD
   // font-weight: 500;
   transition: background-color 0.2s ease;
 
   &:hover {
     background: #c82333;
   }
+=======
+  font-weight: 500;
+>>>>>>> origin/128-세부내용-수정
 `;
 
 export const closeBtn = css`
