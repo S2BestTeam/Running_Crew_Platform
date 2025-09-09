@@ -34,10 +34,6 @@ export const selectBox = css`
 `;
 
 export const menuItem = css`
-<<<<<<< HEAD
-  // font-size: 1.4rem;
-=======
-  font-size: 1.4rem;
   background-color: #ffffff !important;
   &:hover {
     background-color: var(--hB-color) !important;
@@ -46,7 +42,6 @@ export const menuItem = css`
 
 export const headerContainer = css`
   display: flex;
->>>>>>> origin/128-세부내용-수정
 `;
 
 export const inputGroup = css`
@@ -78,7 +73,6 @@ export const searchButton = css`
   border-left: none;
   background: #fff;
   color: var(--main-color);
-  // font-size: 1.8rem;
   border-radius: 0 0.6rem 0.6rem 0;
   cursor: pointer;
   align-items: center;
@@ -101,11 +95,7 @@ export const gridBox = css`
   display: grid;
   width: 100%;
   grid-template-columns: repeat(5, 1fr);
-<<<<<<< HEAD
-  gap: 2.5rem;
-=======
   gap: 3rem 3rem;
->>>>>>> origin/128-세부내용-수정
   margin: 3rem 0;
 `;
 
@@ -138,15 +128,9 @@ export const tumbnailBox = css`
 
 export const heartIcon = css`
   position: absolute;
-<<<<<<< HEAD
-  bottom: 0.6rem;
-  right: 2rem;
-  // font-size: 3.5rem;
-=======
   bottom: 0;
   right: 1rem;
   font-size: 4rem;
->>>>>>> origin/128-세부내용-수정
   cursor: pointer;
 
   &:hover {
