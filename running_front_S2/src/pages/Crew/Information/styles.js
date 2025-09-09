@@ -185,7 +185,6 @@ export const cardBody = css`
 `;
 
 export const title = css`
-  font-size: 1.2rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -194,12 +193,10 @@ export const title = css`
 `;
 
 export const time = css`
-  font-size: 1rem;
   color: #4b5563;
 `;
 
 export const place = css`
-  font-size: 1rem;
   color: #4b5563;
   white-space: nowrap;
   overflow: hidden;
@@ -210,11 +207,9 @@ export const meta = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 1rem;
 `;
 
 export const cost = css`
-  font-size: 1rem;
   color: #4b5563;
 `;
 
@@ -226,7 +221,6 @@ export const participants = css`
 
 export const fontSetting = css`
   padding-left: 0.4rem;
-  // font-size: 1.2rem;
   color: #4b5563;
 `;
 

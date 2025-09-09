@@ -4,72 +4,33 @@ import { css } from "@emotion/react";
 export const layout = css`
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  font-family: 'Noto Sans KR', sans-serif;
-  color: #333;
+  gap: 1.6rem;
+  font-family: "Pretendard", sans-serif;
+  color: #222;
 `;
 
 export const header = css`
-  // font-size: 1.5rem;
-  // font-weight: 700;
-  margin-bottom: 12px;
+  font-weight: 600;
   text-align: center;
+  font-size: 1.7rem;
+  margin-bottom: 0.4rem;
 `;
 
 export const main = css`
   display: flex;
   flex-direction: column;
-  gap: 16px;
-
-  div {
-    line-height: 1.6;
-  }
-
-  h4 {
-    margin: 12px 0 6px;
-    // font-size: 1rem;
-    // font-weight: 600;
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-
-    li {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: #f5f5f5;
-      padding: 4px 8px;
-      border-radius: 6px;
-      // font-size: 0.875rem;
-    }
-  }
-
-  button {
-    padding: 10px 16px;
-    border-radius: 8px;
-    border: none;
-    // font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-
-    &:hover {
-      opacity: 0.9;
-    }
-  }
+  gap: 3rem;
 `;
 
 export const thumbnail = css`
   width: 100%;
-  height: 200px;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.8rem;
+  background-color: #f6f6f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
-  border-radius: 12px;
-  border: 1px solid #e0e0e0;
 
   img {
     width: 100%;
@@ -77,23 +38,80 @@ export const thumbnail = css`
     object-fit: cover;
   }
 `;
+export const infoContainer = css`
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+    font-size: 1.2rem;
+`;
 
-export const profile = css`
+
+export const infoBox = css`
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 12px;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  border: 0.1rem solid #eee;
+  border-radius: 0.6rem;
+  background-color: #fafafa;
+  font-size: 1.2rem;
 
-  img {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 1px solid #ccc;
+  svg {
+    flex-shrink: 0;
+    color: #888;
   }
+`;
 
-  span {
-    // font-weight: 500;
-    // font-size: 0.9rem;
+export const mapContainer = css`
+  /* margin-top: 0.8rem; */
+  border-radius: 0.6rem;
+  overflow: hidden;
+  border: 0.1rem solid #eaeaea;
+`;
+
+
+export const participantsList = css`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+
+    img {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      border: 0.1rem solid #ddd;
+      object-fit: cover;
+    }
+  }
+`;
+
+export const buttons = css`
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+
+  button {
+    width: auto;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+
+    &:first-of-type {
+      background-color: #fff;
+      color: var(--main-color);
+      border: 0.1rem solid var(--main-color);
+    }
+
+    &:last-of-type {
+      background-color: var(--main-color);
+      color: #fff;
+    }
   }
 `;
