@@ -12,29 +12,24 @@ export const mainLayout = css`
 export const calendarWrapper = css`
   flex: 0 0 70%;
   background: white;
-  border: 1px solid #e5e7eb;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-              0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 0.1rem solid #dbdbdb;
   display: flex;
   flex-direction: column;
-  min-height: 600px;
+  min-height: 60rem;
 `;
 
-// 기본 전환 효과 제거
 export const calendarWrapperFullWidth = css`
   flex: 1;
   background: white;
-  border: 1px solid #e5e7eb;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-              0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 0.1rem solid #dbdbdb;
   display: flex;
   flex-direction: column;
-  min-height: 600px;
+  min-height: 60rem;
 `;
 
 export const selectedDateContainer = css`
   flex: 0 0 30%;
-  min-width: 250px;
+  min-width: 25rem;
   height: fit-content;
 `;
 
@@ -50,7 +45,6 @@ export const headerContent = css`
   justify-content: space-between;
 `;
 
-// 헤더 오른쪽 버튼들을 위한 새로운 스타일
 export const headerRight = css`
   display: flex;
   align-items: center;
@@ -70,7 +64,6 @@ export const navButton = css`
   }
 `;
 
-// 새로 추가된 토글 버튼 스타일
 export const toggleButton = css`
   padding: 0.75rem;
   border-radius: 0.375rem;
@@ -89,8 +82,7 @@ export const toggleButton = css`
 `;
 
 export const headerTitle = css`
-  font-size: 1.875rem;
-  font-weight: bold;
+  // font-weight: bold;
   margin: 0;
 `;
 
@@ -98,21 +90,17 @@ export const weekDaysContainer = css`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   background: #f9fafb;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 0.1rem solid #dbdbdb;
 `;
 
 export const weekDayWeekday = css`
   text-align: center;
-  font-size: 1.125rem;
-  font-weight: 500;
   padding: 1rem 0;
   color: #4b5563;
 `;
 
 export const weekDayWeekend = css`
   text-align: center;
-  font-size: 1.125rem;
-  font-weight: 500;
   padding: 1rem 0;
   color: #9ca3af;
 `;
@@ -127,32 +115,31 @@ export const calendarGrid = css`
 export const daysGrid = css`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 1px;
+  gap: 0.1rem;
   background: #e5e7eb;
   flex: 1;
-  min-height: 400px;
+  min-height: 40rem;
 `;
 
 export const emptyCell = css`
-  height: 80px;
+  height: 8rem;
 `;
 
 export const dayCell = css`
-  height: 80px;
+  height: 8rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 1.125rem;
   position: relative;
-  border: 1px solid #f3f4f6;
+  border: 0.1rem solid #dbdbdb;
   background: white;
-  color: #374151;
-  font-weight: 500;
+  color: var(--main-color);
+  // font-weight: 500;
 
   &:hover {
-    background: #f3f4f6;
+    background: var(--sub-color);
   }
 `;
 
@@ -160,7 +147,7 @@ export const dayCellToday = css`
   ${dayCell};
   background: black;
   color: white;
-  font-weight: bold;
+  // font-weight: bold;
 
   &:hover {
     background: #374151;
@@ -179,50 +166,44 @@ export const dayCellSelected = css`
 
 export const eventDotDefault = css`
   position: absolute;
-  bottom: 8px;
-  width: 8px;
-  height: 8px;
+  bottom: 0.8rem;
+  width: 0.8rem;
+  height: 0.8rem;
   border-radius: 50%;
   background: #9ca3af;
 `;
 
 export const eventDotSelected = css`
   position: absolute;
-  bottom: 8px;
-  width: 8px;
-  height: 8px;
+  bottom: 0.8rem;
+  width: 0.8rem;
+  height: 0.8rem;
   border-radius: 50%;
   background: white;
 `;
 
 export const selectedDateInfo = css`
   background: #ffffff;
-  border: 1px solid black;
+  border: 0.1rem solid black;
   border-radius: 0.5rem;
   padding: 2rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-              0 2px 4px -1px rgba(0, 0, 0, 0.06);
   height: fit-content;
-  min-height: 150px;
+  min-height: 15rem;
 `;
 
 export const selectedDateTitle = css`
-  font-size: 1.1rem;
   color: #374151;
   margin-bottom: 1rem;
-  font-weight: 600;
 `;
 
 export const selectedEventTitle = css`
-  font-size: 1.5rem;
   color: black;
-  font-weight: 600;
+  // font-weight: 600;
   margin: 0;
   line-height: 1.4;
 `;
 
 export const noEventText = css`
-  font-size: 1.1rem;
   color: #6b7280;
   margin: 0;
   font-style: italic;
@@ -230,21 +211,18 @@ export const noEventText = css`
 
 export const eventBox = css`
   background: #f9fafb;
-  border: 1px solid #e5e7eb;
+  border: 0.1rem solid #e5e7eb;
   border-radius: 0.75rem;
   padding: 1.25rem 1.5rem;
   margin-bottom: 1.5rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 10px rgba(0,0,0,0.1);
+    transform: translateY(-0.3rem);
   }
 
   h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
+    // font-weight: 700;
     color: #111827;
     margin-bottom: 0.75rem;
   }
@@ -252,11 +230,10 @@ export const eventBox = css`
   p {
     margin: 0.25rem 0;
     color: black;
-    font-size: 1.1rem;
   }
 
   p:first-of-type {
-    font-weight: 600;
-    color: #2563eb; /* 크루 이름 강조 */
+    // font-weight: 600;
+    color: #2563eb;
   }
 `;

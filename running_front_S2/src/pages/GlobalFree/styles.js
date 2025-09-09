@@ -35,7 +35,7 @@ export const tr = css`
 export const th = css`
   padding: 1.2rem;
   border-bottom: 0.2rem solid #000;
-  font-weight: 600;
+  // font-weight: 600;
 `;
 
 export const td = css`

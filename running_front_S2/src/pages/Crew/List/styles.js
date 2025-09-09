@@ -16,11 +16,11 @@ export const selectBox = css`
   width: 11rem;
   height: 3.425rem;
   padding: 0.24rem 0.48rem;
-  font-size: 0.76rem;
+  // font-size: 0.76rem;
   border-radius: 0.4rem;
   background-color: #fff;
   color: #333;
-  font-size: 1.4rem;
+  // font-size: 1.4rem;
 
   .MuiOutlinedInput-notchedOutline {
     border-color: #ccc;
@@ -29,16 +29,29 @@ export const selectBox = css`
     border-color: #333;
   }
   &.Mui-focused .MuiOutlinedInput-notchedOutline {
-    border-color: #000 !important;
+    border-color: var(--main-color) !important;
   }
 `;
 
 export const menuItem = css`
-  font-size: 1.4rem;
+  background-color: #ffffff !important;
+  &:hover {
+    background-color: var(--hB-color) !important;
+  }
+`;
+
+export const headerContainer = css`
+  display: flex;
 `;
 
 export const inputGroup = css`
   display: flex;
+    margin-right: 0.5rem;
+  &:focus {
+    padding: 0.8rem;
+    border: 0.25rem solid var(--main-color);
+    border-right: none;
+  }
 `;
 
 export const searchInput = css`
@@ -60,12 +73,10 @@ export const searchButton = css`
   border-left: none;
   background: #fff;
   color: var(--main-color);
-  font-size: 1.8rem;
   border-radius: 0 0.6rem 0.6rem 0;
   cursor: pointer;
   align-items: center;
   justify-content: center;
-  margin-right: 0.5rem;
 `;
 
 export const registerButton = css`
@@ -73,17 +84,17 @@ export const registerButton = css`
   padding: 0.6rem 1.2rem;
   background: #000;
   color: white;
+  border: none;
   border-radius: 0.6rem;
   cursor: pointer;
   align-items: center;
   justify-content: center;
 `;
 
-
 export const gridBox = css`
   display: grid;
   width: 100%;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 3rem 3rem;
   margin: 3rem 0;
 `;
@@ -92,6 +103,10 @@ export const cards = css`
   width: 100%;
   border-radius: 0.8rem;
   cursor: pointer;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
 `;
 
 export const tumbnailBox = css`
@@ -113,9 +128,9 @@ export const tumbnailBox = css`
 
 export const heartIcon = css`
   position: absolute;
-  bottom: 0.6rem;
-  right: 2rem;
-  font-size: 3.5rem;
+  bottom: 0;
+  right: 1rem;
+  font-size: 4rem;
   cursor: pointer;
 
   &:hover {
@@ -131,27 +146,27 @@ export const textBox = css`
 export const gungu = css`
   color: #7b7b7b;
   padding: 0.6rem 0 0.6rem 0;
-  font-size: 1.4rem;
-  font-weight: 500;
+  // font-size: 1.4rem;
+  // font-weight: 500;
 `;
 
 export const crewName = css`
-  font-weight: bold;
+  // font-weight: bold;
   margin-right: 0.5rem;
-  font-size: 1.7rem;
+  // font-size: 1.7rem;
 `;
 
 export const crewTitle = css`
-  font-size: 1.7rem;
+  // font-size: 1.7rem;
   color: #333;
 `;
 
 export const rankingBox = css`
   display: flex;
   padding: 0.5rem;
-  font-weight: 500;
+  // font-weight: 500;
   color: #fff;
-  gap: 0.5rem; 
+  gap: 0.5rem;
   margin-top: 0.5rem;
 
   & > div {

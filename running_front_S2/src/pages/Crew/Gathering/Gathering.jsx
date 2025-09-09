@@ -7,13 +7,14 @@ import {
   FaWonSign,
 } from "react-icons/fa";
 import { MdAccessTimeFilled } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useGetGatheringsQuery } from "../../../queries/Crew/Gathering/useGetGatheringsQuery";
 import useGetCrewRoleQuery from "../../../queries/Crew/useGetCrewRoleQuery";
 import usePrincipalQuery from "../../../queries/User/usePrincipalQuery";
 import { useCrewStore } from "../../../stores/useCrewStroes";
 import GatheringDetailModal from "./GatheringDetailModal/GatheringDetailModal";
 import * as s from "./styles";
+import { IoSearch } from "react-icons/io5";
 
 function Gathering() {
   const { crewId } = useCrewStore();
@@ -26,11 +27,28 @@ function Gathering() {
   const { data: principalData, isLoading } = usePrincipalQuery();
   const userId = principalData?.data?.body?.user?.userId;
   const CrewRoleQuery = useGetCrewRoleQuery(userId);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchText = searchParams.get("searchText") || "";
+  const [searchInput, setSearchInput] = useState(searchText);
 
-  const crewRole = CrewRoleQuery?.data?.some((role) => role.crewId === Number(crewId));
-  
+  const crewRole = CrewRoleQuery?.data?.some(
+    (role) => role.crewId === Number(crewId)
+  );
   const isCrewMember = !!crewRole;
-  
+
+  const handleSearchOnClick = () => {
+    setSearchParams((prev) => {
+      const p = new URLSearchParams(prev);
+      p.set("page", "1");
+      p.set("searchText", searchInput);
+      return p;
+    });
+    // membersQuery.refetch(); // 필요시 활성화
+  };
+  const handleSearchOnChange = (e) => setSearchInput(e.target.value);
+  const handleSearchOnKeyDown = (e) => {
+    if (e.key === "Enter") handleSearchOnClick();
+  };
 
   useEffect(() => {
     if (!isLoading) {
@@ -52,7 +70,7 @@ function Gathering() {
 
       setGatherings(updatedGatherings);
     }
-  }, [gatheringsQuery?.data, principalData, isLoading, navigate]);
+  }, [gatheringsQuery?.data, principalData, isLoading, navigate, userId]);
 
   const handleModalClose = () => {
     setRegOpen(false);
@@ -60,7 +78,7 @@ function Gathering() {
   };
   const handleOpenDetailModal = (gathering) => {
     if (!isCrewMember) {
-      alert('크루 멤버만 접근 가능합니다. 크루에 가입해주세요.');
+      alert("크루 멤버만 접근 가능합니다. 크루에 가입해주세요.");
       navigate(`/crews/${crewId}`);
       return;
     }
@@ -88,81 +106,114 @@ function Gathering() {
         <header>
           <h2>정모 일정</h2>
         </header>
-        <div css={s.registerBtn}>
-          {isCrewMember && (
-            <button onClick={() => navigate(`/crews/${crewId}/gathering/register`)}>일정 등록</button>
-          )}
-        </div>
-        <main css={s.gatheringMain}>
-          {gatherings.map((g, index) => {
-            const dateObj = new Date(`${g.runningDate}T${g.runningTime}`);
-            let hours = dateObj.getHours();
-            const ampm = hours >= 12 ? "오후" : "오전";
-            hours = hours % 12 || 12;
-            const formattedDate = `${dateObj.getFullYear()}년 ${
-              dateObj.getMonth() + 1
-            }월 ${dateObj.getDate()}일`;
-            const formattedTime = `${ampm} ${hours}시 ${String(
-              dateObj.getMinutes()
-            ).padStart(2, "0")}분`;
-
-            const isPastTime = (runningDate, runningTime) => {
-              const gatheringDateTime = new Date(
-                `${runningDate}T${runningTime}`
-              );
-              return gatheringDateTime < new Date();
-            };0
-
-            return (
-              <div
-                key={index}
-                css={[
-                  s.gatheringContainer,
-                  isPastTime(g.runningDate, g.runningTime) && s.closedOverlay,
-                ]}
-                onClick={() => handleOpenDetailModal(g)}
+        <div css={s.headerContainer}>
+          <div css={s.searchBar}>
+            <input
+              type="text"
+              placeholder="검색어를 입력하세요."
+              value={searchInput}
+              onChange={handleSearchOnChange}
+              css={s.searchInput}
+              onKeyDown={handleSearchOnKeyDown}
+            />
+            <button css={s.searchButton} onClick={handleSearchOnClick}>
+              <IoSearch />
+            </button>
+          </div>
+          <div css={s.registerBtn}>
+            {isCrewMember && (
+              <button
+                onClick={() => navigate(`/crews/${crewId}/gathering/register`)}
               >
-                <div css={s.thumbnailImg}>
-                  <img src={g?.thumbnailPicture} alt="썸네일 이미지" />
-                </div>
-                <div css={s.gatheringInfoContainer}>
-                  <div css={s.gatheringTitle}>{g.title}</div>
-                  <div>
-                    <FaCalendar /> {formattedDate}
+                일정 등록
+              </button>
+            )}
+          </div>
+        </div>
+
+        <main
+          css={[
+            gatherings.length === 0 ? s.noGatheringWrapper : s.gatheringMain,
+          ]}
+        >
+          {gatherings.length === 0 ? (
+            <div css={s.noGatheringMessage}>
+              등록된 정모 일정이 없습니다.
+            </div>
+          ) : (
+            gatherings.map((g, index) => {
+              const dateObj = new Date(`${g.runningDate}T${g.runningTime}`);
+              let hours = dateObj.getHours();
+              const ampm = hours >= 12 ? "오후" : "오전";
+              hours = hours % 12 || 12;
+              const formattedDate = `${dateObj.getFullYear()}년 ${
+                dateObj.getMonth() + 1
+              }월 ${dateObj.getDate()}일`;
+              const formattedTime = `${ampm} ${hours}시 ${String(
+                dateObj.getMinutes()
+              ).padStart(2, "0")}분`;
+
+              const isPastTime = (runningDate, runningTime) => {
+                const gatheringDateTime = new Date(
+                  `${runningDate}T${runningTime}`
+                );
+                return gatheringDateTime < new Date();
+              };
+
+              return (
+                <div
+                  key={index}
+                  css={[
+                    s.gatheringContainer,
+                    isPastTime(g.runningDate, g.runningTime) &&
+                      s.closedOverlay,
+                  ]}
+                  onClick={() => handleOpenDetailModal(g)}
+                >
+                  <div css={s.thumbnailImg}>
+                    <img src={g?.thumbnailPicture} alt="썸네일 이미지" />
                   </div>
-                  <div>
-                    <MdAccessTimeFilled /> {formattedTime}
-                  </div>
-                  <div>
-                    <FaMapMarkerAlt /> {g.placeName}
-                  </div>
-                  <div>
-                    <FaWonSign /> {g.cost}
-                  </div>
-                  <div>
-                    <FaRunning /> {g.km} km
-                  </div>
-                  <div css={s.statusContainer}>
-                    <div>
-                      <div css={s.profileImg}>
-                        <img src={g?.user?.picture} alt="프로필 사진" />
+                  <div css={s.gatheringInfoContainer}>
+                    <div css={s.gatheringTitle}>{g.title}</div>
+                    <div css={s.gatheringDetailContainer}>
+                      <div>
+                        <FaCalendar /> {formattedDate}
                       </div>
                       <div>
-                        {g.currentParticipants} / {g.maxParticipants}
+                        <MdAccessTimeFilled /> {formattedTime}
+                      </div>
+                      <div>
+                        <FaMapMarkerAlt /> {g.placeName}
+                      </div>
+                      <div>
+                        <FaWonSign /> {g.cost}
+                      </div>
+                      <div>
+                        <FaRunning /> {g.km} km
                       </div>
                     </div>
-                    <div css={s.status}>
-                      {g.status === 1 ? (
-                        <div css={s.recruiting}>모집중</div>
-                      ) : (
-                        <div css={s.closed}>마감</div>
-                      )}
+                    <div css={s.statusContainer}>
+                      <div>
+                        <div css={s.profileImg}>
+                          <img src={g?.user?.picture} alt="프로필 사진" />
+                        </div>
+                        <div>
+                          {g.currentParticipants} / {g.maxParticipants}
+                        </div>
+                      </div>
+                      <div css={s.status}>
+                        {g.status === 1 ? (
+                          <div css={s.recruiting}>모집중</div>
+                        ) : (
+                          <div css={s.closed}>마감</div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })
+          )}
         </main>
       </div>
 

@@ -64,7 +64,7 @@ function UserDetailModal({ user, onClose, onSave }) {
       }
     })();
   }, [user.userId]);
-
+  
   const [updateUser, setUpdateUser] = useState({
     userId: user.userId,
     picture: user.picture,
@@ -74,15 +74,15 @@ function UserDetailModal({ user, onClose, onSave }) {
     nickname: user.nickname || "",
     phoneNumber: user.phoneNumber || "",
   });
-
+  
   const [isNicknameChecked, setIsNicknameChecked] = useState(true);
   const [errors, setErrors] = useState({ nickname: "", phoneNumber: "" });
-
+  
   const userCrewsQuery = useGetMyCrewsQuery(user.userId);
   const userGatheringQuery = useGetMyGatheringQuery(user.userId);
   const myCrews = userCrewsQuery?.data?.body || [];
   const myGatherings = userGatheringQuery?.data?.body || [];
-
+  
   const handleProfileImgUpdateClick = () => {
     const input = document.createElement("input");
     input.type = "file";
@@ -102,7 +102,7 @@ function UserDetailModal({ user, onClose, onSave }) {
     };
     input.click();
   };
-
+  
   const validateField = (name, value) => {
     if (name === "nickname") {
       if (!SIGNUP_REGEX.nickName.test(value)) return SIGNUP_REGEX_ERROR_MESSAGE.nickName;
@@ -114,19 +114,20 @@ function UserDetailModal({ user, onClose, onSave }) {
     }
     return "";
   };
-
+  
   const handleNicknameChange = (e) => {
     const value = e.target.value;
     setUpdateUser((p) => ({ ...p, nickname: value }));
     setIsNicknameChecked(value === user.nickname);
     setErrors((p) => ({ ...p, nickname: validateField("nickname", value) }));
   };
-
+  
   const handlePhoneChange = (e) => {
     const value = e.target.value;
     setUpdateUser((p) => ({ ...p, phoneNumber: value }));
     setErrors((p) => ({ ...p, phoneNumber: validateField("phoneNumber", value) }));
   };
+  
 
   const handleNicknameCheck = async () => {
     const nickname = updateUser.nickname.trim();
@@ -248,6 +249,7 @@ function UserDetailModal({ user, onClose, onSave }) {
   const totalPages = body?.totalPages ?? 1;
   const totalElements = body?.totalElements ?? 0;
 
+
   const contents = useMemo(() => {
     const base = body?.contents ?? body?.items ?? [];
     return (Array.isArray(base) ? base : []).filter((p) => p && p.postId != null);
@@ -306,13 +308,17 @@ function UserDetailModal({ user, onClose, onSave }) {
     });
   };
 
+  const closeAndRefresh = () => {
+    onClose(); 
+  };
+
   return (
     <div css={s.overlay}>
       <div css={s.modal}>
         <div css={s.editIcon}>
-          <FaPen css={s.ModifyButton} size={18} onClick={() => setIsEditing(true)} />
+          <FaPen css={s.IconButton} size={18} onClick={() => setIsEditing(true)} />
           <MdDelete
-            css={s.deleteButton}
+            css={s.IconButton}
             size={22}
             onClick={(e) => handleUserDeleteOnClick(e, user.userId)}
           />
@@ -355,10 +361,10 @@ function UserDetailModal({ user, onClose, onSave }) {
                 </p>
 
                 <div css={s.editButtons}>
+                  <button css={s.cancelButton} onClick={handleCancel}>취소</button>
                   <button css={s.saveButton} onClick={handleSave} disabled={isSaving}>
                     {isSaving ? "저장 중..." : "저장"}
                   </button>
-                  <button css={s.cancelButton} onClick={handleCancel}>취소</button>
                 </div>
               </>
             ) : (
@@ -433,7 +439,7 @@ function UserDetailModal({ user, onClose, onSave }) {
                         </div>
                         <span css={s.reportDate}>
                           {new Date(r.createdAt).toLocaleDateString("ko-KR")}
-                          <MdDelete css={s.deleteButton} onClick={() => handleReportDeleteOnClick(r.reportId)} />
+                          <MdDelete css={s.IconButton} onClick={() => handleReportDeleteOnClick(r.reportId)} />
                         </span>
                       </div>
                     </li>
@@ -493,7 +499,6 @@ function UserDetailModal({ user, onClose, onSave }) {
                               <MenuItem
                                 key={op.value}
                                 value={op.value}
-                                css={s.menuItem}
                               >
                                 {op.label}
                               </MenuItem>
@@ -564,7 +569,7 @@ function UserDetailModal({ user, onClose, onSave }) {
                           <td css={s.td}>{totalElements - (start + index)}</td>
                           <td css={s.td}>{srcLabel(item.src)}</td>
                           <td css={s.tdTitle}>{item.title}</td>
-                          <td css={s.td}>{item.crewId ?? "-"}</td>
+                          <td css={s.td}>{item.crew.crewName ?? "-"}</td>
                           <td css={s.td}>{new Date(item.createdAt).toLocaleDateString("ko-KR")}</td>
                         </tr>
                       ))}
@@ -585,7 +590,7 @@ function UserDetailModal({ user, onClose, onSave }) {
         </div>
 
         <div css={s.footer}>
-          <button css={s.closeButton} onClick={onClose}>
+          <button css={s.closeButton} onClick={closeAndRefresh}>
             닫기
           </button>
         </div>

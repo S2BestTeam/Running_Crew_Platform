@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { useQueryClient } from "@tanstack/react-query";
-import { Database, Headphones, Home, LogOut, Settings } from "lucide-react";
+import { Database, Headphones, Settings } from "lucide-react";
 import { FaUserCog } from "react-icons/fa";
+import { TbLogout } from "react-icons/tb";
 import { useLocation, useNavigate } from "react-router-dom";
 import usePrincipalQuery from '../../queries/User/usePrincipalQuery';
 import AdminRoute from '../../routes/AdminRoute';
@@ -64,31 +65,24 @@ function Admin() {
 
         <nav css={s.navigation}>
           {menus.map((menu, idx) => {
-            const isActive = location.pathname === menu.path;
             return (
               <div
                 key={idx}
                 onClick={() => navigate(menu.path)}
-                css={[s.menuItem, isActive && s.menuItemActive]}
+                css={s.menuItem}
               >
-                <div css={[s.menuIcon, isActive && s.menuIconActive]}>
+                <div>
                   {menu.icon}
                 </div>
-                <span css={s.menuText}>{menu.title}</span>
+                <span>{menu.title}</span>
               </div>
             );
           })}
         </nav>
 
-        <div css={s.logoutContainer}>
-          <button
-            onClick={handleLogout}
-            css={s.logoutButton}
-          >
-            <LogOut size={18} css={s.logoutIcon} />
-            <span>로그아웃</span>
-          </button>
-        </div>
+        <button onClick={handleLogout} css={s.logoutButton}>
+          로그아웃
+        </button>
       </div>
 
       {AdminRoute()}

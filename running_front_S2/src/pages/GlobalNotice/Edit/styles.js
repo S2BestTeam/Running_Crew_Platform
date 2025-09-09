@@ -32,7 +32,7 @@ export const titleInput = css`
   padding: 0 12px;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
-  font-size: 16px;
+  // font-size: 16px;
   outline: none;
   background: #fff;
 `;
@@ -57,7 +57,7 @@ export const quillBox = css`
     border: none; border-bottom: 1px solid #e5e7eb; background: #fff;
   }
   .ql-container { flex: 1 1 0; border: none; overflow-y: auto; display: flex; flex-direction: column; }
-  .ql-editor { flex: 1 1 auto; overflow: visible; line-height: 1.8; padding: 18px 22px 28px; margin: 0; text-align: left; font-size: 15px; }
+  .ql-editor { flex: 1 1 auto; overflow: visible; line-height: 1.8; padding: 18px 22px 28px; margin: 0; text-align: left; // font-size: 15px; }
   .ql-editor img { max-height: 360px; height: auto; width: auto; max-width: 100%; display: block; margin: 12px auto; border-radius: 6px; }
   .ql-editor p { margin: 10px 0; }
 
@@ -81,7 +81,7 @@ export const submitBtn = css`
   border-radius: 8px;
   background: #222222;
   color: #fff;
-  font-weight: 700;
+  // font-weight: 700;
   cursor: pointer;
   &:disabled { opacity: 0.6; cursor: default; }
 
@@ -95,7 +95,7 @@ export const cancleBtn = css`
   background: #ffffff;
   border: solid 0.1rem #222222;
   color: #222222;
-  font-weight: 700;
+  // font-weight: 700;
   cursor: pointer;
   &:disabled { opacity: 0.6; cursor: default; }
     margin-right: 1.5rem;

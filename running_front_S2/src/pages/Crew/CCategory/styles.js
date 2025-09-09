@@ -9,7 +9,7 @@ export const layout = css`
 export const crewInfoBox = css`
   display: flex;
   align-items: center;
-  padding: 3rem 1rem 2rem 1rem;
+  padding: 2rem;
   border-bottom: 0.1rem solid #dbdbdb;
   cursor: pointer;
 `;
@@ -34,10 +34,8 @@ export const crewImgBox = css`
 `;
 
 export const crewNameBox = css`
-  font-size: 1.4rem;
   font-weight: bold;
 `;
-
 
 export const getout = css`
   padding-top: 4rem;
@@ -52,15 +50,22 @@ export const getout = css`
 
     :hover {
       font-weight: bold;
-      background-color: rgba(251, 72, 72, 0.4);
+      background-color: #c1c1c1ff;
     }
   }
 `;
 
 export const newBadge1 = css`
+<<<<<<< HEAD
   padding: 1px 6px;
-  font-size: 11px;
   border: 1px solid var(--point-color);
   border-radius: 999px;
+=======
+  padding: 0.2rem 0.6rem;
+  font-size: 1.2rem;
+  border: 0.15rem solid var(--point-color);
+  color: var(--main-color);
+  border-radius: 7rem;
+>>>>>>> origin/128-세부내용-수정
   line-height: 1;
 `;

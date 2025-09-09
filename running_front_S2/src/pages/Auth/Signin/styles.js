@@ -12,8 +12,8 @@ export const container = css`
 `;
 
 export const loginTitle = css`
-    font-size: 2.5rem;
-    font-weight: 500;
+    // font-size: 2.5rem;
+    // font-weight: 500;
     margin-bottom: 3rem;
 `;
 
@@ -28,8 +28,8 @@ export const buttons = css`
     display: flex; 
     align-items: center; 
     justify-content: center;
-    font-weight: 600;
-    font-size: 1.2rem;
+    // font-weight: 600;
+    // font-size: 1.2rem;
     width: 32rem;
     height: 5rem;
     border: 0.1rem solid #000;
@@ -37,12 +37,12 @@ export const buttons = css`
     background-color: transparent;
 
     &:nth-of-type(1) > svg {
-      font-size: 2rem;
+      // font-size: 2rem;
       margin-right: 0.5rem;
     }
 
     &:nth-of-type(2) > svg {
-      font-size: 2rem;
+      // font-size: 2rem;
       color: #ffe603;
       margin-right: 0.5rem;
     }

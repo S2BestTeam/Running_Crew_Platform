@@ -1,9 +1,9 @@
 import { css } from "@emotion/react";
 
 export const page = css`
-  max-width: 1200px;
+  text-align: center;
   margin: 0 auto;
-  padding: 32px 16px 80px;
+  width: 80%;
 `;
 
 export const headerRow = css`
@@ -18,11 +18,11 @@ export const selectBox = css`
   width: 11rem;
   height: 3.425rem;
   padding: 0.24rem 0.48rem;
-  font-size: 0.76rem;
+  // font-size: 0.76rem;
   border-radius: 0.4rem;
   background-color: #fff;
   color: #333;
-  font-size: 1.4rem;
+  // font-size: 1.4rem;
 
   .MuiOutlinedInput-notchedOutline {
     border-color: #ccc;
@@ -36,7 +36,7 @@ export const selectBox = css`
 `;
 
 export const menuItem = css`
-  font-size: 1.4rem;
+  // font-size: 1.4rem;
 `;
 
 export const searchBox = css`
@@ -66,7 +66,7 @@ export const searchButton = css`
   border-left: none;
   background: #fff;
   color: var(--main-color);
-  font-size: 1.8rem;
+  // font-size: 1.8rem;
   border-radius: 0 0.6rem 0.6rem 0;
   cursor: pointer;
   align-items: center;
@@ -77,15 +77,15 @@ export const searchButton = css`
 
 export const sectionTitle = css`
   text-align: center;
-  font-size: 24px;
-  font-weight: 800;
+  // font-size: 24px;
+  // font-weight: 800;
   margin: 24px 0 16px;
 `;
 
 export const grid = css`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2.5rem;
 
   @media (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
@@ -137,20 +137,20 @@ export const cardBody = css`
 `;
 
 export const locationSmall = css`
-  font-size: 12px;
+  // font-size: 12px;
   color: #888;
   margin-bottom: 6px;
 `;
 
 export const title = css`
-  font-size: 16px;
-  font-weight: 800;
+  // font-size: 16px;
+  // font-weight: 800;
   line-height: 1.35;
   margin-bottom: 6px;
 `;
 
 export const dateText = css`
-  font-size: 13px;
+  // font-size: 13px;
   color: #666;
 `;
 
@@ -174,5 +174,5 @@ export const done = css`
   text-align: center;
   padding: 16px 0 0;
   color: #999;
-  font-size: 13px;
+  // font-size: 13px;
 `;

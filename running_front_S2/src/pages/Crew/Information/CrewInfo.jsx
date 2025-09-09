@@ -150,15 +150,15 @@ function CrewInfo() {
 
       <div css={s.mainLine}>
         <div>
-          <p css={s.fontBold}>한줄 소개</p>
+          <h2 css={s.fontBold}>한줄 소개</h2>
           <div>{crew?.title}</div>
-          <p css={s.fontBold}>크루 소개</p>
+          <h2 css={s.fontBold}>크루 소개</h2>
           <div dangerouslySetInnerHTML={{ __html: crew?.content }} />
         </div>
 
         <div css={s.section}>
           <div css={s.sectionHeader}>
-            <p css={s.fontBold}>정모 일정</p>
+            <h2 css={s.fontBold}>정모 일정</h2>
           </div>
 
           {Array.isArray(displayGatherings) && displayGatherings.length > 0 ? (
@@ -197,7 +197,7 @@ function CrewInfo() {
         </div>
 
         <div>
-          <p css={s.fontBold}>크루 멤버 ({countMember})</p>
+          <h2 css={s.fontBold}>크루 멤버 ({countMember})</h2>
           <div css={s.memberRow}>
             {displayMembers.map((m) => (
               <div key={m.memberId} css={s.memberItem}>

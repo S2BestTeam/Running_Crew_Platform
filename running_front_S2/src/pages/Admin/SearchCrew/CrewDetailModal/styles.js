@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { Bold } from "lucide-react";
 
 export const overlay = css`
   position: fixed;
@@ -8,20 +9,19 @@ export const overlay = css`
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  z-index: 9999;
+  z-index: 1000;
 `;
 
 export const modal = css`
   position: relative;
-  background: #fff;
+  background-color: #fff;
   border-radius: 0.8rem;
-  width: 80%;
-  max-width: 1200px;
-  max-height: 90%;
+  width: 95%;
+  height: 90%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  font-size: 1.4rem;
+  // font-size: 1.4rem;
 `;
 
 export const messageSendBtn = css`
@@ -32,11 +32,8 @@ export const messageSendBtn = css`
   background: var(--main-color);
   color: white;
   border: none;
-  border-radius: 0.6rem;
+  border-radius: 0.5rem;
   cursor: pointer;
-  font-size: 1.4rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
   z-index: 10;
 
   &:active {
@@ -46,7 +43,7 @@ export const messageSendBtn = css`
 
 export const header = css`
   padding: 2rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 0.1rem solid #dbdbdb;
 `;
 
 export const headerTop = css`
@@ -60,26 +57,20 @@ export const crewThumbnail = css`
   width: 6rem;
   height: 6rem;
   object-fit: cover;
-  border-radius: 0.8rem;
+  border-radius: 0.5rem;
   background-color: #f5f5f5;
 `;
 
 export const crewTitleBox = css`
   h3 {
     margin: 0;
-    font-size: 1.8rem;
-    color: #333;
   }
   p {
     margin: 0.5rem 0 0 0;
-    font-size: 1.4rem;
-    color: #666;
   }
 `;
 
 export const crewMeta = css`
-  font-size: 1.4rem;
-  color: #555;
   line-height: 1.4;
   span + span::before {
     content: " | ";
@@ -88,8 +79,7 @@ export const crewMeta = css`
 
 export const tabs = css`
   display: flex;
-  border-bottom: 1px solid #ddd;
-  background-color: #f8f9fa;
+  border-bottom: 0.1rem solid #dbdbdb;
 `;
 
 export const tab = (active) => css`
@@ -97,11 +87,10 @@ export const tab = (active) => css`
   text-align: center;
   padding: 1.2rem 0.8rem;
   cursor: pointer;
-  font-size: 1.4rem;
-  font-weight: ${active ? 600 : "normal"};
-  color: ${active ? "#383838ff" : "#666"};
-  border-bottom: ${active ? "0.2rem solid #2c2c2cff" : "none"};
-  background-color: ${active ? "#fff" : "transparent"};
+  // font-weight: ${active ? "Bold" : "normal"};
+  color: ${active ? "var(--main-color)" : "var(--main-color)"};
+  border-bottom: ${active ? "0.2rem solid var(--main-color)" : "none"};
+  background-color: ${active ? "var(--hB-color)" : "transparent"};
 `;
 
 export const content = css`
@@ -113,24 +102,22 @@ export const content = css`
 export const emptyState = css`
   text-align: center;
   padding: 4rem;
-  color: #666;
 `;
 
 export const memberItem = (withBorder) => css`
   display: flex;
   align-items: center;
   padding: 1.2rem 0;
-  border-bottom: ${withBorder ? "0.1rem solid #f0f0f0" : "none"};
+  border-bottom: ${withBorder ? "0.1rem solid #dbdbdb" : "none"};
   gap: 1.2rem;
   position: relative;
 `;
 
 export const memberAvatar = css`
-  width: 3.6rem;
-  height: 3.6rem;
+  width: 4rem;
+  height: 4rem;
   border-radius: 50%;
   object-fit: cover;
-  background-color: #f5f5f5;
 `;
 
 export const memberInfo = css`
@@ -138,20 +125,17 @@ export const memberInfo = css`
 `;
 
 export const memberName = css`
-  font-weight: 500;
-  font-size: 1.4rem;
-  color: #333;
   margin-bottom: 0.2rem;
   display: flex;
   align-items: center;
   gap: 0.4rem;
   span {
-    font-size: 1.2rem;
+    // font-size: 1.2rem;
   }
 `;
 
 export const memberFullName = css`
-  font-size: 1.2rem;
+  // font-size: 1.2rem;
   color: #666;
 `;
 
@@ -161,15 +145,10 @@ export const memberActions = css`
   gap: 1rem;
 `;
 
-export const memberDate = css`
-  font-size: 1.1rem;
-  color: #999;
-`;
-
 export const settingsBtn = css`
   cursor: pointer;
   padding: 0.4rem;
-  border-radius: 0.4rem;
+  border-radius: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -195,8 +174,7 @@ export const memberMenu = css`
 export const menuItem = css`
   padding: 0.8rem 1.2rem;
   cursor: pointer;
-  font-size: 1.3rem;
-  border-bottom: 0.1rem solid #eee;
+  border-bottom: 0.1rem solid #dbdbdb;
   &:last-of-type {
     border-bottom: none;
   }
@@ -207,12 +185,12 @@ export const menuItem = css`
 
 export const menuPrimary = css`
   color: #000000ff;
-  font-weight: 500;
+  // font-weight: 500;
 `;
 
 export const menuDanger = css`
   color: red;
-  font-weight: 500;
+  // font-weight: 500;
 `;
 
 export const gatheringItem = (withBorder) => css`
@@ -221,15 +199,10 @@ export const gatheringItem = (withBorder) => css`
 `;
 
 export const gatheringTitle = css`
-  font-weight: 500;
-  font-size: 1.5rem;
-  color: #333;
   margin-bottom: 0.8rem;
 `;
 
 export const gatheringContent = css`
-  font-size: 1.3rem;
-  color: #666;
   line-height: 1.4;
   div {
     margin-bottom: 0.4rem;
@@ -251,9 +224,9 @@ export const container = css`
 export const registerButton = css`
   margin-left: 0.5rem;
   padding: 0.6rem 1.2rem;
-  background: #000;
-  color: white;
-  border-radius: 0.6rem;
+  background: var(--main-color);
+  color: var(--sub-color);
+  border-radius: 0.5rem;
   cursor: pointer;
 `;
 
@@ -265,13 +238,13 @@ export const table = css`
 
 export const th = css`
   padding: 1.2rem;
-  border-bottom: 0.2rem solid #000;
-  font-weight: 600;
+  border-bottom: 0.2rem solid var(--main-color);
+  // font-weight: 600;
 `;
 
 export const td = css`
   padding: 1rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 0.1rem solid #dbdbdb;
 `;
 
 export const tdTitle = css`
@@ -282,26 +255,22 @@ export const tdTitle = css`
 export const tr = css`
   cursor: pointer;
   &:hover {
-    background-color: #f0f0f0;
+    background-color: var(--hB-color);
   }
 `;
 
 export const footer = css`
   padding: 1.5rem 2rem;
-  border-top: 1px solid #eee;
+  border-top: 0.1rem solid #dbdbdb;
   text-align: right;
 `;
 
 export const closeBtn = css`
   padding: 0.8rem 2rem;
-  border-radius: 0.4rem;
+  border-radius: 0.5rem;
   border: none;
-  background: black;
-  color: white;
+  background: var(--main-color);
+  color: var(--sub-color);
   cursor: pointer;
-  font-size: 1.4rem;
-  &:hover {
-    background-color: gray;
-  }
 `;
 

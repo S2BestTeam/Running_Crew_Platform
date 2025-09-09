@@ -28,8 +28,8 @@ const baseBtn = css`
   background: transparent;
   border: none;
   color: ${C.text};
-  font-weight: 700;
-  font-size: 1rem;
+  // font-weight: 700;
+  // font-size: 1.4rem;
   line-height: 1;
   display: inline-flex;
   align-items: center;
@@ -63,7 +63,7 @@ export const iconBtn = css`
   padding: 0;
   border-radius: 0.6rem;
 
-  svg { font-size: 18px; }
+  svg { // font-size: 1.4rem; }
 `;
 
 

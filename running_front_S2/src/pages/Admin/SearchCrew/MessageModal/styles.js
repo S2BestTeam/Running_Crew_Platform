@@ -3,89 +3,77 @@ import { css } from "@emotion/react";
 export const backdrop = css`
   position: fixed; 
   inset: 0;
-  background: rgba(0,0,0,.45);
+  background: rgba(0,0,0,0.45);
   display: flex; 
   align-items: center; 
   justify-content: center;
-  z-index: 99999;
+  z-index: 20000;
 `;
 
 export const modal = css`
-  width: 420px; 
+  width: 42rem; 
   max-width: calc(100vw - 32px);
-  background: #fff; 
-  border-radius: 12px; 
-  padding: 16px;
-  box-shadow: 0 12px 36px rgba(0,0,0,.28);
+  background: #fff;
+  border-radius: 0.5rem; 
+  padding: 1.6rem;
 `;
 
 export const headerRow = css`
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:8px;
+  margin-bottom:0.8rem;
 `;
 
 export const title = css`
   margin:0;
-  font-size:16px;
-  font-weight:700;
+  // font-weight:700;
 `;
 
 export const closeBtn = css`
   border:none;
   background:transparent;
-  font-size:22px;
   cursor:pointer;
 `;
 
 export const meta = css`
-  font-size:12px;
   color:#6b7280;
-  margin-bottom:8px;
+  margin-bottom:1rem;
 `;
 
 export const textarea = css`
   width:100%;
-  min-height:120px;
+  min-height:12rem;
   resize:vertical;
 `;
 
 export const footer = css`
   display:flex;
-  gap:8px;
+  gap:0.8rem;
   justify-content:flex-end;
-  margin-top:12px;
+  margin-top:1.2rem;
 `;
 
 export const cancelBtn = css`
   padding: 0.4rem 1rem;
-  background: #dc3545;
-  color: white;
+  background: var(--sub-color);
+  color: var(--main-color);
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
-  font-weight: 500;
+  // font-weight: 500;
   transition: background-color 0.2s ease;
-
-  &:hover {
-    background: #c82333;
-  }
 `;
 
 export const submitBtn = css`
   padding: 0.4rem 1rem;
-  background: #28a745;
-  color: white;
+  background: var(--main-color);
+  color: var(--sub-color);
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
-  font-weight: 500;
+  // font-weight: 500;
   transition: background-color 0.2s ease;
-
-  &:hover:not(:disabled) {
-    background: #218838;
-  }
 
   &:disabled {
     background: #6c757d;

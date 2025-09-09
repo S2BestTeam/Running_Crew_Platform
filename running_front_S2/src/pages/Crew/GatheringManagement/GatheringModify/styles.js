@@ -21,7 +21,7 @@ export const main = css`
     padding: 1.2rem 1.4rem;
     border: 1px solid #e0e0e0;
     border-radius: 1rem;
-    font-size: 1.4rem;
+    // font-size: 1.4rem;
     transition: border 0.2s;
 
     &:focus {
@@ -32,7 +32,7 @@ export const main = css`
 `;
 
 export const thumbnailContainer = css`
-  font-size: 1.2rem;
+  // font-size: 1.2rem;
   height: 30rem;
   border: 0.1rem solid #dbdbdb;
   border-radius: 0.5rem;
@@ -43,7 +43,7 @@ export const thumbnailContainer = css`
   cursor: pointer;
 
   & svg {
-    font-size: 8rem;
+    // font-size: 8rem;
     color: #dbdbdb;
   }
 
@@ -80,13 +80,13 @@ export const mapSearchResultList = css`
     }
 
     h3 {
-      font-size: 1.4rem;
+      // font-size: 1.4rem;
       margin: 0;
-      font-weight: bold;
+      // font-weight: bold;
     }
 
     p {
-      font-size: 1.2rem;
+      // font-size: 1.2rem;
       margin: 0.2rem 0;
       color: #555;
     }

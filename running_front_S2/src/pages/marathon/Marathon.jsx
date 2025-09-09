@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import * as s from "./styles";
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import useGetMarathonsInfiniteQuery from "../../queries/useGetMarathonsInfiniteQuery";
-import { IoSearch } from "react-icons/io5";
 import { MenuItem, Select } from "@mui/material";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { IoSearch } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
+import MainContainer from "../../components/MainContainer/MainContainer";
+import useGetMarathonsInfiniteQuery from "../../queries/useGetMarathonsInfiniteQuery";
+import * as s from "./styles";
 
 const pick = (obj, ...keys) => keys.map((k) => obj?.[k]).find((v) => v !== undefined);
 const fmtDate = (iso) => {
@@ -59,67 +60,67 @@ export default function MarathonList() {
   const onKeyDown = (e) => e.key === "Enter" && doSearch();
 
   return (
-    <div css={s.page}>
-      <h2 css={s.sectionTitle}>마라톤 대회 일정</h2>
-      <div css={s.headerRow}>
-        <Select
-          css={s.selectBox}
-          value={month}
-          onChange={(e) => setMonth(e.target.value)}
-          displayEmpty
-          aria-label="월 선택"
-        >
-          {months.map((m) => (
-            <MenuItem key={m.value} value={m.value} css={s.menuItem}>
-              {m.label}
-            </MenuItem>
-          ))}
-        </Select>
+    <MainContainer>
+        <h2 css={s.sectionTitle}>마라톤 대회 일정</h2>
+        <div css={s.headerRow}>
+          <Select
+            css={s.selectBox}
+            value={month}
+            onChange={(e) => setMonth(e.target.value)}
+            displayEmpty
+            aria-label="월 선택"
+          >
+            {months.map((m) => (
+              <MenuItem key={m.value} value={m.value} css={s.menuItem}>
+                {m.label}
+              </MenuItem>
+            ))}
+          </Select>
 
-        <div css={s.searchBox}>
-          <input css={s.searchInput} placeholder="검색어를 입력하세요." value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={onKeyDown} />
-          <button css={s.searchButton} onClick={doSearch}>
-            <IoSearch />
-          </button>
+          <div css={s.searchBox}>
+            <input css={s.searchInput} placeholder="검색어를 입력하세요." value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={onKeyDown} />
+            <button css={s.searchButton} onClick={doSearch}>
+              <IoSearch />
+            </button>
+          </div>
         </div>
-      </div>
 
 
-      {isLoading && <div css={s.empty}>불러오는 중…</div>}
-      {isError && <div css={s.empty}>목록을 불러오지 못했어요.</div>}
+        {isLoading && <div css={s.empty}>불러오는 중…</div>}
+        {isError && <div css={s.empty}>목록을 불러오지 못했어요.</div>}
 
-      {!isLoading && !isError && (
-        <>
-          <div css={s.grid}>
-            {items.map((m, idx) => {
-              const marathonId = pick(m, "marathonId", "id") ?? idx;
-              const title = pick(m, "title", "name") ?? "";
-              const start = pick(m, "startDate", "start_date");
-              const end = pick(m, "endDate", "end_date");
-              const img = pick(m, "imageUrl", "image_url") || (m?.bgImageUrls && String(m.bgImageUrls).split(",")[0]) || "";
+        {!isLoading && !isError && (
+          <>
+            <div css={s.grid}>
+              {items.map((m, idx) => {
+                const marathonId = pick(m, "marathonId", "id") ?? idx;
+                const title = pick(m, "title", "name") ?? "";
+                const start = pick(m, "startDate", "start_date");
+                const end = pick(m, "endDate", "end_date");
+                const img = pick(m, "imageUrl", "image_url") || (m?.bgImageUrls && String(m.bgImageUrls).split(",")[0]) || "";
 
-              return (
-                <div css={s.card} key={marathonId} onClick={() => navigate(`/marathons/${marathonId}`, { state: { marathon: m } })}>
-                  <div css={s.thumb}>{img ? <img src={img} alt={title} /> : <div css={s.thumbFallback} />}</div>
-                  <div css={s.cardBody}>
-                    <div css={s.locationSmall}>{m?.location ?? ""}</div>
-                    <div css={s.title}>{title}</div>
-                    <div css={s.dateText}>
-                      {fmtDate(start)}
-                      {(start || end) && " ~ "}
-                      {fmtDate(end)}
+                return (
+                  <div css={s.card} key={marathonId} onClick={() => navigate(`/marathons/${marathonId}`, { state: { marathon: m } })}>
+                    <div css={s.thumb}>{img ? <img src={img} alt={title} /> : <div css={s.thumbFallback} />}</div>
+                    <div css={s.cardBody}>
+                      <div css={s.locationSmall}>{m?.location ?? ""}</div>
+                      <div css={s.title}>{title}</div>
+                      <div css={s.dateText}>
+                        {fmtDate(start)}
+                        {(start || end) && " ~ "}
+                        {fmtDate(end)}
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
 
-          <div css={s.sentinel} ref={sentinelRef} />
-          {isFetchingNextPage && <div css={s.loader}>더 불러오는 중…</div>}
-          {!hasNextPage && items.length > 0 && <div css={s.done}>마지막입니다.</div>}
-        </>
-      )}
-    </div>
+            <div css={s.sentinel} ref={sentinelRef} />
+            {isFetchingNextPage && <div css={s.loader}>더 불러오는 중…</div>}
+            {!hasNextPage && items.length > 0 && <div css={s.done}>마지막입니다.</div>}
+          </>
+        )}
+    </MainContainer>
   );
 }

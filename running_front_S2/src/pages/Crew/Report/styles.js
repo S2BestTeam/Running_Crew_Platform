@@ -15,7 +15,7 @@ export const table = css`
 export const th = css`
   padding: 1.2rem;
   border-bottom: 0.2rem solid #000;
-  font-weight: 600;
+  // font-weight: 600;
 `;
 
 export const td = css`
@@ -59,7 +59,7 @@ export const nicknameCell = css`
 
 export const warningDot = css`
   color: #dc3545;
-  font-size: 1.4rem;
+  // font-size: 1.4rem;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -69,10 +69,10 @@ export const warningDot = css`
 export const warningBadge = css`
   background: #dc3545;
   color: white;
-  font-size: 1rem;
+  // font-size: 1rem;
   padding: 0.2rem 0.6rem;
   border-radius: 1rem;
-  font-weight: 500;
+  // font-weight: 500;
   margin-left: 0.8rem;
 `;
 
@@ -109,7 +109,7 @@ export const modalHeader = css`
   h3 {
     margin: 0;
     color: #333;
-    font-size: 1.8rem;
+    // font-size: 1.8rem;
   }
 `;
 
@@ -123,8 +123,8 @@ export const infoSection = css`
   h4 {
     margin: 0 0 1.2rem 0;
     color: #333;
-    font-size: 1.6rem;
-    font-weight: 600;
+    // font-size: 1.6rem;
+    // font-weight: 600;
     border-bottom: 0.2rem solid #f0f0f0;
     padding-bottom: 0.8rem;
   }
@@ -142,7 +142,7 @@ export const infoItem = css`
 `;
 
 export const label = css`
-  font-weight: 500;
+  // font-weight: 500;
   color: #666;
   min-width: 6rem;
 `;
@@ -177,13 +177,13 @@ export const reportItem = css`
 `;
 
 export const reportDate = css`
-  font-size: 1.4rem;
+  // font-size: 1.4rem;
   color: #666;
-  font-weight: 500;
+  // font-weight: 500;
 `;
 
 export const reportType = css`
-  font-size: 1.4rem;
+  // font-size: 1.4rem;
   color: #333;
 `;
 
@@ -210,7 +210,7 @@ export const approveBtn = css`
   border: none;
   border-radius: 0.4rem;
   cursor: pointer;
-  font-weight: 500;
+  // font-weight: 500;
   transition: background-color 0.2s ease;
 
   &:hover {
@@ -225,7 +225,7 @@ export const rejectBtn = css`
   border: none;
   border-radius: 0.4rem;
   cursor: pointer;
-  font-weight: 500;
+  // font-weight: 500;
   transition: background-color 0.2s ease;
 
   &:hover {
@@ -236,7 +236,7 @@ export const rejectBtn = css`
 export const closeBtn = css`
   background: none;
   border: none;
-  font-size: 2.4rem;
+  // font-size: 2.4rem;
   cursor: pointer;
   color: #666;
   padding: 0;
@@ -254,7 +254,7 @@ export const closeBtn = css`
 `;
 
 export const approvedText = css`
-  font-size: 1.2rem;
+  // font-size: 1.2rem;
 `;
 
 export const rejectedText = css`

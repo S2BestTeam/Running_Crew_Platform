@@ -63,8 +63,6 @@ function CCategory() {
   };
   void refreshTick;
 
-
-
   if (isLoading) return <Loading isLoading={isLoading} />;
 
   const crew = crewData?.body || {

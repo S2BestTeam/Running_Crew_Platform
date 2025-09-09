@@ -14,7 +14,7 @@ export const submitBtn = css`
   border-radius: 8px;
   background: #222222;
   color: #fff;
-  font-weight: 700;
+  // font-weight: 700;
   cursor: pointer;
   &:disabled { opacity: 0.6; cursor: default; }
 
@@ -28,7 +28,7 @@ export const cancleBtn = css`
   background: #ffffff;
   border: solid 0.1rem #222222;
   color: #222222;
-  font-weight: 700;
+  // font-weight: 700;
   cursor: pointer;
   &:disabled { opacity: 0.6; cursor: default; }
     margin-right: 1.5rem;

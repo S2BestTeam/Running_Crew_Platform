@@ -47,19 +47,19 @@ export const topBar = css`
     background: #ffffff;
     color: ${C.text};
     border: 0.2rem solid ${C.border};
-    font-weight: 700;
+    // font-weight: 700;
     cursor: pointer;
     transition: transform .08s ease, background .15s ease;
 
     &:hover { transform: translateY(-1px); background: #e9ecf3; }
   }
 
-  span { color: #94a3b8; font-size: 13px; }
+  span { color: #94a3b8; // font-size: 13px; }
 `;
 
 export const titleCss = css`
-  font-size: 28px;
-  font-weight: 800;
+  // font-size: 28px;
+  // font-weight: 800;
   margin: 4px 0 6px;
 `;
 
@@ -69,7 +69,7 @@ export const metaCss = css`
   flex-wrap: wrap;
   gap: 10px;
   color: #6b7280;
-  font-size: 1.6rem;
+  // font-size: 1.6rem;
   margin-bottom: 2rem;
 
   .dot {
@@ -83,7 +83,7 @@ export const metaCss = css`
     background: #f1f3f7;
     color: #141518;
     border: 1px solid #e7e9f0;
-    font-weight: 700; cursor: pointer;
+    // font-weight: 700; cursor: pointer;
   }
 `;
 
@@ -92,7 +92,7 @@ export const metaSpacer = css`
 `;
 
 export const contentCss = css`
-  font-size: 1.6rem;
+  // font-size: 1.6rem;
   line-height: 1.7;
   word-break: break-word;
 
@@ -121,7 +121,7 @@ export const input = css`
   border: 1.5px solid ${C.inputBorder};
   border-radius: 1rem;
   padding: 12px 14px;
-  font-size: 14px;
+  // font-size: 14px;
   outline: none;
   transition: .15s;
   &::placeholder { color: ${C.placeholder}; }
@@ -136,7 +136,7 @@ export const btnPrimary = css`
   background: ${C.black};
   color: ${C.white};
   border: 1px solid ${C.black};
-  font-weight: 800;
+  // font-weight: 800;
   cursor: pointer;
   transition: .15s;
   &:hover { transform: translateY(-1px); background: #1a1a1a; }
@@ -149,7 +149,7 @@ export const btnOutline = css`
   background: ${C.white};
   color: ${C.black};
   border: 1.5px solid ${C.black};
-  font-weight: 800;
+  // font-weight: 800;
   cursor: pointer;
   transition: .15s;
   &:hover { transform: translateY(-1px); }
@@ -178,11 +178,11 @@ export const commentBody = css`
   flex: 1;
   .head {
     display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.2rem;
-    strong { font-weight: 800; }
-    time { color: #94a3b8; font-size: 1.3rem; }
+    strong { // font-weight: 800; }
+    time { color: #94a3b8; // font-size: 1.3rem; }
     button {
       padding: 6px 10px; border-radius: 0.8rem; background: #f1f3f7;
-      border: 1px solid ${C.border}; font-weight: 700; cursor: pointer;
+      border: 1px solid ${C.border}; // font-weight: 700; cursor: pointer;
       &:hover { background: #e9ecf3; }
     }
   }
@@ -192,7 +192,7 @@ export const commentBody = css`
 export const editRow = css`
   display: flex; gap: 8px; margin-top: 8px;
   input {
-    flex: 1; padding: 1rem 1.2rem; border-radius: 0.6rem; font-size: 1.2rem;
+    flex: 1; padding: 1rem 1.2rem; border-radius: 0.6rem; // font-size: 1.2rem;
     border: 0.1rem solid ${C.inputBorder}; background: ${C.inputBg};
     &:focus { outline: none; border-color: ${C.focus}; background: ${C.white}; box-shadow: ${S.ring}; }
   }
@@ -211,7 +211,7 @@ export const moreBtn = css`
   background: #f1f3f7;
   color: #141518;
   border: 1px solid #e7e9f0;
-  font-weight: 800;
+  // font-weight: 800;
   cursor: pointer;
   &:hover { background: #e9ecf3; transform: translateY(-1px); }
 `;

@@ -38,8 +38,8 @@ export const section = css`
 `;
 
 export const sectionTitle = css`
-  font-size: 1.25rem;
-  font-weight: 700;
+  // font-size: 1.25rem;
+  // font-weight: 700;
   margin-bottom: 0.5rem;
 `;
 
@@ -52,7 +52,7 @@ export const rankingList = css`
 export const notice = css`
   text-align: center;
   color: black;
-  font-size: 0.875rem;
+  // font-size: 0.875rem;
 `;
 
 // RankingCard 스타일
@@ -72,7 +72,7 @@ export const card = (rank) => css`
 `;
 
 export const rankBadge = css`
-  font-size: 1rem;
+  // font-size: 1rem;
   width: 3rem;
   text-align: center;
   padding-right: 1rem;
@@ -94,12 +94,12 @@ export const avatar = css`
 `;
 
 export const crewName = css`
-  font-size: 1rem;
-  font-weight: 600;
+  // font-size: 1rem;
+  // font-weight: 600;
 `;
 
 export const crewLocation = css`
-  font-size: 0.875rem;
+  // font-size: 0.875rem;
   color: #777;
 `;
 
@@ -111,12 +111,12 @@ export const crewStats = css`
 `;
 
 export const mainStat = css`
-  font-size: 1.2rem;
-  font-weight: 700;
+  // font-size: 1.2rem;
+  // font-weight: 700;
 `;
 
 export const subStat = css`
-  font-size: 0.875rem;
+  // font-size: 0.875rem;
   color: #555;
 `;
 
@@ -138,20 +138,20 @@ export const rankingInfo = css`
 `;
 
 export const myRankTitle = css`
-  font-size: 1.4rem;
+  // font-size: 1.4rem;
   color: #555;
   margin-bottom: 1rem;
 `;
 
 export const myRankNumber = css`
-  font-size: 2rem;
-  font-weight: bold;
+  // font-size: 2rem;
+  // font-weight: bold;
   color: black;
   margin-bottom: 0.5rem;
 `;
 
 export const myRankSub = css`
-  font-size: 1.2rem;
-  font-weight: bold;
+  // font-size: 1.2rem;
+  // font-weight: bold;
   color: #333;
 `;

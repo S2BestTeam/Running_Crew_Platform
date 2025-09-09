@@ -43,12 +43,12 @@ export const profileImgBox = css`
 `;
 
 export const nick = css`
-  font-size: 1.8rem;
-  font-weight: bold;
+  // font-size: 1.8rem;
+  // font-weight: bold;
 `;
 
 export const email = css`
-  font-size: 1rem;
+  // font-size: 1rem;
 `;
 
 export const getout = css`
@@ -63,7 +63,7 @@ export const getout = css`
     cursor: pointer;
 
     :hover {
-      font-weight: bold;
+      // font-weight: bold;
       background-color: rgba(251, 72, 72, 0.4);
     }
   }

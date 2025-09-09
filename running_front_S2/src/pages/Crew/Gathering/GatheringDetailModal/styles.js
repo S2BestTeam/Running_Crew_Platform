@@ -10,8 +10,8 @@ export const layout = css`
 `;
 
 export const header = css`
-  font-size: 1.5rem;
-  font-weight: 700;
+  // font-size: 1.5rem;
+  // font-weight: 700;
   margin-bottom: 12px;
   text-align: center;
 `;
@@ -27,8 +27,8 @@ export const main = css`
 
   h4 {
     margin: 12px 0 6px;
-    font-size: 1rem;
-    font-weight: 600;
+    // font-size: 1rem;
+    // font-weight: 600;
   }
 
   ul {
@@ -46,7 +46,7 @@ export const main = css`
       background: #f5f5f5;
       padding: 4px 8px;
       border-radius: 6px;
-      font-size: 0.875rem;
+      // font-size: 0.875rem;
     }
   }
 
@@ -54,7 +54,7 @@ export const main = css`
     padding: 10px 16px;
     border-radius: 8px;
     border: none;
-    font-weight: 600;
+    // font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
 
@@ -93,7 +93,7 @@ export const profile = css`
   }
 
   span {
-    font-weight: 500;
-    font-size: 0.9rem;
+    // font-weight: 500;
+    // font-size: 0.9rem;
   }
 `;

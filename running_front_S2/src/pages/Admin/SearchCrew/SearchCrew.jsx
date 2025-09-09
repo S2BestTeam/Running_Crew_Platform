@@ -52,10 +52,10 @@ function SearchCrew() {
         <table css={s.table}>
           <thead>
             <tr>
-              <th>크루 ID</th>
-              <th>썸네일</th>
+              <th>No</th>
               <th>크루 이름</th>
-              <th>제목</th>
+              <th>썸네일</th>
+              <th>한줄 소개</th>
               <th>군구</th>
               <th>상세보기</th>
             </tr>
@@ -69,6 +69,7 @@ function SearchCrew() {
               crews.map((crew) => (
                 <tr key={crew.crewId}>
                   <td>{crew.crewId}</td>
+                  <td>{crew.crewName}</td>
                   <td>
                     <img
                       src={crew.thumbnailPicture}
@@ -79,7 +80,6 @@ function SearchCrew() {
                       }}
                     />
                   </td>
-                  <td>{crew.crewName}</td>
                   <td>{crew.title}</td>
                   <td>{crew.gunguName}</td>
                   <td>
