@@ -1,13 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import * as s from "./styles";
-import { useKakaoLoader } from "react-kakao-maps-sdk";
 import { useEffect, useState } from "react";
 import { CiImageOn } from "react-icons/ci";
-import { Map, MapMarker } from "react-kakao-maps-sdk";
-import { useNavigate, useParams } from "react-router-dom";
+import { Map, MapMarker, useKakaoLoader } from "react-kakao-maps-sdk";
+import { useNavigate } from "react-router-dom";
 import { reqRegisterGathering } from "../../../../api/Crew/gatheringApi";
-import ContentLayout from "../../../../components/ContentLayout/ContentLayout";
 import { useCrewStore } from "../../../../stores/useCrewStroes";
+import * as s from "./styles";
 
 function GatheringRegister() {
   const mapLoader = useKakaoLoader({

@@ -13,18 +13,18 @@ export default defineConfig(({ mode }) => {
   }
 
   // 다정
-  // if (mode === "dajeong") {
-  //   baseURL = "https://s2runningcrew.site";
-  // }else {
-  //   baseURL = "http://localhost:8080"
-  // }
+  if (mode === "dajeong") {
+    baseURL = "https://s2runningcrew.site";
+  }else {
+    baseURL = "http://localhost:8080"
+  }
 
   // 선영
-  // if (mode === "sunyoung") {
-  //   baseURL = "https://busanrun.store";
-  // }else {
-  //   baseURL = "http://localhost:8080"
-  // }
+  if (mode === "sunyoung") {
+    baseURL = "https://busanrun.store";
+  }else {
+    baseURL = "http://localhost:8080"
+  }
 
   return {
     plugins: [react()],
