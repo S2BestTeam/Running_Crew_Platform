@@ -1,16 +1,16 @@
 import { css } from "@emotion/react";
 
 export const global = css`
-  @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
+  @import url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Thin.woff') format('woff');
 
   html {
     font-size: 62.5%;
-    font-family: "Noto Sans KR", sans-serif;
-    font-optical-sizing: auto;
+    font-family: 'Pretendard';
     font-weight: 400;
-    font-style: normal;
+    font-display: swap;
     background-color: #fff;
   }
+
 
   html,
   body,
