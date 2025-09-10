@@ -12,14 +12,14 @@ export default defineConfig(({ mode }) => {
     baseURL = "http://localhost:8080"
   }
 
-  다정
+  // 다정
   if (mode === "dajeong") {
     baseURL = "https://s2runningcrew.site";
   }else {
     baseURL = "http://localhost:8080"
   }
 
-  선영
+  // 선영
   if (mode === "sunyoung") {
     baseURL = "https://busanrun.store";
   }else {
