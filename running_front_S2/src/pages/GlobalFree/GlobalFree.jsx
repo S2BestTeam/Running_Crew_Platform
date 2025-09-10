@@ -7,6 +7,7 @@ import SearchBox from '../../components/SearchBox/SearchBox';
 import useGetGlobalBoardQuery from '../../queries/Global/FreeBoard/useGetGlobalFreeBoardQuery';
 import usePrincipalQuery from '../../queries/User/usePrincipalQuery';
 import * as s from './styles';
+import Button from '../../components/Button/Button';
 
 function GlobalFree(props) {
   const navigate = useNavigate();
@@ -66,9 +67,9 @@ function GlobalFree(props) {
           onChange={setSearchInput}
           onSearch={handleSearchOnClick}
           >
-            <button css={s.registerButton} onClick={handleRegisterOnClick}>
+            <Button onClick={handleRegisterOnClick}>
               게시글 등록
-            </button>
+            </Button>
         </SearchBox>
 
         <table css={s.table}>
@@ -84,9 +85,9 @@ function GlobalFree(props) {
             {freeLists.map((board, index) => (
               <tr key={board.freeId} css={s.tr} onClick={() => handlePostOnClick(board.freeId)}>
                 <td css={s.td}>{totalElements - (start + index)}</td>
-                <td css={s.tdTitle}>{board.title}</td>
-                <td css={s.td}>{board?.user?.nickname}</td>
-                <td css={s.td}>{new Date(board.createdAt).toLocaleString("ko-KR")}</td>
+                <td css={s.tdTitle} data-label="제목">{board.title}</td>
+                <td css={s.td} data-label="작성자">{board?.user?.nickname}</td>
+                <td css={s.td} data-label="날짜">{new Date(board.createdAt).toLocaleString("ko-KR")}</td>
               </tr>
             ))}
           </tbody>

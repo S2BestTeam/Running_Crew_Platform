@@ -21,13 +21,12 @@ import GlobalNotice from "./pages/GlobalNotice/GlobalNotice";
 import NoticeDetail from "./pages/GlobalNotice/NoticeDetail/NoticeDetail";
 import NoticeReg from "./pages/GlobalNotice/NoticeReg/NoticeReg";
 import Home from "./pages/home/Home";
-import MarathonDetail from "./pages/marathon/detail/MarathonDetail";
-import MarathonList from "./pages/marathon/Marathon";
 import MCategory from "./pages/Mypage/MCategory/MCategory";
 import CrewRanking from "./pages/Ranking/CrewRanking/CrewRanking";
 import UserRanking from "./pages/Ranking/UserRanking/UserRanking";
 import Calender from "./pages/Schedule/Calender/Calender";
 import Competition from "./pages/Schedule/Competition/Competition";
+import CompetitionDetail from "./pages/Schedule/Competition/CompetitionDetail/CompetitionDetail";
 
 function App() {
   ReactModal.setAppElement("#root");
@@ -63,15 +62,14 @@ function App() {
         <Route path="/notice/:noticeId" element={<NoticeDetail />} />
         <Route path="/notice/:noticeId/edit" element={<NoticeEdit />} />
 
-        <Route path="/marathons" element={<MarathonList />} />
-        <Route path="/marathons/:marathonId" element={<MarathonDetail />} />
-
         <Route path="/ask" element={<Ask />} />
         <Route path="/ask/register" element={<AskReg />} />
         <Route path="/ask/:askId" element={<AskDetail />} />
 
         <Route path="/calender" element={<Calender />} />
+        
         <Route path="/competition" element={<Competition />} />
+        <Route path="/competition/:marathonId" element={<CompetitionDetail />} />
 
         <Route path="/admin/*" element={<Admin />} />
       </Routes>

@@ -1,108 +1,121 @@
 /** @jsxImportSource @emotion/react */
-import { useEffect } from 'react';
-import { FaStar } from "react-icons/fa";
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import MainContainer from "../../../components/MainContainer/MainContainer";
-import useGetUserRankingQuery from '../../../queries/Ranking/useGetUserRankingQuery';
-import usePrincipalQuery from '../../../queries/User/usePrincipalQuery';
-import RankingCard from '../CrewRanking/RankingCard';
-import * as s from './styles';
+import useGetUserRankingQuery from "../../../queries/Ranking/useGetUserRankingQuery";
+import usePrincipalQuery from "../../../queries/User/usePrincipalQuery";
+import RankingCard from "../CrewRanking/RankingCard";
+import * as s from "./styles";
 
-function UserRanking(props) {
+function UserRanking() {
   const { data: rankings } = useGetUserRankingQuery();
-  const { data: principalQuery, isLoading } = usePrincipalQuery();  
+  const { data: principalQuery, isLoading } = usePrincipalQuery();
   const userId = principalQuery?.data?.body?.user?.userId;
-  
-  const myTotalKmRank = rankings?.totalKmRanking?.findIndex(user => {
-    return user.userId === userId;
-  });
-  
-  const myGatheringRank = rankings?.gatheringCount?.findIndex(user => user.userId === userId);
+
+  // 내가 속한 랭킹 데이터
+  const myTotalKmData =
+    rankings?.totalKmRanking?.find((user) => user.userId === userId) ?? null;
+  const myGatheringData =
+    rankings?.gatheringCount?.find((user) => user.userId === userId) ?? null;
+
+  // 내 순위 계산
+  const myTotalKmRank = rankings?.totalKmRanking?.findIndex(
+    (user) => user.userId === userId
+  );
+  const myGatheringRank = rankings?.gatheringCount?.findIndex(
+    (user) => user.userId === userId
+  );
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!isLoading) {
-      const userId = principalQuery?.data?.body?.user?.userId;
-
       if (!userId) {
         alert("로그인 후 이용 가능합니다.");
         navigate("/auth/oauth2/signin");
       }
     }
-  }, [principalQuery, isLoading, navigate]);
+  }, [principalQuery, isLoading, navigate, userId]);
 
   return (
     <MainContainer>
-      <div css={s.headerlayout}>
-        <div css={s.notice}>
-          <h1><FaStar style={{fontSize: '1.5rem'}}/> 랭킹은 매일 자정 마다 자동 갱신됩니다. </h1>
-        </div>
-      </div>
+      <h2 css={s.head}>유저 랭킹</h2>
+      <p css={s.headFont}>※ 랭킹은 매일 자정 마다 자동 갱신됩니다.</p>
+
       <div css={s.layout}>
+        {/* 전체 랭킹 - 총 거리 */}
         <section css={s.section}>
-          <h2 css={s.sectionTitle}>🏃‍♂️ 총 거리 랭킹</h2>
+          <div css={s.sectionTitle}>총 거리 랭킹</div>
           <div css={s.rankingList}>
-            {
-              rankings?.totalKmRanking?.slice(0, 10).map((user, index) => (
+            {rankings?.totalKmRanking?.slice(0, 10).map((user, index) => (
               <div key={user.userId}>
                 <RankingCard
-                  data={user} 
-                  rank={index + 1} 
-                  type="distance" 
-                  mode="user" 
+                  data={user}
+                  rank={index + 1}
+                  type="distance"
+                  mode="user"
                 />
               </div>
-              )) 
-            }
+            ))}
           </div>
         </section>
 
+        {/* 전체 랭킹 - 정모 참여 */}
         <section css={s.section}>
-          <h2 css={s.sectionTitle}>👥 정모 참여 횟수</h2>
+          <div css={s.sectionTitle}>정모 참여 횟수</div>
           <div css={s.rankingList}>
-            {
-              rankings?.gatheringCount?.slice(0, 10).map((user, index) => (
+            {rankings?.gatheringCount?.slice(0, 10).map((user, index) => (
               <div key={user.userId}>
-                <RankingCard 
-                  data={user} 
-                  rank={index + 1} 
-                  type="gathering" 
-                  mode="user" 
+                <RankingCard
+                  data={user}
+                  rank={index + 1}
+                  type="gathering"
+                  mode="user"
                 />
               </div>
-              )) 
-            }
+            ))}
           </div>
         </section>
 
-        <section>
-          <h1 css={{ fontSize: '1.5rem', marginBottom: '10px', display: 'flex', justifyContent: 'center' }}>나의 등수</h1>
-          <div css={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-            <div css={s.myRankCard}>
-              <div css={s.rankingInfo}>
-                <p css={s.myRankTitle}>🏃‍♂️ 총 거리</p>
-                <p css={s.myRankSub}>
-                  {rankings?.totalKmRanking?.find(user => user.userId === userId)?.totalKm ?? '0'} km
-                </p>
-              </div>
-              <p css={s.myRankNumber}>
-                {myTotalKmRank !== undefined && myTotalKmRank !== -1 ? myTotalKmRank + 1 + '위' : '순위 없음'}
-              </p>
+        {/* 나의 등수 */}
+        <section css={s.mySection}>
+          <div>
+            <div
+              css={{
+                fontSize: "1.5rem",
+                marginBottom: "10px",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              나의 등수
             </div>
-
-            <div css={s.myRankCard}>
-              <div css={s.rankingInfo}>
-                <p css={s.myRankTitle}>👥 정모 참여 횟수</p>
-                <p css={s.myRankSub}>
-                  {rankings?.gatheringCount?.find(user => user.userId === userId)?.gatheringCount ?? '0'} 회
-                </p>
-              </div>
-              <p css={s.myRankNumber}>
-                {myGatheringRank !== undefined && myGatheringRank !== -1 ? myGatheringRank + 1 + '위' : '순위 없음'}
-              </p>
+            <div css={s.rankingList}>
+              <div css={s.sectionTitle}>총 거리 랭킹</div>
+              {/* 총 거리 */}
+              {myTotalKmData ? (
+                <RankingCard
+                  data={myTotalKmData}
+                  rank={myTotalKmRank + 1}
+                  type="distance"
+                  mode="user"
+                />
+              ) : (
+                <div css={s.notice}>총 거리 순위 없음</div>
+              )}
+              <div css={s.sectionTitle}>정모 참여 순위</div>
+              {/* 정모 참여 */}
+              {myGatheringData ? (
+                <RankingCard
+                  data={myGatheringData}
+                  rank={myGatheringRank + 1}
+                  type="gathering"
+                  mode="user"
+                />
+              ) : (
+                <div css={s.notice}>정모 참여 순위 없음</div>
+              )}
             </div>
-
           </div>
         </section>
       </div>

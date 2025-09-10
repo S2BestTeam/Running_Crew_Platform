@@ -81,13 +81,7 @@ export const actionButtonStyle = css`
   background: #fff;
   border-radius: 0.5rem;
   cursor: pointer;
-  // font-size: 1.4rem;
   transition: all 0.2s ease;
-
-  /* &:hover:not(:disabled) {
-    background: #f8f9fa;
-    border-color: #adb5bd;
-  } */
 
   &:disabled {
     opacity: 0.5;
@@ -100,9 +94,4 @@ export const expelButtonStyle = css`
   background: var(--main-color);
   color: white;
   border: none;
-
-  /* &:hover:not(:disabled) {
-    background: #c82333;
-    border-color: #bd2130;
-  } */
 `;

@@ -2,12 +2,11 @@
 import * as s from "./styles";
 
 function RankingCard({ data, rank, type, mode }) {
-  // rank 아이콘
   const getRankIcon = (rank) => {
-    if (rank === 1) return <h2 style={{fontSize: '2rem'}}>🥇</h2>;
-    if (rank === 2) return <h3 style={{fontSize: '1.6rem'}}>🥈</h3>;
-    if (rank === 3) return <h4 style={{fontSize: '1.2rem'}}>🥉</h4>;
-    return `${rank}위`;
+    if (rank === 1) return <div style={{ fontSize: "3rem" }}>🥇</div>;
+    if (rank === 2) return <div style={{ fontSize: "3rem" }}>🥈</div>;
+    if (rank === 3) return <div style={{ fontSize: "3rem" }}>🥉</div>;
+    return <div style={{ fontWeight: "500" }}>{rank}</div>;
   };
 
   // 메인 값
@@ -15,9 +14,9 @@ function RankingCard({ data, rank, type, mode }) {
     if (mode === "crew") {
       switch (type) {
         case "distance":
-          return `${data.totalKm}km`;
+          return `${data.totalKm} km`;
         case "member":
-          return `${data.memberCount}명`;
+          return `${data.memberCount} 명`;
         case "new":
           return new Date(data.createdAt).toLocaleDateString();
         case "region":
@@ -28,9 +27,9 @@ function RankingCard({ data, rank, type, mode }) {
     } else if (mode === "user") {
       switch (type) {
         case "distance":
-          return `${data.totalKm}km`;
+          return `${data.totalKm} km`;
         case "gathering":
-          return `${data.gatheringCount}회 참여`;
+          return `${data.gatheringCount} 회`;
         default:
           return "";
       }
@@ -43,37 +42,30 @@ function RankingCard({ data, rank, type, mode }) {
       <div css={s.crewInfo}>
         {mode === "crew" ? (
           <>
-            <img
-              src={data.profilePicture}
-              alt={data.crewName}
-              css={s.avatar}
-            />
+            <img src={data.profilePicture} alt={data.crewName} css={s.avatar} />
             <div>
-              <h3 css={s.crewName}>{data.crewName}</h3>
+              <p css={s.crewName}>{data.crewName}</p>
               <p css={s.crewLocation}>{data.gunguName}</p>
             </div>
           </>
         ) : (
           <>
-            <img
-              src={data.picture}
-              alt={data.nickname}
-              css={s.avatar}
-            />
+            <img src={data.picture} alt={data.nickname} css={s.avatar} />
             <div>
-              <h3 css={s.crewName}>{data.nickname || data.fullName}</h3>
-              <p css={s.crewLocation}>
-                {data.gender === 1 ? "남성" : data.gender === 2 ? "여성" : ""}
-              </p>
+              <p css={s.crewName}>{data.nickname || data.fullName}</p>
+              <p css={s.crewLocation}>{data.fullName}</p>
             </div>
           </>
         )}
       </div>
       <div css={s.crewStats}>
         <div css={s.mainStat}>{getMainValue()}</div>
-        {mode === "crew" && type !== "member" && (
-          <div css={s.subStat}>멤버 {data.memberCount}명</div>
-        )}
+        {mode === "crew" &&
+          type !== "member" &&
+          type !== "distance" &&
+          type !== "new" && (
+            <div css={s.subStat}>멤버 {data.memberCount}명</div>
+          )}
       </div>
     </div>
   );

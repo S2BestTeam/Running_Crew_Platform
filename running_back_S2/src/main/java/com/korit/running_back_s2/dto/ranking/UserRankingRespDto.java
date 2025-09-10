@@ -2,8 +2,6 @@ package com.korit.running_back_s2.dto.ranking;
 
 import lombok.Data;
 
-import java.time.LocalDate;
-
 @Data
 public class UserRankingRespDto {
     private Integer userId;

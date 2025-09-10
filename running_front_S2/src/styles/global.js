@@ -6,10 +6,8 @@ export const global = css`
   html {
     font-size: 62.5%;
     font-family: 'Pretendard';
-    /* font-optical-sizing: auto; */
     font-weight: 400;
     font-display: swap;
-    /* font-style: normal; */
     background-color: #fff;
   }
 

@@ -8,6 +8,8 @@ import useGetCrewRoleQuery from "../../../queries/Crew/useGetCrewRoleQuery";
 import { useCrewStore } from "../../../stores/useCrewStroes";
 import useGetCrewNotoiceQuery from "../../../queries/Crew/Notice/useGetCrewNoticeQuery";
 import Pagination from "../../../components/Pagination/Pagination";
+import Button from "../../../components/Button/Button";
+import SearchBox from "../../../components/SearchBox/SearchBox";
 
 function Notice() {
   const navigate = useNavigate();
@@ -69,28 +71,13 @@ function Notice() {
   return (
     <div css={s.container}>
       <h2>공지사항</h2>
-
-      <div css={s.searchBox}>
-        <div css={s.inputGroup}>
-          <input
-            type="text"
-            placeholder="검색어를 입력하세요."
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            css={s.searchInput}
-            onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()}
-          />
-          <button css={s.searchButton} onClick={handleSearchOnClick}>
-            <IoSearch />
-          </button>
-
-          {canRegister && (
-            <button css={s.registerButton} onClick={() => navigate(`./register`)}>
-              공지글 등록
-            </button>
-          )}
-        </div>
-      </div>
+      <SearchBox value={searchInput} onChange={setSearchInput} onSearch={handleSearchOnClick}>
+        {canRegister && (
+          <Button onClick={() => navigate(`./register`)}>
+            공지글 등록
+          </Button>
+        )}
+      </SearchBox>
 
       <table css={s.table}>
         <thead>

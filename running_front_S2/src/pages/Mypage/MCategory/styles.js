@@ -20,9 +20,8 @@ export const userSimpleInfo = css`
   display: flex;
   flex-direction: row;
   gap: 1rem;
-  padding-bottom: 1.6rem;
+  padding: 1.6rem 1.2rem;
   border-bottom: 0.1rem solid black;
-  margin-bottom: 1rem;
   cursor: pointer;
 `;
 
@@ -43,12 +42,12 @@ export const profileImgBox = css`
 `;
 
 export const nick = css`
-  // font-size: 1.8rem;
-  // font-weight: bold;
+  font-weight: bold;
 `;
 
 export const email = css`
-  // font-size: 1rem;
+  font-size: 1rem;
+  color: #5f5f5f;
 `;
 
 export const getout = css`

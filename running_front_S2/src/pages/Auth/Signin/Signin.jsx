@@ -6,10 +6,11 @@ import { FcGoogle } from "react-icons/fc";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import { baseURL } from "../../../api/axios";
 
 function Signin() {
   const handleLogin = (provider) => {
-    window.location.href = `http://localhost:8080/oauth2/authorization/${provider}`;
+    window.location.href = `${baseURL}/oauth2/authorization/${provider}`;
   };
 
   const navigate = useNavigate("");

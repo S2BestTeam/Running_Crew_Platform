@@ -104,23 +104,23 @@ function Welcome() {
                   editingId === welcome.welcomeId ? (
                     <>
                       <button
-                        css={s.button}
+                        css={s.actionButtonStyle}
                         onClick={() => handleModifyMyWelcomeOnClick(welcome.welcomeId)}
                       >
                         저장
                       </button>
-                      <button css={s.button} onClick={() => setEditingId(null)}>취소</button>
+                      <button css={s.expelButtonStyle} onClick={() => setEditingId(null)}>취소</button>
                     </>
                   ) : (
                     <>
                       <button
-                        css={s.button}
+                        css={s.actionButtonStyle}
                         onClick={() => handleEdit(welcome)}
                       >
                         수정
                       </button>
                       <button
-                        css={s.button}
+                        css={s.expelButtonStyle}
                         onClick={() => handleDeleteMyWelcomeOnClick(welcome.welcomeId)}
                       >
                         삭제

@@ -54,26 +54,22 @@ export const footer = css`
   margin-top:1.2rem;
 `;
 
-export const cancelBtn = css`
-  padding: 0.4rem 1rem;
-  background: var(--sub-color);
-  color: var(--main-color);
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  // font-weight: 500;
-  transition: background-color 0.2s ease;
-`;
-
 export const submitBtn = css`
   padding: 0.4rem 1rem;
   background: var(--main-color);
-  color: var(--sub-color);
+  color: #fff;
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
-  // font-weight: 500;
-  transition: background-color 0.2s ease;
+`;
+
+export const cancelBtn = css`
+  padding: 0.4rem 1rem;
+  background: #fff;
+  color: var(--main-color);
+  border: 0.1rem solid var(--main-color);
+  border-radius: 0.5rem;
+  cursor: pointer;
 
   &:disabled {
     background: #6c757d;
@@ -81,4 +77,3 @@ export const submitBtn = css`
     opacity: 0.6;
   }
 `;
-

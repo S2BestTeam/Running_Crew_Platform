@@ -4,60 +4,6 @@ export const layout = css`
   text-align: center;
   margin: 0 auto;
   width: 100%;
-  min-width: 0;
-  padding-bottom: 3rem;
-`;
-
-export const registerBtn = css`
-  display: flex;
-  justify-content: flex-end;
-
-  & > button {
-    width: auto;
-    padding: 0.6rem 1.2rem;
-    background: var(--main-color);
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-  }
-`;
-
-export const headerContainer = css`
-  display: flex;
-  justify-content: right;
-  margin: 3rem 0;
-`;
-
-export const searchBar = css`
-  display: flex;
-`;
-
-export const searchInput = css`
-  height: 3.425rem;
-  box-sizing: border-box;
-  padding: 0.8rem;
-  border: 0.1rem solid var(--main-color);
-  border-right: none;
-  border-radius: 0.6rem 0 0 0.6rem;
-  outline: none;
-`;
-
-export const searchButton = css`
-  display: flex;
-  height: 3.425rem;
-  box-sizing: border-box;
-  padding: 0.5rem 0.5rem;
-  border: 0.1rem solid var(--main-color);
-  border-left: none;
-  background: #fff;
-  color: var(--main-color);
-  font-size: 1.8rem;
-  border-radius: 0 0.6rem 0.6rem 0;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  margin-right: 0.5rem;
 `;
 
 export const gatheringMain = css`
@@ -152,12 +98,10 @@ export const status = css`
   & > div {
     padding: 0.5rem 0.8rem;
     color: #fff;
-    // font-weight: bold;
     border-radius: 0.2rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    // font-weight: 500;
   }
 `;
 
@@ -177,18 +121,3 @@ export const noGatheringMessage = css`
   align-items: center;
   height: 60vh;
 `;
-
-// export const closedOverlay = css`
-//   position: relative;
-
-//   &::after {
-//     content: "";
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-//     width: 100%;
-//     height: 100%;
-//     background-color: rgba(0, 0, 0, 0.3);
-//     border-radius: 0.5rem;
-//   }
-// `;

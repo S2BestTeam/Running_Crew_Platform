@@ -21,13 +21,20 @@ export const userInfoContainer = css`
   width: 100%;
 `;
 
-export const title = css`
-  // font-size: 2rem;
-  // font-weight: 700;
-  color: #111111;
+export const titleLine = css`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
   border-bottom: 0.1rem solid #e5e5e5;
-  padding-bottom: 1rem;
 `;
+
+export const title = css`
+  font-size: 1.6rem;
+  font-weight: bold;
+`;
+
 
 export const profileSection = css`
   display: flex;
@@ -71,67 +78,6 @@ export const profileImgBox = css`
   }
 `;
 
-export const myRank = css`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 1rem;
-`;
-
-
-export const myRankCard = css`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex: 1 1 20rem;
-  padding: 1rem;
-  border-radius: 1.2rem;
-  box-shadow: 0 0.6rem 1rem rgba(0,0,0,0.2);
-  background-color: #fff;
-  text-align: center;
-`;
-
-export const rankingInfo = css`
-  
-`;
-
-export const myRankTitle = css`
-  // font-size: 1.4rem;
-  color: #555;
-  margin-bottom: 1rem;
-`;
-
-export const myRankNumber = css`
-  // font-size: 2rem;
-  // font-weight: bold;
-  color: black;
-  margin-bottom: 0.5rem;
-`;
-
-export const myRankSub = css`
-  // font-size: 1.2rem;
-  // font-weight: bold;
-  color: #333;
-`;
-
-export const saveButton = css`
-  position: absolute;
-  top: 3rem;
-  right: 2rem;
-  background: #111111;
-  color: #ffffff;
-  // font-size: 1.2rem;
-  // font-weight: 600;
-  border: none;
-  border-radius: 0.6rem;
-  padding: 0.8rem 3rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-  :hover {
-    background: #333333;
-  }
-`;
 
 export const field = css`
   position: relative;
@@ -171,8 +117,8 @@ export const label = css`
 `;
 
 export const value = css`
-  // font-size: 1.2rem;
   flex: 1;
+  height: 3.667rem;
   color: #111111;
   padding: 0.8rem 1rem;
   background: #f9f9f9;
@@ -180,28 +126,9 @@ export const value = css`
   border-radius: 0.6rem;
 `;
 
-export const input = css`
-  flex: 1;
-  // font-size: 1.2rem;
-  // font-weight: bold;
-  padding: 0.8rem 1rem;
-  border: 0.1rem solid #e5e5e5;
-  border-radius: 0.6rem;
-  // font-size: 1rem;
-  background: #fff;
-  color: #111;
-  height: 2rem;
-
-  &:focus {
-    outline: none;
-    border-color: #111;
-  }
-`;
-
 export const inputRow = css`
   display: flex;
   align-items: center;
-  gap: 1rem;
   width: 100%;
 `;
 
@@ -211,28 +138,8 @@ export const checkButtonWrapper = css`
   padding-bottom: 0.1rem;
 `;
 
-export const checkButton = css`
-  // font-size: 1.3rem;
-  // font-weight: bold;
-  padding: 0.8rem 1.6rem;
-  background: #dbdbdb;
-  color: #000;
-  border: none;
-  border-radius: 0.6rem;
-  // font-size: 1.4rem;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  height: 3.6rem;
-
-  :hover {
-    background: #acababff;
-  }
-`;
-
-export const phoneinput = css`
-  // font-size: 1.2rem;
-  // font-weight: bold;
+export const input = css`
+  flex: 1;
   padding: 1rem 1rem;
   border: 0.1rem solid #e5e5e5;
   border-radius: 0.6rem;
@@ -247,24 +154,16 @@ export const phoneinput = css`
 `;
 
 export const subText = css`
-  // font-size: 0.9rem;
+  padding-left: 1rem;
+  font-size: 1rem;
   color: #5f5f5f;
-`;
-
-export const nicknameErrMsg = css`
-  position: absolute;
-  bottom: -2.8rem;
-  left: 1rem;
-  // font-size: 1rem;
-  color: red;
-  white-space: nowrap;
 `;
 
 export const errMsg = css`
   position: absolute;
   bottom: -2.8rem;
   left: 1rem;
-  // font-size: 1rem;
-  color: red;
+  font-size: 1rem;
+  color: var(--point-color);
   white-space: nowrap;
 `;

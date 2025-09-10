@@ -9,7 +9,7 @@ export const searchBox = css`
 `;
 
 export const searchInput = css`
-  height: 3.425rem;
+  height: 3.667rem;
   box-sizing: border-box;
   padding: 0.8rem;
   border: 0.1rem solid var(--main-color);
@@ -20,7 +20,7 @@ export const searchInput = css`
 
 export const searchButton = css`
   display: flex;
-  height: 3.425rem;
+  height: 3.667rem;
   box-sizing: border-box;
   padding: 0.5rem 0.5rem;
   border: 0.1rem solid var(--main-color);

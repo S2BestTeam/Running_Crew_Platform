@@ -34,6 +34,7 @@ export const mainText = css`
   text-align: center;
 
   & > div:nth-of-type(1) {
+    font-size: 1.6rem;
     margin-bottom: 1rem;
   }
 
