@@ -179,21 +179,11 @@ export const title = css`
 `;
 
 export const time = css`
-<<<<<<< HEAD
-  font-size: 1rem;
-  color: #5f5f5f;
-`;
-
-export const place = css`
-  font-size: 1rem;
-  color: #5f5f5f;
-=======
   color: #4b5563;
 `;
 
 export const place = css`
   color: #4b5563;
->>>>>>> origin/131-css-정리중
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -206,12 +196,7 @@ export const meta = css`
 `;
 
 export const cost = css`
-<<<<<<< HEAD
-  font-size: 1rem;
-  color: #5f5f5f;
-=======
   color: #4b5563;
->>>>>>> origin/131-css-정리중
 `;
 
 export const participants = css`
@@ -222,11 +207,7 @@ export const participants = css`
 
 export const fontSetting = css`
   padding-left: 0.4rem;
-<<<<<<< HEAD
-  color: #5f5f5f;
-=======
   color: #4b5563;
->>>>>>> origin/131-css-정리중
 `;
 
 export const participantImg = css`

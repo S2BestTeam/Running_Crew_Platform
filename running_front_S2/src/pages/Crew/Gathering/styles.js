@@ -56,13 +56,10 @@ export const gatheringInfoContainer = css`
   }
 
   & > div:nth-of-type(1) {
-<<<<<<< HEAD
-=======
     text-align: left;
     padding-bottom: 1rem;
     font-size: 1.8rem;
     font-weight: 700;
->>>>>>> origin/131-css-정리중
   }
 `;
 
