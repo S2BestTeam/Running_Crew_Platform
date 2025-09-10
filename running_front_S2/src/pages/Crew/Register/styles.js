@@ -11,50 +11,12 @@ export const imageOverlay = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  // font-size: 1.2rem;
-  // font-weight: 500;
   opacity: 0;
   transition: opacity 0.2s ease;
 `;
 
 export const mainBox = css`
   width: 100%;
-`;
-
-export const settingHeader = css`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-  padding: 1rem 0;
-`;
-
-export const settingTitle = css`
-  // font-size: 2.5rem;
-  // font-weight: bold;
-  margin: 0;
-  color: #333;
-`;
-
-export const saveButton = css`
-  padding: 1rem 2rem;
-  background-color: #000;
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  // font-size: 1rem;
-  // font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-
-  &:hover:not(:disabled) {
-    background-color: #333;
-  }
-
-  &:disabled {
-    background-color: #999;
-    cursor: not-allowed;
-  }
 `;
 
 export const profileImageOverlay = css`
@@ -68,8 +30,6 @@ export const profileImageOverlay = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  // font-size: 0.9rem;
-  // font-weight: 500;
   opacity: 0;
   transition: opacity 0.2s ease;
   border-radius: 50%;
@@ -87,9 +47,36 @@ export const field = css`
 `;
 
 export const label = css`
-  // font-size: 1.4rem;
-  // font-weight: bold;
+  font-weight: bold;
   color: #333;
+`;
+
+export const selectBox = css`
+  width: 11rem;
+  height: 3.425rem;
+  padding: 0.24rem 0.48rem;
+  border-radius: 0.4rem;
+  font-size: 1.2rem;
+  background-color: #fff;
+  color: #333;
+
+  .MuiOutlinedInput-notchedOutline {
+    border-color: #ccc;
+  }
+  &:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #333;
+  }
+  &.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: var(--main-color) !important;
+  }
+`;
+
+export const menuItem = css`
+  font-size: 1.2rem;
+  background-color: #fff !important;
+  &:hover {
+    background-color: var(--hB-color) !important;
+  }
 `;
 
 export const checkName = css`
@@ -102,7 +89,6 @@ export const checkName = css`
 export const input = css`
   flex: 1;
   padding: 1rem;
-  // font-size: 1.4rem;
   border: 0.1rem solid #ddd;
   border-radius: 0.5rem;
   outline: none;
@@ -117,17 +103,6 @@ export const input = css`
   }
 `;
 
-export const subButton = css`
-  flex-shrink: 0;
-  border: none;
-  padding: 0.8rem 1.2rem;
-  background: #000;
-  color: white;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  white-space: nowrap;
-`;
-
 export const numberInputContainer = css`
   display: flex;
   align-items: center;
@@ -136,7 +111,6 @@ export const numberInputContainer = css`
 
 export const numberInput = css`
   padding: 1rem;
-  // font-size: 1.4rem;
   border: 0.1rem solid #ddd;
   border-radius: 0.5rem;
   outline: none;
@@ -148,22 +122,10 @@ export const numberInput = css`
   }
 `;
 
-export const inputHint = css`
-  // font-size: 1.2rem;
-  color: #666;
-`;
-
-export const errorMsg = css`
-  color: #e74c3c;
-  // font-size: 1.2rem;
-  margin-top: 0.5rem;
-`;
-
 export const quillWrapper = css`
   padding-bottom: 3rem;
   .ql-editor {
     min-height: 15rem;
-    // font-size: 1.4rem;
   }
   
   .ql-toolbar {
@@ -183,93 +145,14 @@ export const quillWrapper = css`
   }
 `;
 
-export const memberSection = css`
-  background-color: #fff;
-  border: 0.1rem solid #dbdbdb;
-  border-radius: 0.5rem;
-  padding: 2rem;
-  margin-bottom: 2rem;
-`;
-
-export const sectionTitle = css`
-  // font-size: 1.8rem;
-  // font-weight: bold;
-  color: #333;
-  margin: 0 0 1.5rem 0;
-`;
-
-export const memberContainer = css`
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  margin: 1rem 0;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-`;
-
-export const memberBox = css`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  border: 0.1rem solid #eee;
-  border-radius: 0.5rem;
-  background-color: #fafafa;
-  transition: all 0.2s ease;
-
-  &:hover {
-    background-color: #f0f0f0;
-    border-color: #ddd;
-  }
-`;
-
-export const memberImg = css`
-  width: 4rem;
-  height: 4rem;
-  border-radius: 50%;
-  overflow: hidden;
-  background-color: #e0e0e0;
-  flex-shrink: 0;
-
-  & > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-`;
-
-export const memberInfo = css`
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  flex: 1;
-`;
-
-export const memberName = css`
-  // font-size: 1.4rem;
-  // font-weight: bold;
-  color: #333;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`;
-
-export const memberStatus = css`
-  // font-size: 1.2rem;
-  color: #666;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`;
-
 export const mainLine = css`
   padding-left: 1rem;
 `;
 
 export const fontBold = css`
-  // font-weight: bold;
-  // font-size: 2rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-top: 2rem;
 `;
 
 export const titleBox = css`
@@ -315,7 +198,6 @@ export const crewInfoSection = css`
   padding: 3rem 2rem 0.2rem;
   background-color: #fff;
   border-bottom: 1px solid #ddd;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -333,6 +215,7 @@ export const profilePicture = css`
   background-color: #f0f0f0;
   cursor: pointer;
   transition: transform 0.2s ease;
+  font-size: 1rem;
 
   &:hover {
     transform: translateY(-2px);
@@ -361,13 +244,10 @@ export const crewTextBox = css`
   justify-content: center;
 
   h2 {
-    // font-size: 2rem;
-    // font-weight: bold;
     margin: 0;
   }
 
   p {
-    // font-size: 1.4rem;
     color: #555;
   }
 `;
@@ -389,18 +269,4 @@ export const gungu = css`
   padding-left: 1rem;
   margin-right: 1rem;
   background-color: #f0f0f0;
-`;
-
-export const Button = css`
-  margin-top: 4rem;
-  padding: 0.8rem 2rem;
-  background-color: black;
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #333;
-  }
 `;

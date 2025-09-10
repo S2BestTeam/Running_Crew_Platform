@@ -2,11 +2,10 @@
 import * as s from "./styles";
 
 function RankingCard({ data, rank, type, mode }) {
-  // rank 아이콘
   const getRankIcon = (rank) => {
-    if (rank === 1) return <h2 style={{fontSize: '2rem'}}>🥇</h2>;
-    if (rank === 2) return <h3 style={{fontSize: '1.6rem'}}>🥈</h3>;
-    if (rank === 3) return <h4 style={{fontSize: '1.2rem'}}>🥉</h4>;
+    if (rank === 1) return <p style={{fontSize: '2.2rem'}}>🥇</p>;
+    if (rank === 2) return <p style={{fontSize: '2.2rem'}}>🥈</p>;
+    if (rank === 3) return <p style={{fontSize: '2.2rem'}}>🥉</p>;
     return `${rank}위`;
   };
 
@@ -49,7 +48,7 @@ function RankingCard({ data, rank, type, mode }) {
               css={s.avatar}
             />
             <div>
-              <h3 css={s.crewName}>{data.crewName}</h3>
+              <p css={s.crewName}>{data.crewName}</p>
               <p css={s.crewLocation}>{data.gunguName}</p>
             </div>
           </>
@@ -61,10 +60,8 @@ function RankingCard({ data, rank, type, mode }) {
               css={s.avatar}
             />
             <div>
-              <h3 css={s.crewName}>{data.nickname || data.fullName}</h3>
-              <p css={s.crewLocation}>
-                {data.gender === 1 ? "남성" : data.gender === 2 ? "여성" : ""}
-              </p>
+              <p css={s.crewName}>{data.nickname || data.fullName}</p>
+              <p css={s.crewLocation}>{data.fullName}</p>
             </div>
           </>
         )}

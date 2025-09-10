@@ -104,8 +104,6 @@ export const nickname = css`
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  // font-weight: 700;
-  // font-size: 1.5rem;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -114,8 +112,8 @@ export const nickname = css`
 
 export const fullName = css`
   align-self: flex-start;
-  color: #888;
-  // font-size: 1.3rem;
+  color: #5f5f5f;
+  font-size: 1.2rem;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -11,14 +11,16 @@ export const imageOverlay = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  // font-size: 1.2rem;
-  // font-weight: 500;
   opacity: 0;
   transition: opacity 0.2s ease;
 `;
 
 export const mainBox = css`
   width: 100%;
+
+  & > h2 {
+    text-align: center;
+  }
 `;
 
 export const settingHeader = css`
@@ -30,31 +32,8 @@ export const settingHeader = css`
 `;
 
 export const settingTitle = css`
-  // font-size: 2.5rem;
-  // font-weight: bold;
   margin: 0;
   color: #333;
-`;
-
-export const saveButton = css`
-  padding: 0.5rem 1.6rem;
-  background-color: #000;
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  // font-size: 1.5rem;
-  // font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-
-  &:hover:not(:disabled) {
-    background-color: #333;
-  }
-
-  &:disabled {
-    background-color: #999;
-    cursor: not-allowed;
-  }
 `;
 
 export const profileImageOverlay = css`
@@ -68,8 +47,6 @@ export const profileImageOverlay = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  // font-size: 0.9rem;
-  // font-weight: 500;
   opacity: 0;
   transition: opacity 0.2s ease;
   border-radius: 50%;
@@ -78,8 +55,8 @@ export const profileImageOverlay = css`
 export const field = css`
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  margin-bottom: 2rem;
+  gap: 1.6rem;
+  margin-top: 2rem;
 
   &:last-child {
     margin-bottom: 0;
@@ -87,8 +64,8 @@ export const field = css`
 `;
 
 export const label = css`
-  // font-size: 1.4rem;
-  // font-weight: bold;
+  font-size: 1.6rem;
+  font-weight: bold;
   color: #333;
 `;
 
@@ -102,7 +79,6 @@ export const checkName = css`
 export const input = css`
   flex: 1;
   padding: 1rem;
-  // font-size: 1.4rem;
   border: 0.1rem solid #ddd;
   border-radius: 0.5rem;
   outline: none;
@@ -115,17 +91,6 @@ export const input = css`
   &::placeholder {
     color: #999;
   }
-`;
-
-export const subButton = css`
-  flex-shrink: 0;
-  border: none;
-  padding: 0.8rem 1.2rem;
-  background: #000;
-  color: white;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  white-space: nowrap;
 `;
 
 export const numberInputContainer = css`
@@ -149,13 +114,12 @@ export const numberInput = css`
 `;
 
 export const inputHint = css`
-  // font-size: 1.2rem;
   color: #666;
 `;
 
 export const errorMsg = css`
   color: #e74c3c;
-  // font-size: 1.2rem;
+  font-size: 1.2rem;
   margin-top: 0.5rem;
 `;
 
@@ -163,7 +127,6 @@ export const quillWrapper = css`
   padding-bottom: 3rem;
   .ql-editor {
     min-height: 15rem;
-    // font-size: 1.4rem;
   }
   
   .ql-toolbar {
@@ -192,8 +155,6 @@ export const memberSection = css`
 `;
 
 export const sectionTitle = css`
-  // font-size: 1.8rem;
-  // font-weight: bold;
   color: #333;
   margin: 0 0 1.5rem 0;
 `;
@@ -247,8 +208,6 @@ export const memberInfo = css`
 `;
 
 export const memberName = css`
-  // font-size: 1.4rem;
-  // font-weight: bold;
   color: #333;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -268,8 +227,9 @@ export const mainLine = css`
 `;
 
 export const fontBold = css`
-  // font-weight: bold;
-  // font-size: 2rem;
+  font-size: 2rem;
+  margin-top: 2rem;
+  font-weight: bold;
 `;
 
 export const titleBox = css`

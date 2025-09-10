@@ -34,13 +34,12 @@ export const selectGroup = css`
 
 export const selectBox = css`
   width: 14rem;
-  height: 3.425rem;
+  height: 3.667rem;
   padding: 0.24rem 0.48rem;
-  // font-size: 0.76rem;
   border-radius: 0.4rem;
   background-color: #fff;
   color: #333;
-  // font-size: 1.4rem;
+  font-size: 1.2rem;
 
   .MuiOutlinedInput-notchedOutline {
     border-color: #ccc;
@@ -54,7 +53,7 @@ export const selectBox = css`
 `;
 
 export const menuItem = css`
-  // font-size: 1.4rem;
+  font-size: 1.2rem;
 `;
 
 export const searchGroup = css`
@@ -68,7 +67,7 @@ export const asd = css`
 `;
 
 export const searchInput = css`
-  height: 3.425rem;
+  height: 3.667rem;
   box-sizing: border-box;
   padding: 0.8rem;
   border: 0.1rem solid var(--main-color);
@@ -79,7 +78,7 @@ export const searchInput = css`
 
 export const searchButton = css`
   display: flex;
-  height: 3.425rem;
+  height: 3.667rem;
   box-sizing: border-box;
   padding: 0.5rem 0.5rem;
   border: 0.1rem solid var(--main-color);

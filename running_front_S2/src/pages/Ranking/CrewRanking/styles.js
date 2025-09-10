@@ -8,6 +8,18 @@ export const headerlayout = css`
   gap: 1rem;
 `;
 
+export const head = css`
+  text-align: center;
+`;
+
+export const headFont = css`
+  margin: 0;
+  color: gray;
+  padding-left: 2rem;
+  text-align: left;
+`;
+
+
 export const moreButton = css`
   border: none;
   border-radius: 1rem;
@@ -23,30 +35,34 @@ export const moreButton = css`
 `;
 
 export const layout = css`
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0 1.5rem;
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
   gap: 5rem;
-  padding: 1.5rem;
 `;
 
 export const section = css`
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  width: 40rem;
   gap: 1rem;
   padding-bottom: 3rem;
 `;
 
 export const sectionTitle = css`
-  // font-size: 1.25rem;
-  // font-weight: 700;
+  font-size: 1.5rem;
+  font-weight: bold;
   margin-bottom: 0.5rem;
 `;
 
 export const rankingList = css`
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
 `;
 
 export const notice = css`
@@ -57,20 +73,19 @@ export const notice = css`
 
 export const cardDiv = css`
   cursor: pointer;
+  padding-bottom: 1rem;
 `;
 
-// RankingCard
 export const card = (rank) => css`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
   border-radius: 0.5rem;
   background: white;
-  margin-bottom: 1rem;
+  padding: 0.6rem;
 
   :hover {
-    transform: scale(1.1);
+    transform: scale(1);
     ${rank === 1 &&
     `box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9);`}
     
@@ -86,7 +101,6 @@ export const card = (rank) => css`
 `;
 
 export const rankBadge = css`
-  // font-size: 1rem;
   width: 3rem;
   text-align: center;
   padding-right: 1rem;
@@ -95,7 +109,7 @@ export const rankBadge = css`
 export const crewInfo = css`
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.4rem;
   flex: 1;
 `;
 
@@ -108,13 +122,14 @@ export const avatar = css`
 `;
 
 export const crewName = css`
-  // font-size: 1rem;
-  // font-weight: 600;
+  font-weight: bold;
+  margin: 0 0 0.5rem 0;
 `;
 
 export const crewLocation = css`
-  // font-size: 0.875rem;
-  color: #777;
+  font-size: 1.2rem;
+  margin: 0;
+  color: #555;
 `;
 
 export const crewStats = css`
@@ -126,11 +141,10 @@ export const crewStats = css`
 `;
 
 export const mainStat = css`
-  // font-size: 1rem;
-  // font-weight: 700;
+  font-weight: bold;
 `;
 
 export const subStat = css`
-  // font-size: 0.75rem;
+  font-size: 1.2rem;
   color: #555;
 `;

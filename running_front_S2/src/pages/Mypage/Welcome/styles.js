@@ -54,3 +54,34 @@ export const button = css`
     background: #acababff;
   }
 `;
+
+export const tdActionsStyle = css`
+  display: flex;
+  text-align: center;
+  gap: 8px;
+  padding: 2rem;
+  border-bottom: 1px solid #eee;
+  justify-content: center;
+`;
+
+export const actionButtonStyle = css`
+  padding: 0.6rem 1.6rem;
+  border: 0.1rem solid var(--main-color);
+  background: #fff;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-right: 1rem;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+`;
+
+export const expelButtonStyle = css`
+  ${actionButtonStyle};
+  background: var(--main-color);
+  color: white;
+  border: none;
+`;

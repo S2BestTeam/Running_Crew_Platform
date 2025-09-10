@@ -33,7 +33,7 @@ const fmtDistances = (value) => {
   return pretty.join(", ");
 };
 
-export default function MarathonDetail() {
+function CompetitionDetail(props) {
   const { marathonId } = useParams();
   const { state } = useLocation();
   const navigate = useNavigate();
@@ -128,3 +128,5 @@ export default function MarathonDetail() {
     </div>
   );
 }
+
+export default CompetitionDetail;

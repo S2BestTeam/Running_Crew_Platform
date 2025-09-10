@@ -11,6 +11,7 @@ import { useGetGatheringsQuery } from '../../../queries/Crew/Gathering/useGetGat
 import { IoTimeSharp, IoLocation } from "react-icons/io5";
 import { FaWonSign } from "react-icons/fa6";
 import { IoIosArrowForward } from "react-icons/io";
+import Button from '../../../components/Button/Button';
 
 function CrewInfo() {
   const principal = usePrincipalQuery();
@@ -130,13 +131,12 @@ function CrewInfo() {
             </div>
           </div>
           {!isCrewMember && (
-            <button
-              css={s.Button}
+            <Button
               onClick={() => setIsOpen(true)}
               disabled={isPending || countMember >= crew?.limitedPeople}
             >
               {countMember >= crew?.limitedPeople ? "정원마감" : isPending ? "처리중" : "크루가입"}
-            </button>
+            </Button>
           )}
           {isOpen && (
             <WelcomeRegModal
@@ -150,7 +150,7 @@ function CrewInfo() {
 
       <div css={s.mainLine}>
         <div>
-          <h2 css={s.fontBold}>한줄 소개</h2>
+          <p css={s.fontBold}>한줄 소개</p>
           <div>{crew?.title}</div>
           <h2 css={s.fontBold}>크루 소개</h2>
           <div dangerouslySetInnerHTML={{ __html: crew?.content }} />

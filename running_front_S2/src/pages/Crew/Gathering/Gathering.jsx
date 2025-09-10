@@ -15,6 +15,8 @@ import { useCrewStore } from "../../../stores/useCrewStroes";
 import GatheringDetailModal from "./GatheringDetailModal/GatheringDetailModal";
 import * as s from "./styles";
 import { IoSearch } from "react-icons/io5";
+import Button from "../../../components/Button/Button";
+import SearchBox from "../../../components/SearchBox/SearchBox";
 
 function Gathering() {
   const { crewId } = useCrewStore();
@@ -43,7 +45,6 @@ function Gathering() {
       p.set("searchText", searchInput);
       return p;
     });
-    // membersQuery.refetch(); // 필요시 활성화
   };
   const handleSearchOnChange = (e) => setSearchInput(e.target.value);
   const handleSearchOnKeyDown = (e) => {
@@ -65,7 +66,7 @@ function Gathering() {
         const gatheringDateTime = new Date(`${g.runningDate}T${g.runningTime}`);
         const diffInMs = now - gatheringDateTime;
         const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
-        return diffInDays <= 3; // 3일 이내만 남김
+        return diffInDays <= 3;
       });
 
       setGatherings(updatedGatherings);
@@ -103,33 +104,14 @@ function Gathering() {
   return (
     <>
       <div css={s.layout}>
-        <header>
-          <h2>정모 일정</h2>
-        </header>
-        <div css={s.headerContainer}>
-          <div css={s.searchBar}>
-            <input
-              type="text"
-              placeholder="검색어를 입력하세요."
-              value={searchInput}
-              onChange={handleSearchOnChange}
-              css={s.searchInput}
-              onKeyDown={handleSearchOnKeyDown}
-            />
-            <button css={s.searchButton} onClick={handleSearchOnClick}>
-              <IoSearch />
-            </button>
-          </div>
-          <div css={s.registerBtn}>
-            {isCrewMember && (
-              <button
-                onClick={() => navigate(`/crews/${crewId}/gathering/register`)}
-              >
-                일정 등록
-              </button>
-            )}
-          </div>
-        </div>
+        <h2>정모 일정</h2>
+        <SearchBox value={searchInput} onChange={setSearchInput} onSearch={handleSearchOnClick}>
+          {isCrewMember && (
+            <Button onClick={() => navigate(`/crews/${crewId}/gathering/register`)}>
+              일정 등록
+            </Button>
+          )}
+        </SearchBox>
 
         <main
           css={[

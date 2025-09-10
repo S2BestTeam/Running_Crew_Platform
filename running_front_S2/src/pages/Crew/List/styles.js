@@ -14,13 +14,12 @@ export const headerBox = css`
 
 export const selectBox = css`
   width: 11rem;
-  height: 3.425rem;
+  height: 3.667rem;
   padding: 0.24rem 0.48rem;
-  // font-size: 0.76rem;
   border-radius: 0.4rem;
   background-color: #fff;
   color: #333;
-  // font-size: 1.4rem;
+  font-size: 1.2rem;
 
   .MuiOutlinedInput-notchedOutline {
     border-color: #ccc;
@@ -34,7 +33,8 @@ export const selectBox = css`
 `;
 
 export const menuItem = css`
-  background-color: #ffffff !important;
+  font-size: 1.2rem;
+  background-color: #fff !important;
   &:hover {
     background-color: var(--hB-color) !important;
   }
@@ -44,59 +44,12 @@ export const headerContainer = css`
   display: flex;
 `;
 
-export const inputGroup = css`
-  display: flex;
-    margin-right: 0.5rem;
-  &:focus {
-    padding: 0.8rem;
-    border: 0.25rem solid var(--main-color);
-    border-right: none;
-  }
-`;
-
-export const searchInput = css`
-  height: 3.425rem;
-  box-sizing: border-box;
-  padding: 0.8rem;
-  border: 0.1rem solid var(--main-color);
-  border-right: none;
-  border-radius: 0.6rem 0 0 0.6rem;
-  outline: none;
-`;
-
-export const searchButton = css`
-  display: flex;
-  height: 3.425rem;
-  box-sizing: border-box;
-  padding: 0.5rem 0.5rem;
-  border: 0.1rem solid var(--main-color);
-  border-left: none;
-  background: #fff;
-  color: var(--main-color);
-  border-radius: 0 0.6rem 0.6rem 0;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const registerButton = css`
-  width: auto;
-  padding: 0.6rem 1.2rem;
-  background: #000;
-  color: white;
-  border: none;
-  border-radius: 0.6rem;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-`;
-
 export const gridBox = css`
   display: grid;
   width: 100%;
   grid-template-columns: repeat(5, 1fr);
   gap: 3rem 3rem;
-  margin: 3rem 0;
+  margin: 1rem 0;
 `;
 
 export const cards = css`
@@ -144,27 +97,22 @@ export const textBox = css`
 `;
 
 export const gungu = css`
+  font-size: 1.2rem;
   color: #7b7b7b;
   padding: 0.6rem 0 0.6rem 0;
-  // font-size: 1.4rem;
-  // font-weight: 500;
 `;
 
 export const crewName = css`
-  // font-weight: bold;
   margin-right: 0.5rem;
-  // font-size: 1.7rem;
 `;
 
 export const crewTitle = css`
-  // font-size: 1.7rem;
   color: #333;
 `;
 
 export const rankingBox = css`
   display: flex;
   padding: 0.5rem;
-  // font-weight: 500;
   color: #fff;
   gap: 0.5rem;
   margin-top: 0.5rem;
