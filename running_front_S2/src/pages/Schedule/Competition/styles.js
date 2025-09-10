@@ -78,13 +78,13 @@ export const grid = css`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 2.5rem;
-
+/* 
   @media (max-width: 102.4rem) {
     grid-template-columns: repeat(2, 1fr);
   }
   @media (max-width: 64rem) {
     grid-template-columns: 1fr;
-  }
+  } */
 `;
 
 export const card = css`
