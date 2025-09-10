@@ -18,6 +18,16 @@ jobs:
         github.ref_name == 'deploy_dajeong' && secrets.DOCKER_PASSWORD_DAJEONG ||
         github.ref_name == 'deploy_sunyoung' && secrets.DOCKER_PASSWORD_SUNYOUNG
         }}
+      APPLICATION_SECRET: ${{
+        github.ref_name == 'deploy_jinwo' && secrets.APPLICATION_SECRET_JINWO ||
+        github.ref_name == 'deploy_dajeong' && secrets.APPLICATION_SECRET_DAJEONG ||
+        github.ref_name == 'deploy_sunyoung' && secrets.APPLICATION_SECRET_SUNYOUNG
+        }}
+      REACT_ENV: ${{
+        github.ref_name == 'deploy_jinwo' && secrets.REACT_ENV_JINWO ||
+        github.ref_name == 'deploy_dajeong' && secrets.REACT_ENV_DAJEONG ||
+        github.ref_name == 'deploy_sunyoung' && secrets.REACT_ENV_SUNYOUNG
+        }}
     steps:
       - name: checkout
         uses: actions/checkout@v5
