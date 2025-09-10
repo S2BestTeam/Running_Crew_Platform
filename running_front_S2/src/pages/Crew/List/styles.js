@@ -33,8 +33,8 @@ export const selectBox = css`
 `;
 
 export const menuItem = css`
-  font-size: 1.2rem;
-  background-color: #fff !important;
+font-size: 1.2rem;
+  background-color: #ffffff !important;
   &:hover {
     background-color: var(--hB-color) !important;
   }
@@ -104,10 +104,13 @@ export const gungu = css`
 
 export const crewName = css`
   margin-right: 0.5rem;
+  font-weight: 700;
+  font-size: 1.5rem;
 `;
 
 export const crewTitle = css`
-  color: #333;
+  color: var(--main-color);
+  font-size: 1.5rem;
 `;
 
 export const rankingBox = css`

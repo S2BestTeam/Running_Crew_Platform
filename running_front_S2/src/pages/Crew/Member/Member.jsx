@@ -8,7 +8,9 @@ import useMembersQuery from "../../../queries/User/useMembersQuery";
 import usePrincipalQuery from "../../../queries/User/usePrincipalQuery";
 import ReportModal from "../Report/ReportModal/ReportModal";
 import MemberModal from "./MemberModal/MemberModal";
+import { FaStar } from "react-icons/fa";
 import * as s from "./styles";
+import { RiStarFill, RiVipCrownFill } from "react-icons/ri";
 
 function Member() {
   const { crewId } = useParams();
@@ -111,9 +113,9 @@ function Member() {
 
                   <div css={s.textBox}>
                     <div css={s.nickname}>
+                      {m.roleId === 1 && <span css={s.roleIcon1}><RiVipCrownFill /></span>}
+                      {m.roleId === 2 && <span css={s.roleIcon2}><RiStarFill /></span>}
                       {m.user.nickname}
-                      {m.roleId === 1 && <span css={s.roleIcon}>👑</span>}
-                      {m.roleId === 2 && <span css={s.roleIcon}>⭐</span>}
                     </div>
                     <div css={s.fullName}>{m.user.fullName}</div>
                   </div>

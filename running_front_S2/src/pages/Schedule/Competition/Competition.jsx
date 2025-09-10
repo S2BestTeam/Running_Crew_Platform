@@ -100,7 +100,7 @@ function Competition(props) {
                 const img = pick(m, "imageUrl", "image_url") || (m?.bgImageUrls && String(m.bgImageUrls).split(",")[0]) || "";
 
                 return (
-                  <div css={s.card} key={marathonId} onClick={() => navigate(`/marathons/${marathonId}`, { state: { marathon: m } })}>
+                  <div css={s.card} key={marathonId} onClick={() => navigate(`/competition/${marathonId}`, { state: { marathon: m } })}>
                     <div css={s.thumb}>{img ? <img src={img} alt={title} /> : <div css={s.thumbFallback} />}</div>
                     <div css={s.cardBody}>
                       <div css={s.locationSmall}>{m?.location ?? ""}</div>

@@ -13,7 +13,7 @@ export const header = css`
 
 export const logo = css`
   font-size: 2rem;
-  // font-weight: 600;
+  font-weight: 700;
   color: #fff;
   flex-shrink: 0;
   cursor: pointer;
