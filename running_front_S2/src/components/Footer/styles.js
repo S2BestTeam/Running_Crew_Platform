@@ -1,17 +1,15 @@
 import { css } from "@emotion/react";
 
 export const footer = css`
-  padding: 5rem 1.5rem;
-  text-align: center;
-  width: 100%;
+  padding: 6rem;
+  /* width: 100%; */
   background-color: #1f1f21;
   color: #a6a6a6;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2.5rem;
-  font-size: 1.4rem;
-  box-shadow: inset 0 1px 0 #333; 
+  gap: 1rem;
+  font-size: 1.2rem;
 `;
 
 export const links = css`
@@ -21,12 +19,11 @@ export const links = css`
   a {
     color: #a6a6a6;
     text-decoration: none;
-    font-weight: 500;
+    /* font-weight: 400; */
     transition: color 0.2s, text-shadow 0.2s;
 
     &:hover {
       color: #fff;
-      text-shadow: 0 0 2px #fff;
     }
   }
 
@@ -54,15 +51,27 @@ export const socialIcons = css`
 `;
 
 export const contact = css`
-  line-height: 1.6;
-  font-size: 1.3rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  font-size: 1.2rem;
 
   div {
-    margin: 0.2rem 0;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
   }
 `;
 
 export const copyright = css`
-  font-size: 1.2rem;
-  border-top: 1px solid #333;
-  `;
+  font-size: 1.1rem;
+  opacity: 0.7;
+  border-top: 0.1rem solid #333;
+  padding-top: 1rem;
+  text-align: center;
+`;

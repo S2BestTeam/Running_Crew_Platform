@@ -23,15 +23,10 @@ export const modalStyles = {
 };
 
 export const headerStyle = css`
-<<<<<<< HEAD
-  padding: 12px 16px;
-  border-bottom: 1px solid #eee;
-  // font-weight: 700;
-=======
   padding: 1.2rem 1.6rem;
+  font-size: 1.4rem;
   border-bottom: 0.1rem solid #eee;
   font-weight: 700;
->>>>>>> origin/128-세부내용-수정
 `;
 
 export const contentStyle = css`
@@ -39,6 +34,7 @@ export const contentStyle = css`
 `;
 
 export const nicknameStyle = css`
+  font-size: 1.2rem;
   margin-bottom: 0.8rem;
 `;
 
@@ -62,12 +58,7 @@ export const cancleButton = css`
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
-<<<<<<< HEAD
-  // font-weight: 500;
-  transition: background-color 0.2s ease;
-=======
   font-weight: 500;
->>>>>>> origin/128-세부내용-수정
 
 `;
 
@@ -78,14 +69,5 @@ export const reportButton = css`
   border: 0.1rem solid var(--main-color);
   border-radius: 0.5rem;
   cursor: pointer;
-<<<<<<< HEAD
-  // font-weight: 500;
-  transition: background-color 0.2s ease;
-
-  &:hover {
-    background: #218838;
-  }
-=======
   font-weight: 500;
->>>>>>> origin/128-세부내용-수정
 `;

@@ -16,6 +16,7 @@ function UserRanking(props) {
   const myTotalKmRank = rankings?.totalKmRanking?.findIndex(user => {
     return user.userId === userId;
   });
+  console.log(rankings);
   
   const myGatheringRank = rankings?.gatheringCount?.findIndex(user => user.userId === userId);
 
@@ -34,14 +35,11 @@ function UserRanking(props) {
 
   return (
     <MainContainer>
-      <div css={s.headerlayout}>
-        <div css={s.notice}>
-          <h1><FaStar style={{fontSize: '1.5rem'}}/> 랭킹은 매일 자정 마다 자동 갱신됩니다. </h1>
-        </div>
-      </div>
+      <h2 css={s.head}>유저 랭킹</h2>
+      <p css={s.headFont}><FaStar style={{color: "gray"}}/> 랭킹은 매일 자정 마다 자동 갱신됩니다. </p>
       <div css={s.layout}>
         <section css={s.section}>
-          <h2 css={s.sectionTitle}>🏃‍♂️ 총 거리 랭킹</h2>
+          <p css={s.sectionTitle}>🏃‍♂️ 총 거리 랭킹</p>
           <div css={s.rankingList}>
             {
               rankings?.totalKmRanking?.slice(0, 10).map((user, index) => (
@@ -59,7 +57,7 @@ function UserRanking(props) {
         </section>
 
         <section css={s.section}>
-          <h2 css={s.sectionTitle}>👥 정모 참여 횟수</h2>
+          <p css={s.sectionTitle}>👥 정모 참여 횟수</p>
           <div css={s.rankingList}>
             {
               rankings?.gatheringCount?.slice(0, 10).map((user, index) => (
@@ -76,7 +74,7 @@ function UserRanking(props) {
           </div>
         </section>
 
-        <section>
+        <section css={s.mySection}>
           <h1 css={{ fontSize: '1.5rem', marginBottom: '10px', display: 'flex', justifyContent: 'center' }}>나의 등수</h1>
           <div css={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
             <div css={s.myRankCard}>

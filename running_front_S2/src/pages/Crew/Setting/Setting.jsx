@@ -8,6 +8,7 @@ import usePrincipalQuery from '../../../queries/User/usePrincipalQuery';
 import { reqCheckCrewName, reqCrewProfileUpdate, reqCrewThumbnailUpdate, reqCrewUpdate } from '../../../api/Crew/crewApi';
 import useCrewDetailQuery from '../../../queries/Crew/List/useCrewDetailQuery';
 import { reqGetMemberCount } from '../../../api/Crew/memberApi';
+import Button from '../../../components/Button/Button';
 
 function Setting(props) {
   const principal = usePrincipalQuery();
@@ -241,6 +242,7 @@ function Setting(props) {
 
   return (
     <div css={s.mainBox}>
+      <h2>크루 정보 설정</h2>
       <div css={s.titleBox}>
         <div css={s.banner} onClick={handleThumbnailImgUpdateClick}>
           <div>
@@ -264,75 +266,70 @@ function Setting(props) {
             </div>
           </div>
 
-          <button
-            css={s.saveButton}
+          <Button
             onClick={handleUpdateCrewOnClick}
             disabled={isPending}
           >
             {isPending ? "저장 중..." : "저장"}
-          </button>
+          </Button>
         </div>
       </div>
 
       <div css={s.mainLine}>
-        <div>
-          <p css={s.fontBold}>크루 정보 설정</p>
-
-          <div css={s.field}>
-            <label css={s.label}>크루명</label>
-            <div css={s.checkName}>
-              <input
-                type="text"
-                value={updateCrew.crewName}
-                onChange={handleCrewNameChange}
-                css={s.input}
-                placeholder="크루명을 입력하세요"
-              />
-              <button css={s.subButton} onClick={handleCheckCrewNameOnClick}>
-                중복 확인
-              </button>
-              {errors.crewName && <p css={s.errorMsg}>{errors.crewName}</p>}
-            </div>
-          </div>
-
-          <div css={s.field}>
-            <label css={s.label}>한줄 소개</label>
+        <div css={s.field}>
+          <label css={s.label}>크루명</label>
+          <div css={s.checkName}>
             <input
               type="text"
-              value={updateCrew.title}
-              onChange={handleTitleChange}
+              value={updateCrew.crewName}
+              onChange={handleCrewNameChange}
               css={s.input}
-              placeholder="크루를 한줄로 소개해주세요"
+              placeholder="크루명을 입력하세요"
             />
-            {errors.title && <p css={s.errorMsg}>{errors.title}</p>}
+            <Button onClick={handleCheckCrewNameOnClick}>
+              중복 확인
+            </Button>
+            {errors.crewName && <p css={s.errorMsg}>{errors.crewName}</p>}
           </div>
+        </div>
 
-          <div css={s.field}>
-            <label css={s.label}>최대 인원</label>
-            <div css={s.numberInputContainer}>
-              <input
-                type="number"
-                value={updateCrew.limitedPeople}
-                onChange={handleLimitedPeopleChange}
-                css={s.numberInput}
-                min={countMember}
-                max={100}
-              />
-              <span css={s.inputHint}>현재 멤버: {countMember}명</span>
-            </div>
-            {errors.limitedPeople && <p css={s.errorMsg}>{errors.limitedPeople}</p>}
+        <div css={s.field}>
+          <label css={s.label}>한줄 소개</label>
+          <input
+            type="text"
+            value={updateCrew.title}
+            onChange={handleTitleChange}
+            css={s.input}
+            placeholder="크루를 한줄로 소개해주세요"
+          />
+          {errors.title && <p css={s.errorMsg}>{errors.title}</p>}
+        </div>
+
+        <div css={s.field}>
+          <label css={s.label}>최대 인원</label>
+          <div css={s.numberInputContainer}>
+            <input
+              type="number"
+              value={updateCrew.limitedPeople}
+              onChange={handleLimitedPeopleChange}
+              css={s.numberInput}
+              min={countMember}
+              max={100}
+            />
+            <span css={s.inputHint}>현재 멤버: {countMember}명</span>
           </div>
+          {errors.limitedPeople && <p css={s.errorMsg}>{errors.limitedPeople}</p>}
+        </div>
 
-          <div css={s.field}>
-            <label css={s.label}>크루 소개</label>
-            <div css={s.quillWrapper}>
-              <ReactQuill
-                value={updateCrew.content}
-                onChange={handleContentChange}
-                modules={quillModules}
-                placeholder="크루에 대해 자세히 소개해주세요"
-              />
-            </div>
+        <div css={s.field}>
+          <label css={s.label}>크루 소개</label>
+          <div css={s.quillWrapper}>
+            <ReactQuill
+              value={updateCrew.content}
+              onChange={handleContentChange}
+              modules={quillModules}
+              placeholder="크루에 대해 자세히 소개해주세요"
+            />
           </div>
         </div>
       </div>

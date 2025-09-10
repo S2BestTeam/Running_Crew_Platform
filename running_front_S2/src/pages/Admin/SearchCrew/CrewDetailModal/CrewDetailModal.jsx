@@ -11,6 +11,7 @@ import useGetCrewNoticeQuery from "../../../../queries/Crew/Notice/useGetCrewNot
 import Pagination from "../../../../components/Pagination/Pagination";
 import MessageSendModal from "../MessageModal/MessageSendModal";
 import SearchBox from "../../../../components/SearchBox/SearchBox";
+import Button from "../../../../components/Button/Button";
 
 function CrewDetailModal({ crew, onClose }) {
   if (!crew) return null;
@@ -130,7 +131,7 @@ function CrewDetailModal({ crew, onClose }) {
     <>
       <div css={s.overlay}>
         <div css={s.modal}>
-          <button css={s.messageSendBtn} onClick={() => setMsgOpen(true)}>메세지 보내기</button>
+          <Button css={s.messageSendBtn} onClick={() => setMsgOpen(true)}>메세지 보내기</Button>
           <div css={s.header}>
             <div css={s.headerTop}>
               <img
@@ -355,9 +356,9 @@ function CrewDetailModal({ crew, onClose }) {
           </div>
 
           <div css={s.footer}>
-            <button css={s.closeBtn} onClick={onClose}>
+            <Button onClick={onClose}>
               닫기
-            </button>
+            </Button>
           </div>
         </div>
       </div>

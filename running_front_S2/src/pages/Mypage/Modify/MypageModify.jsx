@@ -5,14 +5,13 @@ import usePrincipalQuery from "../../../queries/User/usePrincipalQuery";
 import { SIGNUP_REGEX, SIGNUP_REGEX_ERROR_MESSAGE } from "../../../constants/signupRegex";
 import { reqCheckNickname, reqUserInfoUpdate, reqUserProfileUpdate } from "../../../api/User/UserApi";
 import useGetUserRankingQuery from "../../../queries/Ranking/useGetUserRankingQuery";
+import Button from "../../../components/Button/Button";
 
 function MypageModify() {
   const { data: rankings } = useGetUserRankingQuery();
   const principalQuery = usePrincipalQuery();
   const userInfo = principalQuery.data?.data?.body?.user;
   const userId = userInfo?.userId;
-  const myTotalKmRank = rankings?.totalKmRanking?.findIndex(user => user.userId === userId);
-  const myGatheringRank = rankings?.gatheringCount?.findIndex(user => user.userId === userId);
   
 
   const [updateUser, setUpdateUser] = useState({
@@ -181,14 +180,15 @@ function MypageModify() {
       {!principalQuery.isLoading && (
         <div css={s.layout}>
           <div css={s.userInfoContainer}>
-            <button
-              css={s.saveButton}
-              onClick={handleUpdateUserOnClick}
-              disabled={ispatch}
-            >
-              {ispatch ? "저장 중..." : "저장"}
-            </button>
-            <div css={s.title}>내 정보 관리</div>
+            <div css={s.titleLine}>
+              <div css={s.title}>내 정보 관리</div>
+              <Button
+                onClick={handleUpdateUserOnClick}
+                disabled={ispatch}
+                >
+                {ispatch ? "저장 중..." : "저장"}
+              </Button>
+              </div>
             <div css={s.profileSection}>
               <div css={s.profileImgBox} onClick={handleProfileImgUpdateClick}>
                 <img src={userInfo?.picture} alt="profile" />
@@ -210,16 +210,15 @@ function MypageModify() {
                     autoFocus
                   />
                 </div>
-                {errors.nickname && <p css={s.nicknameErrMsg}>{errors.nickname}</p>}
+                {errors.nickname && <p css={s.errMsg}>{errors.nickname}</p>}
               </div>
               <div css={s.checkButtonWrapper}>
-                <button
+                <Button
                   onClick={handleNicknameCheck}
-                  css={s.checkButton}
                   disabled={!updateUser.nickname.trim() || errors.nickname}
                 >
-                  {isNicknameChecked ? "❤️ 사용 가능!" : "중복 확인"}
-                </button>
+                  {isNicknameChecked ? "사용 가능" : "중복 확인"}
+                </Button>
               </div>
             </div>
             <div css={s.field}>
@@ -243,7 +242,7 @@ function MypageModify() {
                 type="tel"
                 value={updateUser.phoneNumber}
                 onChange={handlePhoneChange}
-                css={s.phoneinput}
+                css={s.input}
               />
               {errors.phoneNumber && <p css={s.errMsg}>{errors.phoneNumber}</p>}
             </div>

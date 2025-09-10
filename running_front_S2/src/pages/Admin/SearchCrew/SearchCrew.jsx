@@ -6,6 +6,7 @@ import useGetCrewListQuery from "../../../queries/Crew/List/useGetCrewListQuery"
 import Pagination from "../../../components/Pagination/Pagination";
 import CrewDetailModal from "./CrewDetailModal/CrewDetailModal";
 import SearchBox from "../../../components/SearchBox/SearchBox";
+import Button from "../../../components/Button/Button";
 
 function SearchCrew() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -83,7 +84,7 @@ function SearchCrew() {
                   <td>{crew.title}</td>
                   <td>{crew.gunguName}</td>
                   <td>
-                    <button css={s.detailButton} onClick={() => setSelectedCrew(crew)}>상세보기</button>
+                    <Button onClick={() => setSelectedCrew(crew)}>상세보기</Button>
                   </td>
                 </tr>
               ))

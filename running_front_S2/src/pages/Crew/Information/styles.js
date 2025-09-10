@@ -103,23 +103,9 @@ export const mainLine = css`
 `;
 
 export const fontBold = css`
+  font-size: 1.6rem;
   margin-top: 2rem;
   font-weight: bold;
-`;
-
-
-export const Button = css`
-  margin-top: 4rem;
-  padding: 0.8rem 2rem;
-  background-color: black;
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #333;
-  }
 `;
 
 export const section = css`
@@ -185,7 +171,6 @@ export const cardBody = css`
 `;
 
 export const title = css`
-  font-size: 1.2rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -194,12 +179,10 @@ export const title = css`
 `;
 
 export const time = css`
-  font-size: 1rem;
   color: #4b5563;
 `;
 
 export const place = css`
-  font-size: 1rem;
   color: #4b5563;
   white-space: nowrap;
   overflow: hidden;
@@ -210,11 +193,9 @@ export const meta = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 1rem;
 `;
 
 export const cost = css`
-  font-size: 1rem;
   color: #4b5563;
 `;
 
@@ -226,7 +207,6 @@ export const participants = css`
 
 export const fontSetting = css`
   padding-left: 0.4rem;
-  // font-size: 1.2rem;
   color: #4b5563;
 `;
 
@@ -247,13 +227,13 @@ export const memberRow = css`
 
 export const memberItem = css`
   display: flex;
-  justify-content: space-around;
-  padding: 0.5rem;
   align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0;
   box-sizing: border-box;
-  max-width: 15rem;
-  flex: 1 1 calc(20% - 1.6rem);
-  min-width: 160px;
+  flex: 1 1 calc(16.66% - 1rem);
+  min-width: 11rem;
+  max-width: 13rem;
 `;
 
 export const avatarWrap = css`
@@ -274,23 +254,18 @@ export const avatar = css`
 export const badge = css`
   left: 4px;
   bottom: 4px;
-  // font-size: 16px;
   line-height: 1;
 `;
 
 export const textBox = css`
   display: flex;
   flex-direction: column;
-  line-height: 1.2;
-
-  & > div:nth-of-type(1) > span:nth-of-type(2) {
-    // font-size: 1.6rem;
-    // font-weight: 700;
-  }
+  gap: 0.2rem;
+  line-height: 1.1;
 `;
 
 export const fullName = css`
-  // font-size: 12px;
+  font-size: 1.2rem;
   text-align: start;
   color: #6b7280;
 `;

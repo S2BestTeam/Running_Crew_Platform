@@ -9,6 +9,8 @@ import useGetCrewRoleQuery from "../../../queries/Crew/useGetCrewRoleQuery";
 import useGetGunguListQuery from "../../../queries/User/useGetGunguListQuery";
 import usePrincipalQuery from "../../../queries/User/usePrincipalQuery";
 import * as s from "./styles";
+import Button from "../../../components/Button/Button";
+import { MenuItem, Select } from "@mui/material";
 
 function CrewRegister(props) {
   const navigate = useNavigate();
@@ -148,7 +150,6 @@ function CrewRegister(props) {
     <MainContainer>
       <div css={s.mainBox}>
         <div css={s.titleBox}>
-          {/* 썸네일 */}
           <div css={s.banner} onClick={(e) => handleImgAddOnClick(e, "thumbnailPicture")}>
             <div>
               {preview.thumbnailPicture && <img src={preview.thumbnailPicture} alt="크루 썸네일" />}
@@ -170,20 +171,15 @@ function CrewRegister(props) {
               </div>
             </div>
 
-            <button
-              css={s.saveButton}
-              onClick={handleRegisterCrewOnClick}
-            >
+            <Button onClick={handleRegisterCrewOnClick}>
               크루 등록
-            </button>
+            </Button>
           </div>
         </div>
 
         <div css={s.mainLine}>
           <p css={s.fontBold}>크루 정보 입력</p>
-
           <div css={s.field}>
-
             <label css={s.label}>크루명</label>
             <div css={s.checkName}>
               <input
@@ -193,13 +189,12 @@ function CrewRegister(props) {
                 css={s.input}
                 placeholder="크루명을 입력하세요"
               />
-              <button css={s.subButton} onClick={handleCheckCrewNameOnClick}>
+              <Button onClick={handleCheckCrewNameOnClick}>
                 중복 확인
-              </button>
+              </Button>
             </div>
           </div>
 
-          {/* 한줄 소개 */}
           <div css={s.field}>
             <label css={s.label}>한줄 소개</label>
             <input
@@ -211,7 +206,6 @@ function CrewRegister(props) {
             />
           </div>
 
-          {/* 최대 인원 */}
           <div css={s.field}>
             <label css={s.label}>최대 인원</label>
             <div css={s.numberInputContainer}>
@@ -226,22 +220,31 @@ function CrewRegister(props) {
             </div>
           </div>
 
-          {/* 지역 선택 */}
           <div css={s.field}>
             <label css={s.label}>지역 선택</label>
-            <select
+            <Select
+              css={s.selectBox}
               value={registerCrew.gunguId}
-              onChange={(e) => setRegisterCrew(prev => ({ ...prev, gunguId: e.target.value }))}
-              css={s.input}
+              onChange={(e) =>
+                setRegisterCrew(prev => ({ ...prev, gunguId: e.target.value }))
+              }
+              displayEmpty
             >
-              <option value="">지역을 선택해주세요</option>
+              <MenuItem value="" css={s.menuItem}>
+                지역을 선택해주세요
+              </MenuItem>
               {gunguList.map((g) => (
-                <option key={g.gunguId} value={g.gunguId}>{g.gunguName}</option>
+                <MenuItem
+                  key={g.gunguId}
+                  value={g.gunguId}
+                  css={s.menuItem}
+                >
+                  {g.gunguName}
+                </MenuItem>
               ))}
-            </select>
+            </Select>
           </div>
 
-          {/* 크루 소개 */}
           <div css={s.field}>
             <label css={s.label}>크루 소개</label>
             <div css={s.quillWrapper}>

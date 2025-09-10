@@ -66,8 +66,8 @@ function MessageSendModal({ open, onClose, crewId, onSent }) {
         />
 
         <div css={s.footer}>
-          <button type="button" css={s.cancelBtn} onClick={onClose} disabled={pending}>취소</button>
-          <button type="button" css={s.submitBtn} onClick={submit} disabled={pending || !text.trim()}>
+          <button type="button" css={s.submitBtn} onClick={onClose} disabled={pending}>취소</button>
+          <button type="button" css={s.cancelBtn} onClick={submit} disabled={pending || !text.trim()}>
             {pending ? "전송중..." : "보내기"}
           </button>
         </div>

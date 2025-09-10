@@ -8,6 +8,7 @@ import SearchBox from '../../components/SearchBox/SearchBox';
 import useGetAskBoardQuery from '../../queries/Global/Ask/useGetAskBoardQuery';
 import usePrincipalQuery from '../../queries/User/usePrincipalQuery';
 import * as s from './styles';
+import Button from '../../components/Button/Button';
 
 function Ask() {
   const navigate = useNavigate();
@@ -67,7 +68,7 @@ function Ask() {
           onChange={setSearchInput}
           onSearch={handleSearchOnClick}
           >
-          <button css={s.registerButton} onClick={() => {
+          <Button onClick={() => {
             if (!userId) {
               alert('회원가입한 유저만 등록할 수 있습니다.');
               navigate('/');
@@ -76,7 +77,7 @@ function Ask() {
             navigate('/ask/register');
           }}>
             문의사항 등록
-          </button>
+          </Button>
         </SearchBox>
         <table css={s.table}>
           <thead>

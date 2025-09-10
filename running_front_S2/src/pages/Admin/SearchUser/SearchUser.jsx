@@ -6,6 +6,7 @@ import SearchBox from "../../../components/SearchBox/SearchBox";
 import useSearchUserQuery from "../../../queries/Admin/useSearchUserQuery";
 import * as s from "./styles";
 import UserDetailModal from "./UserDetailModal/UserDetailModal";
+import Button from "../../../components/Button/Button";
 
 function SearchUser() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -75,9 +76,9 @@ function SearchUser() {
                   <td>{user.address}</td>
                   <td>{user.phoneNumber}</td>
                   <td>
-                    <button css={s.detailButton} onClick={() => setSelectedUser(user)}>
+                    <Button onClick={() => setSelectedUser(user)}>
                       상세보기
-                    </button>
+                    </Button>
                   </td>
                 </tr>
               ))}

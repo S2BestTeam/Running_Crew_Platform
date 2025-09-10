@@ -13,6 +13,7 @@ import useGetCrewFreeCommentQuery from "../../../../queries/Crew/FreeBoard/useGe
 import usePrincipalQuery from "../../../../queries/User/usePrincipalQuery";
 import { useCrewStore } from "../../../../stores/useCrewStroes";
 import * as s from "./styles";
+import Button from "../../../../components/Button/Button";
 
 export default function FeedDetail() {
   const { crewId } = useCrewStore();
@@ -173,9 +174,9 @@ export default function FeedDetail() {
             onChange={(e) => setComment(e.target.value)}
             placeholder="댓글을 입력하세요"
           />
-          <button css={s.btnPrimary} onClick={handleCommentOnClick}>
+          <Button onClick={handleCommentOnClick}>
             등록
-          </button>
+          </Button>
         </div>
 
         {/* 댓글 목록 */}

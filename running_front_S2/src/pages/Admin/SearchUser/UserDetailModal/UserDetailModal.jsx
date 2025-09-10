@@ -14,6 +14,7 @@ import { reqReportDelete, reqUserReported } from "../../../../api/Admin/adminApi
 import useGetUserPostQuery from "../../../../queries/Admin/useGetUserPostQuery";
 import Pagination from "../../../../components/Pagination/Pagination";
 import { MenuItem, Select } from "@mui/material";
+import Button from "../../../../components/Button/Button";
 
 const SRC_OPTIONS = [
   { value: "", label: "전체" },
@@ -499,6 +500,7 @@ function UserDetailModal({ user, onClose, onSave }) {
                               <MenuItem
                                 key={op.value}
                                 value={op.value}
+                                css={s.menuItem}
                               >
                                 {op.label}
                               </MenuItem>
@@ -590,9 +592,9 @@ function UserDetailModal({ user, onClose, onSave }) {
         </div>
 
         <div css={s.footer}>
-          <button css={s.closeButton} onClick={closeAndRefresh}>
+          <Button onClick={closeAndRefresh}>
             닫기
-          </button>
+          </Button>
         </div>
       </div>
     </div>

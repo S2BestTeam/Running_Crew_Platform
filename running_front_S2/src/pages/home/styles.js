@@ -34,13 +34,20 @@ export const mainText = css`
   text-align: center;
 
   & > div:nth-of-type(1) {
-    // font-size: 1.6rem;
+<<<<<<< HEAD
+    font-size: 1.6rem;
+=======
+>>>>>>> origin/131-css-정리중
     margin-bottom: 1rem;
   }
 
   & > div:nth-of-type(2) {
-    // font-size: 5rem;
-    // font-weight: 800;
+<<<<<<< HEAD
+    font-size: 5rem;
+=======
+    font-size: 4rem;
+>>>>>>> origin/131-css-정리중
+    font-weight: 800;
   }
 `;
 
