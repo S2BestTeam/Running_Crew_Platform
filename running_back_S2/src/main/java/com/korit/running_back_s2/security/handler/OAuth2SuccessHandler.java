@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,8 @@ import java.nio.charset.StandardCharsets;
 @RequiredArgsConstructor
 public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
+    @Value("${app.web-host}")
+    private String webHost;
     private final JwtUtil jwtUtil;
     private final UserMapper userMapper;
 
@@ -37,11 +40,11 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
             String providerId = URLEncoder.encode(user.getProviderId(), StandardCharsets.UTF_8);
             String birthDate = URLEncoder.encode(String.valueOf(user.getBirthDate()), StandardCharsets.UTF_8);
             redirectUrl = String
-                    .format("http://localhost:5173/auth/oauth2/signup?email=%s&providerId=%s&oauthType=%s&img=%s&birthDate=%s"
-                            ,email,providerId,oauthType,img,birthDate);
+                    .format("%s/auth/oauth2/signup?email=%s&providerId=%s&oauthType=%s&img=%s&birthDate=%s",
+                            webHost,email,providerId,oauthType,img,birthDate);
         } else {
             String accessToken = jwtUtil.generateAccessToken(foundUser);
-            redirectUrl = String.format("http://localhost:5173/auth/oauth2/signin?accessToken=%s", accessToken);
+            redirectUrl = String.format("%s/auth/oauth2/signin?accessToken=%s", webHost, accessToken);
         }
 
         response.sendRedirect(redirectUrl);

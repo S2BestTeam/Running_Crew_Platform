@@ -3,6 +3,42 @@ spring:
     active: local
     group:
       local: local-server, common, secret
+      jinwo: jinwo-server, common, secret
+      dajeong: dajeong-server, common, secret
+      sunyoung: sunyoung-server, common, secret
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: jinwo-server
+
+app:
+  web-host: "https://s2runningcrew.store"
+  server-host: "https://s2runningcrew.store"
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dajeong-server
+
+app:
+  web-host: "https://s2runningcrew.site"
+  server-host: "https://s2runningcrew.site"
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: sunyoung-server
+
+app:
+  web-host: "https://busanrun.store"
+  server-host: "https://busanrun.store"
 
 ---
 
@@ -11,33 +47,60 @@ spring:
     activate:
       on-profile: local-server
 
-server:
-  error:
-    include-message: always
-    include-binding-errors: always
-    include-exception: true
-    include-stacktrace: on_param
+app:
+  web-host: "http://localhost:5173"
+  server-host: "http://localhost:8080"
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: common
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            redirect-uri: "${app.server-host}/login/oauth2/code/google"
+          kakao:
+            redirect-uri: "${app.server-host}/login/oauth2/code/kakao"
+          naver:
+            redirect-uri: "${app.server-host}/login/oauth2/code/naver"
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      enabled: true
+
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.korit.running_back_s2.domain
 
 app:
-  server-host: "http://localhost:8080"
   image-configs:
-    profile :
+    profile:
       prefix: "${app.server-host}/image/profile"
       dir-path: "${user.dir}/upload/profile"
       default-img: "default.jpg"
-    crewProfile :
+    crewProfile:
       prefix: "${app.server-host}/image/crew/profile"
       dir-path: "${user.dir}/upload/crew/profile"
       default-img: "default.jpg"
-    crewThumbnail :
+    crewThumbnail:
       prefix: "${app.server-host}/image/crew/thumbnail"
       dir-path: "${user.dir}/upload/crew/thumbnail"
       default-img: "default.jpg"
-    crewGathering :
+    crewGathering:
       prefix: "${app.server-host}/image/crew/gathering"
       dir-path: "${user.dir}/upload/crew/gathering"
       default-img: "default.jpg"
-    crewFreeBoard :
+    crewFreeBoard:
       prefix: "${app.server-host}/image/board/free"
       dir-path: "${user.dir}/upload/board/free"
       default-img: "default.jpg"
@@ -57,25 +120,3 @@ app:
       prefix: "${app.server-host}/image/ask"
       dir-path: "${user.dir}/upload/ask"
       default-img: "default.jpg"
-
----
-
-spring:
-  config:
-    activate:
-      on-profile: common
-
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
-  servlet:
-    multipart:
-      max-file-size: 100MB
-      max-request-size: 100MB
-      enabled: true
-
-mybatis:
-  mapper-locations: classpath:mapper/**/*.xml
-  configuration:
-    map-underscore-to-camel-case: true
-  type-aliases-package: com.korit.running_back_s2.domain
