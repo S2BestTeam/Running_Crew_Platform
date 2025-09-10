@@ -16,11 +16,10 @@ export const selectBox = css`
   width: 11rem;
   height: 3.425rem;
   padding: 0.24rem 0.48rem;
-  // font-size: 0.76rem;
   border-radius: 0.4rem;
   background-color: #fff;
   color: #333;
-  // font-size: 1.4rem;
+  font-size: 1.2rem;
 
   .MuiOutlinedInput-notchedOutline {
     border-color: #ccc;
@@ -34,6 +33,7 @@ export const selectBox = css`
 `;
 
 export const menuItem = css`
+font-size: 1.2rem;
   background-color: #ffffff !important;
   &:hover {
     background-color: var(--hB-color) !important;

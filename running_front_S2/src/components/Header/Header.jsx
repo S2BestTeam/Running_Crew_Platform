@@ -43,7 +43,7 @@ function Header() {
   return (
     <header css={s.header}>
       <div css={s.logo} onClick={() => handleNavigate("/")}>
-        S2BestTeam
+        B R C P
       </div>
 
       <nav

@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css } from "@emotion/react";
 
 export const modalStyles = {
   overlay: {
@@ -7,7 +7,7 @@ export const modalStyles = {
     justifyContent: "center",
     alignItems: "center",
     zIndex: 1000,
-    fontSize: "1.6rem" 
+    fontSize: "1.6rem",
   },
   content: {
     position: "static",
@@ -59,7 +59,7 @@ export const profileImageStyle = css`
 
 export const infoItemStyle = css`
   // font-size: 1.4rem;
-  
+
   b {
     // font-weight: 600;
     color: #333;

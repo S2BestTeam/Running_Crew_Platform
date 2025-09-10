@@ -24,8 +24,8 @@ function Home(props) {
             />
           </div>
           <div css={s.mainText}>
-            <div>코리아 아이티 아카데미 최강팀 S2</div>
-            <div>Running Crew Gallery</div>
+            <div>부산 인기 크루 모아보기</div>
+            <div>Busan Running Crew's</div>
           </div>
           <div css={s.mainGallery}>
             <Slider
