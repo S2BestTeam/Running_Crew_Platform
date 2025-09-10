@@ -28,6 +28,11 @@ jobs:
         github.ref_name == 'deploy_dajeong' && secrets.REACT_ENV_DAJEONG ||
         github.ref_name == 'deploy_sunyoung' && secrets.REACT_ENV_SUNYOUNG
         }}
+      BUILD_MODE: ${{
+        github.ref_name == 'deploy_jinwo' && 'jinwo' ||
+        github.ref_name == 'deploy_dajeong' && 'dajeong' ||
+        github.ref_name == 'deploy_sunyoung' && 'sunyoung'
+        }}
     steps:
       - name: checkout
         uses: actions/checkout@v5
@@ -56,7 +61,5 @@ jobs:
         run: |
           cd running_front_S2
           echo ${{ env.REACT_ENV }} | base64 --decode > .env
-          npm install
-          npm run build
-          docker build -t ${{ env.DOCKER_USERNAME }}/react-app:latest .
+          docker build --build-arg SERVERNAME=${{ env.BUILD_MODE }} -t ${{ env.DOCKER_USERNAME }}/react-app:latest .
           docker push ${{ env.DOCKER_USERNAME }}/react-app:latest
