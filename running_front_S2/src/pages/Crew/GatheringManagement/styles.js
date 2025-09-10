@@ -11,13 +11,8 @@ export const layout = css`
 export const dataGridWrapper = css`
   height: 100%;
   width: 100%;
-<<<<<<< HEAD
-    .MuiDataGrid-cell {
-    // font-size: 1.5rem;
-=======
   .MuiDataGrid-cell {
-    font-size: 1.5rem;
->>>>>>> origin/128-세부내용-수정
+    font-size: 1.4rem;
   }
 
   .MuiDataGrid-columnHeaderTitle {

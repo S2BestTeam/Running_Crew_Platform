@@ -171,7 +171,6 @@ export const cardBody = css`
 `;
 
 export const title = css`
-  font-size: 1.2rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -180,6 +179,7 @@ export const title = css`
 `;
 
 export const time = css`
+<<<<<<< HEAD
   font-size: 1rem;
   color: #5f5f5f;
 `;
@@ -187,6 +187,13 @@ export const time = css`
 export const place = css`
   font-size: 1rem;
   color: #5f5f5f;
+=======
+  color: #4b5563;
+`;
+
+export const place = css`
+  color: #4b5563;
+>>>>>>> origin/131-css-정리중
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -196,12 +203,15 @@ export const meta = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 1rem;
 `;
 
 export const cost = css`
+<<<<<<< HEAD
   font-size: 1rem;
   color: #5f5f5f;
+=======
+  color: #4b5563;
+>>>>>>> origin/131-css-정리중
 `;
 
 export const participants = css`
@@ -212,7 +222,11 @@ export const participants = css`
 
 export const fontSetting = css`
   padding-left: 0.4rem;
+<<<<<<< HEAD
   color: #5f5f5f;
+=======
+  color: #4b5563;
+>>>>>>> origin/131-css-정리중
 `;
 
 export const participantImg = css`

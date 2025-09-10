@@ -15,7 +15,7 @@ export const gatheringMain = css`
 
 export const gatheringContainer = css`
   width: auto;
-  border: 0.1rem solid #aaa;
+  border: 0.1rem solid #dbdbdb;
   border-radius: 0.5rem;
 `;
 
@@ -56,6 +56,13 @@ export const gatheringInfoContainer = css`
   }
 
   & > div:nth-of-type(1) {
+<<<<<<< HEAD
+=======
+    text-align: left;
+    padding-bottom: 1rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+>>>>>>> origin/131-css-정리중
   }
 `;
 

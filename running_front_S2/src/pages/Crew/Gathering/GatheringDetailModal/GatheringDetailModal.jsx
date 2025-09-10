@@ -1,14 +1,20 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./styles";
 import ReactModal from "react-modal";
-import { MdAccessTimeFilled } from "react-icons/md";
-import { FaCalendar, FaMapMarkerAlt, FaRunning, FaWonSign } from "react-icons/fa";
+import { MdAccessTimeFilled, MdPeopleAlt } from "react-icons/md";
+import {
+  FaCalendar,
+  FaMapMarkerAlt,
+  FaRunning,
+  FaWonSign,
+} from "react-icons/fa";
 import { useState, useEffect } from "react";
 import {
   reqAttendGathering,
   reqCancelAttendGathering,
   reqGatheringParticipants,
 } from "../../../../api/Crew/gatheringApi";
+import { Map, MapMarker } from "react-kakao-maps-sdk";
 
 function GatheringDetailModal({
   isOpen,
@@ -115,43 +121,69 @@ function GatheringDetailModal({
           <div css={s.thumbnail}>
             <img src={gathering?.thumbnailPicture} alt="썸네일 이미지" />
           </div>
-          <div>
-            <div>설명: {gathering.content}</div>
-            <div>
-              <FaCalendar /> {formattedDate}
-            </div>
-            <div>
-              <MdAccessTimeFilled /> {formattedTime}
-            </div>
-            <div>
-              <FaMapMarkerAlt /> {gathering.placeName}
-            </div>
-            <div>
+          <div css={s.infoContainer}>
+            <div css={s.content}>{gathering.content}</div>
+            <div css={s.infoBox}>
+  <FaCalendar /> {formattedDate}
+</div>
+<div css={s.infoBox}>
+  <MdAccessTimeFilled /> {formattedTime}
+</div>
+<div css={s.infoBox}>
+  <FaMapMarkerAlt /> {gathering.placeName}
+</div>
+
+            {/* 지도 추가 */}
+            {gathering.latitude && gathering.longitude && (
+              <div css={s.mapContainer}>
+                <Map
+                  center={{
+                    lat: parseFloat(gathering.latitude),
+                    lng: parseFloat(gathering.longitude),
+                  }}
+                  style={{ width: "100%", height: "250px" }}
+                  level={5}
+                >
+                  <MapMarker
+                    position={{
+                      lat: parseFloat(gathering.latitude),
+                      lng: parseFloat(gathering.longitude),
+                    }}
+                  />
+                </Map>
+              </div>
+            )}
+
+            <div css={s.infoBox}>
               <FaWonSign /> {gathering.cost}원
             </div>
-            <div><FaRunning /> {gathering.km} km</div>
-
-            <div>
-              참석자 명단 ({participants.length} / {gathering.maxParticipants})
+            <div css={s.infoBox}>
+              <FaRunning /> {gathering.km} km
             </div>
-            <div>
+
+            <div css={s.infoBox}>
+              <MdPeopleAlt /> 참석자 ({participants.length} / {gathering.maxParticipants})
+            </div>
+            <div css={s.participantsList}>
               {participants.map((p) => (
                 <div key={p.userId}>
-                  <img src={p.picture} alt="" width={30} height={30} />
+                  <img src={p.picture} alt="" />
                   <span>{p.fullName}</span>
                 </div>
               ))}
             </div>
 
-            <div css={s.profile}>
+            {/* <div css={s.profile}>
               <img src={gathering.user?.picture} alt="작성자" />
               <span>{gathering.user?.fullName || "알 수 없음"}</span>
-            </div>
+            </div> */}
           </div>
-          <button onClick={onClose}>닫기</button>
-          <button onClick={handleAttendToggle}>
-            {isAttending ? "불참" : "참석"}
-          </button>
+          <div css={s.buttons}>
+            <button onClick={onClose}>취소</button>
+            <button onClick={handleAttendToggle}>
+              {isAttending ? "불참" : "참석"}
+            </button>
+          </div>
         </main>
       </div>
     </ReactModal>
