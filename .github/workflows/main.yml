@@ -56,7 +56,6 @@ jobs:
         run: |
           cd running_front_S2
           echo ${{ env.REACT_ENV }} | base64 --decode > .env
-          ls -a
           npm install
           npm run build
           docker build -t ${{ env.DOCKER_USERNAME }}/react-app:latest .
