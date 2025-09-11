@@ -3,13 +3,13 @@ import { css } from "@emotion/react";
 export const container = css`
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* 화면 전체 높이 */
+  min-height: 100vh;
   width: 100%;
   background-color: #000;
 `;
 
 export const main = css`
-  flex: 1; /* 남은 공간 채우기 */
+  flex: 1;
   margin: 0;
   padding: 0;
   width: 100%;
@@ -25,6 +25,7 @@ export const mainVideo = css`
 
   & > video {
     width: 100%;
+    object-fit: cover;
   }
 `;
 
@@ -50,13 +51,23 @@ export const mainGallery = css`
 `;
 
 export const sliderImg = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   box-sizing: border-box;
-  width: 96rem;
-  padding: 0 2rem;
+  padding: 0 1rem;
+
+  img {
+    width: 60rem;     
+    height: 40rem;     
+    object-fit: cover;  
+    border-radius: 0.5rem;
+    box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.3);
+  }
 `;
 
 export const footer = css`
-  height: 5rem; /* 푸터 높이 */
+  height: 5rem;
   background-color: #111;
   color: #fff;
   display: flex;

@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 import Notice from '../../pages/Crew/Notice/Notice';
 import NoticeEdit from '../../pages/GlobalNotice/Edit/NoticeEdit';
-import NoticeDetail from '../../pages/GlobalNotice/NoticeDetail/NoticeDetail';
 import NoticeReg from '../../pages/GlobalNotice/NoticeReg/NoticeReg';
+import NoticeDetail from '../../pages/Crew/Notice/NoticeDetail/NoticeDetail';
 
 export function NoticeRoutes(props) {
   return (
