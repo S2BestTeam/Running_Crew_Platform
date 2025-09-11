@@ -27,6 +27,8 @@ export const buttonContainer = css`
   padding: 1rem 1rem;
 
   & > button {
+    display: flex;
+    justify-content: space-between;
     text-align: left;
     margin: 0.3rem 0;
     padding: 0.8rem;

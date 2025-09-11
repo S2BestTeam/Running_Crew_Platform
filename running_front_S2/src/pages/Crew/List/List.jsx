@@ -1,19 +1,18 @@
 /** @jsxImportSource @emotion/react */
-import { MenuItem, Select } from "@mui/material";
-import { motion } from "framer-motion";
+import * as s from "./styles";
 import { useEffect, useRef, useState } from "react";
-import { PiHeart, PiHeartFill } from "react-icons/pi";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { addWishlist, getUserWishlist, removeWishlist } from "../../../api/Crew/wishlistApi";
-import Button from "../../../components/Button/Button";
-import MainContainer from "../../../components/MainContainer/MainContainer";
-import SearchBox from "../../../components/SearchBox/SearchBox";
 import useGetCrewListQuery from "../../../queries/Crew/List/useGetCrewListQuery";
-import useGetCrewRankingQuery from "../../../queries/Ranking/useGetCrewRankingQuery";
 import useGetGunguListQuery from "../../../queries/User/useGetGunguListQuery";
+import MainContainer from "../../../components/MainContainer/MainContainer";
+import { PiHeartFill, PiHeart } from "react-icons/pi";
+import { motion } from "framer-motion";
 import usePrincipalQuery from "../../../queries/User/usePrincipalQuery";
 import { useCrewStore } from "../../../stores/useCrewStroes";
-import * as s from "./styles";
+import { Select, MenuItem } from "@mui/material";
+import { addWishlist, getUserWishlist, removeWishlist } from "../../../api/Crew/wishlistApi";
+import { IoSearch } from "react-icons/io5";
+import useGetCrewRankingQuery from "../../../queries/Ranking/useGetCrewRankingQuery";
 
 function List() {
   const navigate = useNavigate();
@@ -140,7 +139,9 @@ function List() {
       return p;
     });
   };
-  
+
+  const handleSearchOnChange = (e) => setSearchInput(e.target.value);
+
   const handleSearchOnClick = () => {
     setSearchParams((prev) => {
       const p = new URLSearchParams(prev);
@@ -176,11 +177,25 @@ function List() {
           </Select>
 
           <div css={s.headerContainer}>
-            <SearchBox value={searchInput} onChange={setSearchInput} onSearch={handleSearchOnClick}>
-              <Button onClick={() => navigate("/crew/register")}>
-                크루 등록
-              </Button>
-            </SearchBox>
+            <div css={s.inputGroup}>
+              <input
+                type="text"
+                placeholder="검색어를 입력하세요."
+                value={searchInput}
+                onChange={handleSearchOnChange}
+                onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()}
+                css={s.searchInput}
+              />
+              <button css={s.searchButton} onClick={handleSearchOnClick}>
+                <IoSearch />
+              </button>
+            </div>
+            <button
+              css={s.registerButton}
+              onClick={() => navigate("/crew/register")}
+            >
+              크루 등록
+            </button>
           </div>
         </div>
 

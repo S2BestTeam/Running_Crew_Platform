@@ -71,6 +71,7 @@ export const tumbnailBox = css`
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 0.1rem solid var(--sub-color);
 
   & > img {
     width: 100%;
