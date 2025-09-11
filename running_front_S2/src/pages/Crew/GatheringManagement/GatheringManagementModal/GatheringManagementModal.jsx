@@ -9,7 +9,6 @@ import {
   reqGatheringParticipants,
   reqUpdateParticipantsAttendance,
 } from "../../../../api/Crew/gatheringApi";
-import { cancelButton } from "../GatheringModify/styles";
 
 function GatheringManagementModal({ isOpen, onClose, crewId, gatheringId }) {
   const [participants, setParticipants] = useState([]);

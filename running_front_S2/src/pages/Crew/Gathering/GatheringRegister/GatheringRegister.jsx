@@ -83,6 +83,7 @@ function GatheringRegister() {
   const handleSearchAddressOnClick = () => {
     if (!map) return;
     const ps = new kakao.maps.services.Places();
+
     ps.keywordSearch(addressText, (data, status) => {
       if (status === kakao.maps.services.Status.OK) {
         const handleClick = (item) => {
@@ -95,11 +96,19 @@ function GatheringRegister() {
             latitude: item.y,
             longitude: item.x,
           }));
+          setSearchResultList(null);
         };
+
         setSearchResultList(
           <div>
             {data.map((item) => (
-              <div key={item.id} onClick={() => handleClick(item)}>
+              <div
+                key={item.id}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleClick(item);
+                }}
+              >
                 <h3>{item.place_name}</h3>
                 <p>{item.address_name}</p>
                 <p>{item.road_address_name}</p>
@@ -111,6 +120,7 @@ function GatheringRegister() {
       }
     });
   };
+
 
   const handleInputOnChange = (e) => {
     setGatheringData((prev) => ({ ...prev, [e.target.name]: e.target.value }));

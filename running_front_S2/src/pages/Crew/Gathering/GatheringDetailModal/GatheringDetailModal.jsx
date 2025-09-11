@@ -124,15 +124,14 @@ function GatheringDetailModal({
           <div css={s.infoContainer}>
             <div css={s.content}>{gathering.content}</div>
             <div css={s.infoBox}>
-  <FaCalendar /> {formattedDate}
-</div>
-<div css={s.infoBox}>
-  <MdAccessTimeFilled /> {formattedTime}
-</div>
-<div css={s.infoBox}>
-  <FaMapMarkerAlt /> {gathering.placeName}
-</div>
-
+              <FaCalendar /> {formattedDate}
+            </div>
+            <div css={s.infoBox}>
+              <MdAccessTimeFilled /> {formattedTime}
+            </div>
+            <div css={s.infoBox}>
+              <FaMapMarkerAlt /> {gathering.placeName}
+            </div>
             {/* 지도 추가 */}
             {gathering.latitude && gathering.longitude && (
               <div css={s.mapContainer}>

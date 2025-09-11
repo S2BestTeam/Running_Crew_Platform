@@ -68,18 +68,13 @@ function List() {
     e.stopPropagation();
     const isCurrentlyLiked = wishlist.includes(crewId);
 
-    const mywish = {
-      crewId: crewId,
-      userId: userId,
-    };
+    const mywish = { crewId, userId };
 
-    setWishlist((prev) => {
-      if (prev.includes(crewId)) {
-        return prev.filter((id) => id !== crewId);
-      } else {
-        return [...prev, crewId];
-      }
-    });
+    const updatedWishlist = isCurrentlyLiked
+      ? wishlist.filter((id) => id !== crewId)
+      : [...wishlist, crewId];
+
+    setWishlist(updatedWishlist);
 
     try {
       if (isCurrentlyLiked) {
@@ -88,13 +83,7 @@ function List() {
         await addWishlist(mywish);
       }
     } catch (error) {
-      setWishlist((prev) => {
-        if (isCurrentlyLiked) {
-          return [...prev, crewId];
-        } else {
-          return prev.filter((id) => id !== crewId);
-        }
-      });
+      setWishlist(wishlist);
     }
   };
 
@@ -129,6 +118,7 @@ function List() {
     crewListQuery.isFetchingNextPage,
     crewListQuery.fetchNextPage,
   ]);
+
 
   const handleGunguChange = (e) => {
     const value = e.target.value;

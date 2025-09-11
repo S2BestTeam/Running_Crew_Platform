@@ -56,16 +56,10 @@ export const getout = css`
 `;
 
 export const newBadge1 = css`
-<<<<<<< HEAD
-  padding: 1px 6px;
-  border: 1px solid var(--point-color);
-  border-radius: 999px;
-=======
   padding: 0.2rem 0.6rem;
   font-size: 1.2rem;
   border: 0.15rem solid var(--point-color);
   color: var(--main-color);
   border-radius: 7rem;
->>>>>>> origin/128-세부내용-수정
   line-height: 1;
 `;

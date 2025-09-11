@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 
 export const global = css`
-  @import url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Thin.woff') format('woff');
+  @import url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Thin.woff');
 
   html {
     font-size: 62.5%;
