@@ -136,6 +136,7 @@
             total_km
         from
             user_tb
+        where gungu_id is not null
         order by
             total_km desc
     </select>
@@ -161,6 +162,7 @@
                             group by
                                 user_id
                             ) gpt on ( gpt.user_id = ut.user_id)
+        where ut.gungu_id is not null
         order by
             gpt.gathering_count desc
     </select>

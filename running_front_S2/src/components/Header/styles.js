@@ -12,8 +12,8 @@ export const header = css`
 `;
 
 export const logo = css`
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: 1.2rem;
+  /* font-weight: 700; */
   color: #fff;
   flex-shrink: 0;
   cursor: pointer;

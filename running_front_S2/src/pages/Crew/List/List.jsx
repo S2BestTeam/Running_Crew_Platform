@@ -10,9 +10,15 @@ import { motion } from "framer-motion";
 import usePrincipalQuery from "../../../queries/User/usePrincipalQuery";
 import { useCrewStore } from "../../../stores/useCrewStroes";
 import { Select, MenuItem } from "@mui/material";
-import { addWishlist, getUserWishlist, removeWishlist } from "../../../api/Crew/wishlistApi";
+import {
+  addWishlist,
+  getUserWishlist,
+  removeWishlist,
+} from "../../../api/Crew/wishlistApi";
 import { IoSearch } from "react-icons/io5";
 import useGetCrewRankingQuery from "../../../queries/Ranking/useGetCrewRankingQuery";
+import SearchBox from "../../../components/SearchBox/SearchBox";
+import Button from "../../../components/Button/Button";
 
 function List() {
   const navigate = useNavigate();
@@ -27,8 +33,12 @@ function List() {
   const rankingsQuery = useGetCrewRankingQuery();
   const { resetCrew } = useCrewStore();
 
-  const top5Member = rankingsQuery?.data?.memberRanking.slice(0, 5).map(m => m.crewId);
-  const top5CreatedAt = rankingsQuery?.data?.newRanking.slice(0, 5).map(m => m.crewId);
+  const top5Member = rankingsQuery?.data?.memberRanking
+    .slice(0, 5)
+    .map((m) => m.crewId);
+  const top5CreatedAt = rankingsQuery?.data?.newRanking
+    .slice(0, 5)
+    .map((m) => m.crewId);
   const crewListQuery = useGetCrewListQuery({
     page,
     size: 15,
@@ -152,7 +162,6 @@ function List() {
     });
   };
 
-
   return (
     <MainContainer>
       <div css={s.layout}>
@@ -164,7 +173,9 @@ function List() {
             onChange={handleGunguChange}
             displayEmpty
           >
-            <MenuItem value="" css={s.menuItem}>전체</MenuItem>
+            <MenuItem value="" css={s.menuItem}>
+              전체
+            </MenuItem>
             {gunguList.map((gungu) => (
               <MenuItem
                 key={gungu.gunguId}
@@ -177,25 +188,15 @@ function List() {
           </Select>
 
           <div css={s.headerContainer}>
-            <div css={s.inputGroup}>
-              <input
-                type="text"
-                placeholder="검색어를 입력하세요."
-                value={searchInput}
-                onChange={handleSearchOnChange}
-                onKeyDown={(e) => e.key === "Enter" && handleSearchOnClick()}
-                css={s.searchInput}
-              />
-              <button css={s.searchButton} onClick={handleSearchOnClick}>
-                <IoSearch />
-              </button>
-            </div>
-            <button
-              css={s.registerButton}
-              onClick={() => navigate("/crew/register")}
+            <SearchBox
+              value={searchInput}
+              onChange={setSearchInput}
+              onSearch={handleSearchOnClick}
             >
-              크루 등록
-            </button>
+              <Button onClick={() => navigate("/crew/register")}>
+                크루 등록
+              </Button>
+            </SearchBox>
           </div>
         </div>
 
