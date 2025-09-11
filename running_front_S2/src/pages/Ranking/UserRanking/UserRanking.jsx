@@ -83,7 +83,8 @@ function UserRanking() {
             <div
               css={{
                 fontSize: "1.5rem",
-                marginBottom: "10px",
+                fontWeight: "600",
+                paddingBottom: "2rem",
                 display: "flex",
                 justifyContent: "center",
               }}

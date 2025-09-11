@@ -117,7 +117,7 @@ export const card = (rank) => css`
 export const rankBadge = css`
   width: 3rem;
   text-align: center;
-  padding-right: 1rem;
+  padding-right: 2rem;
 `;
 
 export const crewInfo = css`

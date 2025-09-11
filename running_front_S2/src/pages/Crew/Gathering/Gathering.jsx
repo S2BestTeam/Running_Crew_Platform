@@ -105,9 +105,15 @@ function Gathering() {
     <>
       <div css={s.layout}>
         <h2>정모 일정</h2>
-        <SearchBox value={searchInput} onChange={setSearchInput} onSearch={handleSearchOnClick}>
+        <SearchBox
+          value={searchInput}
+          onChange={setSearchInput}
+          onSearch={handleSearchOnClick}
+        >
           {isCrewMember && (
-            <Button onClick={() => navigate(`/crews/${crewId}/gathering/register`)}>
+            <Button
+              onClick={() => navigate(`/crews/${crewId}/gathering/register`)}
+            >
               일정 등록
             </Button>
           )}
@@ -119,9 +125,7 @@ function Gathering() {
           ]}
         >
           {gatherings.length === 0 ? (
-            <div css={s.noGatheringMessage}>
-              등록된 정모 일정이 없습니다.
-            </div>
+            <div css={s.noGatheringMessage}>등록된 정모 일정이 없습니다.</div>
           ) : (
             gatherings.map((g, index) => {
               const dateObj = new Date(`${g.runningDate}T${g.runningTime}`);
@@ -147,8 +151,7 @@ function Gathering() {
                   key={index}
                   css={[
                     s.gatheringContainer,
-                    isPastTime(g.runningDate, g.runningTime) &&
-                      s.closedOverlay,
+                    isPastTime(g.runningDate, g.runningTime) && s.closedOverlay,
                   ]}
                   onClick={() => handleOpenDetailModal(g)}
                 >

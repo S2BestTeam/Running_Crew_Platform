@@ -1,19 +1,24 @@
 /** @jsxImportSource @emotion/react */
-import { MenuItem, Select } from "@mui/material";
-import { motion } from "framer-motion";
+import * as s from "./styles";
 import { useEffect, useRef, useState } from "react";
-import { PiHeart, PiHeartFill } from "react-icons/pi";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { addWishlist, getUserWishlist, removeWishlist } from "../../../api/Crew/wishlistApi";
-import Button from "../../../components/Button/Button";
-import MainContainer from "../../../components/MainContainer/MainContainer";
-import SearchBox from "../../../components/SearchBox/SearchBox";
 import useGetCrewListQuery from "../../../queries/Crew/List/useGetCrewListQuery";
-import useGetCrewRankingQuery from "../../../queries/Ranking/useGetCrewRankingQuery";
 import useGetGunguListQuery from "../../../queries/User/useGetGunguListQuery";
+import MainContainer from "../../../components/MainContainer/MainContainer";
+import { PiHeartFill, PiHeart } from "react-icons/pi";
+import { motion } from "framer-motion";
 import usePrincipalQuery from "../../../queries/User/usePrincipalQuery";
 import { useCrewStore } from "../../../stores/useCrewStroes";
-import * as s from "./styles";
+import { Select, MenuItem } from "@mui/material";
+import {
+  addWishlist,
+  getUserWishlist,
+  removeWishlist,
+} from "../../../api/Crew/wishlistApi";
+import { IoSearch } from "react-icons/io5";
+import useGetCrewRankingQuery from "../../../queries/Ranking/useGetCrewRankingQuery";
+import SearchBox from "../../../components/SearchBox/SearchBox";
+import Button from "../../../components/Button/Button";
 
 function List() {
   const navigate = useNavigate();
@@ -28,8 +33,12 @@ function List() {
   const rankingsQuery = useGetCrewRankingQuery();
   const { resetCrew } = useCrewStore();
 
-  const top5Member = rankingsQuery?.data?.memberRanking.slice(0, 5).map(m => m.crewId);
-  const top5CreatedAt = rankingsQuery?.data?.newRanking.slice(0, 5).map(m => m.crewId);
+  const top5Member = rankingsQuery?.data?.memberRanking
+    .slice(0, 5)
+    .map((m) => m.crewId);
+  const top5CreatedAt = rankingsQuery?.data?.newRanking
+    .slice(0, 5)
+    .map((m) => m.crewId);
   const crewListQuery = useGetCrewListQuery({
     page,
     size: 15,
@@ -140,7 +149,9 @@ function List() {
       return p;
     });
   };
-  
+
+  const handleSearchOnChange = (e) => setSearchInput(e.target.value);
+
   const handleSearchOnClick = () => {
     setSearchParams((prev) => {
       const p = new URLSearchParams(prev);
@@ -150,7 +161,6 @@ function List() {
       return p;
     });
   };
-
 
   return (
     <MainContainer>
@@ -163,7 +173,9 @@ function List() {
             onChange={handleGunguChange}
             displayEmpty
           >
-            <MenuItem value="" css={s.menuItem}>전체</MenuItem>
+            <MenuItem value="" css={s.menuItem}>
+              전체
+            </MenuItem>
             {gunguList.map((gungu) => (
               <MenuItem
                 key={gungu.gunguId}
@@ -176,7 +188,11 @@ function List() {
           </Select>
 
           <div css={s.headerContainer}>
-            <SearchBox value={searchInput} onChange={setSearchInput} onSearch={handleSearchOnClick}>
+            <SearchBox
+              value={searchInput}
+              onChange={setSearchInput}
+              onSearch={handleSearchOnClick}
+            >
               <Button onClick={() => navigate("/crew/register")}>
                 크루 등록
               </Button>

@@ -181,9 +181,12 @@ export const rankingList = css`
 // `;
 
 export const mySection = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   border: 0.1rem solid #ebebeb;
   flex: 1;
-  height: 35rem;
+  height: 30rem;
   padding: 2rem;
   border-radius: 0.5rem;
   box-shadow: 0 0.6rem 0.6rem rgba(0, 0, 0, 0.1);
