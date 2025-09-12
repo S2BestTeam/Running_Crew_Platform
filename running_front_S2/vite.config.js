@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react-swc'
 export default defineConfig(({ mode }) => {
   let baseURL = "http://localhost:8080";
 
-  if (mode === "wlsdn") {
+  if (mode === "jinwo") {
     baseURL = "https://s2runningcrew.store";
   }else if (mode === "dajeong") {
     baseURL = "https://s2runningcrew.site";
