@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:jinwo": "vite build --mode wlsdn",
+    "build:jinwo": "vite build --mode jinwo",
     "build:dajeong": "vite build --mode dajeong",
     "build:sunyoung": "vite build --mode sunyoung",
     "lint": "eslint .",
