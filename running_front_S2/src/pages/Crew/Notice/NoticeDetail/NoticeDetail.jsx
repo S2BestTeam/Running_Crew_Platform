@@ -15,6 +15,7 @@ export default function NoticeDetail() {
   const navigate = useNavigate();
   const principalQuery = usePrincipalQuery();
 
+
   const principalId =
     principalQuery?.data?.data?.body?.user?.userId ??
     principalQuery?.data?.body?.user?.userId ??
@@ -56,6 +57,8 @@ export default function NoticeDetail() {
       alert("삭제 중 오류가 발생했습니다.");
     }
   };
+
+  console.log(noticeId)
 
   return (
     <div css={s.layout}>

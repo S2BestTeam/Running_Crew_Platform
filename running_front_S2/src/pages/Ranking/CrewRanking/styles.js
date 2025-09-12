@@ -15,10 +15,9 @@ export const head = css`
 export const headFont = css`
   margin: 0;
   color: gray;
-  padding-left: 2rem;
+  padding: 1rem;
   text-align: left;
 `;
-
 
 export const moreButton = css`
   border: none;
@@ -38,10 +37,15 @@ export const layout = css`
   width: 100%;
   box-sizing: border-box;
   margin: 0 auto;
-  padding: 0 1.5rem;
   display: flex;
   justify-content: space-between;
-  gap: 5rem;
+  gap: 3rem;
+
+  @media (max-width: 64rem) {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
 `;
 
 export const section = css`
@@ -51,18 +55,31 @@ export const section = css`
   flex-direction: column;
   gap: 1rem;
   padding-bottom: 3rem;
+
+  @media (max-width: 64rem) {
+    min-width: 100%;
+    flex: none;
+    padding-bottom: 2rem;
+  }
 `;
 
 export const sectionTitle = css`
   font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
+  font-weight: 600;
+  text-align: center;
+  height: 4rem;
+  border-radius: 0.5rem;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  background-color: #f1f1f1;
+  color: var(--main-color);
 `;
 
 export const rankingList = css`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  /* gap: 1rem; */
 `;
 
 export const notice = css`
@@ -73,37 +90,34 @@ export const notice = css`
 
 export const cardDiv = css`
   cursor: pointer;
-  padding-bottom: 1rem;
+  /* padding: 1rem; */
 `;
 
 export const card = (rank) => css`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-radius: 0.5rem;
-  background: white;
-  padding: 0.6rem;
+  /* border-radius: 0.5rem; */
+  /* background: white; */
+  padding: 2rem;
+  border-bottom: 0.1rem solid var(--sub-color);
 
-  :hover {
+  /* :hover {
     transform: scale(1);
-    ${rank === 1 &&
-    `box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9);`}
+    ${rank === 1 && `box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9);`}
+
+    ${rank === 2 && `box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);`}
     
-    ${rank === 2 &&
-    `box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);`}
+    ${rank === 3 && `box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);`}
     
-    ${rank === 3 &&
-    `box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);`}
-    
-    ${rank > 3 &&
-    `box-shadow: 0 2px 6px rgba(255, 255, 255, 0.1);`}
-  }
+    ${rank > 3 && `box-shadow: 0 2px 6px rgba(255, 255, 255, 0.1);`}
+  } */
 `;
 
 export const rankBadge = css`
   width: 3rem;
   text-align: center;
-  padding-right: 1rem;
+  padding-right: 2rem;
 `;
 
 export const crewInfo = css`
@@ -132,19 +146,19 @@ export const crewLocation = css`
   color: #555;
 `;
 
-export const crewStats = css`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.25rem;
-  padding-right: 1rem;
-`;
+// export const crewStats = css`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: flex-end;
+//   gap: 0.25rem;
+//   padding-right: 1rem;
+// `;
 
 export const mainStat = css`
-  font-weight: bold;
+  font-weight: 600;
 `;
 
-export const subStat = css`
-  font-size: 1.2rem;
-  color: #555;
-`;
+// export const subStat = css`
+//   font-size: 1.2rem;
+//   color: #555;
+// `;

@@ -106,7 +106,8 @@ function CCategory() {
         </>
       )}
       <button onClick={go("gatherings", `/crews/${crewId}/gathering`)}>
-        정모 일정 {showNew.gatherings && <span css={s.newBadge1}>NEW</span>}
+        정모 일정 
+        {/* {showNew.gatherings && <span css={s.newBadge1}>NEW</span>} */}
       </button>
       {isCrewLeader && (
         <>

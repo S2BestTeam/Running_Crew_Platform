@@ -38,7 +38,7 @@ function Signin() {
 
   return (
     <div css={s.container}>
-      <div css={s.loginTitle}>S2BestTeam</div>
+      <div css={s.loginTitle}>BRCP LOGIN</div>
       <div css={s.buttons}>
         <button onClick={() => handleLogin("google")}>
           <FcGoogle />
