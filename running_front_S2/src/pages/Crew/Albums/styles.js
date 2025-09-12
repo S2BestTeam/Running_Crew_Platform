@@ -10,8 +10,8 @@ export const wrap = css`
 
 export const grid = css`
   display: grid;
-  grid-template-columns: repeat(4, 280px);
-  gap: 12px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
   justify-content: flex-start;
 
   @media (max-width: 1100px) {

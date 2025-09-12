@@ -1,13 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import * as s from "./styles";
-import { useKakaoLoader } from "react-kakao-maps-sdk";
 import { useEffect, useState } from "react";
 import { CiImageOn } from "react-icons/ci";
-import { Map, MapMarker } from "react-kakao-maps-sdk";
-import { useNavigate, useParams } from "react-router-dom";
+import { Map, MapMarker, useKakaoLoader } from "react-kakao-maps-sdk";
+import { useNavigate } from "react-router-dom";
 import { reqRegisterGathering } from "../../../../api/Crew/gatheringApi";
-import ContentLayout from "../../../../components/ContentLayout/ContentLayout";
 import { useCrewStore } from "../../../../stores/useCrewStroes";
+import * as s from "./styles";
 
 function GatheringRegister() {
   const mapLoader = useKakaoLoader({
@@ -85,6 +83,7 @@ function GatheringRegister() {
   const handleSearchAddressOnClick = () => {
     if (!map) return;
     const ps = new kakao.maps.services.Places();
+
     ps.keywordSearch(addressText, (data, status) => {
       if (status === kakao.maps.services.Status.OK) {
         const handleClick = (item) => {
@@ -97,11 +96,22 @@ function GatheringRegister() {
             latitude: item.y,
             longitude: item.x,
           }));
+
+          // ✅ 검색 결과 클릭 시 select/검색창 닫기
+          setSearchResultList(null); // 검색 결과 목록 제거
+          // 또는 setIsSelectOpen(false); // 드롭다운 상태 관리 중이면 false로
         };
+
         setSearchResultList(
           <div>
             {data.map((item) => (
-              <div key={item.id} onClick={() => handleClick(item)}>
+              <div
+                key={item.id}
+                onClick={(e) => {
+                  e.stopPropagation(); // 상위 클릭 이벤트 방지
+                  handleClick(item);
+                }}
+              >
                 <h3>{item.place_name}</h3>
                 <p>{item.address_name}</p>
                 <p>{item.road_address_name}</p>
@@ -129,106 +139,105 @@ function GatheringRegister() {
   };
 
   return (
-      <div css={s.layout}>
-        <header css={s.header}>
-          <h2>정모 일정 등록</h2>
-        </header>
-        <main css={s.main}>
-          {/* 썸네일 */}
-          <div
-            css={s.thumbnailContainer}
-            onClick={(e) => handleImgAddOnClick(e, "thumbnailPicture")}
-          >
-            {preview?.thumbnailPicture ? (
-              <img
-                src={preview.thumbnailPicture}
-                alt="썸네일 미리보기"
-                css={s.thumbnailImg}
-              />
-            ) : (
-              <>
-                <CiImageOn />
-                <div>정모사진을 등록해주세요.</div>
-              </>
-            )}
-          </div>
-
-          <input
-            type="text"
-            placeholder="모임명"
-            name="title"
-            value={gatheringData.title}
-            onChange={handleInputOnChange}
-          />
-          <input
-            type="text"
-            placeholder="설명"
-            name="content"
-            value={gatheringData.content}
-            onChange={handleInputOnChange}
-          />
-          <input
-            type="date"
-            name="runningDate"
-            value={gatheringData.runningDate}
-            onChange={handleInputOnChange}
-          />
-          <input
-            type="time"
-            name="runningTime"
-            value={gatheringData.runningTime}
-            onChange={handleInputOnChange}
-          />
-
-          {/* 주소 입력 + 검색 */}
-          <div css={s.addressWrapper}>
-            <input
-              type="text"
-              placeholder="주소입력"
-              value={addressText}
-              onChange={(e) => setAddressText(e.target.value)}
+    <div css={s.layout}>
+      <header css={s.header}>
+        <h2>정모 일정 등록</h2>
+      </header>
+      <main css={s.main}>
+        {/* 썸네일 */}
+        <div
+          css={s.thumbnailContainer}
+          onClick={(e) => handleImgAddOnClick(e, "thumbnailPicture")}
+        >
+          {preview?.thumbnailPicture ? (
+            <img
+              src={preview.thumbnailPicture}
+              alt="썸네일 미리보기"
+              css={s.thumbnailImg}
             />
-            <button onClick={handleSearchAddressOnClick}>검색</button>
-          </div>
+          ) : (
+            <>
+              <CiImageOn />
+              <div>정모사진을 등록해주세요.</div>
+            </>
+          )}
+        </div>
 
-          <div css={s.mapContainer}>
-            <div>{searchResultList}</div>
-            {map}
-          </div>
+        <input
+          type="text"
+          placeholder="모임명"
+          name="title"
+          value={gatheringData.title}
+          onChange={handleInputOnChange}
+        />
+        <input
+          type="text"
+          placeholder="설명"
+          name="content"
+          value={gatheringData.content}
+          onChange={handleInputOnChange}
+        />
+        <input
+          type="date"
+          name="runningDate"
+          value={gatheringData.runningDate}
+          onChange={handleInputOnChange}
+        />
+        <input
+          type="time"
+          name="runningTime"
+          value={gatheringData.runningTime}
+          onChange={handleInputOnChange}
+        />
 
+        {/* 주소 입력 + 검색 */}
+        <div css={s.addressWrapper}>
           <input
             type="text"
-            placeholder="러닝거리"
-            name="km"
-            value={gatheringData.km}
-            onChange={handleInputOnChange}
+            placeholder="주소입력"
+            value={addressText}
+            onChange={(e) => setAddressText(e.target.value)}
           />
-          <input
-            type="text"
-            placeholder="정모비용"
-            name="cost"
-            value={gatheringData.cost}
-            onChange={handleInputOnChange}
-          />
-          <input
-            type="text"
-            placeholder="최대인원"
-            name="maxParticipants"
-            value={gatheringData.maxParticipants}
-            onChange={handleInputOnChange}
-          />
+          <button onClick={handleSearchAddressOnClick}>검색</button>
+        </div>
 
-          <div css={s.buttonContainer}>
-            <button css={s.cancelButton} onClick={() => navigate(-1)}>
-              취소
-            </button>
-            <button css={s.registerButton} onClick={handleRegisterOnClick}>
-              등록
-            </button>
-          </div>
-        </main>
+        <div css={s.mapContainer}>
+          <div>{searchResultList}</div>
+          {map}
+        </div>
 
-      </div>
+        <input
+          type="text"
+          placeholder="러닝거리"
+          name="km"
+          value={gatheringData.km}
+          onChange={handleInputOnChange}
+        />
+        <input
+          type="text"
+          placeholder="정모비용"
+          name="cost"
+          value={gatheringData.cost}
+          onChange={handleInputOnChange}
+        />
+        <input
+          type="text"
+          placeholder="최대인원"
+          name="maxParticipants"
+          value={gatheringData.maxParticipants}
+          onChange={handleInputOnChange}
+        />
+
+        <div css={s.buttonContainer}>
+          <button css={s.cancelButton} onClick={() => navigate(-1)}>
+            취소
+          </button>
+          <button css={s.registerButton} onClick={handleRegisterOnClick}>
+            등록
+          </button>
+        </div>
+      </main>
+    </div>
   );
 }
 

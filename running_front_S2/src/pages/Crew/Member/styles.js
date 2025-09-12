@@ -93,11 +93,11 @@ export const profileImg = css`
 export const textBox = css`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; 
-  align-items: flex-start;     
+  justify-content: flex-start;
+  align-items: flex-start;
   min-width: 0;
   word-break: break-word;
-  gap: 0.2rem; 
+  gap: 0.2rem;
 `;
 
 export const nickname = css`
@@ -118,4 +118,28 @@ export const fullName = css`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+`;
+
+export const roleIcon1 = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: #fdd019;
+  border-radius: 50%;
+`;
+
+export const roleIcon2 = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.1rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: #ffa1b0;
+  border-radius: 50%;
 `;

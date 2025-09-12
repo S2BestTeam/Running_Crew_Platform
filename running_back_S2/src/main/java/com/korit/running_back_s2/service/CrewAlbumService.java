@@ -56,6 +56,7 @@ public class CrewAlbumService {
         }
         return "http://localhost:8080/" + src;
     }
+
     public List<String> extractImageUrls(String content) {
         List<String> urls = new ArrayList<>();
         if (content == null || content.isBlank()) return urls;

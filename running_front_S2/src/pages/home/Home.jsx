@@ -2,6 +2,10 @@
 import * as s from "./styles";
 import running from "../../assets/videos/running.mp4";
 import runninPhoto from "../../assets/images/러닝.jpg";
+import runninPhoto2 from "../../assets/images/러닝2.jpg";
+import runninPhoto3 from "../../assets/images/러닝3.jpg";
+import runninPhoto4 from "../../assets/images/러닝4.jpg";
+import runninPhoto5 from "../../assets/images/러닝5.jpg";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -24,19 +28,19 @@ function Home(props) {
             />
           </div>
           <div css={s.mainText}>
-            <div>코리아 아이티 아카데미 최강팀 S2</div>
-            <div>Running Crew Gallery</div>
+            <div>부산 인기 크루 모아보기</div>
+            <div>Busan Running Crew's</div>
           </div>
           <div css={s.mainGallery}>
             <Slider
               centerMode={true}
               infinite={true}
               sliderToShow={1}
-              speed={500}
+              speed={400}
               initialSlide={2}
               slidesToScroll={1}
               variableWidth={true}
-              centerPadding={"60px"}
+              centerPadding={"6rem"}
               autoplay={true}
               autoplaySpeed={4000}
               ltr={true}
@@ -47,19 +51,19 @@ function Home(props) {
               </div>
               <div css={s.sliderImg}>
                 1
-                <img src={runninPhoto} alt="" />
+                <img src={runninPhoto2} alt="" />
               </div>
               <div css={s.sliderImg}>
                 1
-                <img src={runninPhoto} alt="" />
+                <img src={runninPhoto3} alt="" />
               </div>
               <div css={s.sliderImg}>
                 1
-                <img src={runninPhoto} alt="" />
+                <img src={runninPhoto4} alt="" />
               </div>
               <div css={s.sliderImg}>
                 1
-                <img src={runninPhoto} alt="" />
+                <img src={runninPhoto5} alt="" />
               </div>
             </Slider>
           </div>

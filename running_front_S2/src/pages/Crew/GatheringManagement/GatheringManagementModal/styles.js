@@ -2,6 +2,7 @@ import { css } from "@emotion/react";
 
 export const modalBox = css`
   background-color: #fff;
+  font-size: 1.4rem;
   padding: 2rem;
   width: 40rem;
   max-height: 80vh;
@@ -14,7 +15,8 @@ export const participantTable = css`
   width: 100%;
   border-collapse: collapse;
   margin-top: 1.5rem;
-  th, td {
+  th,
+  td {
     text-align: left;
     padding: 0.8rem;
     border-bottom: 0.1rem solid #ebebeb;
@@ -46,25 +48,23 @@ export const buttonContainer = css`
   margin-top: 2rem;
 `;
 
-
 export const cancelButton = css`
+  font-size: 1.4rem;
   padding: 0.5rem 0.8rem;
   border: 0.1rem solid var(--main-color);
   border-radius: 0.8rem;
   background: #ffffff;
   color: var(--main-color);
   cursor: pointer;
-    margin-right: 1rem;
-
+  margin-right: 1rem;
 `;
 
 export const saveButton = css`
   padding: 0.5rem 0.8rem;
-
+  font-size: 1.4rem;
   border: none;
   border-radius: 0.8rem;
   background: var(--main-color);
   color: #fff;
   cursor: pointer;
-
 `;

@@ -67,7 +67,6 @@ function Notice() {
     setSearchParams({ page: nextPage, searchText });
   };
 
-
   return (
     <div css={s.container}>
       <h2>공지사항</h2>

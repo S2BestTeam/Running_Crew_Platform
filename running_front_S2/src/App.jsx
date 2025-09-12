@@ -19,6 +19,7 @@ import GlobalFree from "./pages/GlobalFree/GlobalFree";
 import NoticeEdit from "./pages/GlobalNotice/Edit/NoticeEdit";
 import GlobalNotice from "./pages/GlobalNotice/GlobalNotice";
 import NoticeDetail from "./pages/GlobalNotice/NoticeDetail/NoticeDetail";
+
 import NoticeReg from "./pages/GlobalNotice/NoticeReg/NoticeReg";
 import Home from "./pages/home/Home";
 import MCategory from "./pages/Mypage/MCategory/MCategory";
@@ -27,6 +28,7 @@ import UserRanking from "./pages/Ranking/UserRanking/UserRanking";
 import Calender from "./pages/Schedule/Calender/Calender";
 import Competition from "./pages/Schedule/Competition/Competition";
 import CompetitionDetail from "./pages/Schedule/Competition/CompetitionDetail/CompetitionDetail";
+import Notice from "./pages/Crew/Notice/Notice";
 
 function App() {
   ReactModal.setAppElement("#root");
