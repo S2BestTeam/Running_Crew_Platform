@@ -9,9 +9,9 @@
 
 | 이름 | 역할 | 배포 사이트 | GitHub |
 |------|------|-------------|--------|
-| 김선영 | UI/UX 기획, 크루 정모 일정 등록 및 관리, 참석자 출석 체크 & 러닝 거리 반영, Kakao Map API를 활용한 위치 선택/표시 기능 제공 | (busanrun.store) | [@chulog](https://github.com/kksun0202) |
-| 염진우 | OAuth 2.0 기반 인증, 크루 등록 및 관리, 랭킹 페이지 기능 구현, 마이페이지, 관리자 페이지 | (s2runningcrew.store) | [@duawlsdn](https://github.com/duawlsdn) |
-| 제다정 | 크루 리스트 페이지 구현, 크루 멤버 관리, 자유게시판 등록 및 관리, 신고, 문의 관리, 대회 일정(Python 크롤링) | (s2runningcrew.site) | [@dajeong01](https://github.com/dajeong01) |
+| 김선영 | UI/UX 기획, 크루 정모 일정 등록 및 관리, 참석자 출석 체크 & 러닝 거리 반영, Kakao Map API를 활용한 위치 선택/표시 기능 제공 | [busanrun.store](https://busanrun.store) | [@chulog](https://github.com/kksun0202) |
+| 염진우 | OAuth 2.0 기반 인증, 크루 등록 및 관리, 랭킹 페이지 기능 구현, 마이페이지, 관리자 페이지 | [s2runningcrew.store](https://s2runningcrew.store) | [@duawlsdn](https://github.com/duawlsdn) |
+| 제다정 | 크루 리스트 페이지 구현, 크루 멤버 관리, 자유게시판 등록 및 관리, 신고, 문의 관리, 대회 일정(Python 크롤링) | [s2runningcrew.site](https://s2runningcrew.site) | [@dajeong01](https://github.com/dajeong01) |
 
 ---
 
