@@ -54,39 +54,39 @@
 
 <table>
 <tr>
-  <th>러닝 크루 조회/가입</th>
-  <th>크루 관리</th>
-</tr>
-<tr>
-  <td><img src="https://via.placeholder.com/600x300?text=Crew+List+GIF" width="100%"></td>
-  <td><img src="https://via.placeholder.com/600x300?text=Crew+Management+GIF" width="100%"></td>
-</tr>
-
-<tr>
   <th>사용자 로그인</th>
-  <th>정모 일정 관리</th>
+  <th>크루 등록</th>
 </tr>
 <tr>
-  <td><img src="https://via.placeholder.com/600x300?text=Login+GIF" width="100%"></td>
-  <td><img src="https://via.placeholder.com/600x300?text=Calendar+GIF" width="100%"></td>
-</tr>
-
-<tr>
-  <th>참석자 기록 & 랭킹 시스템</th>
-  <th>마이페이지</th>
-</tr>
-<tr>
-  <td><img src="https://via.placeholder.com/600x300?text=Ranking+GIF" width="100%"></td>
-  <td><img src="https://via.placeholder.com/600x300?text=MyPage+GIF" width="100%"></td>
+  <td><img src="./running_front_S2/src/assets/videos/로그인.gif" width="100%" /></td>
+  <td><img src="./running_front_S2/src/assets/videos/크루등록.gif" width="100%" /></td>
 </tr>
 
 <tr>
-  <th>관리자 페이지</th>
-  <th>커뮤니티 & 마라톤 일정</th>
+  <th>크루 조회 및 가입</th>
+  <th>정모 일정 등록</th>
 </tr>
 <tr>
-  <td><img src="https://via.placeholder.com/600x300?text=Admin+GIF" width="100%"></td>
-  <td><img src="https://via.placeholder.com/600x300?text=Community+GIF" width="100%"></td>
+  <td><img src="./running_front_S2/src/assets/videos/크루조회-및-가입.gif" width="100%" /></td>
+  <td><img src="./running_front_S2/src/assets/videos/정모일정등록.gif" width="100%" /></td>
+</tr>
+
+<tr>
+  <th>자유게시판</th>
+  <th>개인/크루 랭킹</th>
+</tr>
+<tr>
+  <td><img src="./running_front_S2/src/assets/videos/자유게시판.gif" width="100%" /></td>
+  <td><img src="./running_front_S2/src/assets/videos/랭킹.gif" width="100%" /></td>
+</tr>
+
+<tr>
+  <th>대회 일정</th>
+  <th>관리자페이지</th>
+</tr>
+<tr>
+  <td><img src="./running_front_S2/src/assets/videos/대회일정.gif" width="100%" /></td>
+  <td><img src="./running_front_S2/src/assets/videos/관리자페이지.gif" width="100%" /></td>
 </tr>
 </table>
 
