@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+import * as s from "./styles";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
@@ -6,6 +8,7 @@ import {
   SIGNUP_REGEX_ERROR_MESSAGE,
 } from "../../../constants/signupRegex";
 import { reqCheckNickname, reqRegisterUser } from "../../../api/User/UserApi";
+import MainContainer from "../../../components/MainContainer/MainContainer";
 
 function Signup() {
   const navigate = useNavigate();
@@ -25,6 +28,8 @@ function Signup() {
     phoneNumber: "",
     gender: "",
     address: "",
+    zipcode: "",
+    detailAddress: "",
     selectedYear: "",
     selectedMonth: "",
     selectedDay: "",
@@ -129,7 +134,10 @@ function Signup() {
         alert("생년월일을 모두 선택해주세요.");
         return;
       }
-      birthDate = `${user.selectedYear}-${user.selectedMonth.padStart(2, "0")}-${user.selectedDay.padStart(2, "0")}`;
+      birthDate = `${user.selectedYear}-${user.selectedMonth.padStart(
+        2,
+        "0"
+      )}-${user.selectedDay.padStart(2, "0")}`;
     }
 
     const regUser = {
@@ -177,152 +185,181 @@ function Signup() {
       user.address.trim(),
     ];
 
-    const birthdateValid = checkBirthDate || 
+    const birthdateValid =
+      checkBirthDate ||
       (user.selectedYear && user.selectedMonth && user.selectedDay);
 
     return basicFields.every(Boolean) && birthdateValid;
   };
 
   return (
-    <div>
-      <h2>추가 정보 입력</h2>
-      <div>
-        <div>
-          <img src={img} alt="" />
+    <MainContainer>
+      <div css={s.container}>
+        <div css={s.formBox}>
+          <h2 css={s.title}>추가 정보 입력</h2>
+
+          <div css={s.formGroup}>
+            <div css={s.profileImageWrapper}>
+              <img src={img} alt="profile" css={s.profileImage} />
+            </div>
+          </div>
+
+          <div css={s.formGroup}>
+            <h3>이메일</h3>
+            <input disabled value={email} />
+          </div>
+
+          <div css={s.formGroup}>
+            <h3>이름</h3>
+            <input
+              value={user.name}
+              onChange={(e) => updateUser("name", e.target.value)}
+            />
+          </div>
+
+          <div css={s.formGroup}>
+            <h3>닉네임</h3>
+            <div css={s.inputWithButton}>
+              <input
+                type="text"
+                value={user.nickname}
+                onChange={handleNicknameChange}
+                required
+              />
+              <button
+                css={s.button}
+                onClick={handleCheckNickname}
+                disabled={!user.nickname.trim()}
+              >
+                {user.isNicknameChecked ? "사용 가능" : "중복 확인"}
+              </button>
+            </div>
+            {errors.nickname && (
+              <p style={{ color: "red" }}>{errors.nickname}</p>
+            )}
+          </div>
+
+          <div css={s.formGroup}>
+            <h3>전화번호</h3>
+            <input
+              type="tel"
+              value={user.phoneNumber}
+              onChange={handlePhoneChange}
+              required
+            />
+            {errors.phoneNumber && (
+              <p style={{ color: "red" }}>{errors.phoneNumber}</p>
+            )}
+          </div>
+
+          <div css={s.formGroup}>
+            <h3>성별</h3>
+            <select
+              value={user.gender}
+              onChange={(e) => updateUser("gender", e.target.value)}
+              required
+            >
+              <option value="">선택하세요</option>
+              <option value="1">남자</option>
+              <option value="2">여자</option>
+            </select>
+          </div>
+
+          <div css={s.formGroup}>
+            <h3>주소</h3>
+            <div css={s.addressGroup}>
+              <div css={s.inputWithButton}>
+                <input
+                  type="text"
+                  value={user.zipcode}
+                  readOnly
+                  placeholder="우편번호"
+                />
+                <button css={s.button} type="button" onClick={handlePostcode}>
+                  주소 검색
+                </button>
+              </div>
+              <input
+                type="text"
+                value={user.address}
+                readOnly
+                placeholder="기본주소"
+              />
+              <input
+                type="text"
+                id="detailAddress"
+                value={user.detailAddress}
+                onChange={(e) => updateUser("detailAddress", e.target.value)}
+                placeholder="상세주소"
+              />
+            </div>
+          </div>
+
+          <div css={s.formGroup}>
+            <h3>생일</h3>
+            <div css={s.birthdaySelect}>
+              {paramBirthDate !== "null" ? (
+                <input type="text" value={paramBirthDate} disabled />
+              ) : (
+                <>
+                  <select
+                    value={user.selectedYear}
+                    onChange={(e) => updateUser("selectedYear", e.target.value)}
+                    required
+                  >
+                    <option value="">년도</option>
+                    {BIRTHDAY_YEAR_LIST.map((year) => (
+                      <option key={year} value={year}>
+                        {year}년
+                      </option>
+                    ))}
+                  </select>
+
+                  <select
+                    value={user.selectedMonth}
+                    onChange={(e) =>
+                      updateUser("selectedMonth", e.target.value)
+                    }
+                    required
+                  >
+                    <option value="">월</option>
+                    {BIRTHDAY_MONTH_LIST.map((month) => (
+                      <option key={month} value={month}>
+                        {month}월
+                      </option>
+                    ))}
+                  </select>
+
+                  <select
+                    value={user.selectedDay}
+                    onChange={(e) => updateUser("selectedDay", e.target.value)}
+                    required
+                  >
+                    <option value="">일</option>
+                    {BIRTHDAY_DAY_LIST.map((day) => (
+                      <option key={day} value={day}>
+                        {day}일
+                      </option>
+                    ))}
+                  </select>
+                </>
+              )}
+            </div>
+          </div>
+
+          <div css={s.buttonWrapper}>
+            <button
+              css={s.signupButton}
+              type="button"
+              onClick={handleOnRegisterUser}
+              disabled={!isUserValid()}
+            >
+              회원가입
+            </button>
+          </div>
         </div>
       </div>
-
-      <div>
-        <h3>이메일</h3>
-        <input disabled value={email} />
-      </div>
-
-      <div>
-        <h3>이름</h3>
-        <input
-          value={user.name}
-          onChange={(e) => updateUser("name", e.target.value)}
-        />
-      </div>
-
-      <div>
-        <h3>닉네임</h3>
-        <input
-          type="text"
-          value={user.nickname}
-          onChange={handleNicknameChange}
-          required
-        />
-        <button onClick={handleCheckNickname} disabled={!user.nickname.trim()}>
-          {user.isNicknameChecked ? "❤️ 사용 가능!" : "닉네임 중복 확인"}
-        </button>
-        {errors.nickname && <p style={{ color: "red" }}>{errors.nickname}</p>}
-      </div>
-
-      <div>
-        <h3>전화번호</h3>
-        <input
-          type="tel"
-          value={user.phoneNumber}
-          onChange={handlePhoneChange}
-          required
-        />
-        {errors.phoneNumber && (
-          <p style={{ color: "red" }}>{errors.phoneNumber}</p>
-        )}
-      </div>
-
-      <div>
-        <h3>성별</h3>
-        <select
-          value={user.gender}
-          onChange={(e) => updateUser("gender", e.target.value)}
-          required
-        >
-          <option value="">선택하세요</option>
-          <option value="1">남자</option>
-          <option value="2">여자</option>
-        </select>
-      </div>
-
-      <div>
-        <input
-          type="text"
-          value={user.zipcode}
-          readOnly
-          placeholder="우편번호"
-        />
-        <button type="button" onClick={handlePostcode}>
-          주소 검색
-        </button>
-
-        <input
-          type="text"
-          value={user.address}
-          readOnly
-          placeholder="기본주소"
-        />
-        <input
-          type="text"
-          id="detailAddress"
-          value={user.detailAddress}
-          onChange={(e) => updateUser("detailAddress", e.target.value)}
-          placeholder="상세주소"
-        />
-      </div>
-
-      <div>
-        <h3>생일</h3>
-        <div style={{ display: "flex", gap: "10px" }}>
-          {paramBirthDate !== "null"
-            ? <input type="text" value={paramBirthDate} disabled /> 
-            : (
-            <>
-              <select
-                value={user.selectedYear}
-                onChange={(e) => updateUser("selectedYear", e.target.value)}
-                required
-              >
-                <option value="">년도</option>
-                {BIRTHDAY_YEAR_LIST.map((year) => (
-                  <option key={year} value={year}>{year}년</option>
-                ))}
-              </select>
-
-              <select
-                value={user.selectedMonth}
-                onChange={(e) => updateUser("selectedMonth", e.target.value)}
-                required
-              >
-                <option value="">월</option>
-                {BIRTHDAY_MONTH_LIST.map((month) => (
-                  <option key={month} value={month}>{month}월</option>
-                ))}
-              </select>
-
-              <select
-                value={user.selectedDay}
-                onChange={(e) => updateUser("selectedDay", e.target.value)}
-                required
-              >
-                <option value="">일</option>
-                {BIRTHDAY_DAY_LIST.map((day) => (
-                  <option key={day} value={day}>{day}일</option>
-                ))}
-              </select>
-            </>
-          )}
-        </div>
-      </div>
-
-      <button
-        type="button"
-        onClick={handleOnRegisterUser}
-        disabled={!isUserValid()}
-      >
-        회원가입 완료
-      </button>
-    </div>
+    </MainContainer>
   );
 }
 
