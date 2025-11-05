@@ -230,7 +230,7 @@ graph TD
 
     F --> F1[공지사항]
     F --> F2[문의사항]
-```
+
 
 flowchart LR
     %% 최상위 메뉴
@@ -350,6 +350,7 @@ flowchart LR
     class L,M,B,C,D,E,F topMenu;
     class L1,L2,M1,M2,M3,M4,M5,B1,B2,B2a,B2b,B2c,B2d,B2e,B2f,C1,C2,D1,E1,E2,F1,F2 subMenu;
 
+```
 
 ---
 
