@@ -1,19 +1,20 @@
 <img src="./running_front_S2/src/assets/images/홈화면.png" width="100%" />
 
+<a name="목차"></a>
 # 🔖 목차
 
-> ## [✨ 프로젝트 소개](#%E2%9C%A8프로젝트-소개)
-> ## [👥 팀원 소개](#%F0%9F%91%A5팀원-소개)
-> ## [💼 역할 분담](#%F0%9F%92%BC역할-분담)
-> ## [🤝 협업 방식](#%F0%9F%A4%96협업-방식)
-> ## [📚 프로젝트 진행 상황 관리](#%F0%9F%93%9A프로젝트-진행-상황-관리)
-> ## [🔍 브랜치 전략](#%F0%9F%94%8D브랜치-전략)
-> ## [🛠 개발 도구](#%F0%9F%9B%A0개발-도구)
-> ## [📆 프로젝트 일정](#%F0%9F%93%86프로젝트-일정)
-> ## [📄 API 명세서 & ERD 설계도](#%F0%9F%93%84api-명세서--erd-설계도)
-> ## [📋 메뉴 구조도](#%F0%9F%93%8B메뉴-구조도)
-> ## [🖥 화면 구현](#%F0%9F%96%A5화면-구현)
-> ## [💡 느낀점](#%F0%9F%92%A1느낀점)
+> ## [✨ 프로젝트 소개](#프로젝트-소개)
+> ## [👥 팀원 소개](#팀원-소개)
+> ## [💼 역할 분담](#역할-분담)
+> ## [🤝 협업 방식](#협업-방식)
+> ## [📚 프로젝트 진행 상황 관리](#프로젝트-진행-상황-관리)
+> ## [🔍 브랜치 전략](#브랜치-전략)
+> ## [🛠 개발 도구](#개발-도구)
+> ## [📆 프로젝트 일정](#프로젝트-일정)
+> ## [📄 API 명세서 & ERD 설계도](#api-명세서--erd-설계도)
+> ## [📋 메뉴 구조도](#메뉴-구조도)
+> ## [🖥 화면 구현](#화면-구현)
+> ## [💡 느낀점](#느낀점)
 
 ---
 
@@ -28,10 +29,10 @@
   크루 가입・정모・랭킹 시스템을 통해 러너들이 함께 뛰며 소통할 수 있도록 하는 플랫폼 구축.
 
 **🤝 팀 프로젝트**  
-총 3인
+- 총 3인
 
 **📆 제작 기간**  
-2025.08.01 ~ 2025.09.09
+- 2025.08.01 ~ 2025.09.09
 
 **🔎 주요 기능**
 1. **사용자 로그인 및 크루 등록**
@@ -56,7 +57,7 @@
    - 크루 단체 참여를 위한 일정 공유  
 
 <div style="text-align: right;">
-  <a href="#%E2%9C%96-목차">🔝 TOP</a>
+  <a href="#목차">🔝 TOP</a>
 </div>
 
 ---
@@ -70,7 +71,7 @@
 | 제다정 | [s2runningcrew.site](https://s2runningcrew.site) | [@dajeong01](https://github.com/dajeong01) |
 
 <div style="text-align: right;">
-  <a href="#%E2%9C%96-목차">🔝 TOP</a>
+  <a href="#목차">🔝 TOP</a>
 </div>
 
 ---
@@ -102,7 +103,7 @@
 - 대회 일정 수집 및 표시 (Python 크롤링)
 
 <div style="text-align: right;">
-  <a href="#%E2%9C%96-목차">🔝 TOP</a>
+  <a href="#목차">🔝 TOP</a>
 </div>
 
 ---
@@ -119,7 +120,7 @@
   모든 팀원이 코드 스타일과 로직을 공유하며 협업.
 
 <div style="text-align: right;">
-  <a href="#%E2%9C%96-목차">🔝 TOP</a>
+  <a href="#목차">🔝 TOP</a>
 </div>
 
 ---
@@ -134,7 +135,7 @@
   일정표, API 문서, 피드백 기록 통합 관리  
 
 <div style="text-align: right;">
-  <a href="#%E2%9C%96-목차">🔝 TOP</a>
+  <a href="#목차">🔝 TOP</a>
 </div>
 
 ---
@@ -150,7 +151,7 @@
 > Issue 생성 → 기능 브랜치 생성 → 개발 완료 후 PR → 리뷰 후 Merge  
 
 <div style="text-align: right;">
-  <a href="#%E2%9C%96-목차">🔝 TOP</a>
+  <a href="#목차">🔝 TOP</a>
 </div>
 
 ---
@@ -166,7 +167,7 @@
 | **Deployment / CI** | AWS, GitHub Actions, Docker |
 
 <div style="text-align: right;">
-  <a href="#%E2%9C%96-목차">🔝 TOP</a>
+  <a href="#목차">🔝 TOP</a>
 </div>
 
 ---
@@ -182,7 +183,7 @@
 | 9/04 ~ 9/09 | 배포 및 발표 준비 |
 
 <div style="text-align: right;">
-  <a href="#%E2%9C%96-목차">🔝 TOP</a>
+  <a href="#목차">🔝 TOP</a>
 </div>
 
 ---
@@ -202,7 +203,7 @@
   <img src="./running_front_S2/src/assets/images/erd.jpg" width="100%" />
 
 <div style="text-align: right;">
-  <a href="#%E2%9C%96-목차">🔝 TOP</a>
+  <a href="#목차">🔝 TOP</a>
 </div>
 
 ---
@@ -289,7 +290,7 @@ graph TD
 ```
 
 <div style="text-align: right;">
-  <a href="#%E2%9C%96-목차">🔝 TOP</a>
+  <a href="#목차">🔝 TOP</a>
 </div>
 
 ---
@@ -335,7 +336,7 @@ graph TD
 </table>
 
 <div style="text-align: right;">
-  <a href="#%E2%9C%96-목차">🔝 TOP</a>
+  <a href="#목차">🔝 TOP</a>
 </div>
 
 ---
@@ -365,7 +366,7 @@ Python 크롤링을 활용해 실제 데이터를 다루는 재미를 느꼈습�
 협업 과정에서 코드 스타일 통일과 커뮤니케이션의 필요성도 실감할 수 있었습니다.
 
 <div style="text-align: right;">
-  <a href="#%E2%9C%96-목차">🔝 TOP</a>
+  <a href="#목차">🔝 TOP</a>
 </div>
 
 ---
