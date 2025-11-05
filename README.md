@@ -57,7 +57,7 @@
    - 크루 단체 참여를 위한 일정 공유  
 
 <p align="right">
-  <a href="#목차">🔝 목차로 이동</a>
+  <a href="#목차">🔝 TOP</a>
 </p>
 
 ---
@@ -71,7 +71,7 @@
 | 제다정 | [s2runningcrew.site](https://s2runningcrew.site) | [@dajeong01](https://github.com/dajeong01) |
 
 <p align="right">
-  <a href="#목차">🔝 목차로 이동</a>
+  <a href="#목차">🔝 TOP</a>
 </p>
 
 ---
@@ -183,7 +183,7 @@
 | 9/04 ~ 9/09 | 배포 및 발표 준비 |
 
 <p align="right">
-  <a href="#목차">🔝 목차로 이동</a>
+  <a href="#목차">🔝 TOP</a>
 </p>
 
 ---
