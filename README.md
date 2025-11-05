@@ -18,7 +18,7 @@
 
 ---
 
-## ✨ 프로젝트 소개
+## ✨ 프로젝트 소개 <a name="프로젝트-소개"></a>
 
 **🏷 제목**  
 - 🏃🏻 BRCP (Busan Running Crew Platform)
@@ -56,9 +56,9 @@
    - 전국 주요 마라톤 대회 일정 확인  
    - 크루 단체 참여를 위한 일정 공유  
 
-<div style="text-align: right;">
-  <a href="#목차">🔝 TOP</a>
-</div>
+<p align="right">
+  <a href="#목차">🔝 목차로 이동</a>
+</p>
 
 ---
 
@@ -70,9 +70,9 @@
 | 김선영 | [busanrun.store](https://busanrun.store) | [@chulog](https://github.com/kksun0202) |
 | 제다정 | [s2runningcrew.site](https://s2runningcrew.site) | [@dajeong01](https://github.com/dajeong01) |
 
-<div style="text-align: right;">
-  <a href="#목차">🔝 TOP</a>
-</div>
+<p align="right">
+  <a href="#목차">🔝 목차로 이동</a>
+</p>
 
 ---
 
@@ -102,9 +102,9 @@
 - 신고 및 문의사항 처리 기능
 - 대회 일정 수집 및 표시 (Python 크롤링)
 
-<div style="text-align: right;">
-  <a href="#목차">🔝 TOP</a>
-</div>
+<p align="right">
+  <a href="#목차">🔝 목차로 이동</a>
+</p>
 
 ---
 
@@ -119,9 +119,9 @@
 - 코드 리뷰는 팀장이 담당했지만,  
   모든 팀원이 코드 스타일과 로직을 공유하며 협업.
 
-<div style="text-align: right;">
-  <a href="#목차">🔝 TOP</a>
-</div>
+<p align="right">
+  <a href="#목차">🔝 목차로 이동</a>
+</p>
 
 ---
 
@@ -134,9 +134,9 @@
 - **Notion**  
   일정표, API 문서, 피드백 기록 통합 관리  
 
-<div style="text-align: right;">
-  <a href="#목차">🔝 TOP</a>
-</div>
+<p align="right">
+  <a href="#목차">🔝 목차로 이동</a>
+</p>
 
 ---
 
@@ -150,9 +150,9 @@
 > 작업 방식:  
 > Issue 생성 → 기능 브랜치 생성 → 개발 완료 후 PR → 리뷰 후 Merge  
 
-<div style="text-align: right;">
-  <a href="#목차">🔝 TOP</a>
-</div>
+<p align="right">
+  <a href="#목차">🔝 목차로 이동</a>
+</p>
 
 ---
 
@@ -166,9 +166,9 @@
 | **Authentication** | JWT, OAuth 2.0 |
 | **Deployment / CI** | AWS, GitHub Actions, Docker |
 
-<div style="text-align: right;">
-  <a href="#목차">🔝 TOP</a>
-</div>
+<p align="right">
+  <a href="#목차">🔝 목차로 이동</a>
+</p>
 
 ---
 
@@ -182,9 +182,9 @@
 | 8/26 ~ 9/03 | 테스트 및 오류 수정 |
 | 9/04 ~ 9/09 | 배포 및 발표 준비 |
 
-<div style="text-align: right;">
-  <a href="#목차">🔝 TOP</a>
-</div>
+<p align="right">
+  <a href="#목차">🔝 목차로 이동</a>
+</p>
 
 ---
 
@@ -202,9 +202,9 @@
 - 📐 **ERD 설계도**  
   <img src="./running_front_S2/src/assets/images/erd.jpg" width="100%" />
 
-<div style="text-align: right;">
-  <a href="#목차">🔝 TOP</a>
-</div>
+<p align="right">
+  <a href="#목차">🔝 목차로 이동</a>
+</p>
 
 ---
 
@@ -289,9 +289,9 @@ graph TD
     D --> D2[문의사항 답변]
 ```
 
-<div style="text-align: right;">
-  <a href="#목차">🔝 TOP</a>
-</div>
+<p align="right">
+  <a href="#목차">🔝 목차로 이동</a>
+</p>
 
 ---
 
@@ -335,9 +335,9 @@ graph TD
 </tr>
 </table>
 
-<div style="text-align: right;">
-  <a href="#목차">🔝 TOP</a>
-</div>
+<p align="right">
+  <a href="#목차">🔝 목차로 이동</a>
+</p>
 
 ---
 
@@ -365,8 +365,8 @@ Kakao Map API를 활용한 위치 표시 기능과 정모 관리 기능을 개�
 Python 크롤링을 활용해 실제 데이터를 다루는 재미를 느꼈습니다.  
 협업 과정에서 코드 스타일 통일과 커뮤니케이션의 필요성도 실감할 수 있었습니다.
 
-<div style="text-align: right;">
-  <a href="#목차">🔝 TOP</a>
-</div>
+<p align="right">
+  <a href="#목차">🔝 목차로 이동</a>
+</p>
 
 ---
