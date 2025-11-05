@@ -1,4 +1,5 @@
 <img src="./running_front_S2/src/assets/images/홈화면.png" width="100%" />
+
 # 🔖 목차
 
 - [✨ 프로젝트 소개](#-프로젝트-소개)
@@ -61,7 +62,7 @@
 ## 👥 팀원 소개
 
 | 이름 | 배포 사이트 | GitHub |
-|------|------|-------------|--------|
+|------|------|-------------|
 | 김선영 | [busanrun.store](https://busanrun.store) | [@chulog](https://github.com/kksun0202) |
 | 염진우 | [s2runningcrew.store](https://s2runningcrew.store) | [@duawlsdn](https://github.com/duawlsdn) |
 | 제다정 | [s2runningcrew.site](https://s2runningcrew.site) | [@dajeong01](https://github.com/dajeong01) |
