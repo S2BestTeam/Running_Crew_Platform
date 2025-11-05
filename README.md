@@ -1,3 +1,4 @@
+<img src="./running_front_S2/src/assets/images/홈화면.png" width="100%" />
 # 🔖 목차
 
 - [✨ 프로젝트 소개](#-프로젝트-소개)
@@ -180,7 +181,7 @@
 
 
 - 📐 **ERD 설계도**  
-  ![ERD](./src/assets/images/ERD.png)
+  <img src="./running_front_S2/src/assets/images/erd.jpg" width="100%" />
 
 [🔝 TOP](#-목차)
 
