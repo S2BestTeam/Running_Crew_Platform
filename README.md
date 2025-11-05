@@ -2,18 +2,18 @@
 
 # 🔖 목차
 
-> ## [✨ 프로젝트 소개](#프로젝트-소개)
-> ## [👥 팀원 소개](#팀원-소개)
-> ## [💼 역할 분담](#역할-분담)
-> ## [🤝 협업 방식](#협업-방식)
-> ## [📚 프로젝트 진행 상황 관리](#프로젝트-진행-상황-관리)
-> ## [🔍 브랜치 전략](#브랜치-전략)
-> ## [🛠 개발 도구](#개발-도구)
-> ## [📆 프로젝트 일정](#프로젝트-일정)
-> ## [📄 API 명세서 & ERD 설계도](#api-명세서--erd-설계도)
-> ## [📋 메뉴 구조도](#메뉴-구조도)
-> ## [🖥 화면 구현](#화면-구현)
-> ## [💡 느낀점](#느낀점)
+> ## [✨ 프로젝트 소개](#%E2%9C%A8-프로젝트-소개)
+> ## [👥 팀원 소개](#%F0%9F%91%A5-팀원-소개)
+> ## [💼 역할 분담](#%F0%9F%92%BC-역할-분담)
+> ## [🤝 협업 방식](#%F0%9F%A4%96-협업-방식)
+> ## [📚 프로젝트 진행 상황 관리](#%F0%9F%93%9A-프로젝트-진행-상황-관리)
+> ## [🔍 브랜치 전략](#%F0%9F%94%8D-브랜치-전략)
+> ## [🛠 개발 도구](#%F0%9F%9B%A0-개발-도구)
+> ## [📆 프로젝트 일정](#%F0%9F%93%86-프로젝트-일정)
+> ## [📄 API 명세서 & ERD 설계도](#%F0%9F%93%84-api-명세서--erd-설계도)
+> ## [📋 메뉴 구조도](#%F0%9F%93%8B-메뉴-구조도)
+> ## [🖥 화면 구현](#%F0%9F%96%A5-화면-구현)
+> ## [💡 느낀점](#%F0%9F%92%A1-느낀점)
 
 ---
 
@@ -55,9 +55,9 @@
    - 전국 주요 마라톤 대회 일정 확인  
    - 크루 단체 참여를 위한 일정 공유  
 
-<p align="right">
-  <a href="#목차">🔝 TOP</a>
-</p>
+<div style="text-align: right;">
+  <a href="#%E2%9C%96-목차">🔝 TOP</a>
+</div>
 
 ---
 
@@ -69,9 +69,9 @@
 | 김선영 | [busanrun.store](https://busanrun.store) | [@chulog](https://github.com/kksun0202) |
 | 제다정 | [s2runningcrew.site](https://s2runningcrew.site) | [@dajeong01](https://github.com/dajeong01) |
 
-<p align="right">
-  <a href="#목차">🔝 TOP</a>
-</p>
+<div style="text-align: right;">
+  <a href="#%E2%9C%96-목차">🔝 TOP</a>
+</div>
 
 ---
 
@@ -101,9 +101,9 @@
 - 신고 및 문의사항 처리 기능
 - 대회 일정 수집 및 표시 (Python 크롤링)
 
-<p align="right">
-  <a href="#목차">🔝 TOP</a>
-</p>
+<div style="text-align: right;">
+  <a href="#%E2%9C%96-목차">🔝 TOP</a>
+</div>
 
 ---
 
@@ -118,9 +118,9 @@
 - 코드 리뷰는 팀장이 담당했지만,  
   모든 팀원이 코드 스타일과 로직을 공유하며 협업.
 
-<p align="right">
-  <a href="#목차">🔝 TOP</a>
-</p>
+<div style="text-align: right;">
+  <a href="#%E2%9C%96-목차">🔝 TOP</a>
+</div>
 
 ---
 
@@ -133,9 +133,9 @@
 - **Notion**  
   일정표, API 문서, 피드백 기록 통합 관리  
 
-<p align="right">
-  <a href="#목차">🔝 TOP</a>
-</p>
+<div style="text-align: right;">
+  <a href="#%E2%9C%96-목차">🔝 TOP</a>
+</div>
 
 ---
 
@@ -149,9 +149,9 @@
 > 작업 방식:  
 > Issue 생성 → 기능 브랜치 생성 → 개발 완료 후 PR → 리뷰 후 Merge  
 
-<p align="right">
-  <a href="#목차">🔝 TOP</a>
-</p>
+<div style="text-align: right;">
+  <a href="#%E2%9C%96-목차">🔝 TOP</a>
+</div>
 
 ---
 
@@ -165,9 +165,9 @@
 | **Authentication** | JWT, OAuth 2.0 |
 | **Deployment / CI** | AWS, GitHub Actions, Docker |
 
-<p align="right">
-  <a href="#목차">🔝 TOP</a>
-</p>
+<div style="text-align: right;">
+  <a href="#%E2%9C%96-목차">🔝 TOP</a>
+</div>
 
 ---
 
@@ -181,9 +181,9 @@
 | 8/26 ~ 9/03 | 테스트 및 오류 수정 |
 | 9/04 ~ 9/09 | 배포 및 발표 준비 |
 
-<p align="right">
-  <a href="#목차">🔝 TOP</a>
-</p>
+<div style="text-align: right;">
+  <a href="#%E2%9C%96-목차">🔝 TOP</a>
+</div>
 
 ---
 
@@ -201,9 +201,9 @@
 - 📐 **ERD 설계도**  
   <img src="./running_front_S2/src/assets/images/erd.jpg" width="100%" />
 
-<p align="right">
-  <a href="#목차">🔝 TOP</a>
-</p>
+<div style="text-align: right;">
+  <a href="#%E2%9C%96-목차">🔝 TOP</a>
+</div>
 
 ---
 
@@ -288,9 +288,9 @@ graph TD
     D --> D2[문의사항 답변]
 ```
 
-<p align="right">
-  <a href="#목차">🔝 TOP</a>
-</p>
+<div style="text-align: right;">
+  <a href="#%E2%9C%96-목차">🔝 TOP</a>
+</div>
 
 ---
 
@@ -334,9 +334,9 @@ graph TD
 </tr>
 </table>
 
-<p align="right">
-  <a href="#목차">🔝 TOP</a>
-</p>
+<div style="text-align: right;">
+  <a href="#%E2%9C%96-목차">🔝 TOP</a>
+</div>
 
 ---
 
@@ -364,6 +364,8 @@ Kakao Map API를 활용한 위치 표시 기능과 정모 관리 기능을 개�
 Python 크롤링을 활용해 실제 데이터를 다루는 재미를 느꼈습니다.  
 협업 과정에서 코드 스타일 통일과 커뮤니케이션의 필요성도 실감할 수 있었습니다.
 
-[🔝 TOP](#목차)
+<div style="text-align: right;">
+  <a href="#%E2%9C%96-목차">🔝 TOP</a>
+</div>
 
 ---
