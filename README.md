@@ -161,7 +161,7 @@
 | 구분 | 사용 기술 |
 |------|------------|
 | **Front-End** | React.js, Emotion CSS, Zustand, Kakao Map API |
-| **Back-End** | SSpring Boot, MyBatis |
+| **Back-End** | Spring Boot, MyBatis |
 | **Database** | MySQL 8.0 (AWS RDS) |
 | **Authentication** | JWT, OAuth 2.0 |
 | **Deployment / CI** | AWS, GitHub Actions, Docker |
